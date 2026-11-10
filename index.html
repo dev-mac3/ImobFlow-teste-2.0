@@ -209,7 +209,7 @@
           <h2 class="card-title">⚡ Estudo de Financiamento</h2>
           <span class="pill" id="badge-tipo-linha">MCMV (Caixa)</span>
         </div>
-        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel)[span_0](start_span)[span_0](end_span).</p>
+        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel)[cite: 6].</p>
 
         <span class="selector-label">Tipo do Imóvel:</span>
         <div class="pill-group">
@@ -254,4 +254,1661 @@
           </div>
         </div>
 
-        <button type="button" onclick="calcularFinanciamento(true)" class="btn-action btn-emerald">⚡ C
+        <button type="button" onclick="calcularFinanciamento(true)" class="btn-action btn-emerald">⚡ Calcular Financiamento</button>
+      </div>
+
+      <!-- OS 8 BLOCOS DO DIAGNÓSTICO BANCÁRIO -->
+      <div class="result-box">
+        <div class="result-title">✔ Diagnóstico Bancário de Aprovação</div>
+        <p id="res-status" class="result-status">Preencha os dados acima para simular.</p>
+        <div class="result-grid">
+          <div class="result-item">
+            <span>Prazo Máximo Caixa</span>
+            <strong id="res-prazo" class="highlight">—</strong>
+          </div>
+          <div class="result-item">
+            <span id="label-parcela">Parcela Fixa (PRICE)</span>
+            <strong id="res-parcela">—</strong>
+          </div>
+          <div class="result-item">
+            <span>Taxa de Juros Nominal</span>
+            <strong id="res-taxa" class="highlight">—</strong>
+          </div>
+          <div class="result-item">
+            <span>Capacidade pela Renda</span>
+            <strong id="res-capacidade">—</strong>
+          </div>
+          <div class="result-item">
+            <span id="label-financiamento">Financiamento Aprovado</span>
+            <strong id="res-financiamento">—</strong>
+          </div>
+          <div class="result-item">
+            <span>Entrada</span>
+            <strong id="res-entrada" class="highlight">—</strong>
+          </div>
+          <div class="result-item">
+            <span>FGTS Abatido</span>
+            <strong id="res-fgts">—</strong>
+          </div>
+          <div class="result-item">
+            <span>Margem Máx. Caixa (30%)</span>
+            <strong id="res-margem">—</strong>
+          </div>
+        </div>
+        <button type="button" onclick="copiarResumoWhatsApp()" class="btn-action btn-secondary">Copiar Resumo p/ WhatsApp</button>
+        <p class="disclaimer">Cálculo alinhado à tabela oficial da Caixa (taxas cotistas S/SE/CO e limites de cota por modalidade)[cite: 6].</p>
+      </div>
+    </section>
+
+    <!-- ABA 2: CENTRAL ANTISSUMIÇO REFINADA (COM BOTÃO WHATSAPP DIRETO) -->
+    <section id="tab-agenda" class="hidden">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🛡️ Central Antissumiço</h2>
+          <span class="pill">15 Scripts de Elite</span>
+        </div>
+        <p class="card-desc">Gere mensagens personalizadas e envie diretamente para o WhatsApp do cliente para destravar o fechamento.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome do Cliente</label>
+            <input type="text" id="lead-name" placeholder="Ex: Carlos Eduardo">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp do Cliente (Opcional)</label>
+            <input type="text" id="lead-phone" placeholder="Ex: (41) 98888-7777" oninput="aplicarMascaraTelefone(this)">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Situação / Objeção do Cliente</label>
+          <select id="meeting-type" onchange="verificarCamposAgenda()">
+            <optgroup label="📍 Blindagem de Reuniões & Visitas">
+              <option value="visita">1. Confirmação de Visita (Reserva & Portaria)</option>
+              <option value="duas_horas">2. Checagem 2 Horas Antes (Filtro Anti-Gasolina)</option>
+              <option value="assinatura">3. Reunião de Aprovação (Autoridade Presencial)</option>
+            </optgroup>
+            <optgroup label="🕳️ Recuperação de Vácuo (Cliente Sumiu)">
+              <option value="sumiu_simulacao">4. Sumiu após Simulação (Descarte Suave / Arquivamento)</option>
+              <option value="sumiu_visita">5. Sumiu após a Visita ao Imóvel (Feedback Sem Pressão)</option>
+              <option value="revisita">6. Reaquecimento Frio (Oportunidade de Entrada Baixa)</option>
+              <option value="sumiu_proposta">7. Sumiu após Envio de Proposta (Check de Condição)</option>
+            </optgroup>
+            <optgroup label="💰 Objeções Financeiras & Insegurança">
+              <option value="parcela_alta">8. Achou a Parcela Alta (Composição de Renda)</option>
+              <option value="medo_divida">9. Medo de Dívida / Financiamento Longo (Custo do Aluguel)</option>
+              <option value="falta_entrada">10. Falta de Dinheiro para Entrada (Parcelamento Construtora)</option>
+              <option value="vai_pensar">11. 'Vou Pensar e te Aviso' (Isolamento de Dúvida Oculta)</option>
+              <option value="consultar_terceiro">12. 'Preciso Falar com Meu Cônjuge / Pai' (Apoio na Apresentação)</option>
+            </optgroup>
+            <optgroup label="🏦 Documentação & Urgência Bancária">
+              <option value="documentos">13. Cobrança de Documentos (Garantia de Taxa do Lote)</option>
+              <option value="reprovou_credito">14. Crédito Caixa Reprovado / Condicionado (Plano B Saneamento)</option>
+              <option value="urgencia_unidade">15. Urgência de Última Unidade (Bloqueio de Reserva)</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div id="agenda-date-time-row" class="form-row hidden">
+          <div class="form-group">
+            <label>Data da Visita / Reunião</label>
+            <input type="date" id="lead-date">
+          </div>
+          <div class="form-group">
+            <label>Horário</label>
+            <input type="time" id="lead-time" value="15:00">
+          </div>
+        </div>
+
+        <button type="button" onclick="gerarMensagemAntisumico()" class="btn-action btn-emerald">🔒 Gerar Mensagem Blindada</button>
+      </div>
+
+      <div class="card" id="card-script-result" style="display:none;">
+        <div class="card-header">
+          <span style="font-size: 12px; font-weight:700;">Mensagem Pronta</span>
+          <span id="script-badge" class="pill" style="color: #10b981;">Gatilho Ativo</span>
+        </div>
+        <div id="script-text" class="script-box"></div>
+        <button type="button" onclick="copiarScriptTexto()" class="btn-action btn-secondary">📋 Copiar Mensagem</button>
+        <button type="button" onclick="confirmarEEnviarWhatsApp()" class="btn-action btn-whatsapp-direct">💬 Confirmar & Abrir no WhatsApp</button>
+      </div>
+    </section>
+
+    <!-- ABA 3: VITRINE INTERATIVA -->
+    <section id="tab-vitrine" class="hidden">
+      <div id="vitrine-form-card" class="card">
+        <div class="card-header">
+          <h2 class="card-title">📲 Vitrine Interativa & Exportação</h2>
+          <span class="pill">Multi-Fotos & Slide</span>
+        </div>
+        <p class="card-desc">Carregue fotos, gere um link público para o cliente navegar ou exporte em PDF.</p>
+
+        <div class="form-group">
+          <label>Fotos do Imóvel (Selecione 1 ou várias)</label>
+          <input type="file" id="prop-photos-input" accept="image/*" multiple onchange="carregarMultiplasFotos(this)">
+        </div>
+
+        <div class="form-group">
+          <label>Título do Imóvel</label>
+          <input type="text" id="prop-title" placeholder="Ex: Residencial Araucária - 2 Qts" oninput="atualizarVitrineCard()">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preço</label>
+            <input type="text" id="prop-price" placeholder="Ex: 240.000,00" oninput="aplicarMascaraMoeda(this); atualizarVitrineCard()">
+          </div>
+          <div class="form-group">
+            <label>Bairro / Cidade</label>
+            <input type="text" id="prop-location" placeholder="Ex: Portão - Curitiba/PR" oninput="atualizarVitrineCard()">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Destaques (separados por vírgula)</label>
+          <input type="text" id="prop-features" placeholder="Ex: Vaga Coberta, Sacada c/ Churrasqueira, Elevador" oninput="atualizarVitrineCard()">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Seu Nome / Imobiliária</label>
+            <input type="text" id="prop-agent" placeholder="Ex: Gabriel Macena" oninput="atualizarVitrineCard()">
+          </div>
+          <div class="form-group">
+            <label>Seu WhatsApp (com DDD)</label>
+            <input type="text" id="prop-phone" placeholder="Ex: (41) 98782-9577" oninput="atualizarVitrineCard()">
+          </div>
+        </div>
+      </div>
+
+      <div id="card-export-area">
+        <div class="vitrine-img-container" id="swipe-area">
+          <span class="vitrine-badge">OPORTUNIDADE EXCLUSIVA</span>
+          <div id="arrow-prev" class="slide-arrow prev" style="display:none;" onclick="mudarFotoSlide(-1)">◀</div>
+          <div id="arrow-next" class="slide-arrow next" style="display:none;" onclick="mudarFotoSlide(1)">▶</div>
+          <img id="main-preview-img" class="vitrine-img" src="" style="display:none;" alt="Imóvel">
+          <span id="prev-photo-placeholder" style="color: #64748b; font-size: 13px;">[Selecione fotos acima]</span>
+          <span id="photo-counter" class="vitrine-counter" style="display:none;">1 / 1</span>
+        </div>
+        <div id="gallery-dots-bar" class="gallery-dots" style="display:none;"></div>
+        
+        <div class="vitrine-body">
+          <div class="vitrine-title-row">
+            <h4 id="prev-title">Título do Imóvel</h4>
+            <span id="prev-price" class="vitrine-price">R$ 0,00</span>
+          </div>
+          <p id="prev-location" class="vitrine-loc">📍 Localização do Imóvel</p>
+          <div id="prev-badges" class="tags-container">
+            <span class="tag-item">Destaque 1</span>
+            <span class="tag-item">Destaque 2</span>
+          </div>
+          
+          <div class="corretor-footer">
+            <span id="prev-agent">Atendimento: <strong>Seu Nome</strong></span>
+            <span id="prev-phone">📞 <strong>Seu Telefone</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="vitrine-broker-actions">
+        <button type="button" onclick="copiarLinkPublicoInterativo()" class="btn-action btn-emerald">🔗 Copiar Link Interativo para o Cliente</button>
+        <button type="button" onclick="baixarApresentacaoPDF()" class="btn-action btn-purple">📄 Baixar Apresentação em PDF (Multi-Fotos)</button>
+        <button type="button" onclick="baixarCardComoImagem()" class="btn-action btn-download">📥 Baixar Card em Imagem (PNG)</button>
+        <button type="button" onclick="copiarTextoVitrine()" class="btn-action btn-secondary">Copiar Legenda p/ WhatsApp</button>
+      </div>
+    </section>
+
+    <!-- ABA 4: PLANOS & TRIAL DE 14 DIAS -->
+    <section id="tab-planos" class="hidden">
+      <div id="box-trial-promo" class="card" style="border: 2px solid var(--primary-color); background: rgba(37,99,235,0.04);">
+        <div class="card-header">
+          <h2 class="card-title" style="color:var(--primary-color);">🎁 Teste Grátis de 14 Dias</h2>
+          <span class="pill" style="color:#10b981; font-weight:800;">1 Por Aparelho</span>
+        </div>
+        <p class="card-desc">Libere acesso irrestrito ao Qualificador Caixa, Central Antissumiço, Vitrine e Copiloto IA. Cadastre seu cartão e cancele a qualquer momento sem cobranças.</p>
+        <button type="button" id="btn-iniciar-trial" onclick="abrirModalTrial()" class="btn-action btn-emerald">🚀 Iniciar Meus 14 Dias Grátis</button>
+      </div>
+
+      <div class="card" style="border-color: #3b82f6;">
+        <div class="card-header">
+          <h2 class="card-title">Planos de Assinatura</h2>
+          <span class="pill" style="color: #60a5fa;">Recorrente</span>
+        </div>
+        <p class="card-desc">Escolha a sua modalidade de acesso contínuo à plataforma.</p>
+
+        <div style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>Individual Mensal</strong>
+            <span style="font-size:16px; font-weight:800; color:var(--text-main);">R$ 59,90<small style="font-size:10px; color:var(--text-muted);">/mês</small></span>
+          </div>
+          <button type="button" onclick="abrirCheckout('mensal')" class="btn-action" style="background:var(--border-color); color:var(--text-main); border:1px solid var(--border-color); margin-top:10px;">Assinar Mensal</button>
+        </div>
+
+        <div style="background: rgba(37, 99, 235, 0.05); border: 2px solid var(--primary-color); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:var(--primary-color);">Individual Anual</strong>
+            <span style="font-size:16px; font-weight:800; color:var(--primary-color);">R$ 497,00<small style="font-size:10px; color:var(--text-muted);">/ano</small></span>
+          </div>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Equivale a ~R$ 41,40/mês (Economia de 30%)</p>
+          <button type="button" onclick="abrirCheckout('anual')" class="btn-action btn-emerald" style="margin-top:10px;">Garantir Acesso Anual</button>
+        </div>
+
+        <div style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 12px; padding: 14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#c084fc;">Imobiliárias (Equipes)</strong>
+            <span style="font-size:16px; font-weight:800; color:#c084fc;">R$ 997,00<small style="font-size:10px; color:var(--text-muted);">/mês</small></span>
+          </div>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Até 50 corretores + Painel de Gestor</p>
+          <button type="button" onclick="abrirCheckout('equipe')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Contratar para a Equipe</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL DE ATIVAÇÃO DE TRIAL COM CARTÃO -->
+  <div id="trial-modal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <strong>💳 Ativação do Teste Grátis (14 Dias)</strong>
+        <button class="modal-close" onclick="fecharModalTrial()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px; line-height:1.4;">
+          Para garantir o benefício de <strong>1 teste por corretor</strong>, é necessário validar um cartão de crédito. Nenhuma cobrança será realizada durante os 14 dias.
+        </p>
+        
+        <form onsubmit="ativarTrialComCartao(event)">
+          <div class="form-group">
+            <label>Nome Impresso no Cartão</label>
+            <input type="text" id="trial-card-name" placeholder="Ex: GABRIEL MACENA" required>
+          </div>
+
+          <div class="form-group">
+            <label>Número do Cartão de Crédito</label>
+            <input type="text" id="trial-card-num" inputmode="numeric" placeholder="0000 0000 0000 0000" maxlength="19" oninput="aplicarMascaraCartao(this)" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Validade</label>
+              <input type="text" id="trial-card-val" placeholder="MM/AA" maxlength="5" oninput="aplicarMascaraValidade(this)" required>
+            </div>
+            <div class="form-group">
+              <label>CVV (Segurança)</label>
+              <input type="text" id="trial-card-cvv" inputmode="numeric" placeholder="123" maxlength="4" required>
+            </div>
+          </div>
+
+          <p style="font-size:10px; color:#10b981; margin:8px 0;">🔒 Transação protegida e tokenizada via checkout seguro.</p>
+          <button type="submit" class="btn-action btn-emerald">Confirmar & Liberar 14 Dias Grátis</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIGURAÇÕES GERAIS -->
+  <div id="settings-modal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <strong>⚙️ Configurações & Ajustes</strong>
+        <button class="modal-close" onclick="fecharModalAjustes()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="settings-list-item">
+          <div>
+            <strong>Perfil & Segurança</strong>
+            <span>Nome, telefone, e-mail e senha</span>
+          </div>
+          <button type="button" onclick="abrirModalPerfil()" class="settings-btn-link">Editar</button>
+        </div>
+
+        <div class="settings-list-item">
+          <div>
+            <strong>Tema de Visualização</strong>
+            <span id="theme-status-text">Escuro (Ativo)</span>
+          </div>
+          <button type="button" onclick="alternarTema()" class="settings-btn-link" id="btn-toggle-theme">Alternar Tema</button>
+        </div>
+
+        <div class="settings-list-item">
+          <div>
+            <strong>Conexão Gemini IA</strong>
+            <span>Chave opcional para inteligência livre</span>
+          </div>
+          <button type="button" onclick="configurarChaveGemini()" class="settings-btn-link">Configurar</button>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <button type="button" onclick="deslogarSistema()" class="btn-action btn-danger">Encerrar Sessão / Deslogar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE PERFIL DO USUÁRIO -->
+  <div id="profile-modal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <strong>👤 Meu Perfil de Corretor</strong>
+        <button class="modal-close" onclick="fecharModalPerfil()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="salvarPerfilUsuario(event)">
+          <div class="form-group">
+            <label>Nome Completo</label>
+            <input type="text" id="prof-name" placeholder="Ex: Gabriel Macena" required>
+          </div>
+
+          <div class="form-group">
+            <label>E-mail Comercial</label>
+            <input type="email" id="prof-email" placeholder="Ex: contato@corretor.com" required>
+          </div>
+
+          <div class="form-group">
+            <label>WhatsApp / Telefone</label>
+            <input type="text" id="prof-phone" placeholder="Ex: (41) 98782-9577" oninput="aplicarMascaraTelefone(this)" required>
+          </div>
+
+          <div style="border-top: 1px dashed var(--border-color); margin: 16px 0; padding-top: 12px;">
+            <label style="color:var(--primary-color); font-weight:700;">Redefinir Senha de Acesso</label>
+            
+            <div class="form-group" style="margin-top:8px;">
+              <label>Nova Senha</label>
+              <input type="password" id="prof-pass" placeholder="Mínimo 6 dígitos">
+            </div>
+
+            <div class="form-group">
+              <label>Confirmar Nova Senha</label>
+              <input type="password" id="prof-pass-confirm" placeholder="Repita a nova senha">
+            </div>
+          </div>
+
+          <button type="submit" class="btn-action btn-emerald">Salvar Alterações</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão Flutuante Exclusivo do Cliente -->
+  <a id="btn-lead-whatsapp-float" href="#" target="_blank">💬 Falar com o Corretor no WhatsApp</a>
+
+  <!-- COPILOTO IA CONVERSACIONAL FLUTUANTE -->
+  <button id="ia-copilot-trigger" type="button" onclick="alternarCopilotoIA(event)" ontouchend="alternarCopilotoIA(event)">🤖 Copiloto IA</button>
+  <div id="ia-copilot-modal">
+    <div class="ia-header">
+      <strong>⚡ Copiloto ImobFlow</strong>
+      <button class="ia-close" type="button" onclick="alternarCopilotoIA(event)">✕</button>
+    </div>
+    <div class="ia-body" id="ia-chat-messages">
+      <div class="ia-msg bot">
+        Olá! Sou seu assistente no ImobFlow.
+
+        Posso ajudar com regras de crédito da Caixa (cotas, tetos e taxas)[cite: 6], como usar cada recurso do app ou técnicas para destravar negociações com clientes. O que você precisa no momento?
+      </div>
+    </div>
+    <span id="ia-typing" class="ia-typing-indicator">Copiloto digitando...</span>
+    <div class="ia-quick-topics">
+      <span class="ia-chip" onclick="executarTopicoIA('regras_gerais')">Regras Caixa</span>
+      <span class="ia-chip" onclick="executarTopicoIA('cotas_usado')">Cotas Usado</span>
+      <span class="ia-chip" onclick="executarTopicoIA('tetos_renda')">Tetos de Renda</span>
+      <span class="ia-chip" onclick="executarTopicoIA('regra_idade')">Regra Idade</span>
+      <span class="ia-chip" onclick="executarTopicoIA('cliente_sumiu')">Destravar Cliente</span>
+      <span class="ia-chip" onclick="executarTopicoIA('link_vitrine')">Link Vitrine</span>
+      <span class="ia-chip" onclick="executarTopicoIA('exportar_pdf')">Exportar PDF</span>
+      <span class="ia-chip" onclick="executarTopicoIA('sac_price')">SAC vs PRICE</span>
+    </div>
+    <div class="ia-input-row">
+      <input type="text" id="ia-user-input" placeholder="Digite sua dúvida..." onkeypress="if(event.key==='Enter') enviarMensagemCopiloto()">
+      <button type="button" onclick="enviarMensagemCopiloto()">Enviar</button>
+    </div>
+  </div>
+
+  <!-- Navegação Inferior -->
+  <nav id="app-nav">
+    <div class="nav-container">
+      <button type="button" id="nav-calculator" onclick="irParaAba('calculator')" class="nav-btn active">
+        <span class="nav-icon">⚡</span>
+        Qualificador
+      </button>
+      <button type="button" id="nav-agenda" onclick="irParaAba('agenda')" class="nav-btn">
+        <span class="nav-icon">🛡️</span>
+        Antissumiço
+      </button>
+      <button type="button" id="nav-vitrine" onclick="irParaAba('vitrine')" class="nav-btn">
+        <span class="nav-icon">📲</span>
+        Vitrine
+      </button>
+    </div>
+  </nav>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    var temporizadorToast;
+    var fotosGaleria = [];
+    var fotoIndexAtual = 0;
+
+    var tipoImovelAtual = 'planta';
+    var modalidadeAtual = 'mcmv';
+    var amortizacaoAtual = 'price'; // INICIA EM PRICE POR PADRÃO
+
+    function mostrarToast(msg) {
+      var t = document.getElementById('toast');
+      if (!t) return;
+      t.innerText = msg;
+      t.className = 'toast show';
+      clearTimeout(temporizadorToast);
+      temporizadorToast = setTimeout(function() {
+        t.className = 'toast';
+      }, 2400);
+    }
+
+    /* SISTEMA DE TRAVA DE TRIAL E DISPOSITIVO (ANTIFRAUDE) */
+    function gerarFingerprintDispositivo() {
+      var raw = [
+        navigator.userAgent,
+        navigator.language,
+        screen.width + 'x' + screen.height,
+        screen.colorDepth,
+        new Date().getTimezoneOffset()
+      ].join('###');
+      
+      var hash = 0;
+      for (var i = 0; i < raw.length; i++) {
+        var char = raw.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0;
+      }
+      return 'dev_' + Math.abs(hash);
+    }
+
+    function checarStatusAcesso() {
+      var trialExpira = localStorage.getItem('imobflow_trial_expira');
+      var trialUsado = localStorage.getItem('imobflow_trial_usado');
+      var devId = gerarFingerprintDispositivo();
+      var devBloqueado = localStorage.getItem('imobflow_blocked_dev_' + devId);
+
+      var banner = document.getElementById('trial-banner');
+      var diasTxt = document.getElementById('trial-days-left');
+      var btnTrial = document.getElementById('btn-iniciar-trial');
+
+      if (trialExpira) {
+        var agora = Date.now();
+        var restanteMs = parseInt(trialExpira, 10) - agora;
+        
+        if (restanteMs > 0) {
+          var dias = Math.ceil(restanteMs / (1000 * 60 * 60 * 24));
+          if (banner) banner.style.display = 'block';
+          if (diasTxt) diasTxt.innerText = dias + (dias === 1 ? ' dia restante' : ' dias restantes');
+          if (btnTrial) {
+            btnTrial.disabled = true;
+            btnTrial.innerText = '✔ Teste Ativo (' + dias + ' dias)';
+            btnTrial.style.opacity = '0.6';
+          }
+        } else {
+          if (banner) {
+            banner.style.display = 'block';
+            banner.style.background = '#ef4444';
+            banner.innerText = '⚠️ Seu período de testes de 14 dias expirou. Escolha um plano para continuar!';
+          }
+          if (btnTrial) {
+            btnTrial.disabled = true;
+            btnTrial.innerText = '❌ Período de Testes Esgotado';
+            btnTrial.style.opacity = '0.5';
+          }
+        }
+      } else if (trialUsado || devBloqueado) {
+        if (btnTrial) {
+          btnTrial.disabled = true;
+          btnTrial.innerText = '❌ Teste Já Utilizado Neste Aparelho';
+          btnTrial.style.opacity = '0.5';
+        }
+      }
+    }
+
+    function abrirModalTrial() {
+      var devId = gerarFingerprintDispositivo();
+      if (localStorage.getItem('imobflow_trial_usado') || localStorage.getItem('imobflow_blocked_dev_' + devId)) {
+        alert('Este aparelho já utilizou o período de testes grátis de 14 dias. Para continuar utilizando, selecione um plano.');
+        return;
+      }
+      document.getElementById('trial-modal').style.display = 'flex';
+    }
+
+    function fecharModalTrial() {
+      document.getElementById('trial-modal').style.display = 'none';
+    }
+
+    function aplicarMascaraCartao(input) {
+      var v = input.value.replace(/\D/g, '');
+      var partes = [];
+      for (var i = 0; i < v.length; i += 4) {
+        partes.push(v.substring(i, i + 4));
+      }
+      input.value = partes.join(' ');
+    }
+
+    function aplicarMascaraValidade(input) {
+      var v = input.value.replace(/\D/g, '');
+      if (v.length > 2) {
+        input.value = v.substring(0, 2) + '/' + v.substring(2, 4);
+      } else {
+        input.value = v;
+      }
+    }
+
+    function ativarTrialComCartao(e) {
+      e.preventDefault();
+      var cardNum = document.getElementById('trial-card-num').value.replace(/\s/g, '');
+      
+      if (cardNum.length < 13) {
+        alert('Por favor, informe um número de cartão de crédito válido.');
+        return;
+      }
+
+      var cardFingerprint = btoa(cardNum.substring(0, 6) + '...' + cardNum.substring(cardNum.length - 4));
+      var jaUsouCartao = localStorage.getItem('imobflow_used_card_' + cardFingerprint);
+
+      if (jaUsouCartao) {
+        alert('Este cartão de crédito já foi cadastrado para um teste grátis anteriormente.');
+        return;
+      }
+
+      var catorzeDiasMs = 14 * 24 * 60 * 60 * 1000;
+      var dataExpiracao = Date.now() + catorzeDiasMs;
+      var devId = gerarFingerprintDispositivo();
+
+      localStorage.setItem('imobflow_trial_expira', dataExpiracao.toString());
+      localStorage.setItem('imobflow_trial_usado', 'true');
+      localStorage.setItem('imobflow_blocked_dev_' + devId, 'true');
+      localStorage.setItem('imobflow_used_card_' + cardFingerprint, 'true');
+
+      fecharModalTrial();
+      checarStatusAcesso();
+      mostrarToast('Teste de 14 dias ativado com sucesso!');
+      irParaAba('calculator');
+    }
+
+    /* MÁSCARAS */
+    function aplicarMascaraMoeda(input) {
+      var valor = input.value.replace(/\D/g, '');
+      if (!valor) {
+        input.value = '';
+        return;
+      }
+      var numero = (parseFloat(valor) / 100).toFixed(2);
+      var partes = numero.split('.');
+      partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      input.value = partes.join(',');
+    }
+
+    function aplicarMascaraTelefone(input) {
+      var v = input.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.substring(0, 11);
+      if (v.length > 10) {
+        input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2, 7) + '-' + v.substring(7);
+      } else if (v.length > 6) {
+        input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2, 6) + '-' + v.substring(6);
+      } else if (v.length > 2) {
+        input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2);
+      } else {
+        input.value = v;
+      }
+    }
+
+    function converterMoedaParaNumero(valorTexto) {
+      if (!valorTexto) return 0;
+      var limpo = valorTexto.toString().replace(/\./g, '').replace(',', '.').replace(/[^0-9.-]+/g, '');
+      return parseFloat(limpo) || 0;
+    }
+
+    function formatarReal(val) {
+      return 'R$ ' + Math.round(val).toLocaleString('pt-BR');
+    }
+
+    function copiarTextoSeguro(texto, mensagemSucesso) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(texto).then(function() {
+          mostrarToast(mensagemSucesso || 'Copiado com sucesso!');
+        }).catch(function() {
+          copiarFallback(texto, mensagemSucesso);
+        });
+      } else {
+        copiarFallback(texto, mensagemSucesso);
+      }
+    }
+
+    function copiarFallback(texto, mensagemSucesso) {
+      var ta = document.createElement('textarea');
+      ta.value = texto;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      ta.style.top = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        mostrarToast(mensagemSucesso || 'Copiado com sucesso!');
+      } catch (err) {
+        mostrarToast('Selecione e copie manualmente.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    function irParaAba(idAba) {
+      var abas = ['calculator', 'agenda', 'vitrine', 'planos'];
+      for (var i = 0; i < abas.length; i++) {
+        var el = document.getElementById('tab-' + abas[i]);
+        var navBtn = document.getElementById('nav-' + abas[i]);
+        if (el) {
+          if (abas[i] === idAba) el.className = el.className.replace('hidden', '').trim();
+          else if (el.className.indexOf('hidden') === -1) el.className += ' hidden';
+        }
+        if (navBtn) {
+          if (abas[i] === idAba) navBtn.className = 'nav-btn active';
+          else navBtn.className = 'nav-btn';
+        }
+      }
+      window.scrollTo(0, 0);
+    }
+
+    /* CONFIGURAÇÕES E PERFIL */
+    function abrirModalAjustes() {
+      document.getElementById('settings-modal').style.display = 'flex';
+    }
+
+    function fecharModalAjustes() {
+      document.getElementById('settings-modal').style.display = 'none';
+    }
+
+    function abrirModalPerfil() {
+      fecharModalAjustes();
+      carregarDadosPerfil();
+      document.getElementById('profile-modal').style.display = 'flex';
+    }
+
+    function fecharModalPerfil() {
+      document.getElementById('profile-modal').style.display = 'none';
+    }
+
+    function alternarTema() {
+      var isLight = document.body.classList.toggle('light-theme');
+      localStorage.setItem('imobflow_theme', isLight ? 'light' : 'dark');
+      document.getElementById('theme-status-text').innerText = isLight ? 'Claro (Ativo)' : 'Escuro (Ativo)';
+      mostrarToast(isLight ? 'Tema Claro Executivo ativado!' : 'Tema Escuro ativado!');
+    }
+
+    function carregarDadosPerfil() {
+      var nome = localStorage.getItem('imobflow_user_name') || '';
+      var email = localStorage.getItem('imobflow_user_email') || '';
+      var tel = localStorage.getItem('imobflow_user_phone') || '';
+
+      document.getElementById('prof-name').value = nome;
+      document.getElementById('prof-email').value = email;
+      document.getElementById('prof-phone').value = tel;
+    }
+
+    function salvarPerfilUsuario(e) {
+      e.preventDefault();
+      var nome = document.getElementById('prof-name').value.trim();
+      var email = document.getElementById('prof-email').value.trim();
+      var tel = document.getElementById('prof-phone').value.trim();
+      var pass = document.getElementById('prof-pass').value;
+      var passConf = document.getElementById('prof-pass-confirm').value;
+
+      if (pass || passConf) {
+        if (pass.length < 6) {
+          alert('A nova senha deve ter pelo menos 6 caracteres.');
+          return;
+        }
+        if (pass !== passConf) {
+          alert('As senhas digitadas não coincidem.');
+          return;
+        }
+        localStorage.setItem('imobflow_user_pass', pass);
+        mostrarToast('Senha atualizada com sucesso!');
+      }
+
+      localStorage.setItem('imobflow_user_name', nome);
+      localStorage.setItem('imobflow_user_email', email);
+      localStorage.setItem('imobflow_user_phone', tel);
+
+      document.getElementById('prop-agent').value = nome;
+      document.getElementById('prop-phone').value = tel;
+      atualizarVitrineCard();
+
+      fecharModalPerfil();
+      mostrarToast('Dados de perfil salvos com sucesso!');
+    }
+
+    function deslogarSistema() {
+      if (confirm('Deseja realmente deslogar e limpar a sessão deste aparelho?')) {
+        localStorage.removeItem('imobflow_user_name');
+        localStorage.removeItem('imobflow_user_email');
+        localStorage.removeItem('imobflow_user_phone');
+        localStorage.removeItem('imobflow_user_pass');
+        fecharModalAjustes();
+        location.reload();
+      }
+    }
+
+    function configurarChaveGemini() {
+      var chaveAtual = localStorage.getItem('imobflow_gemini_key') || '';
+      var novaChave = prompt('Insira sua Chave de API Google Gemini (AI Studio):\n(Deixe vazio para usar o motor analítico integrado)', chaveAtual);
+      if (novaChave !== null) {
+        localStorage.setItem('imobflow_gemini_key', novaChave.trim());
+        fecharModalAjustes();
+        mostrarToast(novaChave.trim() ? 'Conexão Gemini IA ativada!' : 'Usando motor nativo integrado!');
+      }
+    }
+
+    /* SELETORES CALCULADORA */
+    function selecionarTipoImovel(tipo) {
+      tipoImovelAtual = tipo;
+      ['planta', 'novo', 'usado'].forEach(function(t) {
+        var btn = document.getElementById('btn-tipo-' + t);
+        if (btn) btn.className = (t === tipo) ? 'pill-btn active' : 'pill-btn';
+      });
+      calcularFinanciamento(false);
+    }
+
+    function selecionarModalidade(tipo) {
+      modalidadeAtual = tipo;
+      ['mcmv', 'faixa4', 'procotista', 'sbpe'].forEach(function(m) {
+        var btn = document.getElementById('btn-mod-' + m);
+        if (btn) btn.className = (m === tipo) ? 'pill-btn active' : 'pill-btn';
+      });
+
+      var badge = document.getElementById('badge-tipo-linha');
+      if (tipo === 'mcmv') badge.innerText = 'MCMV (Caixa)';
+      else if (tipo === 'faixa4') badge.innerText = 'Classe Média (Fx 4)';
+      else if (tipo === 'procotista') badge.innerText = 'Pró-Cotista FGTS';
+      else badge.innerText = 'SBPE / Mercado';
+
+      calcularFinanciamento(false);
+    }
+
+    function selecionarAmortizacao(tipo) {
+      amortizacaoAtual = tipo;
+      var btnSac = document.getElementById('btn-tab-sac');
+      var btnPrice = document.getElementById('btn-tab-price');
+      if (btnSac) btnSac.className = tipo === 'sac' ? 'pill-btn active' : 'pill-btn';
+      if (btnPrice) btnPrice.className = tipo === 'price' ? 'pill-btn active' : 'pill-btn';
+
+      var label = document.getElementById('label-parcela');
+      if (label) {
+        if (tipo === 'price') label.innerText = 'Parcela Fixa (PRICE)';
+        else label.innerText = '1ª Parcela Est. (SAC)';
+      }
+
+      calcularFinanciamento(false);
+    }
+
+    /* MOTOR DE CÁLCULO ASSERTIVO */
+    function setElemText(id, val) {
+      var el = document.getElementById(id);
+      if (el) el.innerText = val;
+    }
+
+    function calcularFinanciamento(comAviso) {
+      var imovelEl = document.getElementById('calc-imovel');
+      var rendaEl = document.getElementById('calc-income');
+      var fgtsEl = document.getElementById('calc-fgts');
+      var idadeEl = document.getElementById('calc-age');
+      var statusEl = document.getElementById('res-status');
+
+      var valorImovel = converterMoedaParaNumero(imovelEl ? imovelEl.value : 0);
+      var renda = converterMoedaParaNumero(rendaEl ? rendaEl.value : 0);
+      var fgts = converterMoedaParaNumero(fgtsEl ? fgtsEl.value : 0);
+      var idade = parseFloat(idadeEl ? idadeEl.value : 0) || 0;
+
+      if (renda <= 0 || valorImovel <= 0) {
+        if (statusEl) statusEl.innerText = 'Preencha o valor do imóvel e a renda para simular.';
+        setElemText('res-prazo', '—');
+        setElemText('res-parcela', '—');
+        setElemText('res-taxa', '—');
+        setElemText('res-capacidade', '—');
+        setElemText('res-financiamento', '—');
+        setElemText('res-entrada', '—');
+        setElemText('res-fgts', '—');
+        setElemText('res-margem', '—');
+        return;
+      }
+
+      var idadeValida = idade > 0 ? idade : 30;
+      var anosLivres = Math.max(0, 80.5 - idadeValida);
+      var prazoMeses = Math.min(420, Math.max(12, Math.floor(anosLivres * 12)));
+      var prazoAnos = (prazoMeses / 12).toFixed(1);
+
+      setElemText('res-prazo', prazoMeses + ' meses (' + prazoAnos + ' anos)');
+
+      var isNovoOrPlanta = (tipoImovelAtual === 'planta' || tipoImovelAtual === 'novo');
+      var cotaMaxima = 0.80;
+      var jurosAnual = 10.92;
+      var tetoImovelPermitido = 2250000;
+      var avisoLimite = '';
+
+      if (modalidadeAtual === 'mcmv') {
+        if (renda <= 2160) {
+          jurosAnual = 4.25;
+          tetoImovelPermitido = 275000;
+          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else if (renda <= 2850) {
+          jurosAnual = 4.50;
+          tetoImovelPermitido = 275000;
+          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else if (renda <= 3200) {
+          jurosAnual = 4.75;
+          tetoImovelPermitido = 275000;
+          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else if (renda <= 3500) {
+          jurosAnual = 5.00;
+          tetoImovelPermitido = 275000;
+          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else if (renda <= 4000) {
+          jurosAnual = 5.50;
+          tetoImovelPermitido = 275000;
+          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else if (renda <= 5000) {
+          jurosAnual = 6.50;
+          tetoImovelPermitido = 275000;
+          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else {
+          jurosAnual = 7.66;
+          tetoImovelPermitido = 400000;
+          cotaMaxima = 0.80;
+        }
+
+        if (valorImovel > tetoImovelPermitido) {
+          avisoLimite = ' ⚠️ Atenção: Valor excede o teto desta faixa do MCMV (R$ ' + Number(tetoImovelPermitido).toLocaleString('pt-BR') + ').';
+        }
+
+      } else if (modalidadeAtual === 'faixa4') {
+        jurosAnual = 10.00;
+        tetoImovelPermitido = 600000;
+        cotaMaxima = isNovoOrPlanta ? 0.80 : 0.60;
+        if (valorImovel > tetoImovelPermitido) {
+          avisoLimite = ' ⚠️ Atenção: Excede o teto de R$ 600 mil da Faixa 4.';
+        }
+
+      } else if (modalidadeAtual === 'procotista') {
+        jurosAnual = 8.66;
+        tetoImovelPermitido = 500000;
+        cotaMaxima = 0.60;
+        if (valorImovel > tetoImovelPermitido) {
+          avisoLimite = ' ⚠️ Atenção: Excede o teto de R$ 500 mil do Pró-Cotista.';
+        }
+
+      } else {
+        jurosAnual = 10.92;
+        tetoImovelPermitido = 2250000;
+        cotaMaxima = (amortizacaoAtual === 'sac') ? 0.80 : 0.70;
+      }
+
+      var margemMaxCaixa = renda * 0.30;
+      var tetoFinanceiro = valorImovel * cotaMaxima;
+      var taxaMensal = Math.pow(1 + (jurosAnual / 100), 1/12) - 1;
+
+      var financPelaRenda = 0;
+      var parcelaCalculada = 0;
+
+      if (amortizacaoAtual === 'sac') {
+        financPelaRenda = (margemMaxCaixa / ((1 / prazoMeses) + taxaMensal));
+      } else {
+        financPelaRenda = margemMaxCaixa * (1 - Math.pow(1 + taxaMensal, -prazoMeses)) / taxaMensal;
+      }
+
+      var financAprovado = Math.min(financPelaRenda, tetoFinanceiro);
+
+      if (amortizacaoAtual === 'sac') {
+        parcelaCalculada = (financAprovado / prazoMeses) + (financAprovado * taxaMensal);
+      } else {
+        parcelaCalculada = financAprovado * (taxaMensal / (1 - Math.pow(1 + taxaMensal, -prazoMeses)));
+      }
+
+      var entradaNecessaria = Math.max(0, valorImovel - financAprovado - fgts);
+      var cotaPct = Math.round(cotaMaxima * 100);
+
+      setElemText('label-financiamento', 'Financiamento (até ' + cotaPct + '%)');
+      setElemText('res-taxa', jurosAnual.toFixed(2).replace('.', ',') + '% a.a.');
+      setElemText('res-capacidade', formatarReal(financPelaRenda));
+
+      var descTipo = (tipoImovelAtual === 'planta' ? 'Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
+
+      if (statusEl) {
+        if (financAprovado < tetoFinanceiro) {
+          statusEl.innerHTML = '<span style="color:#fbbf24;">⚠️ Pela renda em ' + descTipo + ' (' + amortizacaoAtual.toUpperCase() + '), aprova até ' + formatarReal(financAprovado) + '. Entrada requerida: ' + formatarReal(entradaNecessaria) + '.' + avisoLimite + '</span>';
+        } else {
+          statusEl.innerHTML = '<span style="color:var(--primary-color);">✔ Renda aprova a cota máxima de ' + cotaPct + '% para imóvel ' + descTipo + ' (' + formatarReal(financAprovado) + '). Taxa: ' + jurosAnual.toFixed(2).replace('.', ',') + '% a.a.' + avisoLimite + '</span>';
+        }
+      }
+
+      setElemText('res-financiamento', formatarReal(financAprovado));
+      setElemText('res-parcela', formatarReal(parcelaCalculada) + ' /mês');
+      setElemText('res-entrada', formatarReal(entradaNecessaria));
+      setElemText('res-fgts', formatarReal(fgts));
+      setElemText('res-margem', formatarReal(margemMaxCaixa));
+
+      if (comAviso) mostrarToast('Estudo financeiro atualizado com sucesso!');
+    }
+
+    function copiarResumoWhatsApp() {
+      var valorImovel = document.getElementById('calc-imovel') ? document.getElementById('calc-imovel').value : '';
+      var renda = document.getElementById('calc-income') ? document.getElementById('calc-income').value : '';
+      var prazo = document.getElementById('res-prazo') ? document.getElementById('res-prazo').innerText : '';
+      var taxa = document.getElementById('res-taxa') ? document.getElementById('res-taxa').innerText : '';
+      var capacidade = document.getElementById('res-capacidade') ? document.getElementById('res-capacidade').innerText : '';
+      var financ = document.getElementById('res-financiamento') ? document.getElementById('res-financiamento').innerText : '';
+      var parc = document.getElementById('res-parcela') ? document.getElementById('res-parcela').innerText : '';
+      var entrada = document.getElementById('res-entrada') ? document.getElementById('res-entrada').innerText : '';
+      var fgts = document.getElementById('res-fgts') ? document.getElementById('res-fgts').innerText : '';
+      var tipoLinha = modalidadeAtual.toUpperCase();
+      if (modalidadeAtual === 'procotista') tipoLinha = 'Pró-Cotista';
+      if (modalidadeAtual === 'faixa4') tipoLinha = 'Classe Média (Fx 4)';
+      var descTipo = (tipoImovelAtual === 'planta' ? 'Na Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
+
+      if (!valorImovel || !renda) {
+        mostrarToast('Preencha os valores antes de copiar.');
+        return;
+      }
+
+      var texto = 'Olá! Montei um estudo de financiamento Caixa exclusivo para você:\n\n' +
+                  '🏢 *Imóvel pretendido:* R$ ' + valorImovel + ' (' + descTipo + ')\n' +
+                  '💼 *Renda familiar declarada:* R$ ' + renda + '\n' +
+                  '📌 *Linha:* ' + tipoLinha + ' (Tabela ' + amortizacaoAtual.toUpperCase() + ')\n' +
+                  '📈 *Taxa de juros:* ' + taxa + '\n' +
+                  '📅 *Prazo máximo calculado:* ' + prazo + '\n' +
+                  '📊 *Capacidade pela renda:* até ' + capacidade + '\n' +
+                  '🏦 *Financiamento estimado:* até ' + financ + '\n' +
+                  '📉 *Parcela estimada:* ' + parc + '\n' +
+                  '💰 *FGTS considerado:* ' + fgts + '\n' +
+                  '🔑 *Entrada:* ' + entrada + '\n\n' +
+                  'Podemos agendar para rodar sua aprovação formal nesta semana?';
+
+      copiarTextoSeguro(texto, 'Resumo copiado para o WhatsApp!');
+    }
+
+    /* CENTRAL ANTISSUMIÇO REFINADA */
+    function verificarCamposAgenda() {
+      var tipo = document.getElementById('meeting-type').value;
+      var linha = document.getElementById('agenda-date-time-row');
+      if (['visita', 'duas_horas', 'assinatura'].includes(tipo)) {
+        linha.className = 'form-row';
+      } else {
+        linha.className = 'form-row hidden';
+      }
+    }
+
+    function gerarMensagemAntisumico() {
+      var name = document.getElementById('lead-name').value.trim() || 'Cliente';
+      var date = document.getElementById('lead-date').value;
+      var time = document.getElementById('lead-time').value || '15:00';
+      var type = document.getElementById('meeting-type').value;
+      var badge = document.getElementById('script-badge');
+      var cardResult = document.getElementById('card-script-result');
+
+      var dateFormatted = date;
+      if (date) {
+        var parts = date.split('-');
+        if (parts.length === 3) dateFormatted = parts[2] + '/' + parts[1] + '/' + parts[0];
+      } else {
+        dateFormatted = 'data combinada';
+      }
+
+      var msg = '';
+
+      if (type === 'visita') {
+        badge.innerText = 'Compromisso & Portaria';
+        msg = 'Olá ' + name + ', tudo bem?\n\nJá reservei a minha agenda para receber você no dia ' + dateFormatted + ' às ' + time + '.\n\nComo o acesso ao empreendimento exige envio prévio dos nomes na portaria e bloqueei 40 minutos exclusivos para o seu atendimento, peço a gentileza de me confirmar se está tudo mantido por aí. Caso surja algum imprevisto, me avise com antecedência.\n\nNos vemos às ' + time + '!';
+      } else if (type === 'duas_horas') {
+        badge.innerText = 'Filtro Anti-Gasolina';
+        msg = 'Olá ' + name + '! Passando rápido para confirmar nosso encontro hoje às ' + time + '.\n\nEstou organizando a rota da tarde e separando a chave e a pasta do imóvel. Você conseguiu manter o horário ou já está a caminho?';
+      } else if (type === 'assinatura') {
+        badge.innerText = 'Autoridade Presencial';
+        msg = 'Olá ' + name + '! Sua pasta foi deferida e está pronta para assinatura no dia ' + dateFormatted + ' às ' + time + '.\n\nA mesa do correspondente bancário já está agendada exclusivamente para o seu contrato. Não esqueça de levar documento original com foto e comprovantes atualizados.\n\nConto com a sua presença pontual!';
+      } else if (type === 'sumiu_simulacao') {
+        badge.innerText = 'Descarte Suave';
+        msg = 'Olá ' + name + ', tudo bem?\n\nComo não tive mais seu retorno sobre os números que montei, imaginei que você tenha decidido pausar a busca ou que as condições não encaixaram no seu orçamento.\n\nSem problema nenhum! Posso arquivar sua pasta por aqui para não incomodar, ou você ainda gostaria de avaliar alguma opção com entrada facilitada?';
+      } else if (type === 'sumiu_visita') {
+        badge.innerText = 'Feedback Sem Pressão';
+        msg = 'Olá ' + name + ', tudo bem?\n\nPassando para saber o que você achou do imóvel que visitamos. Sendo bem sincero(a), ele atendeu ao que você procura ou faltou algum detalhe importante para a sua família?\n\nSeu feedback me ajuda a ajustar o radar caso queira ver outra opção!';
+      } else if (type === 'revisita') {
+        badge.innerText = 'Oportunidade Reversa';
+        msg = 'Olá ' + name + ', lembrei de você hoje!\n\nEntrou uma oportunidade pontual com valor de entrada bem facilitado (dentro do perfil que você procurava).\n\nVocê ainda está avaliando comprar ou já resolveu essa parte?';
+      } else if (type === 'sumiu_proposta') {
+        badge.innerText = 'Segurança da Tabela';
+        msg = 'Olá ' + name + ', tudo bem?\n\nA construtora/proprietário me pediu uma posição hoje sobre a condição que segurei para você na proposta. Como o fluxo de visitas aumentou, preciso confirmar se mantemos a prioridade ou se posso liberar a unidade para o próximo da fila.';
+      } else if (type === 'parcela_alta') {
+        badge.innerText = 'Composição de Renda';
+        msg = 'Olá ' + name + '! Se a primeira parcela ficou no limite do planejado, nós podemos incluir uma composição de renda com um segundo comprador (familiar, noivo(a) ou cônjuge).\n\nIsso estica a margem e reduz consideravelmente o valor da parcela mensal. Tem alguém que toparia compor com você?';
+      } else if (type === 'medo_divida') {
+        badge.innerText = 'Custo da Inação';
+        msg = 'Olá ' + name + ', é natural ter receio de assumir um compromisso de longo prazo. Mas pense comigo: a parcela financiada amortiza um patrimônio seu que valoriza, enquanto o aluguel é um custo sem retorno.\n\nPodemos ver uma opção onde a parcela fique no mesmo valor do seu aluguel atual?';
+      } else if (type === 'falta_entrada') {
+        badge.innerText = 'Engenharia de Entrada';
+        msg = 'Olá ' + name + '! Se o valor de entrada à vista ficou apertado, nós conseguimos parcelar essa parte diretamente com a construtora durante as obras em até 36x/48x, além de usar o seu FGTS para abater.\n\nQuer que eu monte um fluxo diluído para você avaliar sem compromisso?';
+      } else if (type === 'vai_pensar') {
+        badge.innerText = 'Isolamento de Objeção';
+        msg = 'Perfeito, ' + name + '! É uma decisão importante e você tem que pensar com calma mesmo. Mas me diz uma coisa: dos pontos que vimos, o que mais te deixou em dúvida? Foi a localização, o valor da entrada ou a parcela? Se for condição, eu posso tentar ajustar por aqui!';
+      } else if (type === 'consultar_terceiro') {
+        badge.innerText = 'Apoio na Apresentação';
+        msg = 'Excelente iniciativa, ' + name + '! Faz todo sentido alinhar com calma. Como os números de financiamento têm muitos detalhes técnicos (taxas, subsídios e seguros), quer que eu grave um vídeo rápido de 2 minutos ou faça uma chamada curta com vocês dois para esclarecer tudo de forma transparente?';
+      } else if (type === 'documentos') {
+        badge.innerText = 'Urgência Bancária';
+        msg = 'Olá ' + name + ', tudo certo?\n\nEstou com o sistema da Caixa aberto finalizando a remessa desta semana. Para garantir que seu processo entre com as taxas seguradas, preciso apenas daqueles últimos documentos pendentes.\n\nConsegue me mandar foto nítida por aqui hoje para não perdermos a vaga do lote?';
+      } else if (type === 'reprovou_credito') {
+        badge.innerText = 'Plano de Saneamento';
+        msg = 'Olá ' + name + '! Tivemos uma resposta do banco com condicionamento de margem. Isso é super comum e perfeitamente contornável! Nós podemos ajustar a composição de renda ou liquidar um pequeno apontamento para rodar uma nova aprovação formal.\n\nVamos conversar 5 minutos hoje para traçar o caminho certo?';
+      } else {
+        badge.innerText = 'Fim de Lote';
+        msg = 'Olá ' + name + '! Passando para te avisar com transparência: restam apenas 2 unidades nessa mesma metragem e valor promocional de entrada. A partir da próxima semana haverá virada de tabela pela construtora.\n\nSe você ainda tem interesse nessa planta, me avise agora para segurar a ficha!';
+      }
+
+      document.getElementById('script-text').innerText = msg;
+      if (cardResult) cardResult.style.display = 'block';
+      mostrarToast('Mensagem gerada com sucesso!');
+    }
+
+    function copiarScriptTexto() {
+      var text = document.getElementById('script-text').innerText;
+      copiarTextoSeguro(text, 'Script copiado!');
+    }
+
+    function confirmarEEnviarWhatsApp() {
+      var text = document.getElementById('script-text').innerText;
+      if (!text) {
+        mostrarToast('Gere uma mensagem primeiro.');
+        return;
+      }
+      var phoneInput = document.getElementById('lead-phone').value.replace(/\D/g, '');
+      var url = '';
+      if (phoneInput && phoneInput.length >= 10) {
+        url = 'https://wa.me/55' + phoneInput + '?text=' + encodeURIComponent(text);
+      } else {
+        url = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(text);
+      }
+      window.open(url, '_blank');
+    }
+
+    /* VITRINE MULTI-FOTOS */
+    function carregarMultiplasFotos(input) {
+      if (input.files && input.files.length > 0) {
+        fotosGaleria = [];
+        var total = input.files.length;
+        var carregadas = 0;
+
+        for (var i = 0; i < total; i++) {
+          (function(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              fotosGaleria.push(e.target.result);
+              carregadas++;
+              if (carregadas === total) {
+                fotoIndexAtual = 0;
+                exibirFotoGaleria(0);
+                montarPontosGaleria();
+                mostrarToast(total + ' foto(s) carregada(s)!');
+              }
+            };
+            reader.readAsDataURL(file);
+          })(input.files[i]);
+        }
+      }
+    }
+
+    function exibirFotoGaleria(idx) {
+      if (fotosGaleria.length === 0) return;
+      var img = document.getElementById('main-preview-img');
+      var placeholder = document.getElementById('prev-photo-placeholder');
+      var counter = document.getElementById('photo-counter');
+      var btnPrev = document.getElementById('arrow-prev');
+      var btnNext = document.getElementById('arrow-next');
+
+      img.src = fotosGaleria[idx];
+      img.style.display = 'block';
+      placeholder.style.display = 'none';
+
+      if (fotosGaleria.length > 1) {
+        counter.style.display = 'block';
+        counter.innerText = (idx + 1) + ' / ' + fotosGaleria.length;
+        btnPrev.style.display = 'flex';
+        btnNext.style.display = 'flex';
+      } else {
+        counter.style.display = 'none';
+        btnPrev.style.display = 'none';
+        btnNext.style.display = 'none';
+      }
+
+      var dots = document.querySelectorAll('.gallery-dots .dot');
+      dots.forEach(function(d, i) {
+        if (i === idx) d.className = 'dot active';
+        else d.className = 'dot';
+      });
+    }
+
+    function mudarFotoSlide(direcao) {
+      if (fotosGaleria.length <= 1) return;
+      fotoIndexAtual += direcao;
+      if (fotoIndexAtual < 0) fotoIndexAtual = fotosGaleria.length - 1;
+      if (fotoIndexAtual >= fotosGaleria.length) fotoIndexAtual = 0;
+      exibirFotoGaleria(fotoIndexAtual);
+    }
+
+    var toqueInicioX = 0;
+    var swipeArea = document.getElementById('swipe-area');
+    swipeArea.addEventListener('touchstart', function(e) {
+      toqueInicioX = e.changedTouches[0].screenX;
+    }, false);
+    swipeArea.addEventListener('touchend', function(e) {
+      var toqueFimX = e.changedTouches[0].screenX;
+      if (toqueInicioX - toqueFimX > 40) mudarFotoSlide(1);
+      if (toqueFimX - toqueInicioX > 40) mudarFotoSlide(-1);
+    }, false);
+
+    function montarPontosGaleria() {
+      var bar = document.getElementById('gallery-dots-bar');
+      bar.innerHTML = '';
+      if (fotosGaleria.length <= 1) {
+        bar.style.display = 'none';
+        return;
+      }
+      bar.style.display = 'flex';
+      for (var i = 0; i < fotosGaleria.length; i++) {
+        (function(index) {
+          var dot = document.createElement('div');
+          dot.className = index === 0 ? 'dot active' : 'dot';
+          dot.onclick = function() {
+            fotoIndexAtual = index;
+            exibirFotoGaleria(index);
+          };
+          bar.appendChild(dot);
+        })(i);
+      }
+    }
+
+    function atualizarVitrineCard() {
+      var title = document.getElementById('prop-title').value || 'Título do Imóvel';
+      var price = document.getElementById('prop-price').value || '0,00';
+      var loc = document.getElementById('prop-location').value || 'Localização do Imóvel';
+      var agent = document.getElementById('prop-agent').value || 'Seu Nome';
+      var phone = document.getElementById('prop-phone').value || 'Seu Telefone';
+      var featsRaw = document.getElementById('prop-features').value || 'Destaque 1, Destaque 2';
+      var feats = featsRaw.split(',');
+
+      document.getElementById('prev-title').innerText = title;
+      document.getElementById('prev-price').innerText = 'R$ ' + price.replace('R$', '').trim();
+      document.getElementById('prev-location').innerText = '📍 ' + loc;
+      document.getElementById('prev-agent').innerHTML = 'Atendimento: <strong>' + agent + '</strong>';
+      document.getElementById('prev-phone').innerHTML = '📞 <strong>' + phone + '</strong>';
+
+      var container = document.getElementById('prev-badges');
+      container.innerHTML = '';
+      for (var i = 0; i < feats.length; i++) {
+        if (feats[i].trim()) {
+          var span = document.createElement('span');
+          span.className = 'tag-item';
+          span.innerText = feats[i].trim();
+          container.appendChild(span);
+        }
+      }
+    }
+
+    function copiarLinkPublicoInterativo() {
+      var title = document.getElementById('prop-title').value || 'Imóvel';
+      var price = document.getElementById('prop-price').value || '';
+      var loc = document.getElementById('prop-location').value || '';
+      var agent = document.getElementById('prop-agent').value || '';
+      var phone = document.getElementById('prop-phone').value || '';
+      var feats = document.getElementById('prop-features').value || '';
+
+      var dados = { t: title, p: price, l: loc, a: agent, ph: phone, f: feats };
+      var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(dados))));
+      var urlFinal = window.location.origin + window.location.pathname + '?v=' + base64;
+
+      copiarTextoSeguro(urlFinal, 'Link interativo do imóvel copiado!');
+    }
+
+    function baixarApresentacaoPDF() {
+      if (!window.jspdf) {
+        mostrarToast('Carregando biblioteca PDF...');
+        return;
+      }
+      mostrarToast('Gerando apresentação em PDF...');
+
+      var doc = new window.jspdf.jsPDF('p', 'mm', 'a4');
+      var title = document.getElementById('prop-title').value || 'Imóvel';
+      var price = document.getElementById('prop-price').value || 'Consulte';
+      var loc = document.getElementById('prop-location').value || '';
+      var agent = document.getElementById('prop-agent').value || 'Corretor';
+      var phone = document.getElementById('prop-phone').value || '';
+      var feats = document.getElementById('prop-features').value || '';
+
+      doc.setFillColor(15, 23, 42);
+      doc.rect(0, 0, 210, 297, 'F');
+
+      doc.setTextColor(52, 211, 153);
+      doc.setFontSize(22);
+      doc.setFont('helvetica', 'bold');
+      doc.text(title, 14, 25);
+
+      doc.setTextColor(248, 250, 252);
+      doc.setFontSize(14);
+      doc.text('Valor: R$ ' + price.replace('R$', '').trim(), 14, 34);
+
+      doc.setFontSize(11);
+      doc.setTextColor(148, 163, 184);
+      doc.text('Localização: ' + loc, 14, 42);
+
+      if (fotosGaleria.length > 0) {
+        try {
+          doc.addImage(fotosGaleria[0], 'JPEG', 14, 50, 182, 115);
+        } catch(e) {}
+      }
+
+      doc.setFontSize(12);
+      doc.setTextColor(255, 255, 255);
+      doc.text('Destaques do Imóvel:', 14, 178);
+
+      doc.setFontSize(10);
+      doc.setTextColor(203, 213, 225);
+      var listaF = feats.split(',');
+      var posTop = 186;
+      for (var f = 0; f < listaF.length; f++) {
+        if (listaF[f].trim()) {
+          doc.text('• ' + listaF[f].trim(), 16, posTop);
+          posTop += 7;
+        }
+      }
+
+      doc.setDrawColor(51, 65, 85);
+      doc.line(14, 260, 196, 260);
+      doc.setFontSize(11);
+      doc.setTextColor(52, 211, 153);
+      doc.text('Atendimento Exclusivo: ' + agent + ' | WhatsApp: ' + phone, 14, 270);
+
+      if (fotosGaleria.length > 1) {
+        for (var p = 1; p < fotosGaleria.length; p++) {
+          doc.addPage();
+          doc.setFillColor(15, 23, 42);
+          doc.rect(0, 0, 210, 297, 'F');
+
+          doc.setTextColor(52, 211, 153);
+          doc.setFontSize(16);
+          doc.text(title + ' (Foto ' + (p + 1) + ')', 14, 20);
+
+          try {
+            doc.addImage(fotosGaleria[p], 'JPEG', 14, 30, 182, 140);
+          } catch(e) {}
+
+          doc.setDrawColor(51, 65, 85);
+          doc.line(14, 260, 196, 260);
+          doc.setFontSize(11);
+          doc.setTextColor(52, 211, 153);
+          doc.text('Contato: ' + phone + ' (' + agent + ')', 14, 270);
+        }
+      }
+
+      doc.save('apresentacao-' + title.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.pdf');
+      mostrarToast('Apresentação em PDF descarregada com sucesso!');
+    }
+
+    function baixarCardComoImagem() {
+      var cardArea = document.getElementById('card-export-area');
+      mostrarToast('Gerando imagem em alta resolução...');
+
+      html2canvas(cardArea, {
+        scale: 2,
+        backgroundColor: '#0f172a',
+        useCORS: true
+      }).then(function(canvas) {
+        var link = document.createElement('a');
+        link.download = 'card-imovel-' + Date.now() + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        mostrarToast('Card baixado com sucesso!');
+      }).catch(function() {
+        mostrarToast('Erro ao exportar imagem.');
+      });
+    }
+
+    function copiarTextoVitrine() {
+      var title = document.getElementById('prop-title').value || 'Imóvel em Destaque';
+      var price = document.getElementById('prop-price').value || 'Sob Consulta';
+      var loc = document.getElementById('prop-location').value || '';
+      var agent = document.getElementById('prop-agent').value || '';
+      var phone = document.getElementById('prop-phone').value || '';
+      var badges = document.querySelectorAll('#prev-badges .tag-item');
+      var listaBadges = [];
+      for (var i = 0; i < badges.length; i++) {
+        listaBadges.push('✔ ' + badges[i].innerText);
+      }
+
+      var texto = '🏢 *' + title + '*\n' +
+                  '💰 Valor: R$ ' + price.replace('R$', '').trim() + '\n' +
+                  (loc ? '📍 ' + loc + '\n\n' : '\n') +
+                  '*Destaques do Imóvel:*\n' + listaBadges.join('\n') + '\n\n' +
+                  (agent ? '👤 *Responsável:* ' + agent + '\n' : '') +
+                  (phone ? '📲 *Contato:* ' + phone + '\n\n' : '\n') +
+                  'Deseja fazer uma simulação de entrada e parcelas deste imóvel? Me chame aqui!';
+
+      copiarTextoSeguro(texto, 'Legenda copiada para o WhatsApp!');
+    }
+
+    function abrirCheckout(plano) {
+      mostrarToast('Redirecionando para o checkout seguro da Kiwify...');
+      window.open('https://pay.kiwify.com.br/qIO4rTA?afid=RfZ43apo', '_blank');
+    }
+
+    /* COPILOTO IA */
+    var baseConhecimentoCaixa = {
+      regras_gerais: '📌 *Resumo Estratégico das Linhas Caixa (2026):*\n\n' +
+                     '• *Minha Casa Minha Vida (MCMV):* Rendas até R$ 9.600[cite: 6]. Tetos de avaliação de R$ 275 mil (Faixas 1 e 2) e R$ 400 mil (Faixa 3)[cite: 6]. Taxas de 4,25% a 7,66% ao ano[cite: 6].\n' +
+                     '• *Classe Média (Faixa 4):* Renda entre R$ 9.600,01 e R$ 13.000[cite: 6]. Teto de imóvel de até R$ 600 mil com juros fixados em 10% a.a.[cite: 6]\n' +
+                     '• *Pró-Cotista FGTS:* Sem teto de renda, exigindo pelo menos 3 anos de carteira assinada sob FGTS[cite: 6]. Imóveis até R$ 500 mil com taxa de 8,66% a.a.[cite: 6]\n' +
+                     '• *SBPE Tradicional:* Sem limite de renda, atendendo imóveis de até R$ 2,25 milhões[cite: 6]. Taxa de 10,92% a.a.[cite: 6]',
+
+      cotas_usado: '📌 *Cotas Máximas para Imóveis USADOS (Caixa 2026):*\n\n' +
+                   '• *MCMV (Faixas 1, 2 e 3):* Financia até *80%* do valor de avaliação[cite: 6].\n' +
+                   '• *Classe Média (Faixa 4):* Financia até *60%* no Sul e Sudeste, e até *80%* no Norte, Nordeste e Centro-Oeste[cite: 6].\n' +
+                   '• *Pró-Cotista FGTS:* Cota reduzida para até *60%*[cite: 6].\n' +
+                   '• *SBPE:* Libera até *80%* no SAC e até *70%* na PRICE[cite: 6].',
+
+      cotas_novo: '📌 *Cotas para Imóveis NOVOS ou NA PLANTA:*\n\n' +
+                  '• *MCMV Faixas 1 e 2:* Libera até *90%* pela tabela SAC e até *80%* na PRICE[cite: 6].\n' +
+                  '• *MCMV Faixa 3:* Financia até *80%*[cite: 6].\n' +
+                  '• *Classe Média (Faixa 4):* Financia até *80%*[cite: 6].\n' +
+                  '• *Pró-Cotista FGTS:* Cota limitada em *60%*[cite: 6].\n' +
+                  '• *SBPE:* Financia até *80%* no SAC e até *70%* na PRICE[cite: 6].',
+
+      tetos_renda: '📌 *Faixas de Renda e Tetos de Imóvel da Caixa:*\n\n' +
+                   '• *Faixa 1:* Renda bruta até R$ 2.850[cite: 6]. Imóvel até R$ 275 mil[cite: 6].\n' +
+                   '• *Faixa 2:* Renda de R$ 2.850 a R$ 5.000[cite: 6]. Imóvel até R$ 275 mil[cite: 6].\n' +
+                   '• *Faixa 3:* Renda de R$ 5.000 a R$ 9.600[cite: 6]. Imóvel até R$ 400 mil[cite: 6].\n' +
+                   '• *Faixa 4 (Classe Média):* Renda de R$ 9.600 a R$ 13.000[cite: 6]. Imóvel até R$ 600 mil[cite: 6].\n' +
+                   '• *Pró-Cotista:* Sem limite de renda[cite: 6]. Imóvel até R$ 500 mil[cite: 6].\n' +
+                   '• *SBPE:* Sem limite de renda[cite: 6]. Imóvel até R$ 2,25 milhões[cite: 6].',
+
+      regra_idade: '📌 *Regra de Idade e Prazo Limite da Caixa:*\n\n' +
+                   'O prazo bancário máximo é de 420 meses (35 anos).\n\n' +
+                   'Pela *Regra dos 80,5 Anos*, a idade do comprador mais velho somada ao prazo não pode passar de 80 anos e 6 meses no vencimento final.\n\n' +
+                   '• Cliente com 30 anos pode financiar os 35 anos completos.\n' +
+                   '• Cliente com 55 anos só pode contratar no máximo 25,5 anos (306 meses), o que encurta o prazo e eleva a parcela.',
+
+      sac_price: '📊 *Comparativo Tático: SAC vs. PRICE:*\n\n' +
+                 '• *Tabela SAC:* Parcelas decrescentes (a 1ª é a mais alta). Amortiza a dívida mais rápido e gera menos juros totais. A 1ª parcela não pode passar de 30% da renda.\n' +
+                 '• *Tabela PRICE:* Parcelas fixas do início ao fim. Como a prestação inicial é menor, permite financiar um valor maior com a mesma renda.',
+
+      link_vitrine: '📲 *Como Usar a Vitrine Interativa com o Cliente:*\n\n' +
+                    '1. Acesse a aba **Vitrine**, insira as fotos e os dados do imóvel.\n' +
+                    '2. Clique em **"🔗 Copiar Link Interativo para o Cliente"**.\n' +
+                    '3. Envie pelo WhatsApp. O comprador visualiza um carrossel limpo sem botões de corretor, com botão direto para o seu WhatsApp!',
+
+      exportar_pdf: '📄 *Como Gerar a Apresentação em PDF Profissional:*\n\n' +
+                    'Clique no botão **"📄 Baixar Apresentação em PDF (Multi-Fotos)"**. O app gera um arquivo A4 executivo: a folha 1 exibe a foto principal e ficha técnica, e as seguintes trazem as outras fotos com seu rodapé comercial.',
+
+      cliente_sumiu: '🛡️ *Táticas da Central Antissumiço para Destravar Negócios:*\n\n' +
+                     '1. **Sumiu após Simulação:** Use a opção 4 (Descarte Suave) perguntando se pode arquivar a pasta dele. O medo da perda reativa a conversa!\n' +
+                     '2. **Sumiu após a Visita:** Use a opção 5 para pedir feedback sincero sem parecer vendedor insistente.\n' +
+                     '3. **Achou Parcela Alta:** Use a opção 8 com Composição de Renda (familiar ou cônjuge) para diluir a margem.\n' +
+                     '4. **Falta de Entrada:** Use a opção 10 mostrando a diluição em até 48x com a construtora.\n' +
+                     '5. **Travou na Documentação:** Use a opção 13 criando urgência do fechamento do lote semanal da Caixa.'
+    };
+
+    function alternarCopilotoIA(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      var modal = document.getElementById('ia-copilot-modal');
+      var aberto = modal.style.display === 'flex';
+      modal.style.display = aberto ? 'none' : 'flex';
+      if (!aberto) {
+        var chat = document.getElementById('ia-chat-messages');
+        chat.scrollTop = chat.scrollHeight;
+        setTimeout(function() {
+          var input = document.getElementById('ia-user-input');
+          if (input) input.focus();
+        }, 100);
+      }
+    }
+
+    function adicionarMensagemChat(autor, texto) {
+      var chat = document.getElementById('ia-chat-messages');
+      var msgDiv = document.createElement('div');
+      msgDiv.className = 'ia-msg ' + autor;
+      msgDiv.innerText = texto;
+      chat.appendChild(msgDiv);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function executarTopicoIA(chave) {
+      var rotulos = {
+        regras_gerais: 'Quais são as regras gerais e faixas da Caixa?',
+        cotas_usado: 'Como funcionam as cotas de imóveis usados?',
+        tetos_renda: 'Quais os tetos de renda e valor de imóvel?',
+        regra_idade: 'Como funciona a regra de idade e prazo máximo?',
+        cliente_sumiu: 'Como destravar cliente travado ou sumido?',
+        link_vitrine: 'Como funciona o Link Interativo da Vitrine?',
+        exportar_pdf: 'Como funciona a Apresentação em PDF?',
+        sac_price: 'Qual a diferença prática entre tabela SAC e PRICE?'
+      };
+      adicionarMensagemChat('user', rotulos[chave] || 'Consulta');
+
+      var typing = document.getElementById('ia-typing');
+      typing.style.display = 'block';
+
+      setTimeout(function() {
+        typing.style.display = 'none';
+        if (baseConhecimentoCaixa[chave]) {
+          adicionarMensagemChat('bot', baseConhecimentoCaixa[chave]);
+        }
+      }, 350);
+    }
+
+    function gerarRespostaLocal(pergunta) {
+      var p = pergunta.toLowerCase().trim();
+
+      if (['oi', 'ola', 'olá', 'eai', 'e aí', 'opa', 'salve', 'bom dia', 'boa tarde', 'boa noite', 'como vai', 'tudo bem', 'tudo bom'].some(function(term) { return p === term || p.indexOf(term) === 0; })) {
+        var saudacoes = [
+          'Olá! Tudo excelente por aqui. Como posso ajudar com suas simulações, regras de crédito ou estratégias com clientes hoje?',
+          'Olá! Seja muito bem-vindo(a). Estou à disposição para tirar qualquer dúvida sobre a Caixa, analisar perfis de financiamento ou apoiar seus fechamentos.',
+          'Olá! Tudo bem? Vamos em frente. O que você precisa consultar sobre financiamento imobiliário ou ferramentas do app agora?'
+        ];
+        return saudacoes[Math.floor(Math.random() * saudacoes.length)];
+      }
+
+      if (['obrigado', 'obrigada', 'valeu', 'show', 'perfeito', 'excelente', 'maravilha', 'agradeço'].some(function(term) { return p.indexOf(term) !== -1; })) {
+        return 'Disponha sempre! Estou por aqui para dar todo o suporte técnico e comercial que seus atendimentos precisarem. Conte comigo!';
+      }
+
+      if (p.indexOf('quem e voce') !== -1 || p.indexOf('quem é você') !== -1 || p.indexOf('seu nome') !== -1) {
+        return 'Sou o Copiloto ImobFlow, sua inteligência executiva de apoio para crédito imobiliário Caixa, análise de viabilidade financeira e conversão de clientes.';
+      }
+
+      if (['travado', 'destravar', 'desenrolar', 'sumiu', 'sumiço', 'vácuo', 'descarte', 'bolo', 'parou de responder', 'cliente sumiu', 'como recuperar', 'objeção'].some(function(term) { return p.indexOf(term) !== -1; })) {
+        return baseConhecimentoCaixa.cliente_sumiu;
+      }
+
+      if (p.indexOf('usado') !== -1 && (p.indexOf('cota') !== -1 || p.indexOf('%') !== -1 || p.indexOf('quanto') !== -1 || p.indexOf('financia') !== -1)) {
+        return baseConhecimentoCaixa.cotas_usado;
+      }
+      if ((p.indexOf('novo') !== -1 || p.indexOf('planta') !== -1) && (p.indexOf('cota') !== -1 || p.indexOf('%') !== -1 || p.indexOf('quanto') !== -1 || p.indexOf('financia') !== -1)) {
+        return baseConhecimentoCaixa.cotas_novo;
+      }
+      if (['cota', 'cotas', 'quanto financia', 'porcentagem', 'percentual'].some(function(term) { return p.indexOf(term) !== -1; })) {
+        return '📌 *Panorama Geral de Cotas de Financiamento Caixa (2026):*\n\n' +
+               '🏢 *Imóveis Novos ou na Planta:*\n' +
+               '• MCMV Faixas 1 e 2: até *90%* pela tabela SAC (*80%* pela PRICE)[cite: 6]\n' +
+               '• MCMV Faixa 3 e Classe Média (Fx 4): até *80%*[cite: 6]\n' +
+               '• Pró-Cotista FGTS: até *60%*[cite: 6]\n' +
+               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE[cite: 6]\n\n' +
+               '🏡 *Imóveis Usados:*\n' +
+               '• MCMV: até *80%*[cite: 6]\n' +
+               '• Classe Média (Fx 4): até *60%* (Sul e Sudeste) e *80%* (demais regiões)[cite: 6]\n' +
+               '• Pró-Cotista FGTS: até *60%*[cite: 6]\n' +
+               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE[cite: 6].';
+      }
+
+      if (['teto', 'tetos', 'limite', 'faixa', 'faixas', 'renda', 'salario'].some(function(term) { return p.indexOf(term) !== -1; })) {
+        return baseConhecimentoCaixa.tetos_renda;
+      }
+
+      if (['taxa', 'taxas', 'juro', 'juros'].some(function(term) { return p.indexOf(term) !== -1; })) {
+        return '📌 *Taxas de Juros Vigentes para Cotistas Caixa (Região S/SE/CO):*\n\n' +
+               '• *MCMV Faixa 1 (até R$ 2.850):* de 4,25% a 4,50% ao ano[cite: 6].\n' +
+               '• *MCMV Faixa 2 (R$ 2.850 a R$ 5.000):* de 4,75% a 6,50% ao ano[cite: 6].\n' +
+               '• *MCMV Faixa 3 (R$ 5.000 a R$ 9.600):* 7,66% ao ano[cite: 6].\n' +
+               '• *Faixa 4 (Classe Média):* 10,00% ao ano[cite: 6].\n' +
+               '• *Pró-Cotista FGTS:* 8,66% ao ano[cite: 6].\n' +
+               '• *SBPE Tradicional:* 10,92% ao ano[cite: 6].';
+      }
+
+      if (['idade', 'prazo', '80', 'anos', 'meses', 'tempo'].some(function(term) { return p.indexOf(term) !== -1; })) {
+        return baseConhecimentoCaixa.regra_idade;
+      }
+
+      if (['sac', 'price', 'amortiz', 'tabela'].some(function(term) { return p.indexOf(term) !== -1; })) {
+        return baseConhecimentoCaixa.sac_price;
+      }
+
+      if (p.indexOf('link') !== -1 || p.indexOf('compartilhar') !== -1) {
+        return baseConhecimentoCaixa.link_vitrine;
+      }
+      if (p.indexOf('pdf') !== -1) {
+        return baseConhecimentoCaixa.exportar_pdf;
+      }
+      if (p.indexOf('png') !== -1 || p.indexOf('foto') !== -1 || p.indexOf('imagem') !== -1 || p.indexOf('card') !== -1) {
+        return '📥 *Exportação de Imagem (PNG):*\n\nBasta tocar em **"📥 Baixar Card em Imagem (PNG)"** na aba Vitrine. O aplicativo gera um arquivo de alta definição pronto para postar nos Stories, WhatsApp Status ou enviar em grupos com layout profissional!';
+      }
+      if (p.indexOf('documento') !== -1 || p.indexOf('docs') !== -1) {
+        return '📑 *Checklist Básico para Aprovação de Crédito Caixa:*\n\n' +
+               '• Documento oficial com foto (RG/CNH)\n' +
+               '• Comprovante de estado civil atualizado\n' +
+               '• Comprovante de residência atual (últimos 60 dias)\n' +
+               '• Comprovante de renda (3 últimos holerites ou extrato bancário de 6 meses para autônomos)\n' +
+               '• Carteira de Trabalho física ou digital + Extrato analítico do FGTS.';
+      }
+
+      return 'Perfeito! Posso detalhar qualquer ponto da sua rotina imobiliária. Você deseja:\n\n' +
+             '1. Consultar cotas e limites exatos de financiamento (Planta, Novo ou Usado)?\n' +
+             '2. Entender os tetos de renda e juros do MCMV, Faixa 4 ou SBPE?\n' +
+             '3. Aplicar os scripts da central Antissumiço para reativar um cliente travado?\n' +
+             '4. Ver como gerar o Link Interativo ou o PDF da Vitrine?\n\n' +
+             'Basta me dizer qual é o cenário do seu atendimento agora!';
+    }
+
+    async function processarRespostaIA(pergunta) {
+      var typing = document.getElementById('ia-typing');
+      typing.style.display = 'block';
+
+      var apiKey = localStorage.getItem('imobflow_gemini_key') || '';
+
+      if (apiKey) {
+        try {
+          var systemPrompt = 'Você é o Copiloto ImobFlow, um consultor imobiliário de elite e correspondente bancário sênior da Caixa Econômica Federal. ' +
+                             'Seu tom é seguro, profissional, acolhedor e altamente técnico, tratando o interlocutor de forma neutra. ' +
+                             'Você domina: regras Caixa 2026 (MCMV faixas 1 a 3 com tetos de 275k e 400k; Faixa 4 até 600k com 10% a.a.; Pró-cotista até 500k com 8.66% a.a.; SBPE até 2.25M com 10.92% a.a.), ' +
+                             'cotas de novos/planta (até 90% SAC no MCMV 1 e 2; 80% nos demais) e usados (80% MCMV; 60% S/SE na faixa 4 e pró-cotista; 80% SAC e 70% Price no SBPE), ' +
+                             'regra de idade (idade + prazo <= 80,5 anos), SAC vs PRICE, e as funções do app ImobFlow (Vitrine com link público ?v= e PDF multi-páginas, Qualificador e Scripts Antissumiço com 15 opções). ' +
+                             'Seja comunicativo, falador, consultivo e focado em apoiar o corretor a fechar negócio.';
+
+          var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey;
+          var bodyPayload = {
+            contents: [
+              { role: 'user', parts: [{ text: systemPrompt + '\n\nPergunta do corretor: ' + pergunta }] }
+            ]
+          };
+
+          var response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bodyPayload)
+          });
+
+          var data = await response.json();
+          typing.style.display = 'none';
+
+          if (data && data.candidates && data.candidates[0] && data.candidates[0].content) {
+            var respostaTexto = data.candidates[0].content.parts[0].text;
+            adicionarMensagemChat('bot', respostaTexto);
+            return;
+          }
+        } catch(err) {}
+      }
+
+      setTimeout(function() {
+        typing.style.display = 'none';
+        var respostaLocal = gerarRespostaLocal(pergunta);
+        adicionarMensagemChat('bot', respostaLocal);
+      }, 350);
+    }
+
+    function enviarMensagemCopiloto() {
+      var input = document.getElementById('ia-user-input');
+      var val = input.value.trim();
+      if (!val) return;
+      adicionarMensagemChat('user', val);
+      input.value = '';
+      processarRespostaIA(val);
+    }
+
+    /* INICIALIZAÇÃO */
+    window.onload = function() {
+      checarStatusAcesso();
+
+      var savedTheme = localStorage.getItem('imobflow_theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        var themeText = document.getElementById('theme-status-text');
+        if (themeText) themeText.innerText = 'Claro (Ativo)';
+      }
+
+      var savedName = localStorage.getItem('imobflow_user_name');
+      var savedPhone = localStorage.getItem('imobflow_user_phone');
+      if (savedName) {
+        var elAgent = document.getElementById('prop-agent');
+        if (elAgent) elAgent.value = savedName;
+      }
+      if (savedPhone) {
+        var elPhone = document.getElementById('prop-phone');
+        if (elPhone) elPhone.value = savedPhone;
+      }
+
+      atualizarVitrineCard();
+
+      var urlParams = new URLSearchParams(window.location.search);
+      var vitrinePayload = urlParams.get('v');
+
+      if (vitrinePayload) {
+        try {
+          var payload = JSON.parse(decodeURIComponent(escape(atob(vitrinePayload))));
+          document.getElementById('prop-title').value = payload.t || '';
+          document.getElementById('prop-price').value = payload.p || '';
+          document.getElementById('prop-location').value = payload.l || '';
+          document.getElementById('prop-agent').value = payload.a || '';
+          document.getElementById('prop-phone').value = payload.ph || '';
+          document.getElementById('prop-features').value = payload.f || '';
+          atualizarVitrineCard();
+
+          irParaAba('vitrine');
+          document.getElementById('vitrine-form-card').style.display = 'none';
+          document.getElementById('app-header').style.display = 'none';
+          document.getElementById('app-nav').style.display = 'none';
+          document.getElementById('ia-copilot-trigger').style.display = 'none';
+
+          var brokerActions = document.getElementById('vitrine-broker-actions');
+          if (brokerActions) brokerActions.style.display = 'none';
+
+          var btnFloat = document.getElementById('btn-lead-whatsapp-float');
+          var numLimpo = (payload.ph || '').replace(/\D/g, '');
+          if (numLimpo) {
+            btnFloat.style.display = 'block';
+            btnFloat.href = 'https://wa.me/55' + numLimpo + '?text=' + encodeURIComponent('Olá! Vi o imóvel ' + payload.t + ' e gostaria de mais informações.');
+          }
+        } catch(e) {}
+      }
+    };
+  </script>
+</body>
+</html>
