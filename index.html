@@ -1,4 +1,3 @@
-            
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -59,7 +58,7 @@
     .btn-planos { background: var(--border-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
     .btn-gear { background: var(--border-color); border: 1px solid var(--border-color); color: var(--text-main); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; }
 
-    /* Banner Sutil de Trial Ativo */
+    /* Banner Trial */
     #trial-banner { background: var(--primary-color); color: var(--primary-text); font-size: 11px; font-weight: 800; padding: 6px 12px; text-align: center; display: none; }
 
     /* Container Principal */
@@ -93,7 +92,7 @@
     .btn-purple { background: #8b5cf6; color: #ffffff; margin-top: 10px; }
     .btn-danger { background: #ef4444; color: #ffffff; margin-top: 10px; }
 
-    /* Resultados */
+    /* Caixa de Resultados Corrigida (8 Blocos Simétricos) */
     .result-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
     .result-title { font-size: 11px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
     .result-status { font-size: 12px; color: var(--text-main); margin-bottom: 12px; line-height: 1.4; }
@@ -144,7 +143,7 @@
     .toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%) translateY(20px); background: #10b981; color: #020617; padding: 10px 18px; border-radius: 8px; font-size: 12px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 10005; max-width: 90%; text-align: center; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* MODAL DE CONFIGURAÇÕES / PERFIL / TRIAL */
+    /* Modais */
     #settings-modal, #profile-modal, #trial-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center; padding: 16px; }
     .modal-sheet { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; width: 100%; max-width: 420px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
     .modal-header { background: var(--bg-input); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
@@ -157,7 +156,7 @@
     .settings-list-item span { font-size: 11px; color: var(--text-muted); }
     .settings-btn-link { background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
 
-    /* COPILOTO IA FLUTUANTE */
+    /* Copiloto IA */
     #ia-copilot-trigger { position: fixed; right: 16px; bottom: 82px; background: var(--copilot-bg); color: #ffffff; font-size: 12px; font-weight: 800; padding: 10px 14px; border-radius: 30px; display: flex; align-items: center; gap: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 9999; cursor: pointer; border: none; user-select: none; }
     #ia-copilot-modal { display: none; position: fixed; right: 12px; bottom: 80px; width: calc(100% - 24px); max-width: 420px; height: 510px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; z-index: 10000; flex-direction: column; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.85); }
     .ia-header { background: var(--bg-input); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
@@ -183,7 +182,7 @@
 </head>
 <body>
 
-  <!-- Banner do Trial de 14 Dias (Aparece apenas quando ativado) -->
+  <!-- Banner do Trial de 14 Dias -->
   <div id="trial-banner">⏳ Período de Testes Ativo: <span id="trial-days-left">14 dias restantes</span>. Aproveite todos os recursos!</div>
 
   <!-- Topbar -->
@@ -211,7 +210,7 @@
           <h2 class="card-title">⚡ Estudo de Financiamento</h2>
           <span class="pill" id="badge-tipo-linha">MCMV (Caixa)</span>
         </div>
-        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel).</p>
+        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel)[span_1](start_span)[span_1](end_span).</p>
 
         <span class="selector-label">Tipo do Imóvel:</span>
         <div class="pill-group">
@@ -258,6 +257,7 @@
         <button type="button" onclick="calcularFinanciamento(true)" class="btn-action btn-emerald">⚡ Calcular Financiamento</button>
       </div>
 
+      <!-- DIAGNÓSTICO BANCÁRIO COMPLETO COM OS 8 BLOCOS SIMÉTRICOS -->
       <div class="result-box">
         <div class="result-title">✔ Diagnóstico Bancário de Aprovação</div>
         <p id="res-status" class="result-status">Preencha os dados acima para simular.</p>
@@ -296,7 +296,7 @@
           </div>
         </div>
         <button type="button" onclick="copiarResumoWhatsApp()" class="btn-action btn-secondary">Copiar Resumo p/ WhatsApp</button>
-        <p class="disclaimer">Cálculo alinhado à tabela oficial da Caixa (taxas cotistas S/SE/CO e limites de cota por modalidade).</p>
+        <p class="disclaimer">Cálculo alinhado à tabela oficial da Caixa (taxas cotistas S/SE/CO e limites de cota por modalidade)[span_2](start_span)[span_2](end_span).</p>
       </div>
     </section>
 
@@ -448,7 +448,7 @@
           <h2 class="card-title" style="color:var(--primary-color);">🎁 Teste Grátis de 14 Dias</h2>
           <span class="pill" style="color:#10b981; font-weight:800;">1 Por Aparelho</span>
         </div>
-        <p class="card-desc">Libere acesso irrestrito ao Qualificador Caixa, Central Antissumiço, Vitrine e Copiloto IA. Cadastre seu cartão e cancele a qualquer momento sem custos.</p>
+        <p class="card-desc">Libere acesso irrestrito ao Qualificador Caixa, Central Antissumiço, Vitrine e Copiloto IA. Cadastre seu cartão e cancele a qualquer momento sem cobranças.</p>
         <button type="button" id="btn-iniciar-trial" onclick="abrirModalTrial()" class="btn-action btn-emerald">🚀 Iniciar Meus 14 Dias Grátis</button>
       </div>
 
@@ -628,7 +628,7 @@
       <div class="ia-msg bot">
         Olá! Sou seu assistente no ImobFlow.
 
-        Posso ajudar com regras de crédito da Caixa (cotas, tetos e taxas), como usar cada recurso do app ou técnicas para destravar negociações com clientes. O que você precisa no momento?
+        Posso ajudar com regras de crédito da Caixa (cotas, tetos e taxas)[span_3](start_span)[span_3](end_span), como usar cada recurso do app ou técnicas para destravar negociações com clientes. O que você precisa no momento?
       </div>
     </div>
     <span id="ia-typing" class="ia-typing-indicator">Copiloto digitando...</span>
@@ -1024,7 +1024,7 @@
       calcularFinanciamento(false);
     }
 
-    /* MOTOR DE CÁLCULO ASSERTIVO */
+    /* MOTOR DE CÁLCULO ASSERTIVO COM TODOS OS 8 CAMPOS */
     function calcularFinanciamento(comAviso) {
       var imovelEl = document.getElementById('calc-imovel');
       var rendaEl = document.getElementById('calc-income');
@@ -1040,10 +1040,10 @@
       if (renda <= 0 || valorImovel <= 0) {
         statusEl.innerText = 'Preencha o valor do imóvel e a renda para simular.';
         document.getElementById('res-prazo').innerText = '—';
+        document.getElementById('res-parcela').innerText = '—';
         document.getElementById('res-taxa').innerText = '—';
         document.getElementById('res-capacidade').innerText = '—';
         document.getElementById('res-financiamento').innerText = '—';
-        document.getElementById('res-parcela').innerText = '—';
         document.getElementById('res-entrada').innerText = '—';
         document.getElementById('res-fgts').innerText = '—';
         document.getElementById('res-margem').innerText = '—';
@@ -1533,31 +1533,31 @@
     /* COPILOTO IA */
     var baseConhecimentoCaixa = {
       regras_gerais: '📌 *Resumo Estratégico das Linhas Caixa (2026):*\n\n' +
-                     '• *Minha Casa Minha Vida (MCMV):* Rendas até R$ 9.600. Tetos de avaliação de R$ 275 mil (Faixas 1 e 2) e R$ 400 mil (Faixa 3). Taxas de 4,25% a 7,66% ao ano.\n' +
-                     '• *Classe Média (Faixa 4):* Renda entre R$ 9.600,01 e R$ 13.000. Teto de imóvel de até R$ 600 mil com juros fixados em 10% a.a.\n' +
-                     '• *Pró-Cotista FGTS:* Sem teto de renda, exigindo pelo menos 3 anos de carteira assinada sob FGTS. Imóveis até R$ 500 mil com taxa de 8,66% a.a.\n' +
-                     '• *SBPE Tradicional:* Sem limite de renda, atendendo imóveis de até R$ 2,25 milhões. Taxa de 10,92% a.a.',
+                     '• *Minha Casa Minha Vida (MCMV):* Rendas até R$ 9.600[span_4](start_span)[span_4](end_span). Tetos de avaliação de R$ 275 mil (Faixas 1 e 2) e R$ 400 mil (Faixa 3)[span_5](start_span)[span_5](end_span). Taxas de 4,25% a 7,66% ao ano[span_6](start_span)[span_6](end_span).\n' +
+                     '• *Classe Média (Faixa 4):* Renda entre R$ 9.600,01 e R$ 13.000[span_7](start_span)[span_7](end_span). Teto de imóvel de até R$ 600 mil com juros fixados em 10% a.a.[span_8](start_span)[span_8](end_span)\n' +
+                     '• *Pró-Cotista FGTS:* Sem teto de renda, exigindo pelo menos 3 anos de carteira assinada sob FGTS[span_9](start_span)[span_9](end_span). Imóveis até R$ 500 mil com taxa de 8,66% a.a.[span_10](start_span)[span_10](end_span)\n' +
+                     '• *SBPE Tradicional:* Sem limite de renda, atendendo imóveis de até R$ 2,25 milhões[span_11](start_span)[span_11](end_span). Taxa de 10,92% a.a.[span_12](start_span)[span_12](end_span)',
 
       cotas_usado: '📌 *Cotas Máximas para Imóveis USADOS (Caixa 2026):*\n\n' +
-                   '• *MCMV (Faixas 1, 2 e 3):* Financia até *80%* do valor de avaliação.\n' +
-                   '• *Classe Média (Faixa 4):* Financia até *60%* no Sul e Sudeste, e até *80%* no Norte, Nordeste e Centro-Oeste.\n' +
-                   '• *Pró-Cotista FGTS:* Cota reduzida para até *60%*.\n' +
-                   '• *SBPE:* Libera até *80%* no SAC e até *70%* na PRICE.',
+                   '• *MCMV (Faixas 1, 2 e 3):* Financia até *80%* do valor de avaliação[span_13](start_span)[span_13](end_span).\n' +
+                   '• *Classe Média (Faixa 4):* Financia até *60%* no Sul e Sudeste, e até *80%* no Norte, Nordeste e Centro-Oeste[span_14](start_span)[span_14](end_span).\n' +
+                   '• *Pró-Cotista FGTS:* Cota reduzida para até *60%*[span_15](start_span)[span_15](end_span).\n' +
+                   '• *SBPE:* Libera até *80%* no SAC e até *70%* na PRICE[span_16](start_span)[span_16](end_span).',
 
       cotas_novo: '📌 *Cotas para Imóveis NOVOS ou NA PLANTA:*\n\n' +
-                  '• *MCMV Faixas 1 e 2:* Libera até *90%* pela tabela SAC e até *80%* na PRICE.\n' +
-                  '• *MCMV Faixa 3:* Financia até *80%*.\n' +
-                  '• *Classe Média (Faixa 4):* Financia até *80%*.\n' +
-                  '• *Pró-Cotista FGTS:* Cota limitada em *60%*.\n' +
-                  '• *SBPE:* Financia até *80%* no SAC e até *70%* na PRICE.',
+                  '• *MCMV Faixas 1 e 2:* Libera até *90%* pela tabela SAC e até *80%* na PRICE[span_17](start_span)[span_17](end_span).\n' +
+                  '• *MCMV Faixa 3:* Financia até *80%*[span_18](start_span)[span_18](end_span).\n' +
+                  '• *Classe Média (Faixa 4):* Financia até *80%*[span_19](start_span)[span_19](end_span).\n' +
+                  '• *Pró-Cotista FGTS:* Cota limitada em *60%*[span_20](start_span)[span_20](end_span).\n' +
+                  '• *SBPE:* Financia até *80%* no SAC e até *70%* na PRICE[span_21](start_span)[span_21](end_span).',
 
       tetos_renda: '📌 *Faixas de Renda e Tetos de Imóvel da Caixa:*\n\n' +
-                   '• *Faixa 1:* Renda bruta até R$ 2.850. Imóvel até R$ 275 mil.\n' +
-                   '• *Faixa 2:* Renda de R$ 2.850 a R$ 5.000. Imóvel até R$ 275 mil.\n' +
-                   '• *Faixa 3:* Renda de R$ 5.000 a R$ 9.600. Imóvel até R$ 400 mil.\n' +
-                   '• *Faixa 4 (Classe Média):* Renda de R$ 9.600 a R$ 13.000. Imóvel até R$ 600 mil.\n' +
-                   '• *Pró-Cotista:* Sem limite de renda. Imóvel até R$ 500 mil.\n' +
-                   '• *SBPE:* Sem limite de renda. Imóvel até R$ 2,25 milhões.',
+                   '• *Faixa 1:* Renda bruta até R$ 2.850[span_22](start_span)[span_22](end_span). Imóvel até R$ 275 mil[span_23](start_span)[span_23](end_span).\n' +
+                   '• *Faixa 2:* Renda de R$ 2.850 a R$ 5.000[span_24](start_span)[span_24](end_span). Imóvel até R$ 275 mil[span_25](start_span)[span_25](end_span).\n' +
+                   '• *Faixa 3:* Renda de R$ 5.000 a R$ 9.600[span_26](start_span)[span_26](end_span). Imóvel até R$ 400 mil[span_27](start_span)[span_27](end_span).\n' +
+                   '• *Faixa 4 (Classe Média):* Renda de R$ 9.600 a R$ 13.000[span_28](start_span)[span_28](end_span). Imóvel até R$ 600 mil[span_29](start_span)[span_29](end_span).\n' +
+                   '• *Pró-Cotista:* Sem limite de renda[span_30](start_span)[span_30](end_span). Imóvel até R$ 500 mil[span_31](start_span)[span_31](end_span).\n' +
+                   '• *SBPE:* Sem limite de renda[span_32](start_span)[span_32](end_span). Imóvel até R$ 2,25 milhões[span_33](start_span)[span_33](end_span).',
 
       regra_idade: '📌 *Regra de Idade e Prazo Limite da Caixa:*\n\n' +
                    'O prazo bancário máximo é de 420 meses (35 anos).\n\n' +
@@ -1667,15 +1667,15 @@
       if (['cota', 'cotas', 'quanto financia', 'porcentagem', 'percentual'].some(function(term) { return p.indexOf(term) !== -1; })) {
         return '📌 *Panorama Geral de Cotas de Financiamento Caixa (2026):*\n\n' +
                '🏢 *Imóveis Novos ou na Planta:*\n' +
-               '• MCMV Faixas 1 e 2: até *90%* pela tabela SAC (*80%* pela PRICE)\n' +
-               '• MCMV Faixa 3 e Classe Média (Fx 4): até *80%*\n' +
-               '• Pró-Cotista FGTS: até *60%*\n' +
-               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE\n\n' +
+               '• MCMV Faixas 1 e 2: até *90%* pela tabela SAC (*80%* pela PRICE)[span_34](start_span)[span_34](end_span)\n' +
+               '• MCMV Faixa 3 e Classe Média (Fx 4): até *80%*[span_35](start_span)[span_35](end_span)\n' +
+               '• Pró-Cotista FGTS: até *60%*[span_36](start_span)[span_36](end_span)\n' +
+               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE[span_37](start_span)[span_37](end_span)\n\n' +
                '🏡 *Imóveis Usados:*\n' +
-               '• MCMV: até *80%*\n' +
-               '• Classe Média (Fx 4): até *60%* (Sul e Sudeste) e *80%* (demais regiões)\n' +
-               '• Pró-Cotista FGTS: até *60%*\n' +
-               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE.';
+               '• MCMV: até *80%*[span_38](start_span)[span_38](end_span)\n' +
+               '• Classe Média (Fx 4): até *60%* (Sul e Sudeste) e *80%* (demais regiões)[span_39](start_span)[span_39](end_span)\n' +
+               '• Pró-Cotista FGTS: até *60%*[span_40](start_span)[span_40](end_span)\n' +
+               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE[span_41](start_span)[span_41](end_span).';
       }
 
       if (['teto', 'tetos', 'limite', 'faixa', 'faixas', 'renda', 'salario'].some(function(term) { return p.indexOf(term) !== -1; })) {
@@ -1684,12 +1684,12 @@
 
       if (['taxa', 'taxas', 'juro', 'juros'].some(function(term) { return p.indexOf(term) !== -1; })) {
         return '📌 *Taxas de Juros Vigentes para Cotistas Caixa (Região S/SE/CO):*\n\n' +
-               '• *MCMV Faixa 1 (até R$ 2.850):* de 4,25% a 4,50% ao ano.\n' +
-               '• *MCMV Faixa 2 (R$ 2.850 a R$ 5.000):* de 4,75% a 6,50% ao ano.\n' +
-               '• *MCMV Faixa 3 (R$ 5.000 a R$ 9.600):* 7,66% ao ano.\n' +
-               '• *Faixa 4 (Classe Média):* 10,00% ao ano.\n' +
-               '• *Pró-Cotista FGTS:* 8,66% ao ano.\n' +
-               '• *SBPE Tradicional:* 10,92% ao ano.';
+               '• *MCMV Faixa 1 (até R$ 2.850):* de 4,25% a 4,50% ao ano[span_42](start_span)[span_42](end_span).\n' +
+               '• *MCMV Faixa 2 (R$ 2.850 a R$ 5.000):* de 4,75% a 6,50% ao ano[span_43](start_span)[span_43](end_span).\n' +
+               '• *MCMV Faixa 3 (R$ 5.000 a R$ 9.600):* 7,66% ao ano[span_44](start_span)[span_44](end_span).\n' +
+               '• *Faixa 4 (Classe Média):* 10,00% ao ano[span_45](start_span)[span_45](end_span).\n' +
+               '• *Pró-Cotista FGTS:* 8,66% ao ano[span_46](start_span)[span_46](end_span).\n' +
+               '• *SBPE Tradicional:* 10,92% ao ano[span_47](start_span)[span_47](end_span).';
       }
 
       if (['idade', 'prazo', '80', 'anos', 'meses', 'tempo'].some(function(term) { return p.indexOf(term) !== -1; })) {
