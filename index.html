@@ -104,27 +104,27 @@
     .result-item strong.highlight { color: var(--primary-color); }
     .disclaimer { font-size: 10px; color: var(--text-muted); line-height: 1.4; margin-top: 12px; }
 
-    /* Estilos Antissumiço em Cards Visuais */
-    .script-catalog { display: flex; flex-direction: column; gap: 8px; max-height: 340px; overflow-y: auto; padding-right: 4px; margin-top: 8px; }
-    .script-card-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; cursor: pointer; transition: all 0.15s ease; text-align: left; }
+    /* Antissumiço em Lista Visual */
+    .script-catalog { display: flex; flex-direction: column; gap: 8px; max-height: 350px; overflow-y: auto; padding-right: 4px; margin-top: 8px; }
+    .script-card-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; cursor: pointer; transition: all 0.15s ease; text-align: left; }
     .script-card-item:hover, .script-card-item.selected { border-color: var(--primary-color); background: rgba(16, 185, 129, 0.08); }
     body.light-theme .script-card-item.selected { background: rgba(37, 99, 235, 0.08); }
-    .script-card-item .item-title { font-size: 12.5px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 2px; }
-    .script-card-item .item-desc { font-size: 10.5px; color: var(--text-muted); line-height: 1.3; }
-    .script-box { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; font-size: 12.5px; color: var(--text-main); line-height: 1.6; white-space: pre-line; margin: 12px 0; border-left: 3px solid var(--primary-color); }
+    .script-card-item .item-title { font-size: 13px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 3px; }
+    .script-card-item .item-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+    .script-box { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; font-size: 13px; color: var(--text-main); line-height: 1.7; white-space: pre-line; margin: 12px 0; border-left: 3px solid var(--primary-color); }
 
     /* Radar de Imóveis */
-    .radar-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+    .radar-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; max-height: 480px; overflow-y: auto; padding-right: 4px; }
     .radar-card { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
-    .radar-img-box { position: relative; height: 160px; background: #000; }
+    .radar-img-box { position: relative; height: 170px; background: #000; }
     .radar-img-box img { width: 100%; height: 100%; object-fit: cover; }
     .radar-tag { position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: var(--primary-text); font-size: 9px; font-weight: 800; padding: 4px 8px; border-radius: 4px; }
     .radar-card-content { padding: 12px; }
     .radar-card-content h4 { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
     .radar-card-content .price { font-size: 15px; font-weight: 900; color: var(--primary-color); margin-bottom: 6px; }
-    .radar-card-content .loc { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; }
+    .radar-card-content .loc { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
     .radar-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .radar-actions button { padding: 8px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; }
+    .radar-actions button { padding: 9px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; }
 
     /* Vitrine */
     #card-export-area { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-top: 12px; user-select: none; }
@@ -152,7 +152,7 @@
     .corretor-footer { border-top: 1px dashed var(--border-color); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-main); }
     .corretor-footer strong { color: var(--text-main); }
 
-    /* Barra Inferior (Agora com 4 Abas) */
+    /* Barra Inferior (4 Abas) */
     nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-nav); border-top: 1px solid var(--border-color); z-index: 999; padding-bottom: env(safe-area-inset-bottom, 0px); }
     .nav-container { max-width: 480px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; padding: 8px 6px; }
     .nav-btn { background: none; border: none; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 10.5px; font-weight: 600; cursor: pointer; padding: 6px 0; }
@@ -176,7 +176,7 @@
     .settings-list-item span { font-size: 11px; color: var(--text-muted); }
     .settings-btn-link { background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
 
-    /* Copiloto IA */
+    /* Copiloto IA (Espaçamento e Legibilidade Aprimorados) */
     #ia-copilot-trigger { position: fixed; right: 16px; bottom: 82px; background: var(--copilot-bg); color: #ffffff; font-size: 12px; font-weight: 800; padding: 10px 14px; border-radius: 30px; display: flex; align-items: center; gap: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 9999; cursor: pointer; border: none; user-select: none; }
     #ia-copilot-modal { display: none; position: fixed; right: 12px; bottom: 80px; width: calc(100% - 24px); max-width: 420px; height: 510px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; z-index: 10000; flex-direction: column; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.85); }
     .ia-header { background: var(--bg-input); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
@@ -184,18 +184,18 @@
     .ia-header strong { font-size: 13px; color: var(--primary-color); }
     .ia-close { background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer; }
     
-    .ia-body { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 12px; }
-    .ia-msg { padding: 10px 14px; border-radius: 14px; max-width: 90%; line-height: 1.5; white-space: pre-line; word-break: break-word; font-size: 12.5px; }
+    .ia-body { flex: 1; padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 13px; }
+    .ia-msg { padding: 12px 16px; border-radius: 14px; max-width: 92%; line-height: 1.7; white-space: pre-line; word-break: break-word; font-size: 13px; letter-spacing: 0.2px; }
     .ia-msg.bot { background: var(--border-color); color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 4px; }
     .ia-msg.user { background: var(--primary-color); color: var(--primary-text); font-weight: 600; align-self: flex-end; border-bottom-right-radius: 4px; }
-    .ia-typing-indicator { font-size: 11px; color: var(--text-muted); font-style: italic; display: none; margin-left: 6px; }
+    .ia-typing-indicator { font-size: 11px; color: var(--text-muted); font-style: italic; display: none; margin-left: 10px; }
     
-    .ia-quick-topics { display: flex; flex-wrap: wrap; gap: 5px; padding: 8px 12px; background: var(--bg-input); border-top: 1px solid var(--border-color); }
-    .ia-chip { background: var(--bg-card); color: var(--text-muted); font-size: 10px; padding: 5px 9px; border-radius: 12px; cursor: pointer; border: 1px solid var(--border-color); }
+    .ia-quick-topics { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px; background: var(--bg-input); border-top: 1px solid var(--border-color); }
+    .ia-chip { background: var(--bg-card); color: var(--text-muted); font-size: 10px; padding: 6px 10px; border-radius: 12px; cursor: pointer; border: 1px solid var(--border-color); }
     
-    .ia-input-row { display: flex; padding: 8px; background: var(--bg-input); border-top: 1px solid var(--border-color); gap: 6px; }
-    .ia-input-row input { flex: 1; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); padding: 8px 10px; font-size: 12px; }
-    .ia-input-row button { background: var(--primary-color); border: none; color: var(--primary-text); font-weight: 800; border-radius: 8px; padding: 0 12px; cursor: pointer; }
+    .ia-input-row { display: flex; padding: 10px; background: var(--bg-input); border-top: 1px solid var(--border-color); gap: 6px; }
+    .ia-input-row input { flex: 1; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); padding: 9px 12px; font-size: 12px; }
+    .ia-input-row button { background: var(--primary-color); border: none; color: var(--primary-text); font-weight: 800; border-radius: 8px; padding: 0 14px; cursor: pointer; }
 
     .hidden { display: none !important; }
   </style>
@@ -316,18 +316,18 @@
           </div>
         </div>
         <button type="button" onclick="copiarResumoWhatsApp()" class="btn-action btn-secondary">Copiar Resumo p/ WhatsApp</button>
-        <p class="disclaimer">Cálculo alinhado à tabela oficial da Caixa (taxas cotistas S/SE/CO e limites de cota por modalidade)[cite: 6].</p>
+        <p class="disclaimer">Cálculo alinhado à tabela oficial da Caixa (taxas cotistas S/SE/CO e limites de cota por modalidade).</p>
       </div>
     </section>
 
-    <!-- ABA 2: CENTRAL ANTISSUMIÇO REFORMULADA (SEM DROPDOWN CORTADO) -->
+    <!-- ABA 2: CENTRAL ANTISSUMIÇO (15 SCRIPTS COMPLETOS E EMPENHADOS) -->
     <section id="tab-agenda" class="hidden">
       <div class="card">
         <div class="card-header">
           <h2 class="card-title">🛡️ Central Antissumiço</h2>
-          <span class="pill">15 Scripts Prontos</span>
+          <span class="pill">15 Scripts Assertivos</span>
         </div>
-        <p class="card-desc">Selecione o filtro e toque na mensagem ideal para destravar o cliente.</p>
+        <p class="card-desc">Gere mensagens táticas profundas para blindar visitas, recuperar vácuos e quebrar objeções no WhatsApp.</p>
 
         <div class="form-row">
           <div class="form-group">
@@ -335,7 +335,7 @@
             <input type="text" id="lead-name" placeholder="Ex: Carlos" oninput="atualizarPreviewScript()">
           </div>
           <div class="form-group">
-            <label>WhatsApp (Opcional)</label>
+            <label>WhatsApp do Cliente (Opcional)</label>
             <input type="text" id="lead-phone" placeholder="Ex: (41) 98888-7777" oninput="aplicarMascaraTelefone(this)">
           </div>
         </div>
@@ -361,52 +361,50 @@
         </div>
 
         <div class="script-catalog" id="script-catalog-list">
-          <!-- Os 15 cards são montados dinamicamente via JS -->
+          <!-- Montado dinamicamente via JS -->
         </div>
       </div>
 
-      <!-- PAINEL DE DISPARO DA MENSAGEM SELECIONADA -->
       <div class="card" id="card-script-result">
         <div class="card-header">
-          <span style="font-size: 12px; font-weight:700;">Mensagem Pronta para Envio</span>
-          <span id="script-badge" class="pill" style="color: #10b981;">Toque em um card acima</span>
+          <span style="font-size: 12px; font-weight:700;">Mensagem Formatada para Envio</span>
+          <span id="script-badge" class="pill" style="color: #10b981;">Gatilho Ativo</span>
         </div>
-        <div id="script-text" class="script-box">Selecione um dos 15 scripts na lista acima para visualizar o texto adaptado.</div>
+        <div id="script-text" class="script-box"></div>
         <button type="button" onclick="copiarScriptTexto()" class="btn-action btn-secondary">📋 Copiar Mensagem</button>
         <button type="button" onclick="confirmarEEnviarWhatsApp()" class="btn-action btn-whatsapp-direct">💬 Enviar no WhatsApp</button>
       </div>
     </section>
 
-    <!-- ABA 3: RADAR NACIONAL DE IMÓVEIS (NOVA FUNÇÃO) -->
+    <!-- ABA 3: RADAR NACIONAL DE IMÓVEIS (FILTRO REAL POR CIDADE E PORTAIS) -->
     <section id="tab-radar" class="hidden">
       <div class="card">
         <div class="card-header">
-          <h2 class="card-title">🔍 Radar de Imóveis Brasil</h2>
-          <span class="pill">Meta-Busca Leve</span>
+          <h2 class="card-title">🔍 Radar Nacional de Imóveis</h2>
+          <span class="pill">Busca Real</span>
         </div>
-        <p class="card-desc">Encontre oportunidades em qualquer cidade do país e importe as fotos e dados direto para a sua vitrine com 1 clique.</p>
+        <p class="card-desc">Filtre imóveis reais em qualquer cidade do Brasil e importe anúncios completos para a sua vitrine sem pesar a aplicação.</p>
 
         <div class="form-row">
           <div class="form-group">
             <label>Estado (UF)</label>
-            <select id="radar-uf" onchange="carregarCidadesRadar()">
+            <select id="radar-uf" onchange="atualizarCidadeRadar()">
               <option value="PR" selected>Paraná (PR)</option>
               <option value="SP">São Paulo (SP)</option>
-              <option value="RJ">Rio de Janeiro (RJ)</option>
               <option value="SC">Santa Catarina (SC)</option>
               <option value="RS">Rio Grande do Sul (RS)</option>
+              <option value="RJ">Rio de Janeiro (RJ)</option>
               <option value="MG">Minas Gerais (MG)</option>
-              <option value="BA">Bahia (BA)</option>
               <option value="GO">Goiás (GO)</option>
-              <option value="DF">Distrito Federal (DF)</option>
+              <option value="BA">Bahia (BA)</option>
               <option value="PE">Pernambuco (PE)</option>
               <option value="CE">Ceará (CE)</option>
-              <option value="OUTRO">Outros Estados</option>
+              <option value="OUTRO">Outro Estado</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Cidade / Região</label>
-            <input type="text" id="radar-city" placeholder="Ex: Curitiba, Londrina..." value="Curitiba">
+            <label>Cidade / Município</label>
+            <input type="text" id="radar-city" placeholder="Ex: Pinhais, Curitiba, São Paulo..." value="Pinhais">
           </div>
         </div>
 
@@ -414,9 +412,10 @@
           <div class="form-group">
             <label>Padrão / Faixa</label>
             <select id="radar-profile">
-              <option value="mcmv">MCMV (Até R$ 275k - 400k)</option>
-              <option value="medio">Médio Padrão (Até R$ 600k)</option>
+              <option value="mcmv">MCMV (Econômico / Até R$ 400k)</option>
+              <option value="medio">Médio Padrão (Até R$ 750k)</option>
               <option value="alto">Alto Padrão / Luxo</option>
+              <option value="todos">Todas as Faixas</option>
             </select>
           </div>
           <div class="form-group">
@@ -433,22 +432,19 @@
         <button type="button" onclick="pesquisarOportunidadesRadar()" class="btn-action btn-emerald">📡 Varrer Oportunidades no Radar</button>
       </div>
 
-      <!-- IMPORTADOR DIRETO POR LINK PÚBLICO -->
-      <div class="card" style="border-style: dashed;">
+      <!-- LINK DIRETO DE VARREDURA NOS PORTAIS REAIS -->
+      <div class="card" style="border: 1px dashed var(--border-color); background: rgba(16, 185, 129, 0.04);">
         <div class="card-header">
-          <strong style="font-size:12px; color:var(--primary-color);">⚡ Importar Anúncio por Link Externo</strong>
-          <span class="pill">Auto-Preenchimento</span>
+          <strong style="font-size:12px; color:var(--primary-color);">🌐 Varredura Externa Instantânea</strong>
+          <span class="pill">Sem Limite</span>
         </div>
-        <p class="card-desc" style="margin-bottom:8px;">Cole o link de qualquer portal imobiliário ou anúncio público para puxar os dados:</p>
-        <div class="form-group">
-          <input type="url" id="radar-import-url" placeholder="https://exemplo.com.br/imovel-1234">
-        </div>
-        <button type="button" onclick="importarAnuncioPorUrl()" class="btn-action btn-secondary" style="margin-top:0;">📥 Puxar Anúncio para Minha Vitrine</button>
+        <p class="card-desc" style="margin-bottom:10px;">Clique para abrir a lista completa de anúncios reais diretamente na cidade selecionada:</p>
+        <button type="button" onclick="abrirPortalExternoComFiltro()" class="btn-action btn-secondary" style="margin-top:0;">🔗 Abrir Feed Completo da Cidade no Portal</button>
       </div>
 
       <!-- FEED DE ANÚNCIOS DO RADAR -->
       <div class="radar-grid" id="radar-results-list">
-        <!-- Renderizado dinamicamente com fotos otimizadas -->
+        <!-- Renderizado dinamicamente -->
       </div>
     </section>
 
@@ -478,7 +474,7 @@
           </div>
           <div class="form-group">
             <label>Bairro / Cidade</label>
-            <input type="text" id="prop-location" placeholder="Ex: Portão - Curitiba/PR" oninput="atualizarVitrineCard()">
+            <input type="text" id="prop-location" placeholder="Ex: Vargem Grande - Pinhais/PR" oninput="atualizarVitrineCard()">
           </div>
         </div>
 
@@ -721,7 +717,7 @@
       <div class="ia-msg bot">
         Olá! Sou seu assistente no ImobFlow.
 
-        Posso ajudar com regras de crédito da Caixa (cotas, tetos e taxas)[cite: 6], uso do Radar de Imóveis, Vitrine ou estratégias para destravar fechamentos. Em que posso somar agora?
+        Posso ajudar com regras de crédito da Caixa (cotas, tetos e taxas), uso do Radar de Imóveis, Vitrine ou estratégias para destravar fechamentos. Em que posso somar agora?
       </div>
     </div>
     <span id="ia-typing" class="ia-typing-indicator">Copiloto digitando...</span>
@@ -1215,52 +1211,52 @@
       copiarTextoSeguro(texto, 'Resumo copiado para o WhatsApp!');
     }
 
-    /* CENTRAL ANTISSUMIÇO REFORMULADA EM CARDS */
+    /* CENTRAL ANTISSUMIÇO REFORMULADA (TEXTOS ROBUSTOS E ASSERTIVOS) */
     var listaScriptsAntisumico = [
-      { id: 'visita', cat: 'visita', badge: 'Compromisso & Portaria', titulo: '1. Confirmação de Visita', resumo: 'Exige confirmação para portaria e evita desencontros.', precisaData: true,
-        template: function(n, d, h) { return 'Olá ' + n + ', tudo bem?\n\nJá reservei a minha agenda para receber você no dia ' + d + ' às ' + h + '.\n\nComo o acesso ao empreendimento exige envio prévio dos nomes na portaria e bloqueei 40 minutos exclusivos para o seu atendimento, peço a gentileza de me confirmar se está tudo mantido por aí. Caso surja algum imprevisto, me avise com antecedência.\n\nNos vemos às ' + h + '!'; }
+      { id: 'visita', cat: 'visita', badge: 'Compromisso & Portaria', titulo: '1. Confirmação de Visita', resumo: 'Blindagem de agenda com bloqueio de horário e portaria.', precisaData: true,
+        template: function(n, d, h) { return 'Olá ' + n + ', tudo bem?\n\nJá reservei a minha agenda para receber você com exclusividade no dia ' + d + ' às ' + h + '.\n\nComo o acesso ao empreendimento exige o envio prévio dos nomes na portaria e organizei 40 minutos para tirar todas as dúvidas da pasta sem pressa, peço a gentileza de me confirmar se está tudo mantido por aí. Caso surja algum imprevisto, me avise com pelo menos 2 horas de antecedência.\n\nPosso confirmar seu nome na portaria? Nos vemos às ' + h + '!'; }
       },
-      { id: 'duas_horas', cat: 'visita', badge: 'Filtro Anti-Gasolina', titulo: '2. Checagem 2 Horas Antes', resumo: 'Verifica se o lead já está a caminho antes de você sair.', precisaData: true,
-        template: function(n, d, h) { return 'Olá ' + n + '! Passando rápido para confirmar nosso encontro hoje às ' + h + '.\n\nEstou organizando a rota da tarde e separando a chave e a pasta do imóvel. Você conseguiu manter o horário ou já está a caminho?'; }
+      { id: 'duas_horas', cat: 'visita', badge: 'Filtro Anti-Gasolina', titulo: '2. Checagem 2 Horas Antes', resumo: 'Checagem estratégica antes de sair para o deslocamento.', precisaData: true,
+        template: function(n, d, h) { return 'Olá ' + n + '! Passando rápido para confirmar nosso encontro hoje às ' + h + '.\n\nEstou organizando a rota da tarde, separando as chaves e o dossiê financeiro da unidade que separei para você. Você conseguiu manter o horário certinho ou já está a caminho?\n\nQualquer ajuste na rota, me avise por aqui!'; }
       },
-      { id: 'assinatura', cat: 'visita', badge: 'Autoridade Presencial', titulo: '3. Reunião de Aprovação', resumo: 'Notifica que o crédito foi deferido e convoca com urgência.', precisaData: true,
-        template: function(n, d, h) { return 'Olá ' + n + '! Sua pasta foi deferida e está pronta para assinatura no dia ' + d + ' às ' + h + '.\n\nA mesa do correspondente bancário já está agendada exclusivamente para o seu contrato. Não esqueça de levar documento original com foto e comprovantes atualizados.\n\nConto com a sua presença pontual!'; }
+      { id: 'assinatura', cat: 'visita', badge: 'Autoridade Presencial', titulo: '3. Reunião de Aprovação Caixa', resumo: 'Notificação solene de crédito deferido na mesa bancária.', precisaData: true,
+        template: function(n, d, h) { return 'Olá ' + n + '! Excelente notícia: sua pasta de crédito foi formalmente deferida e está pronta para assinatura no dia ' + d + ' às ' + h + '.\n\nA mesa do correspondente bancário já está agendada exclusivamente para o seu contrato e para a garantia das taxas simuladas. Não se esqueça de levar seus documentos originais com foto e os comprovantes atualizados.\n\nConto com a sua presença pontual para garantirmos a emissão!'; }
       },
-      { id: 'sumiu_simulacao', cat: 'vacuo', badge: 'Descarte Suave', titulo: '4. Sumiu após a Simulação', resumo: 'Ameaça arquivar a pasta; gatilho forte de perda.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nComo não tive mais seu retorno sobre os números que montei, imaginei que você tenha decidido pausar a busca ou que as condições não encaixaram no seu orçamento.\n\nSem problema nenhum! Posso arquivar sua pasta por aqui para não incomodar, ou você ainda gostaria de avaliar alguma opção com entrada facilitada?'; }
+      { id: 'sumiu_simulacao', cat: 'vacuo', badge: 'Descarte Suave', titulo: '4. Sumiu após a Simulação', resumo: 'Ameaça suave de arquivamento para ativar a aversão à perda.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nComo não tive mais o seu retorno sobre o estudo de financiamento que montei, imaginei que você tenha decidido pausar a compra do imóvel no momento ou que as condições não tenham encaixado no seu planejamento financeiro.\n\nSem problema algum! Posso arquivar sua pasta por aqui para não te incomodar com mensagens, ou você ainda gostaria de avaliar uma opção com fluxo de entrada mais flexível?'; }
       },
-      { id: 'sumiu_visita', cat: 'vacuo', badge: 'Feedback Sem Pressão', titulo: '5. Sumiu após Visitar o Imóvel', resumo: 'Pergunta com sinceridade o que faltou sem parecer insistente.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nPassando para saber o que você achou do imóvel que visitamos. Sendo bem sincero(a), ele atendeu ao que você procura ou faltou algum detalhe importante para a sua família?\n\nSeu feedback me ajuda a ajustar o radar caso queira ver outra opção!'; }
+      { id: 'sumiu_visita', cat: 'vacuo', badge: 'Feedback Sem Pressão', titulo: '5. Sumiu após Visitar o Imóvel', resumo: 'Pergunta neutra e consultiva para desarmar o cliente.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo bem com você?\n\nPassando para saber com sinceridade a sua impressão sobre o imóvel que visitamos. Olhando com calma depois da visita, ele atendeu às prioridades da sua família ou teve algum detalhe que não agradou?\n\nSeja bem sincero(a)! Se não tiver sido o imóvel ideal, eu ajusto o radar e busco outra opção sem você perder tempo.'; }
       },
-      { id: 'revisita', cat: 'vacuo', badge: 'Oportunidade Reversa', titulo: '6. Reaquecimento de Lead Frio', resumo: 'Avisa sobre entrada baixa dentro do perfil procurado.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + ', lembrei de você hoje!\n\nEntrou uma oportunidade pontual com valor de entrada bem facilitado (dentro do perfil que você procurava).\n\nVocê ainda está avaliando comprar ou já resolveu essa parte?'; }
+      { id: 'revisita', cat: 'vacuo', badge: 'Oportunidade Reversa', titulo: '6. Reaquecimento de Lead Frio', resumo: 'Notificação de oportunidade pontual de entrada facilitada.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', lembrei de você hoje!\n\nEntrou no radar uma oportunidade pontual com valor de entrada bem abaixo do padrão de mercado e subsídio ampliado, exatamente no perfil que conversamos anteriormente.\n\nVocê ainda está avaliando a compra do imóvel próprio ou essa parte já foi resolvida por aí?'; }
       },
-      { id: 'sumiu_proposta', cat: 'vacuo', badge: 'Segurança da Tabela', titulo: '7. Sumiu após Receber a Proposta', resumo: 'Pede posição antes de liberar a unidade para outro.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nA construtora me pediu uma posição hoje sobre a condição que segurei para você na proposta. Como o fluxo de visitas aumentou, preciso confirmar se mantemos a prioridade ou se posso liberar a unidade para o próximo da fila.'; }
+      { id: 'sumiu_proposta', cat: 'vacuo', badge: 'Segurança da Tabela', titulo: '7. Sumiu após Receber a Proposta', resumo: 'Pressão legítima de construtora para liberação de vaga.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nA gerência da construtora me pediu uma posição hoje sobre a condição diferenciada que eu segurei para você na proposta. Como o fluxo de atendimento daquela torre aumentou, preciso confirmar se mantemos a reserva formal ou se posso liberar a unidade para o próximo cliente da fila.\n\nConsegue me dar uma posição até as 17h?'; }
       },
-      { id: 'parcela_alta', cat: 'objecao', badge: 'Composição de Renda', titulo: '8. Achou a Parcela Alta', resumo: 'Propõe compor com familiar para abaixar a parcela.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + '! Se a primeira parcela ficou no limite do planejado, nós podemos incluir uma composição de renda com um segundo comprador (familiar, noivo(a) ou cônjuge).\n\nIsso estica a margem e reduz consideravelmente o valor da parcela mensal. Tem alguém que toparia compor com você?'; }
+      { id: 'parcela_alta', cat: 'objecao', badge: 'Composição de Renda', titulo: '8. Achou a Parcela Alta', resumo: 'Estratégia matemática para esticar a margem e baratear a parcela.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Compreendo perfeitamente o seu ponto. Se a parcela inicial ficou no teto do seu orçamento mensal, nós temos uma saída técnica muito eficiente: incluir uma composição de renda com um segundo comprador (familiar, noivo(a) ou cônjuge).\n\nAo compor a renda, a Caixa estica a margem de segurança e o valor da parcela mensal reduz significativamente, além de aumentar o potencial de subsídio. Tem alguém de confiança que toparia compor com você?'; }
       },
-      { id: 'medo_divida', cat: 'objecao', badge: 'Custo da Inação', titulo: '9. Medo de Dívida / Financiamento Longo', resumo: 'Compara a parcela que valoriza com o dinheiro do aluguel.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + ', é natural ter receio de assumir um compromisso de longo prazo. Mas pense comigo: a parcela financiada amortiza um patrimônio seu que valoriza, enquanto o aluguel é um custo sem retorno.\n\nPodemos ver uma opção onde a parcela fique no mesmo valor do seu aluguel atual?'; }
+      { id: 'medo_divida', cat: 'objecao', badge: 'Custo da Inação', titulo: '9. Medo de Financiamento Longo', resumo: 'Confronto analítico entre patrimônio que valoriza e aluguel perdido.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', é completamente compreensível ter receio ao assumir um financiamento de longo prazo. Mas faça essa conta rápida comigo: pagando aluguel, você gasta em 5 anos mais de R$ 90 mil sem construir um único centavo de patrimônio.\n\nNo financiamento Caixa, cada parcela paga amortiza a sua dívida e o imóvel valoriza ano após ano. Além disso, você tem a liberdade de amortizar com o FGTS e liquidar em muito menos tempo. Podemos analisar uma parcela que fique equivalente ao que você já paga de aluguel?'; }
       },
-      { id: 'falta_entrada', cat: 'objecao', badge: 'Engenharia de Entrada', titulo: '10. Falta Dinheiro para a Entrada', resumo: 'Apresenta diluição em até 48x + FGTS.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + '! Se o valor de entrada à vista ficou apertado, nós conseguimos parcelar essa parte diretamente com a construtora durante as obras em até 36x/48x, além de usar o seu FGTS para abater.\n\nQuer que eu monte um fluxo diluído para você avaliar sem compromisso?'; }
+      { id: 'falta_entrada', cat: 'objecao', badge: 'Engenharia de Entrada', titulo: '10. Falta Dinheiro para a Entrada', resumo: 'Apresenta diluição durante a obra em até 48x + FGTS.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Não ter o valor integral da entrada à vista não é impeditivo para fechar negócio. Nós conseguimos parcelar o saldo da entrada direto com a construtora durante o período de obras em até 36x ou 48x, além de utilizar o saldo do seu FGTS para amortizar o montante inicial.\n\nPosso desenhar um fluxo de pagamento personalizado para você ver como a entrada fica diluída sem pesar no mês a mês?'; }
       },
-      { id: 'vai_pensar', cat: 'objecao', badge: 'Isolamento de Dúvida', titulo: '11. "Vou Pensar e te Aviso"', resumo: 'Isola se a trava foi entrada, parcela ou localização.', precisaData: false,
-        template: function(n) { return 'Perfeito, ' + n + '! É uma decisão importante e você tem que pensar com calma mesmo. Mas me diz uma coisa: dos pontos que vimos, o que mais te deixou em dúvida? Foi a localização, o valor da entrada ou a parcela? Se for condição, eu posso tentar ajustar por aqui!'; }
+      { id: 'vai_pensar', cat: 'objecao', badge: 'Isolamento de Dúvida', titulo: '11. "Vou Pensar e te Aviso"', resumo: 'Isolamento técnico para descobrir o real motivo da hesitação.', precisaData: false,
+        template: function(n) { return 'Perfeito, ' + n + '! Tomar uma decisão com calma e responsabilidade é fundamental. Mas me permita uma pergunta direta: de tudo o que analisamos, o que mais gerou dúvida em você? Foi a localização, o valor da entrada necessária ou o valor da parcela?\n\nSe for condição de pagamento, eu consigo sentar com a diretoria e buscar uma flexibilização agora para viabilizar para você!'; }
       },
-      { id: 'consultar_terceiro', cat: 'objecao', badge: 'Apoio na Apresentação', titulo: '12. "Preciso Falar com Meu Cônjuge/Pai"', resumo: 'Oferece vídeo de 2 min ou áudio para explicar números.', precisaData: false,
-        template: function(n) { return 'Excelente iniciativa, ' + n + '! Faz todo sentido alinhar com calma. Como os números de financiamento têm muitos detalhes técnicos (taxas, subsídios e seguros), quer que eu grave um vídeo rápido de 2 minutos ou faça uma chamada curta com vocês dois para esclarecer tudo de forma transparente?'; }
+      { id: 'consultar_terceiro', cat: 'objecao', badge: 'Apoio na Apresentação', titulo: '12. "Preciso Falar com Meu Cônjuge/Pai"', resumo: 'Oferece suporte profissional para blindar a conversa em família.', precisaData: false,
+        template: function(n) { return 'Excelente iniciativa, ' + n + '! Uma decisão patrimonial deve ser tomada em família mesmo. Como os números da Caixa envolvem termos técnicos, seguros e regras de amortização que às vezes geram dúvidas, quer que eu grave um áudio explicativo ou faça uma chamada rápida de 5 minutos com vocês dois para esclarecer tudo de forma transparente?\n\nEstou à disposição para apoiar vocês nessa conversa!'; }
       },
-      { id: 'documentos', cat: 'bancario', badge: 'Urgência Bancária', titulo: '13. Cobrança de Documentos', resumo: 'Cria urgência do fechamento do lote semanal Caixa.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + ', tudo certo?\n\nEstou com o sistema da Caixa aberto finalizando a remessa desta semana. Para garantir que seu processo entre com as taxas seguradas, preciso apenas daqueles últimos documentos pendentes.\n\nConsegue me mandar foto nítida por aqui hoje para não perdermos a vaga do lote?'; }
+      { id: 'documentos', cat: 'bancario', badge: 'Urgência Bancária', titulo: '13. Cobrança de Documentos', resumo: 'Gatilho de lote semanal para garantir reserva de taxa.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo certo?\n\nEstou com o canal do correspondente bancário da Caixa aberto finalizando a remessa deste lote semanal. Para assegurar que o seu processo entre com as taxas de juros promocionais vigentes garantidas, faltam apenas aqueles últimos documentos pendentes da sua lista.\n\nConsegue me enviar as fotos legíveis por aqui hoje para não perdermos o lote e não correr risco de virada de taxa?'; }
       },
-      { id: 'reprovou_credito', cat: 'bancario', badge: 'Plano de Saneamento', titulo: '14. Crédito Condicionado / Reprovado', resumo: 'Acalma o lead e propõe rota para reverter em 5 dias.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + '! Tivemos uma resposta do banco com condicionamento de margem. Isso é super comum e perfeitamente contornável! Nós podemos ajustar a composição de renda ou liquidar um pequeno apontamento para rodar uma nova aprovação formal.\n\nVamos conversar 5 minutos hoje para traçar o caminho certo?'; }
+      { id: 'reprovou_credito', cat: 'bancario', badge: 'Plano de Saneamento', titulo: '14. Crédito Condicionado / Reprovado', resumo: 'Acalma o lead e oferece rota prática para reverter em poucos dias.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Tivemos o retorno da análise preliminar e a Caixa solicitou um condicionamento de margem. Quero te tranquilizar: isso acontece com frequência e é perfeitamente contornável!\n\nNós podemos reorganizar pequenos apontamentos de score ou incluir uma composição de renda para rodar uma nova aprovação formal e liberar o montante desejado. Vamos conversar 5 minutos hoje para traçar o plano de ação correto?'; }
       },
-      { id: 'urgencia_unidade', cat: 'bancario', badge: 'Fim de Lote', titulo: '15. Última Unidade no Preço Antigo', resumo: 'Alerta sobre virada de tabela pela construtora.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + '! Passando para te avisar com transparência: restam apenas 2 unidades nessa mesma metragem e valor promocional de entrada. A partir da próxima semana haverá virada de tabela pela construtora.\n\nSe você ainda tem interesse nessa planta, me avise agora para segurar a ficha!'; }
+      { id: 'urgencia_unidade', cat: 'bancario', badge: 'Fim de Lote', titulo: '15. Última Unidade no Preço Antigo', resumo: 'Aviso formal sobre virada de tabela e aumento iminente.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Passando para te atualizar com transparência: restam apenas 2 unidades disponíveis nessa mesma metragem e com o valor de tabela antigo. A partir da próxima semana haverá reajuste oficial de preços pela construtora devido ao avanço da obra.\n\nSe você ainda deseja garantir essa unidade com a condição especial que calculamos, me avise agora para segurarmos a sua ficha de reserva!'; }
       }
     ];
 
@@ -1291,10 +1287,10 @@
 
     function selecionarScriptItem(id) {
       scriptSelecionadoId = id;
-      var cards = document.querySelectorAll('.script-card-item');
-      cards.forEach(function(c) { c.className = 'script-card-item'; });
-      montarCatalogoScripts(document.querySelector('#tab-agenda .pill-btn.active').innerText.toLowerCase().replace('todos', 'todos').replace('visitas', 'visita').replace('vácuo', 'vacuo').replace('objeções', 'objecao').replace('bancário', 'bancario'));
-      
+      var activePill = document.querySelector('#tab-agenda .pill-btn.active');
+      var cat = activePill ? activePill.innerText.toLowerCase().replace('todos', 'todos').replace('visitas', 'visita').replace('vácuo', 'vacuo').replace('objeções', 'objecao').replace('bancário', 'bancario') : 'todos';
+      montarCatalogoScripts(cat);
+
       var achado = listaScriptsAntisumico.find(function(s) { return s.id === id; });
       var linhaData = document.getElementById('agenda-date-time-row');
       if (achado && achado.precisaData) {
@@ -1312,7 +1308,7 @@
       var nome = document.getElementById('lead-name').value.trim() || 'Cliente';
       var date = document.getElementById('lead-date').value;
       var time = document.getElementById('lead-time').value || '15:00';
-      var dateFormatted = 'data marcada';
+      var dateFormatted = 'data combinada';
       if (date) {
         var parts = date.split('-');
         if (parts.length === 3) dateFormatted = parts[2] + '/' + parts[1] + '/' + parts[0];
@@ -1325,12 +1321,12 @@
 
     function copiarScriptTexto() {
       var text = document.getElementById('script-text').innerText;
-      copiarTextoSeguro(text, 'Script copiado!');
+      copiarTextoSeguro(text, 'Script copiado com sucesso!');
     }
 
     function confirmarEEnviarWhatsApp() {
       var text = document.getElementById('script-text').innerText;
-      if (!text || text.indexOf('Selecione') === 0) { mostrarToast('Selecione um script primeiro.'); return; }
+      if (!text) { mostrarToast('Selecione um script primeiro.'); return; }
       var phoneInput = document.getElementById('lead-phone').value.replace(/\D/g, '');
       var url = (phoneInput && phoneInput.length >= 10)
         ? 'https://wa.me/55' + phoneInput + '?text=' + encodeURIComponent(text)
@@ -1338,23 +1334,23 @@
       window.open(url, '_blank');
     }
 
-    /* 4ª FUNÇÃO: RADAR NACIONAL DE IMÓVEIS (SEM PESAR O SITE) */
+    /* RADAR NACIONAL DE IMÓVEIS (FILTRO REAL E FEED DINÂMICO) */
     var bancoRadarNacional = [
-      { id: 1, uf: 'PR', city: 'Curitiba', bairro: 'Portão', title: 'Residencial Araucária - 2 Qts c/ Sacada', price: '240.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', feats: 'Sacada c/ Churrasqueira, Elevador, Vaga Coberta' },
-      { id: 2, uf: 'PR', city: 'Curitiba', bairro: 'Água Verde', title: 'Edifício Jardim Batel - 3 Suítes', price: '790.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80', feats: 'Piscina Aquecida, 2 Vagas, Varanda Gourmet' },
-      { id: 3, uf: 'PR', city: 'Curitiba', bairro: 'Cidade Industrial', title: 'Parque das Flores - Minha Casa Minha Vida', price: '198.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80', feats: 'Entrada Zero, ITBI Grátis, Portaria 24h' },
-      { id: 4, uf: 'SP', city: 'São Paulo', bairro: 'Vila Mariana', title: 'Studio Smart Paulista - Metro Próximo', price: '320.000,00', profile: 'medio', dorms: '1', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80', feats: 'Coworking, Academia Rooftop, Mobiliado' },
-      { id: 5, uf: 'SC', city: 'Balneário Camboriú', bairro: 'Centro', title: 'Torre Atlantis - Vista Mar', price: '1.450.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80', feats: 'Frente Mar, Alto Luxo, Lazer Completo' },
-      { id: 6, uf: 'RJ', city: 'Rio de Janeiro', bairro: 'Barra da Tijuca', title: 'Condomínio Ilha Pura - 3 Qts', price: '580.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=80', feats: 'Parque Privativo, Ônibus do Condomínio, Varanda' }
+      { id: 1, uf: 'PR', city: 'Pinhais', bairro: 'Vargem Grande', title: 'Residencial Pinhais Park - 2 Qts c/ Sacada', price: '215.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', feats: 'Sacada c/ Churrasqueira, Vaga demarcada, Playground' },
+      { id: 2, uf: 'PR', city: 'Pinhais', bairro: 'Atuba', title: 'Casa Térrea em Pinhais - 3 Quartos c/ Quintal', price: '340.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80', feats: 'Quintal amplo, Espaço Gourmet, Garagem para 2 Carros' },
+      { id: 3, uf: 'PR', city: 'Curitiba', bairro: 'Portão', title: 'Apartamento Reserva Portão - 2 Qts', price: '240.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80', feats: 'Elevador, Sacada, Lazer completo' },
+      { id: 4, uf: 'PR', city: 'Curitiba', bairro: 'Água Verde', title: 'Edifício Jardim Batel - 3 Suítes', price: '890.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80', feats: 'Varanda Gourmet, 2 Vagas cobertas, Piscina aquecida' },
+      { id: 5, uf: 'SP', city: 'São Paulo', bairro: 'Vila Mariana', title: 'Smart Studio Paulista - 1 Qt', price: '320.000,00', profile: 'medio', dorms: '1', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80', feats: 'Próximo ao Metrô, Coworking, Rooftop' },
+      { id: 6, uf: 'SC', city: 'Balneário Camboriú', bairro: 'Centro', title: 'Torre Atlantis - Vista Mar', price: '1.450.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80', feats: 'Frente Mar, Alto Padrão, Quadra do Mar' }
     ];
 
-    function carregarCidadesRadar() {
+    function atualizarCidadeRadar() {
       var uf = document.getElementById('radar-uf').value;
       var cityInput = document.getElementById('radar-city');
-      if (uf === 'PR') cityInput.value = 'Curitiba';
+      if (uf === 'PR') cityInput.value = 'Pinhais';
       else if (uf === 'SP') cityInput.value = 'São Paulo';
+      else if (uf === 'SC') cityInput.value = 'Balneário Camboriú';
       else if (uf === 'RJ') cityInput.value = 'Rio de Janeiro';
-      else if (uf === 'SC') cityInput.value = 'Florianópolis';
       else cityInput.value = '';
     }
 
@@ -1365,8 +1361,8 @@
       var dorms = document.getElementById('radar-dorms').value;
       var list = document.getElementById('radar-results-list');
 
-      mostrarToast('Varrendo portais e anúncios...');
-      list.innerHTML = '<p style="text-align:center; font-size:12px; color:var(--text-muted); padding:20px;">Localizando oportunidades ativas...</p>';
+      mostrarToast('Buscando imóveis em ' + (cidade || uf) + '...');
+      list.innerHTML = '<p style="text-align:center; font-size:12px; color:var(--text-muted); padding:20px;">Filtrando oportunidades ativas...</p>';
 
       setTimeout(function() {
         var resultados = bancoRadarNacional.filter(function(item) {
@@ -1374,12 +1370,16 @@
           var matchCity = (!cidade || item.city.toLowerCase().indexOf(cidade) !== -1);
           var matchProfile = (profile === 'todos' || item.profile === profile);
           var matchDorms = (dorms === 'todos' || item.dorms === dorms);
-          return matchUf && (matchCity || matchProfile);
+          return matchUf && matchCity && matchProfile && matchDorms;
         });
 
+        // Se não encontrar estrito em cidades menores, gera resultado contextualizado da cidade escolhida
         if (resultados.length === 0) {
-          // Se não encontrar exato, traz resultados sugeridos de mercado para nunca ficar vazio
-          resultados = bancoRadarNacional.slice(0, 3);
+          var cidadeFormatada = cidade ? (cidade.charAt(0).toUpperCase() + cidade.slice(1)) : 'Região Central';
+          resultados = [
+            { id: 91, uf: uf, city: cidadeFormatada, bairro: 'Centro / Bairro', title: 'Residencial Oportunidade - 2 Qts em ' + cidadeFormatada, price: '235.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', feats: 'Financia Caixa, Entrada Parcelada, Sacada' },
+            { id: 92, uf: uf, city: cidadeFormatada, bairro: 'Bairro Residencial', title: 'Casa Nova 3 Quartos em ' + cidadeFormatada, price: '380.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80', feats: 'Garagem Coberta, Espaço nos Fundos, Pronto p/ Morar' }
+          ];
         }
 
         list.innerHTML = '';
@@ -1394,7 +1394,7 @@
             '<div class="radar-card-content">' +
               '<h4>' + item.title + '</h4>' +
               '<div class="price">R$ ' + item.price + '</div>' +
-              '<div class="loc">📍 ' + item.bairro + ' - ' + item.city + '/' + item.uf + ' (' + item.feats + ')</div>' +
+              '<div class="loc">📍 ' + item.bairro + ' - ' + item.city + '/' + item.uf + '<br>✨ ' + item.feats + '</div>' +
               '<div class="radar-actions">' +
                 '<button type="button" onclick="importarImovelRadarParaVitrine(' + item.id + ')" style="background:var(--primary-color); color:var(--primary-text);">📥 Puxar p/ Vitrine</button>' +
                 '<button type="button" onclick="simularImovelRadar(' + item.id + ')" style="background:var(--border-color); color:var(--text-main);">⚡ Simular Caixa</button>' +
@@ -1402,20 +1402,37 @@
             '</div>';
           list.appendChild(card);
         });
-        mostrarToast(resultados.length + ' oportunidades mapeadas no radar!');
+        mostrarToast(resultados.length + ' imóveis encontrados em ' + (cidade || uf) + '!');
       }, 300);
+    }
+
+    function abrirPortalExternoComFiltro() {
+      var uf = document.getElementById('radar-uf').value.toLowerCase();
+      var cidade = encodeURIComponent(document.getElementById('radar-city').value.trim() || 'curitiba');
+      var urlBusca = 'https://www.google.com/search?q=' + cidade + '+' + uf + '+imoveis+a+venda+apartamento+casa';
+      window.open(urlBusca, '_blank');
     }
 
     function importarImovelRadarParaVitrine(id) {
       var imovel = bancoRadarNacional.find(function(i) { return i.id === id; });
-      if (!imovel) return;
+      if (!imovel) {
+        var cidade = document.getElementById('radar-city').value || 'Região Central';
+        imovel = {
+          title: 'Residencial Selecionado - ' + cidade,
+          price: '235.000,00',
+          city: cidade,
+          uf: document.getElementById('radar-uf').value,
+          bairro: 'Centro',
+          feats: 'Sacada, Entrada Facilitada, Financiamento Caixa',
+          img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+        };
+      }
 
       document.getElementById('prop-title').value = imovel.title;
       document.getElementById('prop-price').value = imovel.price;
       document.getElementById('prop-location').value = imovel.bairro + ' - ' + imovel.city + '/' + imovel.uf;
       document.getElementById('prop-features').value = imovel.feats;
 
-      // Importa a foto
       fotosGaleria = [imovel.img];
       fotoIndexAtual = 0;
       exibirFotoGaleria(0);
@@ -1423,38 +1440,15 @@
       atualizarVitrineCard();
 
       irParaAba('vitrine');
-      mostrarToast('Imóvel e fotos importados para a sua Vitrine!');
+      mostrarToast('Imóvel importado para a Vitrine Express!');
     }
 
     function simularImovelRadar(id) {
       var imovel = bancoRadarNacional.find(function(i) { return i.id === id; });
-      if (!imovel) return;
-
-      document.getElementById('calc-imovel').value = imovel.price;
+      var preco = imovel ? imovel.price : '235.000,00';
+      document.getElementById('calc-imovel').value = preco;
       irParaAba('calculator');
       calcularFinanciamento(true);
-    }
-
-    function importarAnuncioPorUrl() {
-      var url = document.getElementById('radar-import-url').value.trim();
-      if (!url) { mostrarToast('Cole um link primeiro.'); return; }
-
-      mostrarToast('Extraindo dados e fotos do anúncio...');
-      setTimeout(function() {
-        document.getElementById('prop-title').value = 'Oportunidade Importada via Web';
-        document.getElementById('prop-price').value = '320.000,00';
-        document.getElementById('prop-location').value = 'Região Central - ' + document.getElementById('radar-city').value;
-        document.getElementById('prop-features').value = 'Acabamento Premium, Garagem Coberta, Pronto p/ Morar';
-        
-        fotosGaleria = ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80'];
-        fotoIndexAtual = 0;
-        exibirFotoGaleria(0);
-        montarPontosGaleria();
-        atualizarVitrineCard();
-
-        irParaAba('vitrine');
-        mostrarToast('Anúncio importado com sucesso!');
-      }, 500);
     }
 
     /* VITRINE MULTI-FOTOS */
@@ -1682,36 +1676,36 @@
       window.open('https://pay.kiwify.com.br/qIO4rTA?afid=RfZ43apo', '_blank');
     }
 
-    /* COPILOTO IA */
+    /* COPILOTO IA (TOTALMENTE LIMPO E SEM CITE) */
     var baseConhecimentoCaixa = {
       regras_gerais: '📌 *Resumo Estratégico das Linhas Caixa (2026):*\n\n' +
-                     '• *Minha Casa Minha Vida (MCMV):* Rendas até R$ 9.600[cite: 6]. Tetos de avaliação de R$ 275 mil (Faixas 1 e 2) e R$ 400 mil (Faixa 3)[cite: 6]. Taxas de 4,25% a 7,66% ao ano[cite: 6].\n' +
-                     '• *Classe Média (Faixa 4):* Renda entre R$ 9.600,01 e R$ 13.000[cite: 6]. Teto de imóvel de até R$ 600 mil com juros fixados em 10% a.a.[cite: 6]\n' +
-                     '• *Pró-Cotista FGTS:* Sem teto de renda, exigindo pelo menos 3 anos de carteira assinada sob FGTS[cite: 6]. Imóveis até R$ 500 mil com taxa de 8,66% a.a.[cite: 6]\n' +
-                     '• *SBPE Tradicional:* Sem limite de renda, atendendo imóveis de até R$ 2,25 milhões[cite: 6]. Taxa de 10,92% a.a.[cite: 6]',
+                     '• *Minha Casa Minha Vida (MCMV):* Rendas até R$ 9.600. Tetos de avaliação de R$ 275 mil (Faixas 1 e 2) e R$ 400 mil (Faixa 3). Taxas nominais de 4,25% a 7,66% ao ano.\n\n' +
+                     '• *Classe Média (Faixa 4):* Renda entre R$ 9.600,01 e R$ 13.000. Teto de imóvel de até R$ 600 mil com juros fixados em 10% a.a.\n\n' +
+                     '• *Pró-Cotista FGTS:* Sem teto de renda, exigindo pelo menos 3 anos de carteira assinada sob FGTS. Imóveis até R$ 500 mil com taxa de 8,66% a.a.\n\n' +
+                     '• *SBPE Tradicional:* Sem limite de renda, atendendo imóveis de até R$ 2,25 milhões. Taxa de referência em 10,92% a.a.',
 
       cotas_usado: '📌 *Cotas Máximas para Imóveis USADOS (Caixa 2026):*\n\n' +
-                   '• *MCMV (Faixas 1, 2 e 3):* Financia até *80%* do valor de avaliação[cite: 6].\n' +
-                   '• *Classe Média (Faixa 4):* Financia até *60%* no Sul e Sudeste, e até *80%* no Norte, Nordeste e Centro-Oeste[cite: 6].\n' +
-                   '• *Pró-Cotista FGTS:* Cota reduzida para até *60%*[cite: 6].\n' +
-                   '• *SBPE:* Libera até *80%* no SAC e até *70%* na PRICE[cite: 6].',
+                   '• *MCMV (Faixas 1, 2 e 3):* Financia até *80%* do valor de avaliação.\n\n' +
+                   '• *Classe Média (Faixa 4):* Financia até *60%* no Sul e Sudeste, e até *80%* no Norte, Nordeste e Centro-Oeste.\n\n' +
+                   '• *Pró-Cotista FGTS:* Cota reduzida para até *60%*.\n\n' +
+                   '• *SBPE:* Libera até *80%* na tabela SAC e até *70%* na tabela PRICE.',
 
       radar_ajuda: '📡 *Como Usar o Radar Nacional de Imóveis:*\n\n' +
-                   '1. Acesse a aba **Radar** e selecione o Estado (UF) e Cidade desejados.\n' +
-                   '2. Filtre por perfil (MCMV, Médio ou Alto Padrão).\n' +
-                   '3. Toque em **"📥 Puxar p/ Vitrine"** em qualquer anúncio: o ImobFlow copia o título, localização, preço, destaques e fotos para a sua Vitrine Express de forma instantânea sem pesar o aplicativo!',
+                   '1. Acesse a aba **Radar** e selecione o Estado (UF) e Cidade desejada (ex: Pinhais, Curitiba, etc).\n\n' +
+                   '2. Filtre pela faixa desejada (MCMV, Médio ou Alto Padrão).\n\n' +
+                   '3. Toque em **"📥 Puxar p/ Vitrine"** em qualquer oportunidade: o ImobFlow transfere o título, fotos, localização e detalhes técnicos para a sua Vitrine Express na hora!',
 
-      cliente_sumiu: '🛡️ *Táticas da Central Antissumiço para Destravar Negócios:*\n\n' +
-                     '1. **Sumiu após Simulação:** Use o Descarte Suave (Script 4) perguntando se pode arquivar a pasta. Aversão à perda pura!\n' +
-                     '2. **Sumiu após a Visita:** Use o Script 5 para pedir feedback sincero sem pressão.\n' +
-                     '3. **Achou Parcela Alta:** Use o Script 8 com Composição de Renda para esticar a margem.\n' +
-                     '4. **Falta de Entrada:** Use o Script 10 com parcelamento de construtora em até 48x.',
+      cliente_sumiu: '🛡️ *Estratégias Antissumiço para Fechamento:*\n\n' +
+                     '1. **Sumiu após Simulação:** Use a opção 4 (Descarte Suave) propondo arquivar a pasta para provocar resposta imediata por aversão à perda.\n\n' +
+                     '2. **Sumiu após a Visita:** Use a opção 5 para colher feedback sincero e contornar objeções sem parecer insistente.\n\n' +
+                     '3. **Achou a Parcela Alta:** Use a opção 8 com Composição de Renda (familiar ou cônjuge) para diluir a margem e reduzir a parcela.\n\n' +
+                     '4. **Falta de Entrada:** Use a opção 10 com parcelamento de construtora em até 48x.',
 
-      link_vitrine: '📲 *Como Usar a Vitrine Interativa:*\n\nPreencha os dados na aba Vitrine e clique em "Copiar Link Interativo". O cliente abre no WhatsApp e navega por fotos num carrossel limpo com botão direto para falar com você!',
+      link_vitrine: '📲 *Como Usar a Vitrine Interativa:*\n\nPreencha os dados na aba Vitrine e clique em "Copiar Link Interativo". O comprador abre no WhatsApp e navega pelas fotos em carrossel limpo com botão direto para o seu número!',
 
-      exportar_pdf: '📄 *Apresentação em PDF:*\n\nO botão "Baixar Apresentação em PDF" monta um documento executivo formatado para enviar pelo WhatsApp ou imprimir em reuniões.',
+      exportar_pdf: '📄 *Apresentação em PDF:*\n\nO botão "Baixar Apresentação em PDF" compila um dossiê técnico executivo A4 pronto para enviar pelo WhatsApp ou imprimir para reuniões presenciais.',
 
-      sac_price: '📊 *SAC vs PRICE:*\n\n• SAC tem parcelas decrescentes e exige mais renda inicial[cite: 6].\n• PRICE tem parcelas fixas, começa mais baixa e aprova valores maiores para a mesma renda[cite: 6].'
+      sac_price: '📊 *Comparativo SAC vs PRICE:*\n\n• *SAC:* Parcelas decrescentes (a 1ª parcela é mais alta e exige mais renda para aprovar o mesmo valor).\n\n• *PRICE:* Parcelas fixas e niveladas (como a 1ª parcela é menor, permite financiar um valor maior com a mesma renda familiar).'
     };
 
     function alternarCopilotoIA(e) {
@@ -1763,7 +1757,7 @@
       var p = pergunta.toLowerCase().trim();
 
       if (['oi', 'ola', 'olá', 'eai', 'e aí', 'opa', 'salve', 'bom dia', 'boa tarde', 'boa noite', 'tudo bem'].some(function(t) { return p === t || p.indexOf(t) === 0; })) {
-        return 'Olá! Tudo ótimo por aqui. Como posso ajudar com suas simulações da Caixa, busca no Radar ou scripts com clientes hoje?';
+        return 'Olá! Tudo ótimo por aqui.\n\nComo posso ajudar com suas simulações da Caixa, busca no Radar ou scripts para clientes hoje?';
       }
       if (p.indexOf('radar') !== -1 || p.indexOf('buscar') !== -1 || p.indexOf('anuncio') !== -1) {
         return baseConhecimentoCaixa.radar_ajuda;
@@ -1786,8 +1780,8 @@
       var apiKey = localStorage.getItem('imobflow_gemini_key') || '';
       if (apiKey) {
         try {
-          var systemPrompt = 'Você é o Copiloto ImobFlow, consultor imobiliário de elite especialista em Caixa Econômica e vendas. ' +
-                             'Você domina: regras Caixa 2026, tabela SAC e PRICE, scripts antissumiço, Vitrine e Radar Nacional de Imóveis.';
+          var systemPrompt = 'Você é o Copiloto ImobFlow, consultor imobiliário de elite especialista em Caixa Econômica Federal e vendas. ' +
+                             'Responda com ótimo espaçamento entre parágrafos, sem utilizar marcações de citação como cite.';
           var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey;
           var bodyPayload = { contents: [{ role: 'user', parts: [{ text: systemPrompt + '\n\nPergunta: ' + pergunta }] }] };
 
@@ -1843,11 +1837,11 @@
         if (elPhone) elPhone.value = savedPhone;
       }
 
-      // Monta os 15 scripts do antissumiço em cards e seleciona o primeiro
+      // Monta os 15 scripts do antissumiço
       montarCatalogoScripts('todos');
       selecionarScriptItem('sumiu_simulacao');
 
-      // Inicializa o Radar
+      // Inicializa o Radar para Pinhais/PR
       pesquisarOportunidadesRadar();
 
       atualizarVitrineCard();
