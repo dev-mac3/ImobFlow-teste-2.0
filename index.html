@@ -44,6 +44,9 @@
 
     body { background-color: var(--bg-body); color: var(--text-main); padding-bottom: 110px; transition: background-color 0.2s, color 0.2s; }
 
+    /* Banner Trial */
+    #trial-banner { background: var(--primary-color); color: var(--primary-text); font-size: 11px; font-weight: 800; padding: 6px 12px; text-align: center; display: none; }
+
     /* Topbar */
     header { background: var(--bg-header); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 40; padding: 12px 16px; }
     .topbar-content { max-width: 480px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
@@ -57,9 +60,6 @@
     .topbar-actions { display: flex; align-items: center; gap: 8px; }
     .btn-planos { background: var(--border-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
     .btn-gear { background: var(--border-color); border: 1px solid var(--border-color); color: var(--text-main); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; }
-
-    /* Banner Trial */
-    #trial-banner { background: var(--primary-color); color: var(--primary-text); font-size: 11px; font-weight: 800; padding: 6px 12px; text-align: center; display: none; }
 
     /* Container Principal */
     main { max-width: 480px; margin: 0 auto; padding: 16px; position: relative; z-index: 10; }
@@ -92,7 +92,7 @@
     .btn-purple { background: #8b5cf6; color: #ffffff; margin-top: 10px; }
     .btn-danger { background: #ef4444; color: #ffffff; margin-top: 10px; }
 
-    /* Caixa de Resultados Corrigida (8 Blocos Simétricos) */
+    /* Caixa de Resultados */
     .result-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
     .result-title { font-size: 11px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
     .result-status { font-size: 12px; color: var(--text-main); margin-bottom: 12px; line-height: 1.4; }
@@ -104,7 +104,7 @@
     .disclaimer { font-size: 10px; color: var(--text-muted); line-height: 1.4; margin-top: 12px; }
 
     /* Script Box */
-    .script-box { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; font-size: 12px; color: var(--text-main); line-height: 1.5; white-space: pre-line; font-family: monospace; margin: 10px 0; }
+    .script-box { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; font-size: 12.5px; color: var(--text-main); line-height: 1.6; white-space: pre-line; margin: 10px 0; }
 
     /* Vitrine Card */
     #card-export-area { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-top: 12px; user-select: none; }
@@ -210,7 +210,7 @@
           <h2 class="card-title">⚡ Estudo de Financiamento</h2>
           <span class="pill" id="badge-tipo-linha">MCMV (Caixa)</span>
         </div>
-        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel)[span_1](start_span)[span_1](end_span).</p>
+        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel)[span_0](start_span)[span_0](end_span).</p>
 
         <span class="selector-label">Tipo do Imóvel:</span>
         <div class="pill-group">
@@ -296,18 +296,18 @@
           </div>
         </div>
         <button type="button" onclick="copiarResumoWhatsApp()" class="btn-action btn-secondary">Copiar Resumo p/ WhatsApp</button>
-        <p class="disclaimer">Cálculo alinhado à tabela oficial da Caixa (taxas cotistas S/SE/CO e limites de cota por modalidade)[span_2](start_span)[span_2](end_span).</p>
+        <p class="disclaimer">Cálculo alinhado à tabela oficial da Caixa (taxas cotistas S/SE/CO e limites de cota por modalidade)[span_1](start_span)[span_1](end_span).</p>
       </div>
     </section>
 
-    <!-- ABA 2: ANTISSUMIÇO -->
+    <!-- ABA 2: CENTRAL ANTISSUMIÇO EXPANDIDA (15 SCRIPTS TÁTICOS) -->
     <section id="tab-agenda" class="hidden">
       <div class="card">
         <div class="card-header">
           <h2 class="card-title">🛡️ Central Antissumiço</h2>
-          <span class="pill">8 Scripts Táticos</span>
+          <span class="pill">15 Scripts de Elite</span>
         </div>
-        <p class="card-desc">Gere mensagens personalizadas para reverter sumiços e blindar visitas.</p>
+        <p class="card-desc">Gere mensagens táticas e humanizadas para blindar visitas, recuperar vácuos e quebrar objeções no WhatsApp.</p>
 
         <div class="form-group">
           <label>Nome do Cliente</label>
@@ -315,22 +315,44 @@
         </div>
 
         <div class="form-group">
-          <label>Situação / Momento</label>
+          <label>Situação / Objeção do Cliente</label>
           <select id="meeting-type" onchange="verificarCamposAgenda()">
-            <option value="visita">1. Confirmação de Visita (Reserva & Portaria)</option>
-            <option value="duas_horas">2. Checagem 2 Horas Antes (Filtro Anti-Gasolina)</option>
-            <option value="sumiu_simulacao">3. Lead Sumiu Após Simulação (Descarte Suave)</option>
-            <option value="documentos">4. Cobrança de Documentos (Garantia de Taxa)</option>
-            <option value="assinatura">5. Reunião de Aprovação / Assinatura de Contrato</option>
-            <option value="revisita">6. Reaquecimento Frio (Oportunidade de Entrada Baixa)</option>
-            <option value="parcela_alta">7. Cliente Achou Parcela Alta (Composição de Renda)</option>
-            <option value="medo_divida">8. Cliente Indeciso / Medo de Financiamento</option>
+            <!-- GRUPO 1: BLINDAGEM DE VISITAS -->
+            <optgroup label="📍 Blindagem de Reuniões & Visitas">
+              <option value="visita">1. Confirmação de Visita (Reserva & Portaria)</option>
+              <option value="duas_horas">2. Checagem 2 Horas Antes (Filtro Anti-Gasolina)</option>
+              <option value="assinatura">3. Reunião de Aprovação (Autoridade Presencial)</option>
+            </optgroup>
+            
+            <!-- GRUPO 2: REVERSÃO DE VÁCUO (SUMIÇO) -->
+            <optgroup label="🕳️ Recuperação de Vácuo (Cliente Sumiu)">
+              <option value="sumiu_simulacao">4. Sumiu após Simulação (Descarte Suave / Arquivamento)</option>
+              <option value="sumiu_visita">5. Sumiu após a Visita ao Imóvel (Feedback Sem Pressão)</option>
+              <option value="revisita">6. Reaquecimento Frio (Oportunidade de Entrada Baixa)</option>
+              <option value="sumiu_proposta">7. Sumiu após Envio de Proposta / Tabela (Check de Condição)</option>
+            </optgroup>
+
+            <!-- GRUPO 3: OBJEÇÕES FINANCEIRAS & INSEGURANÇA -->
+            <optgroup label="💰 Objeções Financeiras & Insegurança">
+              <option value="parcela_alta">8. Achou a Parcela Alta (Composição de Renda)</option>
+              <option value="medo_divida">9. Medo de Dívida / Financiamento Longo (Custo do Aluguel)</option>
+              <option value="falta_entrada">10. Falta de Dinheiro para Entrada (Parcelamento Construtora)</option>
+              <option value="vai_pensar">11. 'Vou Pensar e te Aviso' (Isolamento de Dúvida Oculta)</option>
+              <option value="consultar_terceiro">12. 'Preciso Falar com Meu Cônjuge / Pai' (Apoio na Apresentação)</option>
+            </optgroup>
+
+            <!-- GRUPO 4: DOCUMENTAÇÃO & URGÊNCIA BANCÁRIA -->
+            <optgroup label="🏦 Documentação & Urgência Bancária">
+              <option value="documentos">13. Cobrança de Documentos (Garantia de Taxa do Lote)</option>
+              <option value="reprovou_credito">14. Crédito Caixa Reprovado / Condicionado (Plano B Saneamento)</option>
+              <option value="urgencia_unidade">15. Urgência de Última Unidade (Bloqueio de Reserva)</option>
+            </optgroup>
           </select>
         </div>
 
         <div id="agenda-date-time-row" class="form-row">
           <div class="form-group">
-            <label>Data</label>
+            <label>Data da Visita / Reunião</label>
             <input type="date" id="lead-date">
           </div>
           <div class="form-group">
@@ -344,7 +366,7 @@
 
       <div class="card">
         <div class="card-header">
-          <span style="font-size: 12px; font-weight:700;">Mensagem Formatada</span>
+          <span style="font-size: 12px; font-weight:700;">Mensagem Formatada para WhatsApp</span>
           <span id="script-badge" class="pill" style="color: #10b981;">Gatilho Ativo</span>
         </div>
         <div id="script-text" class="script-box">Selecione uma opção e clique no botão acima para gerar o texto.</div>
@@ -628,7 +650,7 @@
       <div class="ia-msg bot">
         Olá! Sou seu assistente no ImobFlow.
 
-        Posso ajudar com regras de crédito da Caixa (cotas, tetos e taxas)[span_3](start_span)[span_3](end_span), como usar cada recurso do app ou técnicas para destravar negociações com clientes. O que você precisa no momento?
+        Posso ajudar com regras de crédito da Caixa (cotas, tetos e taxas)[span_2](start_span)[span_2](end_span), como usar cada recurso do app ou técnicas para destravar negociações com clientes. O que você precisa no momento?
       </div>
     </div>
     <span id="ia-typing" class="ia-typing-indicator">Copiloto digitando...</span>
@@ -1024,7 +1046,7 @@
       calcularFinanciamento(false);
     }
 
-    /* MOTOR DE CÁLCULO ASSERTIVO COM TODOS OS 8 CAMPOS */
+    /* MOTOR DE CÁLCULO ASSERTIVO COM TODOS OS 8 CAMPOS SINCRONIZADOS */
     function calcularFinanciamento(comAviso) {
       var imovelEl = document.getElementById('calc-imovel');
       var rendaEl = document.getElementById('calc-income');
@@ -1201,13 +1223,15 @@
       copiarTextoSeguro(texto, 'Resumo copiado para o WhatsApp!');
     }
 
+    /* ABA 2: CENTRAL ANTISSUMIÇO - 15 SCRIPTS COMPLETOS */
     function verificarCamposAgenda() {
       var tipo = document.getElementById('meeting-type').value;
       var linha = document.getElementById('agenda-date-time-row');
-      if (['sumiu_simulacao', 'documentos', 'revisita', 'parcela_alta', 'medo_divida'].includes(tipo)) {
-        linha.className = 'form-row hidden';
-      } else {
+      // Apenas os scripts com horário/data física precisam da linha visível
+      if (['visita', 'duas_horas', 'assinatura'].includes(tipo)) {
         linha.className = 'form-row';
+      } else {
+        linha.className = 'form-row hidden';
       }
     }
 
@@ -1227,30 +1251,59 @@
       }
 
       var msg = '';
+
+      // 1. BLINDAGEM DE VISITAS
       if (type === 'visita') {
         badge.innerText = 'Compromisso & Portaria';
-        msg = 'Olá ' + name + ', tudo bem?\n\nJá reservei a minha agenda para receber você no dia ' + dateFormatted + ' às ' + time + '.\n\nComo o acesso ao empreendimento exige envio prévio dos nomes na portaria e bloqueei 40 minutos exclusivos para o seu atendimento, peço a gentileza de me confirmar se está tudo mantido por aí. Caso surja algum imprevisto, me avise com 2 horas de antecedência.\n\nNos vemos às ' + time + '!';
+        msg = 'Olá ' + name + ', tudo bem?\n\nJá reservei a minha agenda para receber você no dia ' + dateFormatted + ' às ' + time + '.\n\nComo o acesso ao empreendimento exige envio prévio dos nomes na portaria e bloqueei 40 minutos exclusivos para o seu atendimento, peço a gentileza de me confirmar se está tudo mantido por aí. Caso surja algum imprevisto, me avise com antecedência.\n\nNos vemos às ' + time + '!';
       } else if (type === 'duas_horas') {
         badge.innerText = 'Filtro Anti-Gasolina';
-        msg = 'Olá ' + name + '! Passando rápido para confirmar nosso encontro hoje às ' + time + '.\n\nEstou organizando a rota da tarde e separando a chave e pasta do imóvel. Você conseguiu manter o horário ou já está a caminho?';
-      } else if (type === 'sumiu_simulacao') {
-        badge.innerText = 'Descarte Suave';
-        msg = 'Olá ' + name + ', tudo bem?\n\nComo não tive mais seu retorno sobre os números que montei, imaginei que você tenha decidido pausar a busca ou que as condições não encaixaram no seu orçamento.\n\nSem problema nenhum! Posso arquivar sua pasta por aqui para não incomodar, ou você ainda gostaria de avaliar alguma opção com entrada facilitada?';
-      } else if (type === 'documentos') {
-        badge.innerText = 'Urgência Bancária';
-        msg = 'Olá ' + name + ', tudo certo?\n\nEstou com o sistema da Caixa aberto finalizando a remessa desta semana. Para garantir que seu processo entre com as taxas seguradas, preciso apenas daqueles últimos documentos pendentes.\n\nConsegue me mandar foto nítida por aqui hoje para não perdermos a vaga do lote?';
+        msg = 'Olá ' + name + '! Passando rápido para confirmar nosso encontro hoje às ' + time + '.\n\nEstou organizando a rota da tarde e separando a chave e a pasta do imóvel. Você conseguiu manter o horário ou já está a caminho?';
       } else if (type === 'assinatura') {
         badge.innerText = 'Autoridade Presencial';
         msg = 'Olá ' + name + '! Sua pasta foi deferida e está pronta para assinatura no dia ' + dateFormatted + ' às ' + time + '.\n\nA mesa do correspondente bancário já está agendada exclusivamente para o seu contrato. Não esqueça de levar documento original com foto e comprovantes atualizados.\n\nConto com a sua presença pontual!';
+      }
+      // 2. RECUPERAÇÃO DE VÁCUO (SUMIÇO)
+      else if (type === 'sumiu_simulacao') {
+        badge.innerText = 'Descarte Suave';
+        msg = 'Olá ' + name + ', tudo bem?\n\nComo não tive mais seu retorno sobre os números que montei, imaginei que você tenha decidido pausar a busca ou que as condições não encaixaram no seu orçamento.\n\nSem problema nenhum! Posso arquivar sua pasta por aqui para não incomodar, ou você ainda gostaria de avaliar alguma opção com entrada facilitada?';
+      } else if (type === 'sumiu_visita') {
+        badge.innerText = 'Feedback Sem Pressão';
+        msg = 'Olá ' + name + ', tudo bem?\n\nPassando para saber o que você achou do imóvel que visitamos. Sendo bem sincero(a), ele atendeu ao que você procura ou faltou algum detalhe importante para a sua família?\n\nSeu feedback me ajuda a ajustar o radar caso queira ver outra opção!';
       } else if (type === 'revisita') {
         badge.innerText = 'Oportunidade Reversa';
         msg = 'Olá ' + name + ', lembrei de você hoje!\n\nEntrou uma oportunidade pontual com valor de entrada bem facilitado (dentro do perfil que você procurava).\n\nVocê ainda está avaliando comprar ou já resolveu essa parte?';
-      } else if (type === 'parcela_alta') {
+      } else if (type === 'sumiu_proposta') {
+        badge.innerText = 'Segurança da Tabela';
+        msg = 'Olá ' + name + ', tudo bem?\n\nA construtora/proprietário me pediu uma posição hoje sobre a condição que segurei para você na proposta. Como o fluxo de visitas aumentou, preciso confirmar se mantemos a prioridade ou se posso liberar a unidade para o próximo da fila.';
+      }
+      // 3. OBJEÇÕES FINANCEIRAS & INSEGURANÇA
+      else if (type === 'parcela_alta') {
         badge.innerText = 'Composição de Renda';
-        msg = 'Olá ' + name + '! Se a primeira parcela ficou no limite do planejado, podemos incluir uma composição de renda com um segundo comprador (familiar, noivo(a) ou cônjuge).\n\nIsso estica a margem e reduz o valor da parcela. Tem alguém que toparia compor com você?';
-      } else {
+        msg = 'Olá ' + name + '! Se a primeira parcela ficou no limite do planejado, nós podemos incluir uma composição de renda com um segundo comprador (familiar, noivo(a) ou cônjuge).\n\nIsso estica a margem e reduz consideravelmente o valor da parcela mensal. Tem alguém que toparia compor com você?';
+      } else if (type === 'medo_divida') {
         badge.innerText = 'Custo da Inação';
         msg = 'Olá ' + name + ', é natural ter receio de assumir um compromisso de longo prazo. Mas pense comigo: a parcela financiada amortiza um patrimônio seu que valoriza, enquanto o aluguel é um custo sem retorno.\n\nPodemos ver uma opção onde a parcela fique no mesmo valor do seu aluguel atual?';
+      } else if (type === 'falta_entrada') {
+        badge.innerText = 'Engenharia de Entrada';
+        msg = 'Olá ' + name + '! Se o valor de entrada à vista ficou apertado, nós conseguimos parcelar essa parte diretamente com a construtora durante as obras em até 36x/48x, além de usar o seu FGTS para abater.\n\nQuer que eu monte um fluxo diluído para você avaliar sem compromisso?';
+      } else if (type === 'vai_pensar') {
+        badge.innerText = 'Isolamento de Objeção';
+        msg = 'Perfeito, ' + name + '! É uma decisão importante e você tem que pensar com calma mesmo. Mas me diz uma coisa: dos pontos que vimos, o que mais te deixou em dúvida? Foi a localização, o valor da entrada ou a parcela? Se for condição, eu posso tentar ajustar por aqui!';
+      } else if (type === 'consultar_terceiro') {
+        badge.innerText = 'Apoio na Apresentação';
+        msg = 'Excelente iniciativa, ' + name + '! Faz todo sentido alinhar com calma. Como os números de financiamento têm muitos detalhes técnicos (taxas, subsídios e seguros), quer que eu grave um vídeo rápido de 2 minutos ou faça uma chamada curta com vocês dois para esclarecer tudo de forma transparente?';
+      }
+      // 4. DOCUMENTAÇÃO & URGÊNCIA BANCÁRIA
+      else if (type === 'documentos') {
+        badge.innerText = 'Urgência Bancária';
+        msg = 'Olá ' + name + ', tudo certo?\n\nEstou com o sistema da Caixa aberto finalizando a remessa desta semana. Para garantir que seu processo entre com as taxas seguradas, preciso apenas daqueles últimos documentos pendentes.\n\nConsegue me mandar foto nítida por aqui hoje para não perdermos a vaga do lote?';
+      } else if (type === 'reprovou_credito') {
+        badge.innerText = 'Plano de Saneamento';
+        msg = 'Olá ' + name + '! Tivemos uma resposta do banco com condicionamento de margem. Isso é super comum e perfeitamente contornável! Nós podemos ajustar a composição de renda ou liquidar um pequeno apontamento para rodar uma nova aprovação formal.\n\nVamos conversar 5 minutos hoje para traçar o caminho certo?';
+      } else {
+        badge.innerText = 'Fim de Lote';
+        msg = 'Olá ' + name + '! Passando para te avisar com transparência: restam apenas 2 unidades nessa mesma metragem e valor promocional de entrada. A partir da próxima semana haverá virada de tabela pela construtora.\n\nSe você ainda tem interesse nessa planta, me avise agora para segurar a ficha!';
       }
 
       document.getElementById('script-text').innerText = msg;
@@ -1262,6 +1315,7 @@
       copiarTextoSeguro(text, 'Script copiado!');
     }
 
+    /* VITRINE MULTI-FOTOS */
     function carregarMultiplasFotos(input) {
       if (input.files && input.files.length > 0) {
         fotosGaleria = [];
@@ -1533,31 +1587,31 @@
     /* COPILOTO IA */
     var baseConhecimentoCaixa = {
       regras_gerais: '📌 *Resumo Estratégico das Linhas Caixa (2026):*\n\n' +
-                     '• *Minha Casa Minha Vida (MCMV):* Rendas até R$ 9.600[span_4](start_span)[span_4](end_span). Tetos de avaliação de R$ 275 mil (Faixas 1 e 2) e R$ 400 mil (Faixa 3)[span_5](start_span)[span_5](end_span). Taxas de 4,25% a 7,66% ao ano[span_6](start_span)[span_6](end_span).\n' +
-                     '• *Classe Média (Faixa 4):* Renda entre R$ 9.600,01 e R$ 13.000[span_7](start_span)[span_7](end_span). Teto de imóvel de até R$ 600 mil com juros fixados em 10% a.a.[span_8](start_span)[span_8](end_span)\n' +
-                     '• *Pró-Cotista FGTS:* Sem teto de renda, exigindo pelo menos 3 anos de carteira assinada sob FGTS[span_9](start_span)[span_9](end_span). Imóveis até R$ 500 mil com taxa de 8,66% a.a.[span_10](start_span)[span_10](end_span)\n' +
-                     '• *SBPE Tradicional:* Sem limite de renda, atendendo imóveis de até R$ 2,25 milhões[span_11](start_span)[span_11](end_span). Taxa de 10,92% a.a.[span_12](start_span)[span_12](end_span)',
+                     '• *Minha Casa Minha Vida (MCMV):* Rendas até R$ 9.600[span_3](start_span)[span_3](end_span). Tetos de avaliação de R$ 275 mil (Faixas 1 e 2) e R$ 400 mil (Faixa 3)[span_4](start_span)[span_4](end_span). Taxas de 4,25% a 7,66% ao ano[span_5](start_span)[span_5](end_span).\n' +
+                     '• *Classe Média (Faixa 4):* Renda entre R$ 9.600,01 e R$ 13.000[span_6](start_span)[span_6](end_span). Teto de imóvel de até R$ 600 mil com juros fixados em 10% a.a.[span_7](start_span)[span_7](end_span)\n' +
+                     '• *Pró-Cotista FGTS:* Sem teto de renda, exigindo pelo menos 3 anos de carteira assinada sob FGTS[span_8](start_span)[span_8](end_span). Imóveis até R$ 500 mil com taxa de 8,66% a.a.[span_9](start_span)[span_9](end_span)\n' +
+                     '• *SBPE Tradicional:* Sem limite de renda, atendendo imóveis de até R$ 2,25 milhões[span_10](start_span)[span_10](end_span). Taxa de 10,92% a.a.[span_11](start_span)[span_11](end_span)',
 
       cotas_usado: '📌 *Cotas Máximas para Imóveis USADOS (Caixa 2026):*\n\n' +
-                   '• *MCMV (Faixas 1, 2 e 3):* Financia até *80%* do valor de avaliação[span_13](start_span)[span_13](end_span).\n' +
-                   '• *Classe Média (Faixa 4):* Financia até *60%* no Sul e Sudeste, e até *80%* no Norte, Nordeste e Centro-Oeste[span_14](start_span)[span_14](end_span).\n' +
-                   '• *Pró-Cotista FGTS:* Cota reduzida para até *60%*[span_15](start_span)[span_15](end_span).\n' +
-                   '• *SBPE:* Libera até *80%* no SAC e até *70%* na PRICE[span_16](start_span)[span_16](end_span).',
+                   '• *MCMV (Faixas 1, 2 e 3):* Financia até *80%* do valor de avaliação[span_12](start_span)[span_12](end_span).\n' +
+                   '• *Classe Média (Faixa 4):* Financia até *60%* no Sul e Sudeste, e até *80%* no Norte, Nordeste e Centro-Oeste[span_13](start_span)[span_13](end_span).\n' +
+                   '• *Pró-Cotista FGTS:* Cota reduzida para até *60%*[span_14](start_span)[span_14](end_span).\n' +
+                   '• *SBPE:* Libera até *80%* no SAC e até *70%* na PRICE[span_15](start_span)[span_15](end_span).',
 
       cotas_novo: '📌 *Cotas para Imóveis NOVOS ou NA PLANTA:*\n\n' +
-                  '• *MCMV Faixas 1 e 2:* Libera até *90%* pela tabela SAC e até *80%* na PRICE[span_17](start_span)[span_17](end_span).\n' +
-                  '• *MCMV Faixa 3:* Financia até *80%*[span_18](start_span)[span_18](end_span).\n' +
-                  '• *Classe Média (Faixa 4):* Financia até *80%*[span_19](start_span)[span_19](end_span).\n' +
-                  '• *Pró-Cotista FGTS:* Cota limitada em *60%*[span_20](start_span)[span_20](end_span).\n' +
-                  '• *SBPE:* Financia até *80%* no SAC e até *70%* na PRICE[span_21](start_span)[span_21](end_span).',
+                  '• *MCMV Faixas 1 e 2:* Libera até *90%* pela tabela SAC e até *80%* na PRICE[span_16](start_span)[span_16](end_span).\n' +
+                  '• *MCMV Faixa 3:* Financia até *80%*[span_17](start_span)[span_17](end_span).\n' +
+                  '• *Classe Média (Faixa 4):* Financia até *80%*[span_18](start_span)[span_18](end_span).\n' +
+                  '• *Pró-Cotista FGTS:* Cota limitada em *60%*[span_19](start_span)[span_19](end_span).\n' +
+                  '• *SBPE:* Financia até *80%* no SAC e até *70%* na PRICE[span_20](start_span)[span_20](end_span).',
 
       tetos_renda: '📌 *Faixas de Renda e Tetos de Imóvel da Caixa:*\n\n' +
-                   '• *Faixa 1:* Renda bruta até R$ 2.850[span_22](start_span)[span_22](end_span). Imóvel até R$ 275 mil[span_23](start_span)[span_23](end_span).\n' +
-                   '• *Faixa 2:* Renda de R$ 2.850 a R$ 5.000[span_24](start_span)[span_24](end_span). Imóvel até R$ 275 mil[span_25](start_span)[span_25](end_span).\n' +
-                   '• *Faixa 3:* Renda de R$ 5.000 a R$ 9.600[span_26](start_span)[span_26](end_span). Imóvel até R$ 400 mil[span_27](start_span)[span_27](end_span).\n' +
-                   '• *Faixa 4 (Classe Média):* Renda de R$ 9.600 a R$ 13.000[span_28](start_span)[span_28](end_span). Imóvel até R$ 600 mil[span_29](start_span)[span_29](end_span).\n' +
-                   '• *Pró-Cotista:* Sem limite de renda[span_30](start_span)[span_30](end_span). Imóvel até R$ 500 mil[span_31](start_span)[span_31](end_span).\n' +
-                   '• *SBPE:* Sem limite de renda[span_32](start_span)[span_32](end_span). Imóvel até R$ 2,25 milhões[span_33](start_span)[span_33](end_span).',
+                   '• *Faixa 1:* Renda bruta até R$ 2.850[span_21](start_span)[span_21](end_span). Imóvel até R$ 275 mil[span_22](start_span)[span_22](end_span).\n' +
+                   '• *Faixa 2:* Renda de R$ 2.850 a R$ 5.000[span_23](start_span)[span_23](end_span). Imóvel até R$ 275 mil[span_24](start_span)[span_24](end_span).\n' +
+                   '• *Faixa 3:* Renda de R$ 5.000 a R$ 9.600[span_25](start_span)[span_25](end_span). Imóvel até R$ 400 mil[span_26](start_span)[span_26](end_span).\n' +
+                   '• *Faixa 4 (Classe Média):* Renda de R$ 9.600 a R$ 13.000[span_27](start_span)[span_27](end_span). Imóvel até R$ 600 mil[span_28](start_span)[span_28](end_span).\n' +
+                   '• *Pró-Cotista:* Sem limite de renda[span_29](start_span)[span_29](end_span). Imóvel até R$ 500 mil[span_30](start_span)[span_30](end_span).\n' +
+                   '• *SBPE:* Sem limite de renda[span_31](start_span)[span_31](end_span). Imóvel até R$ 2,25 milhões[span_32](start_span)[span_32](end_span).',
 
       regra_idade: '📌 *Regra de Idade e Prazo Limite da Caixa:*\n\n' +
                    'O prazo bancário máximo é de 420 meses (35 anos).\n\n' +
@@ -1577,10 +1631,12 @@
       exportar_pdf: '📄 *Como Gerar a Apresentação em PDF Profissional:*\n\n' +
                     'Clique no botão **"📄 Baixar Apresentação em PDF (Multi-Fotos)"**. O app gera um arquivo A4 executivo: a folha 1 exibe a foto principal e ficha técnica, e as seguintes trazem as outras fotos com seu rodapé comercial.',
 
-      cliente_sumiu: '🛡️ *Táticas para Destravar Clientes Travados ou Sumidos:*\n\n' +
-                     '1. **Cliente Sumiu após a Simulação:** Use o gatilho da perda reversa (Script 3 da aba Antissumiço): pergunte se pode arquivar a pasta dele para não incomodar. A sensação de descarte faz a maioria responder imediatamente.\n\n' +
-                     '2. **Travou no Envio de Documentos:** Aplique urgência de correspondente bancário (Script 4): explique que as taxas vigentes dependem da entrada no lote semanal da Caixa.\n\n' +
-                     '3. **Travou com Medo da Parcela:** Apresente a composição de renda (Script 7) ou compare a parcela fixa com a perda irreversível do aluguel acumulado (Script 8).'
+      cliente_sumiu: '🛡️ *Táticas da Central Antissumiço para Destravar Negócios:*\n\n' +
+                     '1. **Sumiu após Simulação:** Use a opção 4 (Descarte Suave) perguntando se pode arquivar a pasta dele. O medo da perda reativa a conversa!\n' +
+                     '2. **Sumiu após a Visita:** Use a opção 5 para pedir feedback sincero sem parecer vendedor insistente.\n' +
+                     '3. **Achou Parcela Alta:** Use a opção 8 com Composição de Renda (familiar ou cônjuge) para diluir a margem.\n' +
+                     '4. **Falta de Entrada:** Use a opção 10 mostrando a diluição em até 48x com a construtora.\n' +
+                     '5. **Travou na Documentação:** Use a opção 13 criando urgência do fechamento do lote semanal da Caixa.'
     };
 
     function alternarCopilotoIA(e) {
@@ -1654,7 +1710,7 @@
         return 'Sou o Copiloto ImobFlow, sua inteligência executiva de apoio para crédito imobiliário Caixa, análise de viabilidade financeira e conversão de clientes.';
       }
 
-      if (['travado', 'destravar', 'desenrolar', 'sumiu', 'sumiço', 'vácuo', 'descarte', 'bolo', 'parou de responder', 'cliente sumiu', 'como recuperar'].some(function(term) { return p.indexOf(term) !== -1; })) {
+      if (['travado', 'destravar', 'desenrolar', 'sumiu', 'sumiço', 'vácuo', 'descarte', 'bolo', 'parou de responder', 'cliente sumiu', 'como recuperar', 'objeção'].some(function(term) { return p.indexOf(term) !== -1; })) {
         return baseConhecimentoCaixa.cliente_sumiu;
       }
 
@@ -1667,15 +1723,15 @@
       if (['cota', 'cotas', 'quanto financia', 'porcentagem', 'percentual'].some(function(term) { return p.indexOf(term) !== -1; })) {
         return '📌 *Panorama Geral de Cotas de Financiamento Caixa (2026):*\n\n' +
                '🏢 *Imóveis Novos ou na Planta:*\n' +
-               '• MCMV Faixas 1 e 2: até *90%* pela tabela SAC (*80%* pela PRICE)[span_34](start_span)[span_34](end_span)\n' +
-               '• MCMV Faixa 3 e Classe Média (Fx 4): até *80%*[span_35](start_span)[span_35](end_span)\n' +
-               '• Pró-Cotista FGTS: até *60%*[span_36](start_span)[span_36](end_span)\n' +
-               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE[span_37](start_span)[span_37](end_span)\n\n' +
+               '• MCMV Faixas 1 e 2: até *90%* pela tabela SAC (*80%* pela PRICE)[span_33](start_span)[span_33](end_span)\n' +
+               '• MCMV Faixa 3 e Classe Média (Fx 4): até *80%*[span_34](start_span)[span_34](end_span)\n' +
+               '• Pró-Cotista FGTS: até *60%*[span_35](start_span)[span_35](end_span)\n' +
+               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE[span_36](start_span)[span_36](end_span)\n\n' +
                '🏡 *Imóveis Usados:*\n' +
-               '• MCMV: até *80%*[span_38](start_span)[span_38](end_span)\n' +
-               '• Classe Média (Fx 4): até *60%* (Sul e Sudeste) e *80%* (demais regiões)[span_39](start_span)[span_39](end_span)\n' +
-               '• Pró-Cotista FGTS: até *60%*[span_40](start_span)[span_40](end_span)\n' +
-               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE[span_41](start_span)[span_41](end_span).';
+               '• MCMV: até *80%*[span_37](start_span)[span_37](end_span)\n' +
+               '• Classe Média (Fx 4): até *60%* (Sul e Sudeste) e *80%* (demais regiões)[span_38](start_span)[span_38](end_span)\n' +
+               '• Pró-Cotista FGTS: até *60%*[span_39](start_span)[span_39](end_span)\n' +
+               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE[span_40](start_span)[span_40](end_span).';
       }
 
       if (['teto', 'tetos', 'limite', 'faixa', 'faixas', 'renda', 'salario'].some(function(term) { return p.indexOf(term) !== -1; })) {
@@ -1684,12 +1740,12 @@
 
       if (['taxa', 'taxas', 'juro', 'juros'].some(function(term) { return p.indexOf(term) !== -1; })) {
         return '📌 *Taxas de Juros Vigentes para Cotistas Caixa (Região S/SE/CO):*\n\n' +
-               '• *MCMV Faixa 1 (até R$ 2.850):* de 4,25% a 4,50% ao ano[span_42](start_span)[span_42](end_span).\n' +
-               '• *MCMV Faixa 2 (R$ 2.850 a R$ 5.000):* de 4,75% a 6,50% ao ano[span_43](start_span)[span_43](end_span).\n' +
-               '• *MCMV Faixa 3 (R$ 5.000 a R$ 9.600):* 7,66% ao ano[span_44](start_span)[span_44](end_span).\n' +
-               '• *Faixa 4 (Classe Média):* 10,00% ao ano[span_45](start_span)[span_45](end_span).\n' +
-               '• *Pró-Cotista FGTS:* 8,66% ao ano[span_46](start_span)[span_46](end_span).\n' +
-               '• *SBPE Tradicional:* 10,92% ao ano[span_47](start_span)[span_47](end_span).';
+               '• *MCMV Faixa 1 (até R$ 2.850):* de 4,25% a 4,50% ao ano[span_41](start_span)[span_41](end_span).\n' +
+               '• *MCMV Faixa 2 (R$ 2.850 a R$ 5.000):* de 4,75% a 6,50% ao ano[span_42](start_span)[span_42](end_span).\n' +
+               '• *MCMV Faixa 3 (R$ 5.000 a R$ 9.600):* 7,66% ao ano[span_43](start_span)[span_43](end_span).\n' +
+               '• *Faixa 4 (Classe Média):* 10,00% ao ano[span_44](start_span)[span_44](end_span).\n' +
+               '• *Pró-Cotista FGTS:* 8,66% ao ano[span_45](start_span)[span_45](end_span).\n' +
+               '• *SBPE Tradicional:* 10,92% ao ano[span_46](start_span)[span_46](end_span).';
       }
 
       if (['idade', 'prazo', '80', 'anos', 'meses', 'tempo'].some(function(term) { return p.indexOf(term) !== -1; })) {
@@ -1738,7 +1794,7 @@
                              'Seu tom é seguro, profissional, acolhedor e altamente técnico, tratando o interlocutor de forma neutra. ' +
                              'Você domina: regras Caixa 2026 (MCMV faixas 1 a 3 com tetos de 275k e 400k; Faixa 4 até 600k com 10% a.a.; Pró-cotista até 500k com 8.66% a.a.; SBPE até 2.25M com 10.92% a.a.), ' +
                              'cotas de novos/planta (até 90% SAC no MCMV 1 e 2; 80% nos demais) e usados (80% MCMV; 60% S/SE na faixa 4 e pró-cotista; 80% SAC e 70% Price no SBPE), ' +
-                             'regra de idade (idade + prazo <= 80,5 anos), SAC vs PRICE, e as funções do app ImobFlow (Vitrine com link público ?v= e PDF multi-páginas, Qualificador e Scripts Antissumiço). ' +
+                             'regra de idade (idade + prazo <= 80,5 anos), SAC vs PRICE, e as funções do app ImobFlow (Vitrine com link público ?v= e PDF multi-páginas, Qualificador e Scripts Antissumiço com 15 opções). ' +
                              'Seja comunicativo, falador, consultivo e focado em apoiar o corretor a fechar negócio.';
 
           var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey;
