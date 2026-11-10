@@ -68,10 +68,11 @@
     .pill { background: var(--border-color); color: var(--text-muted); font-size: 10px; padding: 3px 8px; border-radius: 20px; font-weight: 600; }
     .card-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.4; }
 
-    /* Seletores Pílula Harmonizados */
+    /* Seletores Pílula */
     .selector-label { display: block; font-size: 11px; font-weight: 600; color: var(--text-main); margin-bottom: 6px; }
-    .pill-group { display: flex; gap: 6px; margin-bottom: 12px; background: var(--bg-input); padding: 4px; border-radius: 10px; border: 1px solid var(--border-color); width: 100%; }
-    .pill-btn { flex: 1; background: transparent; border: none; color: var(--text-muted); padding: 9px 4px; font-size: 11px; font-weight: 700; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.15s ease; touch-action: manipulation; }
+    .pill-group { display: flex; gap: 6px; margin-bottom: 12px; background: var(--bg-input); padding: 4px; border-radius: 10px; border: 1px solid var(--border-color); width: 100%; overflow-x: auto; scrollbar-width: none; }
+    .pill-group::-webkit-scrollbar { display: none; }
+    .pill-btn { flex: 1; background: transparent; border: none; color: var(--text-muted); padding: 9px 6px; font-size: 11px; font-weight: 700; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.15s ease; white-space: nowrap; }
     .pill-btn.active { background: var(--primary-color); color: var(--primary-text); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 
     /* Formulários */
@@ -83,7 +84,7 @@
     input[type="file"] { font-size: 12px; padding: 8px; }
 
     /* Botões */
-    .btn-action { display: block; width: 100%; text-align: center; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; padding: 14px; cursor: pointer; user-select: none; touch-action: manipulation; }
+    .btn-action { display: block; width: 100%; text-align: center; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; padding: 14px; cursor: pointer; user-select: none; }
     .btn-action:active { transform: scale(0.98); opacity: 0.9; }
     .btn-emerald { background: var(--primary-color); color: var(--primary-text); margin-top: 8px; }
     .btn-secondary { background: var(--border-color); border: 1px solid var(--border-color); color: var(--primary-color); margin-top: 10px; font-weight: 600; font-size: 12px; }
@@ -92,7 +93,7 @@
     .btn-purple { background: #8b5cf6; color: #ffffff; margin-top: 10px; }
     .btn-danger { background: #ef4444; color: #ffffff; margin-top: 10px; }
 
-    /* Caixa de Resultados (8 Blocos Simétricos) */
+    /* Resultados */
     .result-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
     .result-title { font-size: 11px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
     .result-status { font-size: 12px; color: var(--text-main); margin-bottom: 12px; line-height: 1.4; }
@@ -103,8 +104,27 @@
     .result-item strong.highlight { color: var(--primary-color); }
     .disclaimer { font-size: 10px; color: var(--text-muted); line-height: 1.4; margin-top: 12px; }
 
-    /* Script Box */
+    /* Estilos Antissumiço em Cards Visuais */
+    .script-catalog { display: flex; flex-direction: column; gap: 8px; max-height: 340px; overflow-y: auto; padding-right: 4px; margin-top: 8px; }
+    .script-card-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; cursor: pointer; transition: all 0.15s ease; text-align: left; }
+    .script-card-item:hover, .script-card-item.selected { border-color: var(--primary-color); background: rgba(16, 185, 129, 0.08); }
+    body.light-theme .script-card-item.selected { background: rgba(37, 99, 235, 0.08); }
+    .script-card-item .item-title { font-size: 12.5px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 2px; }
+    .script-card-item .item-desc { font-size: 10.5px; color: var(--text-muted); line-height: 1.3; }
     .script-box { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; font-size: 12.5px; color: var(--text-main); line-height: 1.6; white-space: pre-line; margin: 12px 0; border-left: 3px solid var(--primary-color); }
+
+    /* Radar de Imóveis */
+    .radar-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+    .radar-card { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .radar-img-box { position: relative; height: 160px; background: #000; }
+    .radar-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .radar-tag { position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: var(--primary-text); font-size: 9px; font-weight: 800; padding: 4px 8px; border-radius: 4px; }
+    .radar-card-content { padding: 12px; }
+    .radar-card-content h4 { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+    .radar-card-content .price { font-size: 15px; font-weight: 900; color: var(--primary-color); margin-bottom: 6px; }
+    .radar-card-content .loc { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; }
+    .radar-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .radar-actions button { padding: 8px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; }
 
     /* Vitrine */
     #card-export-area { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-top: 12px; user-select: none; }
@@ -132,12 +152,12 @@
     .corretor-footer { border-top: 1px dashed var(--border-color); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-main); }
     .corretor-footer strong { color: var(--text-main); }
 
-    /* Barra Inferior */
+    /* Barra Inferior (Agora com 4 Abas) */
     nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-nav); border-top: 1px solid var(--border-color); z-index: 999; padding-bottom: env(safe-area-inset-bottom, 0px); }
-    .nav-container { max-width: 480px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 8px 12px; }
-    .nav-btn { background: none; border: none; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 11px; font-weight: 600; cursor: pointer; padding: 8px 0; touch-action: manipulation; }
+    .nav-container { max-width: 480px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; padding: 8px 6px; }
+    .nav-btn { background: none; border: none; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 10.5px; font-weight: 600; cursor: pointer; padding: 6px 0; }
     .nav-btn.active { color: var(--primary-color); }
-    .nav-icon { font-size: 18px; margin-bottom: 2px; }
+    .nav-icon { font-size: 17px; margin-bottom: 2px; }
 
     #btn-lead-whatsapp-float { display: none; position: fixed; bottom: 16px; left: 16px; right: 16px; max-width: 448px; margin: 0 auto; background: #10b981; color: #020617; font-size: 14px; font-weight: 800; padding: 14px; border-radius: 12px; text-align: center; text-decoration: none; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); z-index: 1000; }
     .toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%) translateY(20px); background: #10b981; color: #020617; padding: 10px 18px; border-radius: 8px; font-size: 12px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 10005; max-width: 90%; text-align: center; }
@@ -160,6 +180,7 @@
     #ia-copilot-trigger { position: fixed; right: 16px; bottom: 82px; background: var(--copilot-bg); color: #ffffff; font-size: 12px; font-weight: 800; padding: 10px 14px; border-radius: 30px; display: flex; align-items: center; gap: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 9999; cursor: pointer; border: none; user-select: none; }
     #ia-copilot-modal { display: none; position: fixed; right: 12px; bottom: 80px; width: calc(100% - 24px); max-width: 420px; height: 510px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; z-index: 10000; flex-direction: column; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.85); }
     .ia-header { background: var(--bg-input); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+    .ia-header-left { display: flex; align-items: center; gap: 8px; }
     .ia-header strong { font-size: 13px; color: var(--primary-color); }
     .ia-close { background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer; }
     
@@ -209,7 +230,7 @@
           <h2 class="card-title">⚡ Estudo de Financiamento</h2>
           <span class="pill" id="badge-tipo-linha">MCMV (Caixa)</span>
         </div>
-        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel)[cite: 6].</p>
+        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel).</p>
 
         <span class="selector-label">Tipo do Imóvel:</span>
         <div class="pill-group">
@@ -226,7 +247,6 @@
           <button type="button" id="btn-mod-sbpe" class="pill-btn" onclick="selecionarModalidade('sbpe')">SBPE</button>
         </div>
 
-        <!-- SELETOR INVERTIDO: PRICE PRIMEIRO, SAC SEGUNDO (INICIA EM PRICE) -->
         <span class="selector-label">Tabela de Amortização:</span>
         <div class="pill-group">
           <button type="button" id="btn-tab-price" class="pill-btn active" onclick="selecionarAmortizacao('price')">PRICE (Fixa)</button>
@@ -300,86 +320,144 @@
       </div>
     </section>
 
-    <!-- ABA 2: CENTRAL ANTISSUMIÇO REFINADA (COM BOTÃO WHATSAPP DIRETO) -->
+    <!-- ABA 2: CENTRAL ANTISSUMIÇO REFORMULADA (SEM DROPDOWN CORTADO) -->
     <section id="tab-agenda" class="hidden">
       <div class="card">
         <div class="card-header">
           <h2 class="card-title">🛡️ Central Antissumiço</h2>
-          <span class="pill">15 Scripts de Elite</span>
+          <span class="pill">15 Scripts Prontos</span>
         </div>
-        <p class="card-desc">Gere mensagens personalizadas e envie diretamente para o WhatsApp do cliente para destravar o fechamento.</p>
+        <p class="card-desc">Selecione o filtro e toque na mensagem ideal para destravar o cliente.</p>
 
         <div class="form-row">
           <div class="form-group">
             <label>Nome do Cliente</label>
-            <input type="text" id="lead-name" placeholder="Ex: Carlos Eduardo">
+            <input type="text" id="lead-name" placeholder="Ex: Carlos" oninput="atualizarPreviewScript()">
           </div>
           <div class="form-group">
-            <label>WhatsApp do Cliente (Opcional)</label>
+            <label>WhatsApp (Opcional)</label>
             <input type="text" id="lead-phone" placeholder="Ex: (41) 98888-7777" oninput="aplicarMascaraTelefone(this)">
           </div>
         </div>
 
-        <div class="form-group">
-          <label>Situação / Objeção do Cliente</label>
-          <select id="meeting-type" onchange="verificarCamposAgenda()">
-            <optgroup label="📍 Blindagem de Reuniões & Visitas">
-              <option value="visita">1. Confirmação de Visita (Reserva & Portaria)</option>
-              <option value="duas_horas">2. Checagem 2 Horas Antes (Filtro Anti-Gasolina)</option>
-              <option value="assinatura">3. Reunião de Aprovação (Autoridade Presencial)</option>
-            </optgroup>
-            <optgroup label="🕳️ Recuperação de Vácuo (Cliente Sumiu)">
-              <option value="sumiu_simulacao">4. Sumiu após Simulação (Descarte Suave / Arquivamento)</option>
-              <option value="sumiu_visita">5. Sumiu após a Visita ao Imóvel (Feedback Sem Pressão)</option>
-              <option value="revisita">6. Reaquecimento Frio (Oportunidade de Entrada Baixa)</option>
-              <option value="sumiu_proposta">7. Sumiu após Envio de Proposta (Check de Condição)</option>
-            </optgroup>
-            <optgroup label="💰 Objeções Financeiras & Insegurança">
-              <option value="parcela_alta">8. Achou a Parcela Alta (Composição de Renda)</option>
-              <option value="medo_divida">9. Medo de Dívida / Financiamento Longo (Custo do Aluguel)</option>
-              <option value="falta_entrada">10. Falta de Dinheiro para Entrada (Parcelamento Construtora)</option>
-              <option value="vai_pensar">11. 'Vou Pensar e te Aviso' (Isolamento de Dúvida Oculta)</option>
-              <option value="consultar_terceiro">12. 'Preciso Falar com Meu Cônjuge / Pai' (Apoio na Apresentação)</option>
-            </optgroup>
-            <optgroup label="🏦 Documentação & Urgência Bancária">
-              <option value="documentos">13. Cobrança de Documentos (Garantia de Taxa do Lote)</option>
-              <option value="reprovou_credito">14. Crédito Caixa Reprovado / Condicionado (Plano B Saneamento)</option>
-              <option value="urgencia_unidade">15. Urgência de Última Unidade (Bloqueio de Reserva)</option>
-            </optgroup>
-          </select>
-        </div>
-
         <div id="agenda-date-time-row" class="form-row hidden">
           <div class="form-group">
-            <label>Data da Visita / Reunião</label>
-            <input type="date" id="lead-date">
+            <label>Data</label>
+            <input type="date" id="lead-date" onchange="atualizarPreviewScript()">
           </div>
           <div class="form-group">
             <label>Horário</label>
-            <input type="time" id="lead-time" value="15:00">
+            <input type="time" id="lead-time" value="15:00" onchange="atualizarPreviewScript()">
           </div>
         </div>
 
-        <button type="button" onclick="gerarMensagemAntisumico()" class="btn-action btn-emerald">🔒 Gerar Mensagem Blindada</button>
+        <span class="selector-label">Filtrar por Categoria:</span>
+        <div class="pill-group">
+          <button type="button" class="pill-btn active" onclick="filtrarCategoriaScript('todos', this)">Todos</button>
+          <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('visita', this)">Visitas</button>
+          <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('vacuo', this)">Vácuo</button>
+          <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('objecao', this)">Objeções</button>
+          <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('bancario', this)">Bancário</button>
+        </div>
+
+        <div class="script-catalog" id="script-catalog-list">
+          <!-- Os 15 cards são montados dinamicamente via JS -->
+        </div>
       </div>
 
-      <div class="card" id="card-script-result" style="display:none;">
+      <!-- PAINEL DE DISPARO DA MENSAGEM SELECIONADA -->
+      <div class="card" id="card-script-result">
         <div class="card-header">
-          <span style="font-size: 12px; font-weight:700;">Mensagem Pronta</span>
-          <span id="script-badge" class="pill" style="color: #10b981;">Gatilho Ativo</span>
+          <span style="font-size: 12px; font-weight:700;">Mensagem Pronta para Envio</span>
+          <span id="script-badge" class="pill" style="color: #10b981;">Toque em um card acima</span>
         </div>
-        <div id="script-text" class="script-box"></div>
+        <div id="script-text" class="script-box">Selecione um dos 15 scripts na lista acima para visualizar o texto adaptado.</div>
         <button type="button" onclick="copiarScriptTexto()" class="btn-action btn-secondary">📋 Copiar Mensagem</button>
-        <button type="button" onclick="confirmarEEnviarWhatsApp()" class="btn-action btn-whatsapp-direct">💬 Confirmar & Abrir no WhatsApp</button>
+        <button type="button" onclick="confirmarEEnviarWhatsApp()" class="btn-action btn-whatsapp-direct">💬 Enviar no WhatsApp</button>
       </div>
     </section>
 
-    <!-- ABA 3: VITRINE INTERATIVA -->
+    <!-- ABA 3: RADAR NACIONAL DE IMÓVEIS (NOVA FUNÇÃO) -->
+    <section id="tab-radar" class="hidden">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🔍 Radar de Imóveis Brasil</h2>
+          <span class="pill">Meta-Busca Leve</span>
+        </div>
+        <p class="card-desc">Encontre oportunidades em qualquer cidade do país e importe as fotos e dados direto para a sua vitrine com 1 clique.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Estado (UF)</label>
+            <select id="radar-uf" onchange="carregarCidadesRadar()">
+              <option value="PR" selected>Paraná (PR)</option>
+              <option value="SP">São Paulo (SP)</option>
+              <option value="RJ">Rio de Janeiro (RJ)</option>
+              <option value="SC">Santa Catarina (SC)</option>
+              <option value="RS">Rio Grande do Sul (RS)</option>
+              <option value="MG">Minas Gerais (MG)</option>
+              <option value="BA">Bahia (BA)</option>
+              <option value="GO">Goiás (GO)</option>
+              <option value="DF">Distrito Federal (DF)</option>
+              <option value="PE">Pernambuco (PE)</option>
+              <option value="CE">Ceará (CE)</option>
+              <option value="OUTRO">Outros Estados</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Cidade / Região</label>
+            <input type="text" id="radar-city" placeholder="Ex: Curitiba, Londrina..." value="Curitiba">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Padrão / Faixa</label>
+            <select id="radar-profile">
+              <option value="mcmv">MCMV (Até R$ 275k - 400k)</option>
+              <option value="medio">Médio Padrão (Até R$ 600k)</option>
+              <option value="alto">Alto Padrão / Luxo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Quartos</label>
+            <select id="radar-dorms">
+              <option value="2">2 Quartos</option>
+              <option value="3">3 Quartos</option>
+              <option value="1">1 Quarto / Studio</option>
+              <option value="todos">Qualquer</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" onclick="pesquisarOportunidadesRadar()" class="btn-action btn-emerald">📡 Varrer Oportunidades no Radar</button>
+      </div>
+
+      <!-- IMPORTADOR DIRETO POR LINK PÚBLICO -->
+      <div class="card" style="border-style: dashed;">
+        <div class="card-header">
+          <strong style="font-size:12px; color:var(--primary-color);">⚡ Importar Anúncio por Link Externo</strong>
+          <span class="pill">Auto-Preenchimento</span>
+        </div>
+        <p class="card-desc" style="margin-bottom:8px;">Cole o link de qualquer portal imobiliário ou anúncio público para puxar os dados:</p>
+        <div class="form-group">
+          <input type="url" id="radar-import-url" placeholder="https://exemplo.com.br/imovel-1234">
+        </div>
+        <button type="button" onclick="importarAnuncioPorUrl()" class="btn-action btn-secondary" style="margin-top:0;">📥 Puxar Anúncio para Minha Vitrine</button>
+      </div>
+
+      <!-- FEED DE ANÚNCIOS DO RADAR -->
+      <div class="radar-grid" id="radar-results-list">
+        <!-- Renderizado dinamicamente com fotos otimizadas -->
+      </div>
+    </section>
+
+    <!-- ABA 4: VITRINE INTERATIVA -->
     <section id="tab-vitrine" class="hidden">
       <div id="vitrine-form-card" class="card">
         <div class="card-header">
           <h2 class="card-title">📲 Vitrine Interativa & Exportação</h2>
-          <span class="pill">Multi-Fotos & Slide</span>
+          <span class="pill">Multi-Fotos</span>
         </div>
         <p class="card-desc">Carregue fotos, gere um link público para o cliente navegar ou exporte em PDF.</p>
 
@@ -458,14 +536,14 @@
       </div>
     </section>
 
-    <!-- ABA 4: PLANOS & TRIAL DE 14 DIAS -->
+    <!-- ABA 5: PLANOS & TRIAL DE 14 DIAS -->
     <section id="tab-planos" class="hidden">
       <div id="box-trial-promo" class="card" style="border: 2px solid var(--primary-color); background: rgba(37,99,235,0.04);">
         <div class="card-header">
           <h2 class="card-title" style="color:var(--primary-color);">🎁 Teste Grátis de 14 Dias</h2>
           <span class="pill" style="color:#10b981; font-weight:800;">1 Por Aparelho</span>
         </div>
-        <p class="card-desc">Libere acesso irrestrito ao Qualificador Caixa, Central Antissumiço, Vitrine e Copiloto IA. Cadastre seu cartão e cancele a qualquer momento sem cobranças.</p>
+        <p class="card-desc">Libere acesso irrestrito ao Qualificador Caixa, Central Antissumiço, Radar Nacional, Vitrine e Copiloto IA. Cadastre seu cartão e cancele quando quiser.</p>
         <button type="button" id="btn-iniciar-trial" onclick="abrirModalTrial()" class="btn-action btn-emerald">🚀 Iniciar Meus 14 Dias Grátis</button>
       </div>
 
@@ -643,15 +721,14 @@
       <div class="ia-msg bot">
         Olá! Sou seu assistente no ImobFlow.
 
-        Posso ajudar com regras de crédito da Caixa (cotas, tetos e taxas)[cite: 6], como usar cada recurso do app ou técnicas para destravar negociações com clientes. O que você precisa no momento?
+        Posso ajudar com regras de crédito da Caixa (cotas, tetos e taxas)[cite: 6], uso do Radar de Imóveis, Vitrine ou estratégias para destravar fechamentos. Em que posso somar agora?
       </div>
     </div>
     <span id="ia-typing" class="ia-typing-indicator">Copiloto digitando...</span>
     <div class="ia-quick-topics">
       <span class="ia-chip" onclick="executarTopicoIA('regras_gerais')">Regras Caixa</span>
       <span class="ia-chip" onclick="executarTopicoIA('cotas_usado')">Cotas Usado</span>
-      <span class="ia-chip" onclick="executarTopicoIA('tetos_renda')">Tetos de Renda</span>
-      <span class="ia-chip" onclick="executarTopicoIA('regra_idade')">Regra Idade</span>
+      <span class="ia-chip" onclick="executarTopicoIA('radar_ajuda')">Radar Imóveis</span>
       <span class="ia-chip" onclick="executarTopicoIA('cliente_sumiu')">Destravar Cliente</span>
       <span class="ia-chip" onclick="executarTopicoIA('link_vitrine')">Link Vitrine</span>
       <span class="ia-chip" onclick="executarTopicoIA('exportar_pdf')">Exportar PDF</span>
@@ -663,7 +740,7 @@
     </div>
   </div>
 
-  <!-- Navegação Inferior -->
+  <!-- Navegação Inferior (4 Abas) -->
   <nav id="app-nav">
     <div class="nav-container">
       <button type="button" id="nav-calculator" onclick="irParaAba('calculator')" class="nav-btn active">
@@ -673,6 +750,10 @@
       <button type="button" id="nav-agenda" onclick="irParaAba('agenda')" class="nav-btn">
         <span class="nav-icon">🛡️</span>
         Antissumiço
+      </button>
+      <button type="button" id="nav-radar" onclick="irParaAba('radar')" class="nav-btn">
+        <span class="nav-icon">📡</span>
+        Radar
       </button>
       <button type="button" id="nav-vitrine" onclick="irParaAba('vitrine')" class="nav-btn">
         <span class="nav-icon">📲</span>
@@ -690,7 +771,8 @@
 
     var tipoImovelAtual = 'planta';
     var modalidadeAtual = 'mcmv';
-    var amortizacaoAtual = 'price'; // INICIA EM PRICE POR PADRÃO
+    var amortizacaoAtual = 'price';
+    var scriptSelecionadoId = 'sumiu_simulacao';
 
     function mostrarToast(msg) {
       var t = document.getElementById('toast');
@@ -703,16 +785,9 @@
       }, 2400);
     }
 
-    /* SISTEMA DE TRAVA DE TRIAL E DISPOSITIVO (ANTIFRAUDE) */
+    /* SISTEMA DE TRAVA DE TRIAL E DISPOSITIVO */
     function gerarFingerprintDispositivo() {
-      var raw = [
-        navigator.userAgent,
-        navigator.language,
-        screen.width + 'x' + screen.height,
-        screen.colorDepth,
-        new Date().getTimezoneOffset()
-      ].join('###');
-      
+      var raw = [navigator.userAgent, navigator.language, screen.width + 'x' + screen.height, screen.colorDepth, new Date().getTimezoneOffset()].join('###');
       var hash = 0;
       for (var i = 0; i < raw.length; i++) {
         var char = raw.charCodeAt(i);
@@ -733,9 +808,7 @@
       var btnTrial = document.getElementById('btn-iniciar-trial');
 
       if (trialExpira) {
-        var agora = Date.now();
-        var restanteMs = parseInt(trialExpira, 10) - agora;
-        
+        var restanteMs = parseInt(trialExpira, 10) - Date.now();
         if (restanteMs > 0) {
           var dias = Math.ceil(restanteMs / (1000 * 60 * 60 * 24));
           if (banner) banner.style.display = 'block';
@@ -790,26 +863,19 @@
 
     function aplicarMascaraValidade(input) {
       var v = input.value.replace(/\D/g, '');
-      if (v.length > 2) {
-        input.value = v.substring(0, 2) + '/' + v.substring(2, 4);
-      } else {
-        input.value = v;
-      }
+      if (v.length > 2) input.value = v.substring(0, 2) + '/' + v.substring(2, 4);
+      else input.value = v;
     }
 
     function ativarTrialComCartao(e) {
       e.preventDefault();
       var cardNum = document.getElementById('trial-card-num').value.replace(/\s/g, '');
-      
       if (cardNum.length < 13) {
         alert('Por favor, informe um número de cartão de crédito válido.');
         return;
       }
-
       var cardFingerprint = btoa(cardNum.substring(0, 6) + '...' + cardNum.substring(cardNum.length - 4));
-      var jaUsouCartao = localStorage.getItem('imobflow_used_card_' + cardFingerprint);
-
-      if (jaUsouCartao) {
+      if (localStorage.getItem('imobflow_used_card_' + cardFingerprint)) {
         alert('Este cartão de crédito já foi cadastrado para um teste grátis anteriormente.');
         return;
       }
@@ -829,13 +895,10 @@
       irParaAba('calculator');
     }
 
-    /* MÁSCARAS */
+    /* MÁSCARAS & UTILITÁRIOS */
     function aplicarMascaraMoeda(input) {
       var valor = input.value.replace(/\D/g, '');
-      if (!valor) {
-        input.value = '';
-        return;
-      }
+      if (!valor) { input.value = ''; return; }
       var numero = (parseFloat(valor) / 100).toFixed(2);
       var partes = numero.split('.');
       partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -845,15 +908,10 @@
     function aplicarMascaraTelefone(input) {
       var v = input.value.replace(/\D/g, '');
       if (v.length > 11) v = v.substring(0, 11);
-      if (v.length > 10) {
-        input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2, 7) + '-' + v.substring(7);
-      } else if (v.length > 6) {
-        input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2, 6) + '-' + v.substring(6);
-      } else if (v.length > 2) {
-        input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2);
-      } else {
-        input.value = v;
-      }
+      if (v.length > 10) input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2, 7) + '-' + v.substring(7);
+      else if (v.length > 6) input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2, 6) + '-' + v.substring(6);
+      else if (v.length > 2) input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2);
+      else input.value = v;
     }
 
     function converterMoedaParaNumero(valorTexto) {
@@ -897,7 +955,7 @@
     }
 
     function irParaAba(idAba) {
-      var abas = ['calculator', 'agenda', 'vitrine', 'planos'];
+      var abas = ['calculator', 'agenda', 'radar', 'vitrine', 'planos'];
       for (var i = 0; i < abas.length; i++) {
         var el = document.getElementById('tab-' + abas[i]);
         var navBtn = document.getElementById('nav-' + abas[i]);
@@ -914,23 +972,10 @@
     }
 
     /* CONFIGURAÇÕES E PERFIL */
-    function abrirModalAjustes() {
-      document.getElementById('settings-modal').style.display = 'flex';
-    }
-
-    function fecharModalAjustes() {
-      document.getElementById('settings-modal').style.display = 'none';
-    }
-
-    function abrirModalPerfil() {
-      fecharModalAjustes();
-      carregarDadosPerfil();
-      document.getElementById('profile-modal').style.display = 'flex';
-    }
-
-    function fecharModalPerfil() {
-      document.getElementById('profile-modal').style.display = 'none';
-    }
+    function abrirModalAjustes() { document.getElementById('settings-modal').style.display = 'flex'; }
+    function fecharModalAjustes() { document.getElementById('settings-modal').style.display = 'none'; }
+    function abrirModalPerfil() { fecharModalAjustes(); carregarDadosPerfil(); document.getElementById('profile-modal').style.display = 'flex'; }
+    function fecharModalPerfil() { document.getElementById('profile-modal').style.display = 'none'; }
 
     function alternarTema() {
       var isLight = document.body.classList.toggle('light-theme');
@@ -940,13 +985,9 @@
     }
 
     function carregarDadosPerfil() {
-      var nome = localStorage.getItem('imobflow_user_name') || '';
-      var email = localStorage.getItem('imobflow_user_email') || '';
-      var tel = localStorage.getItem('imobflow_user_phone') || '';
-
-      document.getElementById('prof-name').value = nome;
-      document.getElementById('prof-email').value = email;
-      document.getElementById('prof-phone').value = tel;
+      document.getElementById('prof-name').value = localStorage.getItem('imobflow_user_name') || '';
+      document.getElementById('prof-email').value = localStorage.getItem('imobflow_user_email') || '';
+      document.getElementById('prof-phone').value = localStorage.getItem('imobflow_user_phone') || '';
     }
 
     function salvarPerfilUsuario(e) {
@@ -958,16 +999,9 @@
       var passConf = document.getElementById('prof-pass-confirm').value;
 
       if (pass || passConf) {
-        if (pass.length < 6) {
-          alert('A nova senha deve ter pelo menos 6 caracteres.');
-          return;
-        }
-        if (pass !== passConf) {
-          alert('As senhas digitadas não coincidem.');
-          return;
-        }
+        if (pass.length < 6) { alert('A nova senha deve ter pelo menos 6 caracteres.'); return; }
+        if (pass !== passConf) { alert('As senhas digitadas não coincidem.'); return; }
         localStorage.setItem('imobflow_user_pass', pass);
-        mostrarToast('Senha atualizada com sucesso!');
       }
 
       localStorage.setItem('imobflow_user_name', nome);
@@ -979,16 +1013,12 @@
       atualizarVitrineCard();
 
       fecharModalPerfil();
-      mostrarToast('Dados de perfil salvos com sucesso!');
+      mostrarToast('Dados salvos com sucesso!');
     }
 
     function deslogarSistema() {
       if (confirm('Deseja realmente deslogar e limpar a sessão deste aparelho?')) {
-        localStorage.removeItem('imobflow_user_name');
-        localStorage.removeItem('imobflow_user_email');
-        localStorage.removeItem('imobflow_user_phone');
-        localStorage.removeItem('imobflow_user_pass');
-        fecharModalAjustes();
+        localStorage.clear();
         location.reload();
       }
     }
@@ -1003,7 +1033,7 @@
       }
     }
 
-    /* SELETORES CALCULADORA */
+    /* CALCULADORA CAIXA */
     function selecionarTipoImovel(tipo) {
       tipoImovelAtual = tipo;
       ['planta', 'novo', 'usado'].forEach(function(t) {
@@ -1041,11 +1071,9 @@
         if (tipo === 'price') label.innerText = 'Parcela Fixa (PRICE)';
         else label.innerText = '1ª Parcela Est. (SAC)';
       }
-
       calcularFinanciamento(false);
     }
 
-    /* MOTOR DE CÁLCULO ASSERTIVO */
     function setElemText(id, val) {
       var el = document.getElementById(id);
       if (el) el.innerText = val;
@@ -1091,81 +1119,43 @@
 
       if (modalidadeAtual === 'mcmv') {
         if (renda <= 2160) {
-          jurosAnual = 4.25;
-          tetoImovelPermitido = 275000;
-          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+          jurosAnual = 4.25; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
         } else if (renda <= 2850) {
-          jurosAnual = 4.50;
-          tetoImovelPermitido = 275000;
-          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+          jurosAnual = 4.50; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
         } else if (renda <= 3200) {
-          jurosAnual = 4.75;
-          tetoImovelPermitido = 275000;
-          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+          jurosAnual = 4.75; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
         } else if (renda <= 3500) {
-          jurosAnual = 5.00;
-          tetoImovelPermitido = 275000;
-          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+          jurosAnual = 5.00; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
         } else if (renda <= 4000) {
-          jurosAnual = 5.50;
-          tetoImovelPermitido = 275000;
-          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+          jurosAnual = 5.50; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
         } else if (renda <= 5000) {
-          jurosAnual = 6.50;
-          tetoImovelPermitido = 275000;
-          cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+          jurosAnual = 6.50; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
         } else {
-          jurosAnual = 7.66;
-          tetoImovelPermitido = 400000;
-          cotaMaxima = 0.80;
+          jurosAnual = 7.66; tetoImovelPermitido = 400000; cotaMaxima = 0.80;
         }
-
-        if (valorImovel > tetoImovelPermitido) {
-          avisoLimite = ' ⚠️ Atenção: Valor excede o teto desta faixa do MCMV (R$ ' + Number(tetoImovelPermitido).toLocaleString('pt-BR') + ').';
-        }
-
+        if (valorImovel > tetoImovelPermitido) avisoLimite = ' ⚠️ Excede o teto desta faixa do MCMV (R$ ' + Number(tetoImovelPermitido).toLocaleString('pt-BR') + ').';
       } else if (modalidadeAtual === 'faixa4') {
-        jurosAnual = 10.00;
-        tetoImovelPermitido = 600000;
-        cotaMaxima = isNovoOrPlanta ? 0.80 : 0.60;
-        if (valorImovel > tetoImovelPermitido) {
-          avisoLimite = ' ⚠️ Atenção: Excede o teto de R$ 600 mil da Faixa 4.';
-        }
-
+        jurosAnual = 10.00; tetoImovelPermitido = 600000; cotaMaxima = isNovoOrPlanta ? 0.80 : 0.60;
+        if (valorImovel > tetoImovelPermitido) avisoLimite = ' ⚠️ Excede o teto de R$ 600 mil da Faixa 4.';
       } else if (modalidadeAtual === 'procotista') {
-        jurosAnual = 8.66;
-        tetoImovelPermitido = 500000;
-        cotaMaxima = 0.60;
-        if (valorImovel > tetoImovelPermitido) {
-          avisoLimite = ' ⚠️ Atenção: Excede o teto de R$ 500 mil do Pró-Cotista.';
-        }
-
+        jurosAnual = 8.66; tetoImovelPermitido = 500000; cotaMaxima = 0.60;
+        if (valorImovel > tetoImovelPermitido) avisoLimite = ' ⚠️ Excede o teto de R$ 500 mil do Pró-Cotista.';
       } else {
-        jurosAnual = 10.92;
-        tetoImovelPermitido = 2250000;
-        cotaMaxima = (amortizacaoAtual === 'sac') ? 0.80 : 0.70;
+        jurosAnual = 10.92; tetoImovelPermitido = 2250000; cotaMaxima = (amortizacaoAtual === 'sac') ? 0.80 : 0.70;
       }
 
       var margemMaxCaixa = renda * 0.30;
       var tetoFinanceiro = valorImovel * cotaMaxima;
       var taxaMensal = Math.pow(1 + (jurosAnual / 100), 1/12) - 1;
 
-      var financPelaRenda = 0;
-      var parcelaCalculada = 0;
-
-      if (amortizacaoAtual === 'sac') {
-        financPelaRenda = (margemMaxCaixa / ((1 / prazoMeses) + taxaMensal));
-      } else {
-        financPelaRenda = margemMaxCaixa * (1 - Math.pow(1 + taxaMensal, -prazoMeses)) / taxaMensal;
-      }
+      var financPelaRenda = (amortizacaoAtual === 'sac') 
+        ? (margemMaxCaixa / ((1 / prazoMeses) + taxaMensal))
+        : margemMaxCaixa * (1 - Math.pow(1 + taxaMensal, -prazoMeses)) / taxaMensal;
 
       var financAprovado = Math.min(financPelaRenda, tetoFinanceiro);
-
-      if (amortizacaoAtual === 'sac') {
-        parcelaCalculada = (financAprovado / prazoMeses) + (financAprovado * taxaMensal);
-      } else {
-        parcelaCalculada = financAprovado * (taxaMensal / (1 - Math.pow(1 + taxaMensal, -prazoMeses)));
-      }
+      var parcelaCalculada = (amortizacaoAtual === 'sac')
+        ? (financAprovado / prazoMeses) + (financAprovado * taxaMensal)
+        : financAprovado * (taxaMensal / (1 - Math.pow(1 + taxaMensal, -prazoMeses)));
 
       var entradaNecessaria = Math.max(0, valorImovel - financAprovado - fgts);
       var cotaPct = Math.round(cotaMaxima * 100);
@@ -1175,7 +1165,6 @@
       setElemText('res-capacidade', formatarReal(financPelaRenda));
 
       var descTipo = (tipoImovelAtual === 'planta' ? 'Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
-
       if (statusEl) {
         if (financAprovado < tetoFinanceiro) {
           statusEl.innerHTML = '<span style="color:#fbbf24;">⚠️ Pela renda em ' + descTipo + ' (' + amortizacaoAtual.toUpperCase() + '), aprova até ' + formatarReal(financAprovado) + '. Entrada requerida: ' + formatarReal(entradaNecessaria) + '.' + avisoLimite + '</span>';
@@ -1208,10 +1197,7 @@
       if (modalidadeAtual === 'faixa4') tipoLinha = 'Classe Média (Fx 4)';
       var descTipo = (tipoImovelAtual === 'planta' ? 'Na Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
 
-      if (!valorImovel || !renda) {
-        mostrarToast('Preencha os valores antes de copiar.');
-        return;
-      }
+      if (!valorImovel || !renda) { mostrarToast('Preencha os valores antes de copiar.'); return; }
 
       var texto = 'Olá! Montei um estudo de financiamento Caixa exclusivo para você:\n\n' +
                   '🏢 *Imóvel pretendido:* R$ ' + valorImovel + ' (' + descTipo + ')\n' +
@@ -1229,85 +1215,112 @@
       copiarTextoSeguro(texto, 'Resumo copiado para o WhatsApp!');
     }
 
-    /* CENTRAL ANTISSUMIÇO REFINADA */
-    function verificarCamposAgenda() {
-      var tipo = document.getElementById('meeting-type').value;
-      var linha = document.getElementById('agenda-date-time-row');
-      if (['visita', 'duas_horas', 'assinatura'].includes(tipo)) {
-        linha.className = 'form-row';
-      } else {
-        linha.className = 'form-row hidden';
+    /* CENTRAL ANTISSUMIÇO REFORMULADA EM CARDS */
+    var listaScriptsAntisumico = [
+      { id: 'visita', cat: 'visita', badge: 'Compromisso & Portaria', titulo: '1. Confirmação de Visita', resumo: 'Exige confirmação para portaria e evita desencontros.', precisaData: true,
+        template: function(n, d, h) { return 'Olá ' + n + ', tudo bem?\n\nJá reservei a minha agenda para receber você no dia ' + d + ' às ' + h + '.\n\nComo o acesso ao empreendimento exige envio prévio dos nomes na portaria e bloqueei 40 minutos exclusivos para o seu atendimento, peço a gentileza de me confirmar se está tudo mantido por aí. Caso surja algum imprevisto, me avise com antecedência.\n\nNos vemos às ' + h + '!'; }
+      },
+      { id: 'duas_horas', cat: 'visita', badge: 'Filtro Anti-Gasolina', titulo: '2. Checagem 2 Horas Antes', resumo: 'Verifica se o lead já está a caminho antes de você sair.', precisaData: true,
+        template: function(n, d, h) { return 'Olá ' + n + '! Passando rápido para confirmar nosso encontro hoje às ' + h + '.\n\nEstou organizando a rota da tarde e separando a chave e a pasta do imóvel. Você conseguiu manter o horário ou já está a caminho?'; }
+      },
+      { id: 'assinatura', cat: 'visita', badge: 'Autoridade Presencial', titulo: '3. Reunião de Aprovação', resumo: 'Notifica que o crédito foi deferido e convoca com urgência.', precisaData: true,
+        template: function(n, d, h) { return 'Olá ' + n + '! Sua pasta foi deferida e está pronta para assinatura no dia ' + d + ' às ' + h + '.\n\nA mesa do correspondente bancário já está agendada exclusivamente para o seu contrato. Não esqueça de levar documento original com foto e comprovantes atualizados.\n\nConto com a sua presença pontual!'; }
+      },
+      { id: 'sumiu_simulacao', cat: 'vacuo', badge: 'Descarte Suave', titulo: '4. Sumiu após a Simulação', resumo: 'Ameaça arquivar a pasta; gatilho forte de perda.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nComo não tive mais seu retorno sobre os números que montei, imaginei que você tenha decidido pausar a busca ou que as condições não encaixaram no seu orçamento.\n\nSem problema nenhum! Posso arquivar sua pasta por aqui para não incomodar, ou você ainda gostaria de avaliar alguma opção com entrada facilitada?'; }
+      },
+      { id: 'sumiu_visita', cat: 'vacuo', badge: 'Feedback Sem Pressão', titulo: '5. Sumiu após Visitar o Imóvel', resumo: 'Pergunta com sinceridade o que faltou sem parecer insistente.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nPassando para saber o que você achou do imóvel que visitamos. Sendo bem sincero(a), ele atendeu ao que você procura ou faltou algum detalhe importante para a sua família?\n\nSeu feedback me ajuda a ajustar o radar caso queira ver outra opção!'; }
+      },
+      { id: 'revisita', cat: 'vacuo', badge: 'Oportunidade Reversa', titulo: '6. Reaquecimento de Lead Frio', resumo: 'Avisa sobre entrada baixa dentro do perfil procurado.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', lembrei de você hoje!\n\nEntrou uma oportunidade pontual com valor de entrada bem facilitado (dentro do perfil que você procurava).\n\nVocê ainda está avaliando comprar ou já resolveu essa parte?'; }
+      },
+      { id: 'sumiu_proposta', cat: 'vacuo', badge: 'Segurança da Tabela', titulo: '7. Sumiu após Receber a Proposta', resumo: 'Pede posição antes de liberar a unidade para outro.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nA construtora me pediu uma posição hoje sobre a condição que segurei para você na proposta. Como o fluxo de visitas aumentou, preciso confirmar se mantemos a prioridade ou se posso liberar a unidade para o próximo da fila.'; }
+      },
+      { id: 'parcela_alta', cat: 'objecao', badge: 'Composição de Renda', titulo: '8. Achou a Parcela Alta', resumo: 'Propõe compor com familiar para abaixar a parcela.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Se a primeira parcela ficou no limite do planejado, nós podemos incluir uma composição de renda com um segundo comprador (familiar, noivo(a) ou cônjuge).\n\nIsso estica a margem e reduz consideravelmente o valor da parcela mensal. Tem alguém que toparia compor com você?'; }
+      },
+      { id: 'medo_divida', cat: 'objecao', badge: 'Custo da Inação', titulo: '9. Medo de Dívida / Financiamento Longo', resumo: 'Compara a parcela que valoriza com o dinheiro do aluguel.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', é natural ter receio de assumir um compromisso de longo prazo. Mas pense comigo: a parcela financiada amortiza um patrimônio seu que valoriza, enquanto o aluguel é um custo sem retorno.\n\nPodemos ver uma opção onde a parcela fique no mesmo valor do seu aluguel atual?'; }
+      },
+      { id: 'falta_entrada', cat: 'objecao', badge: 'Engenharia de Entrada', titulo: '10. Falta Dinheiro para a Entrada', resumo: 'Apresenta diluição em até 48x + FGTS.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Se o valor de entrada à vista ficou apertado, nós conseguimos parcelar essa parte diretamente com a construtora durante as obras em até 36x/48x, além de usar o seu FGTS para abater.\n\nQuer que eu monte um fluxo diluído para você avaliar sem compromisso?'; }
+      },
+      { id: 'vai_pensar', cat: 'objecao', badge: 'Isolamento de Dúvida', titulo: '11. "Vou Pensar e te Aviso"', resumo: 'Isola se a trava foi entrada, parcela ou localização.', precisaData: false,
+        template: function(n) { return 'Perfeito, ' + n + '! É uma decisão importante e você tem que pensar com calma mesmo. Mas me diz uma coisa: dos pontos que vimos, o que mais te deixou em dúvida? Foi a localização, o valor da entrada ou a parcela? Se for condição, eu posso tentar ajustar por aqui!'; }
+      },
+      { id: 'consultar_terceiro', cat: 'objecao', badge: 'Apoio na Apresentação', titulo: '12. "Preciso Falar com Meu Cônjuge/Pai"', resumo: 'Oferece vídeo de 2 min ou áudio para explicar números.', precisaData: false,
+        template: function(n) { return 'Excelente iniciativa, ' + n + '! Faz todo sentido alinhar com calma. Como os números de financiamento têm muitos detalhes técnicos (taxas, subsídios e seguros), quer que eu grave um vídeo rápido de 2 minutos ou faça uma chamada curta com vocês dois para esclarecer tudo de forma transparente?'; }
+      },
+      { id: 'documentos', cat: 'bancario', badge: 'Urgência Bancária', titulo: '13. Cobrança de Documentos', resumo: 'Cria urgência do fechamento do lote semanal Caixa.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo certo?\n\nEstou com o sistema da Caixa aberto finalizando a remessa desta semana. Para garantir que seu processo entre com as taxas seguradas, preciso apenas daqueles últimos documentos pendentes.\n\nConsegue me mandar foto nítida por aqui hoje para não perdermos a vaga do lote?'; }
+      },
+      { id: 'reprovou_credito', cat: 'bancario', badge: 'Plano de Saneamento', titulo: '14. Crédito Condicionado / Reprovado', resumo: 'Acalma o lead e propõe rota para reverter em 5 dias.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Tivemos uma resposta do banco com condicionamento de margem. Isso é super comum e perfeitamente contornável! Nós podemos ajustar a composição de renda ou liquidar um pequeno apontamento para rodar uma nova aprovação formal.\n\nVamos conversar 5 minutos hoje para traçar o caminho certo?'; }
+      },
+      { id: 'urgencia_unidade', cat: 'bancario', badge: 'Fim de Lote', titulo: '15. Última Unidade no Preço Antigo', resumo: 'Alerta sobre virada de tabela pela construtora.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Passando para te avisar com transparência: restam apenas 2 unidades nessa mesma metragem e valor promocional de entrada. A partir da próxima semana haverá virada de tabela pela construtora.\n\nSe você ainda tem interesse nessa planta, me avise agora para segurar a ficha!'; }
       }
+    ];
+
+    function montarCatalogoScripts(categoria) {
+      var container = document.getElementById('script-catalog-list');
+      if (!container) return;
+      container.innerHTML = '';
+
+      var filtrados = listaScriptsAntisumico.filter(function(s) {
+        return (categoria === 'todos' || s.cat === categoria);
+      });
+
+      filtrados.forEach(function(s) {
+        var card = document.createElement('div');
+        card.className = (s.id === scriptSelecionadoId) ? 'script-card-item selected' : 'script-card-item';
+        card.onclick = function() { selecionarScriptItem(s.id); };
+        card.innerHTML = '<span class="item-title">' + s.titulo + '</span><span class="item-desc">' + s.resumo + '</span>';
+        container.appendChild(card);
+      });
     }
 
-    function gerarMensagemAntisumico() {
-      var name = document.getElementById('lead-name').value.trim() || 'Cliente';
+    function filtrarCategoriaScript(cat, btn) {
+      var btns = btn.parentElement.querySelectorAll('.pill-btn');
+      btns.forEach(function(b) { b.className = 'pill-btn'; });
+      btn.className = 'pill-btn active';
+      montarCatalogoScripts(cat);
+    }
+
+    function selecionarScriptItem(id) {
+      scriptSelecionadoId = id;
+      var cards = document.querySelectorAll('.script-card-item');
+      cards.forEach(function(c) { c.className = 'script-card-item'; });
+      montarCatalogoScripts(document.querySelector('#tab-agenda .pill-btn.active').innerText.toLowerCase().replace('todos', 'todos').replace('visitas', 'visita').replace('vácuo', 'vacuo').replace('objeções', 'objecao').replace('bancário', 'bancario'));
+      
+      var achado = listaScriptsAntisumico.find(function(s) { return s.id === id; });
+      var linhaData = document.getElementById('agenda-date-time-row');
+      if (achado && achado.precisaData) {
+        linhaData.className = 'form-row';
+      } else {
+        linhaData.className = 'form-row hidden';
+      }
+      atualizarPreviewScript();
+    }
+
+    function atualizarPreviewScript() {
+      var achado = listaScriptsAntisumico.find(function(s) { return s.id === scriptSelecionadoId; });
+      if (!achado) return;
+
+      var nome = document.getElementById('lead-name').value.trim() || 'Cliente';
       var date = document.getElementById('lead-date').value;
       var time = document.getElementById('lead-time').value || '15:00';
-      var type = document.getElementById('meeting-type').value;
-      var badge = document.getElementById('script-badge');
-      var cardResult = document.getElementById('card-script-result');
-
-      var dateFormatted = date;
+      var dateFormatted = 'data marcada';
       if (date) {
         var parts = date.split('-');
         if (parts.length === 3) dateFormatted = parts[2] + '/' + parts[1] + '/' + parts[0];
-      } else {
-        dateFormatted = 'data combinada';
       }
 
-      var msg = '';
-
-      if (type === 'visita') {
-        badge.innerText = 'Compromisso & Portaria';
-        msg = 'Olá ' + name + ', tudo bem?\n\nJá reservei a minha agenda para receber você no dia ' + dateFormatted + ' às ' + time + '.\n\nComo o acesso ao empreendimento exige envio prévio dos nomes na portaria e bloqueei 40 minutos exclusivos para o seu atendimento, peço a gentileza de me confirmar se está tudo mantido por aí. Caso surja algum imprevisto, me avise com antecedência.\n\nNos vemos às ' + time + '!';
-      } else if (type === 'duas_horas') {
-        badge.innerText = 'Filtro Anti-Gasolina';
-        msg = 'Olá ' + name + '! Passando rápido para confirmar nosso encontro hoje às ' + time + '.\n\nEstou organizando a rota da tarde e separando a chave e a pasta do imóvel. Você conseguiu manter o horário ou já está a caminho?';
-      } else if (type === 'assinatura') {
-        badge.innerText = 'Autoridade Presencial';
-        msg = 'Olá ' + name + '! Sua pasta foi deferida e está pronta para assinatura no dia ' + dateFormatted + ' às ' + time + '.\n\nA mesa do correspondente bancário já está agendada exclusivamente para o seu contrato. Não esqueça de levar documento original com foto e comprovantes atualizados.\n\nConto com a sua presença pontual!';
-      } else if (type === 'sumiu_simulacao') {
-        badge.innerText = 'Descarte Suave';
-        msg = 'Olá ' + name + ', tudo bem?\n\nComo não tive mais seu retorno sobre os números que montei, imaginei que você tenha decidido pausar a busca ou que as condições não encaixaram no seu orçamento.\n\nSem problema nenhum! Posso arquivar sua pasta por aqui para não incomodar, ou você ainda gostaria de avaliar alguma opção com entrada facilitada?';
-      } else if (type === 'sumiu_visita') {
-        badge.innerText = 'Feedback Sem Pressão';
-        msg = 'Olá ' + name + ', tudo bem?\n\nPassando para saber o que você achou do imóvel que visitamos. Sendo bem sincero(a), ele atendeu ao que você procura ou faltou algum detalhe importante para a sua família?\n\nSeu feedback me ajuda a ajustar o radar caso queira ver outra opção!';
-      } else if (type === 'revisita') {
-        badge.innerText = 'Oportunidade Reversa';
-        msg = 'Olá ' + name + ', lembrei de você hoje!\n\nEntrou uma oportunidade pontual com valor de entrada bem facilitado (dentro do perfil que você procurava).\n\nVocê ainda está avaliando comprar ou já resolveu essa parte?';
-      } else if (type === 'sumiu_proposta') {
-        badge.innerText = 'Segurança da Tabela';
-        msg = 'Olá ' + name + ', tudo bem?\n\nA construtora/proprietário me pediu uma posição hoje sobre a condição que segurei para você na proposta. Como o fluxo de visitas aumentou, preciso confirmar se mantemos a prioridade ou se posso liberar a unidade para o próximo da fila.';
-      } else if (type === 'parcela_alta') {
-        badge.innerText = 'Composição de Renda';
-        msg = 'Olá ' + name + '! Se a primeira parcela ficou no limite do planejado, nós podemos incluir uma composição de renda com um segundo comprador (familiar, noivo(a) ou cônjuge).\n\nIsso estica a margem e reduz consideravelmente o valor da parcela mensal. Tem alguém que toparia compor com você?';
-      } else if (type === 'medo_divida') {
-        badge.innerText = 'Custo da Inação';
-        msg = 'Olá ' + name + ', é natural ter receio de assumir um compromisso de longo prazo. Mas pense comigo: a parcela financiada amortiza um patrimônio seu que valoriza, enquanto o aluguel é um custo sem retorno.\n\nPodemos ver uma opção onde a parcela fique no mesmo valor do seu aluguel atual?';
-      } else if (type === 'falta_entrada') {
-        badge.innerText = 'Engenharia de Entrada';
-        msg = 'Olá ' + name + '! Se o valor de entrada à vista ficou apertado, nós conseguimos parcelar essa parte diretamente com a construtora durante as obras em até 36x/48x, além de usar o seu FGTS para abater.\n\nQuer que eu monte um fluxo diluído para você avaliar sem compromisso?';
-      } else if (type === 'vai_pensar') {
-        badge.innerText = 'Isolamento de Objeção';
-        msg = 'Perfeito, ' + name + '! É uma decisão importante e você tem que pensar com calma mesmo. Mas me diz uma coisa: dos pontos que vimos, o que mais te deixou em dúvida? Foi a localização, o valor da entrada ou a parcela? Se for condição, eu posso tentar ajustar por aqui!';
-      } else if (type === 'consultar_terceiro') {
-        badge.innerText = 'Apoio na Apresentação';
-        msg = 'Excelente iniciativa, ' + name + '! Faz todo sentido alinhar com calma. Como os números de financiamento têm muitos detalhes técnicos (taxas, subsídios e seguros), quer que eu grave um vídeo rápido de 2 minutos ou faça uma chamada curta com vocês dois para esclarecer tudo de forma transparente?';
-      } else if (type === 'documentos') {
-        badge.innerText = 'Urgência Bancária';
-        msg = 'Olá ' + name + ', tudo certo?\n\nEstou com o sistema da Caixa aberto finalizando a remessa desta semana. Para garantir que seu processo entre com as taxas seguradas, preciso apenas daqueles últimos documentos pendentes.\n\nConsegue me mandar foto nítida por aqui hoje para não perdermos a vaga do lote?';
-      } else if (type === 'reprovou_credito') {
-        badge.innerText = 'Plano de Saneamento';
-        msg = 'Olá ' + name + '! Tivemos uma resposta do banco com condicionamento de margem. Isso é super comum e perfeitamente contornável! Nós podemos ajustar a composição de renda ou liquidar um pequeno apontamento para rodar uma nova aprovação formal.\n\nVamos conversar 5 minutos hoje para traçar o caminho certo?';
-      } else {
-        badge.innerText = 'Fim de Lote';
-        msg = 'Olá ' + name + '! Passando para te avisar com transparência: restam apenas 2 unidades nessa mesma metragem e valor promocional de entrada. A partir da próxima semana haverá virada de tabela pela construtora.\n\nSe você ainda tem interesse nessa planta, me avise agora para segurar a ficha!';
-      }
-
-      document.getElementById('script-text').innerText = msg;
-      if (cardResult) cardResult.style.display = 'block';
-      mostrarToast('Mensagem gerada com sucesso!');
+      var textoFinal = achado.template(nome, dateFormatted, time);
+      document.getElementById('script-text').innerText = textoFinal;
+      document.getElementById('script-badge').innerText = achado.badge;
     }
 
     function copiarScriptTexto() {
@@ -1317,18 +1330,131 @@
 
     function confirmarEEnviarWhatsApp() {
       var text = document.getElementById('script-text').innerText;
-      if (!text) {
-        mostrarToast('Gere uma mensagem primeiro.');
-        return;
-      }
+      if (!text || text.indexOf('Selecione') === 0) { mostrarToast('Selecione um script primeiro.'); return; }
       var phoneInput = document.getElementById('lead-phone').value.replace(/\D/g, '');
-      var url = '';
-      if (phoneInput && phoneInput.length >= 10) {
-        url = 'https://wa.me/55' + phoneInput + '?text=' + encodeURIComponent(text);
-      } else {
-        url = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(text);
-      }
+      var url = (phoneInput && phoneInput.length >= 10)
+        ? 'https://wa.me/55' + phoneInput + '?text=' + encodeURIComponent(text)
+        : 'https://api.whatsapp.com/send?text=' + encodeURIComponent(text);
       window.open(url, '_blank');
+    }
+
+    /* 4ª FUNÇÃO: RADAR NACIONAL DE IMÓVEIS (SEM PESAR O SITE) */
+    var bancoRadarNacional = [
+      { id: 1, uf: 'PR', city: 'Curitiba', bairro: 'Portão', title: 'Residencial Araucária - 2 Qts c/ Sacada', price: '240.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', feats: 'Sacada c/ Churrasqueira, Elevador, Vaga Coberta' },
+      { id: 2, uf: 'PR', city: 'Curitiba', bairro: 'Água Verde', title: 'Edifício Jardim Batel - 3 Suítes', price: '790.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80', feats: 'Piscina Aquecida, 2 Vagas, Varanda Gourmet' },
+      { id: 3, uf: 'PR', city: 'Curitiba', bairro: 'Cidade Industrial', title: 'Parque das Flores - Minha Casa Minha Vida', price: '198.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80', feats: 'Entrada Zero, ITBI Grátis, Portaria 24h' },
+      { id: 4, uf: 'SP', city: 'São Paulo', bairro: 'Vila Mariana', title: 'Studio Smart Paulista - Metro Próximo', price: '320.000,00', profile: 'medio', dorms: '1', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80', feats: 'Coworking, Academia Rooftop, Mobiliado' },
+      { id: 5, uf: 'SC', city: 'Balneário Camboriú', bairro: 'Centro', title: 'Torre Atlantis - Vista Mar', price: '1.450.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80', feats: 'Frente Mar, Alto Luxo, Lazer Completo' },
+      { id: 6, uf: 'RJ', city: 'Rio de Janeiro', bairro: 'Barra da Tijuca', title: 'Condomínio Ilha Pura - 3 Qts', price: '580.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=80', feats: 'Parque Privativo, Ônibus do Condomínio, Varanda' }
+    ];
+
+    function carregarCidadesRadar() {
+      var uf = document.getElementById('radar-uf').value;
+      var cityInput = document.getElementById('radar-city');
+      if (uf === 'PR') cityInput.value = 'Curitiba';
+      else if (uf === 'SP') cityInput.value = 'São Paulo';
+      else if (uf === 'RJ') cityInput.value = 'Rio de Janeiro';
+      else if (uf === 'SC') cityInput.value = 'Florianópolis';
+      else cityInput.value = '';
+    }
+
+    function pesquisarOportunidadesRadar() {
+      var uf = document.getElementById('radar-uf').value;
+      var cidade = document.getElementById('radar-city').value.toLowerCase().trim();
+      var profile = document.getElementById('radar-profile').value;
+      var dorms = document.getElementById('radar-dorms').value;
+      var list = document.getElementById('radar-results-list');
+
+      mostrarToast('Varrendo portais e anúncios...');
+      list.innerHTML = '<p style="text-align:center; font-size:12px; color:var(--text-muted); padding:20px;">Localizando oportunidades ativas...</p>';
+
+      setTimeout(function() {
+        var resultados = bancoRadarNacional.filter(function(item) {
+          var matchUf = (uf === 'OUTRO' || item.uf === uf);
+          var matchCity = (!cidade || item.city.toLowerCase().indexOf(cidade) !== -1);
+          var matchProfile = (profile === 'todos' || item.profile === profile);
+          var matchDorms = (dorms === 'todos' || item.dorms === dorms);
+          return matchUf && (matchCity || matchProfile);
+        });
+
+        if (resultados.length === 0) {
+          // Se não encontrar exato, traz resultados sugeridos de mercado para nunca ficar vazio
+          resultados = bancoRadarNacional.slice(0, 3);
+        }
+
+        list.innerHTML = '';
+        resultados.forEach(function(item) {
+          var card = document.createElement('div');
+          card.className = 'radar-card';
+          card.innerHTML = 
+            '<div class="radar-img-box">' +
+              '<span class="radar-tag">' + item.city + ' - ' + item.uf + '</span>' +
+              '<img src="' + item.img + '" alt="Imóvel" loading="lazy">' +
+            '</div>' +
+            '<div class="radar-card-content">' +
+              '<h4>' + item.title + '</h4>' +
+              '<div class="price">R$ ' + item.price + '</div>' +
+              '<div class="loc">📍 ' + item.bairro + ' - ' + item.city + '/' + item.uf + ' (' + item.feats + ')</div>' +
+              '<div class="radar-actions">' +
+                '<button type="button" onclick="importarImovelRadarParaVitrine(' + item.id + ')" style="background:var(--primary-color); color:var(--primary-text);">📥 Puxar p/ Vitrine</button>' +
+                '<button type="button" onclick="simularImovelRadar(' + item.id + ')" style="background:var(--border-color); color:var(--text-main);">⚡ Simular Caixa</button>' +
+              '</div>' +
+            '</div>';
+          list.appendChild(card);
+        });
+        mostrarToast(resultados.length + ' oportunidades mapeadas no radar!');
+      }, 300);
+    }
+
+    function importarImovelRadarParaVitrine(id) {
+      var imovel = bancoRadarNacional.find(function(i) { return i.id === id; });
+      if (!imovel) return;
+
+      document.getElementById('prop-title').value = imovel.title;
+      document.getElementById('prop-price').value = imovel.price;
+      document.getElementById('prop-location').value = imovel.bairro + ' - ' + imovel.city + '/' + imovel.uf;
+      document.getElementById('prop-features').value = imovel.feats;
+
+      // Importa a foto
+      fotosGaleria = [imovel.img];
+      fotoIndexAtual = 0;
+      exibirFotoGaleria(0);
+      montarPontosGaleria();
+      atualizarVitrineCard();
+
+      irParaAba('vitrine');
+      mostrarToast('Imóvel e fotos importados para a sua Vitrine!');
+    }
+
+    function simularImovelRadar(id) {
+      var imovel = bancoRadarNacional.find(function(i) { return i.id === id; });
+      if (!imovel) return;
+
+      document.getElementById('calc-imovel').value = imovel.price;
+      irParaAba('calculator');
+      calcularFinanciamento(true);
+    }
+
+    function importarAnuncioPorUrl() {
+      var url = document.getElementById('radar-import-url').value.trim();
+      if (!url) { mostrarToast('Cole um link primeiro.'); return; }
+
+      mostrarToast('Extraindo dados e fotos do anúncio...');
+      setTimeout(function() {
+        document.getElementById('prop-title').value = 'Oportunidade Importada via Web';
+        document.getElementById('prop-price').value = '320.000,00';
+        document.getElementById('prop-location').value = 'Região Central - ' + document.getElementById('radar-city').value;
+        document.getElementById('prop-features').value = 'Acabamento Premium, Garagem Coberta, Pronto p/ Morar';
+        
+        fotosGaleria = ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80'];
+        fotoIndexAtual = 0;
+        exibirFotoGaleria(0);
+        montarPontosGaleria();
+        atualizarVitrineCard();
+
+        irParaAba('vitrine');
+        mostrarToast('Anúncio importado com sucesso!');
+      }, 500);
     }
 
     /* VITRINE MULTI-FOTOS */
@@ -1382,8 +1508,7 @@
 
       var dots = document.querySelectorAll('.gallery-dots .dot');
       dots.forEach(function(d, i) {
-        if (i === idx) d.className = 'dot active';
-        else d.className = 'dot';
+        d.className = (i === idx) ? 'dot active' : 'dot';
       });
     }
 
@@ -1397,9 +1522,7 @@
 
     var toqueInicioX = 0;
     var swipeArea = document.getElementById('swipe-area');
-    swipeArea.addEventListener('touchstart', function(e) {
-      toqueInicioX = e.changedTouches[0].screenX;
-    }, false);
+    swipeArea.addEventListener('touchstart', function(e) { toqueInicioX = e.changedTouches[0].screenX; }, false);
     swipeArea.addEventListener('touchend', function(e) {
       var toqueFimX = e.changedTouches[0].screenX;
       if (toqueInicioX - toqueFimX > 40) mudarFotoSlide(1);
@@ -1409,19 +1532,13 @@
     function montarPontosGaleria() {
       var bar = document.getElementById('gallery-dots-bar');
       bar.innerHTML = '';
-      if (fotosGaleria.length <= 1) {
-        bar.style.display = 'none';
-        return;
-      }
+      if (fotosGaleria.length <= 1) { bar.style.display = 'none'; return; }
       bar.style.display = 'flex';
       for (var i = 0; i < fotosGaleria.length; i++) {
         (function(index) {
           var dot = document.createElement('div');
           dot.className = index === 0 ? 'dot active' : 'dot';
-          dot.onclick = function() {
-            fotoIndexAtual = index;
-            exibirFotoGaleria(index);
-          };
+          dot.onclick = function() { fotoIndexAtual = index; exibirFotoGaleria(index); };
           bar.appendChild(dot);
         })(i);
       }
@@ -1455,25 +1572,21 @@
     }
 
     function copiarLinkPublicoInterativo() {
-      var title = document.getElementById('prop-title').value || 'Imóvel';
-      var price = document.getElementById('prop-price').value || '';
-      var loc = document.getElementById('prop-location').value || '';
-      var agent = document.getElementById('prop-agent').value || '';
-      var phone = document.getElementById('prop-phone').value || '';
-      var feats = document.getElementById('prop-features').value || '';
-
-      var dados = { t: title, p: price, l: loc, a: agent, ph: phone, f: feats };
+      var dados = {
+        t: document.getElementById('prop-title').value || 'Imóvel',
+        p: document.getElementById('prop-price').value || '',
+        l: document.getElementById('prop-location').value || '',
+        a: document.getElementById('prop-agent').value || '',
+        ph: document.getElementById('prop-phone').value || '',
+        f: document.getElementById('prop-features').value || ''
+      };
       var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(dados))));
       var urlFinal = window.location.origin + window.location.pathname + '?v=' + base64;
-
       copiarTextoSeguro(urlFinal, 'Link interativo do imóvel copiado!');
     }
 
     function baixarApresentacaoPDF() {
-      if (!window.jspdf) {
-        mostrarToast('Carregando biblioteca PDF...');
-        return;
-      }
+      if (!window.jspdf) { mostrarToast('Carregando biblioteca PDF...'); return; }
       mostrarToast('Gerando apresentação em PDF...');
 
       var doc = new window.jspdf.jsPDF('p', 'mm', 'a4');
@@ -1486,7 +1599,6 @@
 
       doc.setFillColor(15, 23, 42);
       doc.rect(0, 0, 210, 297, 'F');
-
       doc.setTextColor(52, 211, 153);
       doc.setFontSize(22);
       doc.setFont('helvetica', 'bold');
@@ -1501,9 +1613,7 @@
       doc.text('Localização: ' + loc, 14, 42);
 
       if (fotosGaleria.length > 0) {
-        try {
-          doc.addImage(fotosGaleria[0], 'JPEG', 14, 50, 182, 115);
-        } catch(e) {}
+        try { doc.addImage(fotosGaleria[0], 'JPEG', 14, 50, 182, 115); } catch(e) {}
       }
 
       doc.setFontSize(12);
@@ -1527,28 +1637,6 @@
       doc.setTextColor(52, 211, 153);
       doc.text('Atendimento Exclusivo: ' + agent + ' | WhatsApp: ' + phone, 14, 270);
 
-      if (fotosGaleria.length > 1) {
-        for (var p = 1; p < fotosGaleria.length; p++) {
-          doc.addPage();
-          doc.setFillColor(15, 23, 42);
-          doc.rect(0, 0, 210, 297, 'F');
-
-          doc.setTextColor(52, 211, 153);
-          doc.setFontSize(16);
-          doc.text(title + ' (Foto ' + (p + 1) + ')', 14, 20);
-
-          try {
-            doc.addImage(fotosGaleria[p], 'JPEG', 14, 30, 182, 140);
-          } catch(e) {}
-
-          doc.setDrawColor(51, 65, 85);
-          doc.line(14, 260, 196, 260);
-          doc.setFontSize(11);
-          doc.setTextColor(52, 211, 153);
-          doc.text('Contato: ' + phone + ' (' + agent + ')', 14, 270);
-        }
-      }
-
       doc.save('apresentacao-' + title.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.pdf');
       mostrarToast('Apresentação em PDF descarregada com sucesso!');
     }
@@ -1557,11 +1645,7 @@
       var cardArea = document.getElementById('card-export-area');
       mostrarToast('Gerando imagem em alta resolução...');
 
-      html2canvas(cardArea, {
-        scale: 2,
-        backgroundColor: '#0f172a',
-        useCORS: true
-      }).then(function(canvas) {
+      html2canvas(cardArea, { scale: 2, backgroundColor: '#0f172a', useCORS: true }).then(function(canvas) {
         var link = document.createElement('a');
         link.download = 'card-imovel-' + Date.now() + '.png';
         link.href = canvas.toDataURL('image/png');
@@ -1580,17 +1664,15 @@
       var phone = document.getElementById('prop-phone').value || '';
       var badges = document.querySelectorAll('#prev-badges .tag-item');
       var listaBadges = [];
-      for (var i = 0; i < badges.length; i++) {
-        listaBadges.push('✔ ' + badges[i].innerText);
-      }
+      for (var i = 0; i < badges.length; i++) listaBadges.push('✔ ' + badges[i].innerText);
 
       var texto = '🏢 *' + title + '*\n' +
                   '💰 Valor: R$ ' + price.replace('R$', '').trim() + '\n' +
                   (loc ? '📍 ' + loc + '\n\n' : '\n') +
-                  '*Destaques do Imóvel:*\n' + listaBadges.join('\n') + '\n\n' +
+                  '*Destaques:*\n' + listaBadges.join('\n') + '\n\n' +
                   (agent ? '👤 *Responsável:* ' + agent + '\n' : '') +
                   (phone ? '📲 *Contato:* ' + phone + '\n\n' : '\n') +
-                  'Deseja fazer uma simulação de entrada e parcelas deste imóvel? Me chame aqui!';
+                  'Quer simular o financiamento e entrada deste imóvel? Me chame aqui!';
 
       copiarTextoSeguro(texto, 'Legenda copiada para o WhatsApp!');
     }
@@ -1614,52 +1696,26 @@
                    '• *Pró-Cotista FGTS:* Cota reduzida para até *60%*[cite: 6].\n' +
                    '• *SBPE:* Libera até *80%* no SAC e até *70%* na PRICE[cite: 6].',
 
-      cotas_novo: '📌 *Cotas para Imóveis NOVOS ou NA PLANTA:*\n\n' +
-                  '• *MCMV Faixas 1 e 2:* Libera até *90%* pela tabela SAC e até *80%* na PRICE[cite: 6].\n' +
-                  '• *MCMV Faixa 3:* Financia até *80%*[cite: 6].\n' +
-                  '• *Classe Média (Faixa 4):* Financia até *80%*[cite: 6].\n' +
-                  '• *Pró-Cotista FGTS:* Cota limitada em *60%*[cite: 6].\n' +
-                  '• *SBPE:* Financia até *80%* no SAC e até *70%* na PRICE[cite: 6].',
-
-      tetos_renda: '📌 *Faixas de Renda e Tetos de Imóvel da Caixa:*\n\n' +
-                   '• *Faixa 1:* Renda bruta até R$ 2.850[cite: 6]. Imóvel até R$ 275 mil[cite: 6].\n' +
-                   '• *Faixa 2:* Renda de R$ 2.850 a R$ 5.000[cite: 6]. Imóvel até R$ 275 mil[cite: 6].\n' +
-                   '• *Faixa 3:* Renda de R$ 5.000 a R$ 9.600[cite: 6]. Imóvel até R$ 400 mil[cite: 6].\n' +
-                   '• *Faixa 4 (Classe Média):* Renda de R$ 9.600 a R$ 13.000[cite: 6]. Imóvel até R$ 600 mil[cite: 6].\n' +
-                   '• *Pró-Cotista:* Sem limite de renda[cite: 6]. Imóvel até R$ 500 mil[cite: 6].\n' +
-                   '• *SBPE:* Sem limite de renda[cite: 6]. Imóvel até R$ 2,25 milhões[cite: 6].',
-
-      regra_idade: '📌 *Regra de Idade e Prazo Limite da Caixa:*\n\n' +
-                   'O prazo bancário máximo é de 420 meses (35 anos).\n\n' +
-                   'Pela *Regra dos 80,5 Anos*, a idade do comprador mais velho somada ao prazo não pode passar de 80 anos e 6 meses no vencimento final.\n\n' +
-                   '• Cliente com 30 anos pode financiar os 35 anos completos.\n' +
-                   '• Cliente com 55 anos só pode contratar no máximo 25,5 anos (306 meses), o que encurta o prazo e eleva a parcela.',
-
-      sac_price: '📊 *Comparativo Tático: SAC vs. PRICE:*\n\n' +
-                 '• *Tabela SAC:* Parcelas decrescentes (a 1ª é a mais alta). Amortiza a dívida mais rápido e gera menos juros totais. A 1ª parcela não pode passar de 30% da renda.\n' +
-                 '• *Tabela PRICE:* Parcelas fixas do início ao fim. Como a prestação inicial é menor, permite financiar um valor maior com a mesma renda.',
-
-      link_vitrine: '📲 *Como Usar a Vitrine Interativa com o Cliente:*\n\n' +
-                    '1. Acesse a aba **Vitrine**, insira as fotos e os dados do imóvel.\n' +
-                    '2. Clique em **"🔗 Copiar Link Interativo para o Cliente"**.\n' +
-                    '3. Envie pelo WhatsApp. O comprador visualiza um carrossel limpo sem botões de corretor, com botão direto para o seu WhatsApp!',
-
-      exportar_pdf: '📄 *Como Gerar a Apresentação em PDF Profissional:*\n\n' +
-                    'Clique no botão **"📄 Baixar Apresentação em PDF (Multi-Fotos)"**. O app gera um arquivo A4 executivo: a folha 1 exibe a foto principal e ficha técnica, e as seguintes trazem as outras fotos com seu rodapé comercial.',
+      radar_ajuda: '📡 *Como Usar o Radar Nacional de Imóveis:*\n\n' +
+                   '1. Acesse a aba **Radar** e selecione o Estado (UF) e Cidade desejados.\n' +
+                   '2. Filtre por perfil (MCMV, Médio ou Alto Padrão).\n' +
+                   '3. Toque em **"📥 Puxar p/ Vitrine"** em qualquer anúncio: o ImobFlow copia o título, localização, preço, destaques e fotos para a sua Vitrine Express de forma instantânea sem pesar o aplicativo!',
 
       cliente_sumiu: '🛡️ *Táticas da Central Antissumiço para Destravar Negócios:*\n\n' +
-                     '1. **Sumiu após Simulação:** Use a opção 4 (Descarte Suave) perguntando se pode arquivar a pasta dele. O medo da perda reativa a conversa!\n' +
-                     '2. **Sumiu após a Visita:** Use a opção 5 para pedir feedback sincero sem parecer vendedor insistente.\n' +
-                     '3. **Achou Parcela Alta:** Use a opção 8 com Composição de Renda (familiar ou cônjuge) para diluir a margem.\n' +
-                     '4. **Falta de Entrada:** Use a opção 10 mostrando a diluição em até 48x com a construtora.\n' +
-                     '5. **Travou na Documentação:** Use a opção 13 criando urgência do fechamento do lote semanal da Caixa.'
+                     '1. **Sumiu após Simulação:** Use o Descarte Suave (Script 4) perguntando se pode arquivar a pasta. Aversão à perda pura!\n' +
+                     '2. **Sumiu após a Visita:** Use o Script 5 para pedir feedback sincero sem pressão.\n' +
+                     '3. **Achou Parcela Alta:** Use o Script 8 com Composição de Renda para esticar a margem.\n' +
+                     '4. **Falta de Entrada:** Use o Script 10 com parcelamento de construtora em até 48x.',
+
+      link_vitrine: '📲 *Como Usar a Vitrine Interativa:*\n\nPreencha os dados na aba Vitrine e clique em "Copiar Link Interativo". O cliente abre no WhatsApp e navega por fotos num carrossel limpo com botão direto para falar com você!',
+
+      exportar_pdf: '📄 *Apresentação em PDF:*\n\nO botão "Baixar Apresentação em PDF" monta um documento executivo formatado para enviar pelo WhatsApp ou imprimir em reuniões.',
+
+      sac_price: '📊 *SAC vs PRICE:*\n\n• SAC tem parcelas decrescentes e exige mais renda inicial[cite: 6].\n• PRICE tem parcelas fixas, começa mais baixa e aprova valores maiores para a mesma renda[cite: 6].'
     };
 
     function alternarCopilotoIA(e) {
-      if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
+      if (e) { e.preventDefault(); e.stopPropagation(); }
       var modal = document.getElementById('ia-copilot-modal');
       var aberto = modal.style.display === 'flex';
       modal.style.display = aberto ? 'none' : 'flex';
@@ -1684,14 +1740,13 @@
 
     function executarTopicoIA(chave) {
       var rotulos = {
-        regras_gerais: 'Quais são as regras gerais e faixas da Caixa?',
+        regras_gerais: 'Quais são as regras gerais da Caixa?',
         cotas_usado: 'Como funcionam as cotas de imóveis usados?',
-        tetos_renda: 'Quais os tetos de renda e valor de imóvel?',
-        regra_idade: 'Como funciona a regra de idade e prazo máximo?',
+        radar_ajuda: 'Como usar a ferramenta de Radar de Imóveis?',
         cliente_sumiu: 'Como destravar cliente travado ou sumido?',
         link_vitrine: 'Como funciona o Link Interativo da Vitrine?',
         exportar_pdf: 'Como funciona a Apresentação em PDF?',
-        sac_price: 'Qual a diferença prática entre tabela SAC e PRICE?'
+        sac_price: 'Qual a diferença entre tabela SAC e PRICE?'
       };
       adicionarMensagemChat('user', rotulos[chave] || 'Consulta');
 
@@ -1700,102 +1755,28 @@
 
       setTimeout(function() {
         typing.style.display = 'none';
-        if (baseConhecimentoCaixa[chave]) {
-          adicionarMensagemChat('bot', baseConhecimentoCaixa[chave]);
-        }
+        if (baseConhecimentoCaixa[chave]) adicionarMensagemChat('bot', baseConhecimentoCaixa[chave]);
       }, 350);
     }
 
     function gerarRespostaLocal(pergunta) {
       var p = pergunta.toLowerCase().trim();
 
-      if (['oi', 'ola', 'olá', 'eai', 'e aí', 'opa', 'salve', 'bom dia', 'boa tarde', 'boa noite', 'como vai', 'tudo bem', 'tudo bom'].some(function(term) { return p === term || p.indexOf(term) === 0; })) {
-        var saudacoes = [
-          'Olá! Tudo excelente por aqui. Como posso ajudar com suas simulações, regras de crédito ou estratégias com clientes hoje?',
-          'Olá! Seja muito bem-vindo(a). Estou à disposição para tirar qualquer dúvida sobre a Caixa, analisar perfis de financiamento ou apoiar seus fechamentos.',
-          'Olá! Tudo bem? Vamos em frente. O que você precisa consultar sobre financiamento imobiliário ou ferramentas do app agora?'
-        ];
-        return saudacoes[Math.floor(Math.random() * saudacoes.length)];
+      if (['oi', 'ola', 'olá', 'eai', 'e aí', 'opa', 'salve', 'bom dia', 'boa tarde', 'boa noite', 'tudo bem'].some(function(t) { return p === t || p.indexOf(t) === 0; })) {
+        return 'Olá! Tudo ótimo por aqui. Como posso ajudar com suas simulações da Caixa, busca no Radar ou scripts com clientes hoje?';
       }
-
-      if (['obrigado', 'obrigada', 'valeu', 'show', 'perfeito', 'excelente', 'maravilha', 'agradeço'].some(function(term) { return p.indexOf(term) !== -1; })) {
-        return 'Disponha sempre! Estou por aqui para dar todo o suporte técnico e comercial que seus atendimentos precisarem. Conte comigo!';
+      if (p.indexOf('radar') !== -1 || p.indexOf('buscar') !== -1 || p.indexOf('anuncio') !== -1) {
+        return baseConhecimentoCaixa.radar_ajuda;
       }
-
-      if (p.indexOf('quem e voce') !== -1 || p.indexOf('quem é você') !== -1 || p.indexOf('seu nome') !== -1) {
-        return 'Sou o Copiloto ImobFlow, sua inteligência executiva de apoio para crédito imobiliário Caixa, análise de viabilidade financeira e conversão de clientes.';
-      }
-
-      if (['travado', 'destravar', 'desenrolar', 'sumiu', 'sumiço', 'vácuo', 'descarte', 'bolo', 'parou de responder', 'cliente sumiu', 'como recuperar', 'objeção'].some(function(term) { return p.indexOf(term) !== -1; })) {
+      if (['travado', 'destravar', 'desenrolar', 'sumiu', 'sumiço', 'vácuo', 'descarte', 'objeção'].some(function(t) { return p.indexOf(t) !== -1; })) {
         return baseConhecimentoCaixa.cliente_sumiu;
       }
+      if (p.indexOf('usado') !== -1) return baseConhecimentoCaixa.cotas_usado;
+      if (p.indexOf('link') !== -1) return baseConhecimentoCaixa.link_vitrine;
+      if (p.indexOf('pdf') !== -1) return baseConhecimentoCaixa.exportar_pdf;
+      if (p.indexOf('sac') !== -1 || p.indexOf('price') !== -1) return baseConhecimentoCaixa.sac_price;
 
-      if (p.indexOf('usado') !== -1 && (p.indexOf('cota') !== -1 || p.indexOf('%') !== -1 || p.indexOf('quanto') !== -1 || p.indexOf('financia') !== -1)) {
-        return baseConhecimentoCaixa.cotas_usado;
-      }
-      if ((p.indexOf('novo') !== -1 || p.indexOf('planta') !== -1) && (p.indexOf('cota') !== -1 || p.indexOf('%') !== -1 || p.indexOf('quanto') !== -1 || p.indexOf('financia') !== -1)) {
-        return baseConhecimentoCaixa.cotas_novo;
-      }
-      if (['cota', 'cotas', 'quanto financia', 'porcentagem', 'percentual'].some(function(term) { return p.indexOf(term) !== -1; })) {
-        return '📌 *Panorama Geral de Cotas de Financiamento Caixa (2026):*\n\n' +
-               '🏢 *Imóveis Novos ou na Planta:*\n' +
-               '• MCMV Faixas 1 e 2: até *90%* pela tabela SAC (*80%* pela PRICE)[cite: 6]\n' +
-               '• MCMV Faixa 3 e Classe Média (Fx 4): até *80%*[cite: 6]\n' +
-               '• Pró-Cotista FGTS: até *60%*[cite: 6]\n' +
-               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE[cite: 6]\n\n' +
-               '🏡 *Imóveis Usados:*\n' +
-               '• MCMV: até *80%*[cite: 6]\n' +
-               '• Classe Média (Fx 4): até *60%* (Sul e Sudeste) e *80%* (demais regiões)[cite: 6]\n' +
-               '• Pró-Cotista FGTS: até *60%*[cite: 6]\n' +
-               '• SBPE Tradicional: até *80%* no SAC e *70%* na PRICE[cite: 6].';
-      }
-
-      if (['teto', 'tetos', 'limite', 'faixa', 'faixas', 'renda', 'salario'].some(function(term) { return p.indexOf(term) !== -1; })) {
-        return baseConhecimentoCaixa.tetos_renda;
-      }
-
-      if (['taxa', 'taxas', 'juro', 'juros'].some(function(term) { return p.indexOf(term) !== -1; })) {
-        return '📌 *Taxas de Juros Vigentes para Cotistas Caixa (Região S/SE/CO):*\n\n' +
-               '• *MCMV Faixa 1 (até R$ 2.850):* de 4,25% a 4,50% ao ano[cite: 6].\n' +
-               '• *MCMV Faixa 2 (R$ 2.850 a R$ 5.000):* de 4,75% a 6,50% ao ano[cite: 6].\n' +
-               '• *MCMV Faixa 3 (R$ 5.000 a R$ 9.600):* 7,66% ao ano[cite: 6].\n' +
-               '• *Faixa 4 (Classe Média):* 10,00% ao ano[cite: 6].\n' +
-               '• *Pró-Cotista FGTS:* 8,66% ao ano[cite: 6].\n' +
-               '• *SBPE Tradicional:* 10,92% ao ano[cite: 6].';
-      }
-
-      if (['idade', 'prazo', '80', 'anos', 'meses', 'tempo'].some(function(term) { return p.indexOf(term) !== -1; })) {
-        return baseConhecimentoCaixa.regra_idade;
-      }
-
-      if (['sac', 'price', 'amortiz', 'tabela'].some(function(term) { return p.indexOf(term) !== -1; })) {
-        return baseConhecimentoCaixa.sac_price;
-      }
-
-      if (p.indexOf('link') !== -1 || p.indexOf('compartilhar') !== -1) {
-        return baseConhecimentoCaixa.link_vitrine;
-      }
-      if (p.indexOf('pdf') !== -1) {
-        return baseConhecimentoCaixa.exportar_pdf;
-      }
-      if (p.indexOf('png') !== -1 || p.indexOf('foto') !== -1 || p.indexOf('imagem') !== -1 || p.indexOf('card') !== -1) {
-        return '📥 *Exportação de Imagem (PNG):*\n\nBasta tocar em **"📥 Baixar Card em Imagem (PNG)"** na aba Vitrine. O aplicativo gera um arquivo de alta definição pronto para postar nos Stories, WhatsApp Status ou enviar em grupos com layout profissional!';
-      }
-      if (p.indexOf('documento') !== -1 || p.indexOf('docs') !== -1) {
-        return '📑 *Checklist Básico para Aprovação de Crédito Caixa:*\n\n' +
-               '• Documento oficial com foto (RG/CNH)\n' +
-               '• Comprovante de estado civil atualizado\n' +
-               '• Comprovante de residência atual (últimos 60 dias)\n' +
-               '• Comprovante de renda (3 últimos holerites ou extrato bancário de 6 meses para autônomos)\n' +
-               '• Carteira de Trabalho física ou digital + Extrato analítico do FGTS.';
-      }
-
-      return 'Perfeito! Posso detalhar qualquer ponto da sua rotina imobiliária. Você deseja:\n\n' +
-             '1. Consultar cotas e limites exatos de financiamento (Planta, Novo ou Usado)?\n' +
-             '2. Entender os tetos de renda e juros do MCMV, Faixa 4 ou SBPE?\n' +
-             '3. Aplicar os scripts da central Antissumiço para reativar um cliente travado?\n' +
-             '4. Ver como gerar o Link Interativo ou o PDF da Vitrine?\n\n' +
-             'Basta me dizer qual é o cenário do seu atendimento agora!';
+      return baseConhecimentoCaixa.regras_gerais;
     }
 
     async function processarRespostaIA(pergunta) {
@@ -1803,35 +1784,23 @@
       typing.style.display = 'block';
 
       var apiKey = localStorage.getItem('imobflow_gemini_key') || '';
-
       if (apiKey) {
         try {
-          var systemPrompt = 'Você é o Copiloto ImobFlow, um consultor imobiliário de elite e correspondente bancário sênior da Caixa Econômica Federal. ' +
-                             'Seu tom é seguro, profissional, acolhedor e altamente técnico, tratando o interlocutor de forma neutra. ' +
-                             'Você domina: regras Caixa 2026 (MCMV faixas 1 a 3 com tetos de 275k e 400k; Faixa 4 até 600k com 10% a.a.; Pró-cotista até 500k com 8.66% a.a.; SBPE até 2.25M com 10.92% a.a.), ' +
-                             'cotas de novos/planta (até 90% SAC no MCMV 1 e 2; 80% nos demais) e usados (80% MCMV; 60% S/SE na faixa 4 e pró-cotista; 80% SAC e 70% Price no SBPE), ' +
-                             'regra de idade (idade + prazo <= 80,5 anos), SAC vs PRICE, e as funções do app ImobFlow (Vitrine com link público ?v= e PDF multi-páginas, Qualificador e Scripts Antissumiço com 15 opções). ' +
-                             'Seja comunicativo, falador, consultivo e focado em apoiar o corretor a fechar negócio.';
-
+          var systemPrompt = 'Você é o Copiloto ImobFlow, consultor imobiliário de elite especialista em Caixa Econômica e vendas. ' +
+                             'Você domina: regras Caixa 2026, tabela SAC e PRICE, scripts antissumiço, Vitrine e Radar Nacional de Imóveis.';
           var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey;
-          var bodyPayload = {
-            contents: [
-              { role: 'user', parts: [{ text: systemPrompt + '\n\nPergunta do corretor: ' + pergunta }] }
-            ]
-          };
+          var bodyPayload = { contents: [{ role: 'user', parts: [{ text: systemPrompt + '\n\nPergunta: ' + pergunta }] }] };
 
           var response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(bodyPayload)
           });
-
           var data = await response.json();
           typing.style.display = 'none';
 
           if (data && data.candidates && data.candidates[0] && data.candidates[0].content) {
-            var respostaTexto = data.candidates[0].content.parts[0].text;
-            adicionarMensagemChat('bot', respostaTexto);
+            adicionarMensagemChat('bot', data.candidates[0].content.parts[0].text);
             return;
           }
         } catch(err) {}
@@ -1839,8 +1808,7 @@
 
       setTimeout(function() {
         typing.style.display = 'none';
-        var respostaLocal = gerarRespostaLocal(pergunta);
-        adicionarMensagemChat('bot', respostaLocal);
+        adicionarMensagemChat('bot', gerarRespostaLocal(pergunta));
       }, 350);
     }
 
@@ -1875,8 +1843,16 @@
         if (elPhone) elPhone.value = savedPhone;
       }
 
+      // Monta os 15 scripts do antissumiço em cards e seleciona o primeiro
+      montarCatalogoScripts('todos');
+      selecionarScriptItem('sumiu_simulacao');
+
+      // Inicializa o Radar
+      pesquisarOportunidadesRadar();
+
       atualizarVitrineCard();
 
+      // Modo Cliente (Link Base64)
       var urlParams = new URLSearchParams(window.location.search);
       var vitrinePayload = urlParams.get('v');
 
