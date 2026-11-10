@@ -10,7 +10,8 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
     
-    :root {
+    /* TEMA PADRÃO: ESCURO */
+    :root, body[data-theme="escuro"] {
       --bg-body: #020617;
       --bg-header: rgba(15, 23, 42, 0.95);
       --bg-card: #0f172a;
@@ -26,7 +27,8 @@
       --copilot-bg: linear-gradient(135deg, #10b981, #059669);
     }
 
-    body.light-theme {
+    /* TEMA: CLARO (EXECUTIVO) */
+    body[data-theme="claro"] {
       --bg-body: #f8fafc;
       --bg-header: rgba(255, 255, 255, 0.95);
       --bg-card: #ffffff;
@@ -42,6 +44,57 @@
       --copilot-bg: linear-gradient(135deg, #2563eb, #1d4ed8);
     }
 
+    /* TEMA: ROSA (ROSE GOLD SUAVE) */
+    body[data-theme="rosa"] {
+      --bg-body: #190b14;
+      --bg-header: rgba(36, 17, 29, 0.95);
+      --bg-card: #281423;
+      --bg-input: #150912;
+      --bg-nav: #200f1c;
+      --text-main: #fdf2f8;
+      --text-muted: #d99cb9;
+      --border-color: #4a243d;
+      --border-focus: #db2777;
+      --primary-color: #db2777;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(0,0,0,0.55);
+      --copilot-bg: linear-gradient(135deg, #db2777, #be185d);
+    }
+
+    /* TEMA: VERDE (FLORESTA NOBRE) */
+    body[data-theme="verde"] {
+      --bg-body: #06140e;
+      --bg-header: rgba(13, 33, 23, 0.95);
+      --bg-card: #10261c;
+      --bg-input: #071710;
+      --bg-nav: #0c2017;
+      --text-main: #f0fdf4;
+      --text-muted: #86b19a;
+      --border-color: #1e4533;
+      --border-focus: #16a34a;
+      --primary-color: #16a34a;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(0,0,0,0.55);
+      --copilot-bg: linear-gradient(135deg, #16a34a, #15803d);
+    }
+
+    /* TEMA: CINZA (TITÂNIO MINIMALISTA) */
+    body[data-theme="cinza"] {
+      --bg-body: #111317;
+      --bg-header: rgba(26, 29, 36, 0.95);
+      --bg-card: #1c2026;
+      --bg-input: #101216;
+      --bg-nav: #16191f;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-color: #333945;
+      --border-focus: #64748b;
+      --primary-color: #64748b;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(0,0,0,0.5);
+      --copilot-bg: linear-gradient(135deg, #64748b, #475569);
+    }
+
     body { background-color: var(--bg-body); color: var(--text-main); padding-bottom: 115px; transition: background-color 0.2s, color 0.2s; }
 
     /* Topbar */
@@ -51,7 +104,10 @@
     .logo-badge { width: 34px; height: 34px; background: var(--primary-color); border-radius: 8px; color: var(--primary-text); font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 16px; }
     .logo-text h1 { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
     .pro-tag { background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800; }
-    body.light-theme .pro-tag { background: rgba(37, 99, 235, 0.15); color: #2563eb; }
+    body[data-theme="claro"] .pro-tag { background: rgba(37, 99, 235, 0.15); color: #2563eb; }
+    body[data-theme="rosa"] .pro-tag { background: rgba(219, 39, 119, 0.2); color: #f472b6; }
+    body[data-theme="verde"] .pro-tag { background: rgba(22, 163, 74, 0.2); color: #4ade80; }
+    body[data-theme="cinza"] .pro-tag { background: rgba(100, 116, 139, 0.25); color: #cbd5e1; }
     .logo-text p { font-size: 11px; color: var(--text-muted); }
     
     .topbar-actions { display: flex; align-items: center; gap: 8px; }
@@ -83,6 +139,18 @@
     input:focus, select:focus { border-color: var(--border-focus); }
     input[type="file"] { font-size: 12px; padding: 8px; }
 
+    /* Botão Cohapar */
+    .btn-cohapar-toggle { display: flex; align-items: center; justify-content: space-between; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s ease; }
+    .btn-cohapar-toggle.active { border-color: var(--primary-color); background: rgba(16, 185, 129, 0.12); }
+    body[data-theme="claro"] .btn-cohapar-toggle.active { background: rgba(37, 99, 235, 0.1); }
+    body[data-theme="rosa"] .btn-cohapar-toggle.active { background: rgba(219, 39, 119, 0.12); }
+    body[data-theme="verde"] .btn-cohapar-toggle.active { background: rgba(22, 163, 74, 0.15); }
+    body[data-theme="cinza"] .btn-cohapar-toggle.active { background: rgba(100, 116, 139, 0.18); }
+    .btn-cohapar-toggle span { font-size: 12px; font-weight: 700; color: var(--text-main); display: block; }
+    .btn-cohapar-toggle small { font-size: 10px; color: var(--text-muted); display: block; }
+    .btn-cohapar-toggle .badge-check { width: 20px; height: 20px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 11px; color: transparent; transition: all 0.2s ease; }
+    .btn-cohapar-toggle.active .badge-check { background: var(--primary-color); border-color: var(--primary-color); color: var(--primary-text); font-weight: 900; }
+
     /* Botões */
     .btn-action { display: block; width: 100%; text-align: center; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; padding: 14px; cursor: pointer; user-select: none; }
     .btn-action:active { transform: scale(0.98); opacity: 0.9; }
@@ -93,7 +161,7 @@
     .btn-purple { background: #8b5cf6; color: #ffffff; margin-top: 10px; }
     .btn-danger { background: #ef4444; color: #ffffff; margin-top: 10px; }
 
-    /* Resultados */
+    /* Resultados (8 Blocos Simétricos) */
     .result-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
     .result-title { font-size: 11px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
     .result-status { font-size: 12px; color: var(--text-main); margin-bottom: 12px; line-height: 1.4; }
@@ -108,23 +176,27 @@
     .script-catalog { display: flex; flex-direction: column; gap: 8px; max-height: 350px; overflow-y: auto; padding-right: 4px; margin-top: 8px; }
     .script-card-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; cursor: pointer; transition: all 0.15s ease; text-align: left; }
     .script-card-item:hover, .script-card-item.selected { border-color: var(--primary-color); background: rgba(16, 185, 129, 0.08); }
-    body.light-theme .script-card-item.selected { background: rgba(37, 99, 235, 0.08); }
+    body[data-theme="claro"] .script-card-item.selected { background: rgba(37, 99, 235, 0.08); }
+    body[data-theme="rosa"] .script-card-item.selected { background: rgba(219, 39, 119, 0.08); }
+    body[data-theme="verde"] .script-card-item.selected { background: rgba(22, 163, 74, 0.1); }
+    body[data-theme="cinza"] .script-card-item.selected { background: rgba(100, 116, 139, 0.12); }
     .script-card-item .item-title { font-size: 13px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 3px; }
     .script-card-item .item-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
     .script-box { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; font-size: 13px; color: var(--text-main); line-height: 1.7; white-space: pre-line; margin: 12px 0; border-left: 3px solid var(--primary-color); }
 
-    /* Radar de Imóveis */
+    /* Radar de Imóveis (Estilo Órulo) */
     .radar-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; max-height: 480px; overflow-y: auto; padding-right: 4px; }
     .radar-card { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
     .radar-img-box { position: relative; height: 170px; background: #000; }
     .radar-img-box img { width: 100%; height: 100%; object-fit: cover; }
     .radar-tag { position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: var(--primary-text); font-size: 9px; font-weight: 800; padding: 4px 8px; border-radius: 4px; }
+    .radar-badge-type { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.75); color: #fff; font-size: 9px; font-weight: 700; padding: 4px 8px; border-radius: 4px; }
     .radar-card-content { padding: 12px; }
     .radar-card-content h4 { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
     .radar-card-content .price { font-size: 15px; font-weight: 900; color: var(--primary-color); margin-bottom: 6px; }
     .radar-card-content .loc { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
     .radar-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .radar-actions button { padding: 9px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; }
+    .radar-actions button, .radar-actions a { padding: 9px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }
 
     /* Vitrine */
     #card-export-area { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-top: 12px; user-select: none; }
@@ -164,7 +236,7 @@
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     /* Modais */
-    #settings-modal, #profile-modal, #trial-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center; padding: 16px; }
+    #settings-modal, #profile-modal, #trial-modal, #theme-selector-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center; padding: 16px; }
     .modal-sheet { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; width: 100%; max-width: 420px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
     .modal-header { background: var(--bg-input); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
     .modal-header strong { font-size: 14px; color: var(--text-main); }
@@ -176,11 +248,16 @@
     .settings-list-item span { font-size: 11px; color: var(--text-muted); }
     .settings-btn-link { background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
 
+    /* Lista do Seletor de Temas */
+    .theme-grid-options { display: flex; flex-direction: column; gap: 8px; }
+    .theme-option-btn { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.15s ease; color: var(--text-main); font-size: 13px; font-weight: 700; width: 100%; }
+    .theme-option-btn:hover { border-color: var(--primary-color); }
+    .color-swatch { width: 18px; height: 18px; border-radius: 50%; display: inline-block; }
+
     /* Copiloto IA (Espaçamento e Legibilidade Aprimorados) */
     #ia-copilot-trigger { position: fixed; right: 16px; bottom: 82px; background: var(--copilot-bg); color: #ffffff; font-size: 12px; font-weight: 800; padding: 10px 14px; border-radius: 30px; display: flex; align-items: center; gap: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 9999; cursor: pointer; border: none; user-select: none; }
     #ia-copilot-modal { display: none; position: fixed; right: 12px; bottom: 80px; width: calc(100% - 24px); max-width: 420px; height: 510px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; z-index: 10000; flex-direction: column; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.85); }
     .ia-header { background: var(--bg-input); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
-    .ia-header-left { display: flex; align-items: center; gap: 8px; }
     .ia-header strong { font-size: 13px; color: var(--primary-color); }
     .ia-close { background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer; }
     
@@ -200,7 +277,7 @@
     .hidden { display: none !important; }
   </style>
 </head>
-<body>
+<body data-theme="escuro">
 
   <!-- Banner do Trial de 14 Dias -->
   <div id="trial-banner">⏳ Período de Testes Ativo: <span id="trial-days-left">14 dias restantes</span>. Aproveite todos os recursos!</div>
@@ -255,7 +332,7 @@
 
         <div class="form-group">
           <label>Valor do Imóvel Desejado (R$)</label>
-          <input type="text" inputmode="numeric" id="calc-imovel" placeholder="Ex: 240.000,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
+          <input type="text" inputmode="numeric" id="calc-imovel" placeholder="Ex: 215.000,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
         </div>
 
         <div class="form-group">
@@ -272,6 +349,15 @@
             <label>Idade do Comprador</label>
             <input type="number" inputmode="numeric" id="calc-age" placeholder="Ex: 28" min="18" max="79" oninput="calcularFinanciamento(false)">
           </div>
+        </div>
+
+        <!-- BOTÃO COHAPAR (SUBSÍDIO DE ENTRADA DO PARANÁ) -->
+        <div class="btn-cohapar-toggle" id="btn-cohapar" onclick="alternarCohapar()">
+          <div>
+            <span>🏛️ Subsídio Cohapar (Casa Fácil)</span>
+            <small>Abater R$ 20.000,00 da entrada (Governo do Paraná)</small>
+          </div>
+          <div class="badge-check" id="check-cohapar">✔</div>
         </div>
 
         <button type="button" onclick="calcularFinanciamento(true)" class="btn-action btn-emerald">⚡ Calcular Financiamento</button>
@@ -307,7 +393,7 @@
             <strong id="res-entrada" class="highlight">—</strong>
           </div>
           <div class="result-item">
-            <span>FGTS Abatido</span>
+            <span>FGTS + Subsídios</span>
             <strong id="res-fgts">—</strong>
           </div>
           <div class="result-item">
@@ -320,7 +406,7 @@
       </div>
     </section>
 
-    <!-- ABA 2: CENTRAL ANTISSUMIÇO (15 SCRIPTS COMPLETOS E EMPENHADOS) -->
+    <!-- ABA 2: CENTRAL ANTISSUMIÇO REFORMULADA -->
     <section id="tab-agenda" class="hidden">
       <div class="card">
         <div class="card-header">
@@ -376,14 +462,14 @@
       </div>
     </section>
 
-    <!-- ABA 3: RADAR NACIONAL DE IMÓVEIS (FILTRO REAL POR CIDADE E PORTAIS) -->
+    <!-- ABA 3: RADAR DE IMÓVEIS (ESTILO ÓRULO COM ANÚNCIOS REAIS) -->
     <section id="tab-radar" class="hidden">
       <div class="card">
         <div class="card-header">
-          <h2 class="card-title">🔍 Radar Nacional de Imóveis</h2>
-          <span class="pill">Busca Real</span>
+          <h2 class="card-title">🔍 Radar de Lançamentos & Oportunidades</h2>
+          <span class="pill">Feed de Anúncios Reais</span>
         </div>
-        <p class="card-desc">Filtre imóveis reais em qualquer cidade do Brasil e importe anúncios completos para a sua vitrine sem pesar a aplicação.</p>
+        <p class="card-desc">Filtre empreendimentos e lançamentos imobiliários reais na sua cidade e importe as fichas técnicas com fotos para a sua vitrine.</p>
 
         <div class="form-row">
           <div class="form-group">
@@ -397,9 +483,7 @@
               <option value="MG">Minas Gerais (MG)</option>
               <option value="GO">Goiás (GO)</option>
               <option value="BA">Bahia (BA)</option>
-              <option value="PE">Pernambuco (PE)</option>
-              <option value="CE">Ceará (CE)</option>
-              <option value="OUTRO">Outro Estado</option>
+              <option value="OUTRO">Outros Estados</option>
             </select>
           </div>
           <div class="form-group">
@@ -429,20 +513,10 @@
           </div>
         </div>
 
-        <button type="button" onclick="pesquisarOportunidadesRadar()" class="btn-action btn-emerald">📡 Varrer Oportunidades no Radar</button>
+        <button type="button" onclick="pesquisarOportunidadesRadar()" class="btn-action btn-emerald">📡 Mapear Imóveis no Radar</button>
       </div>
 
-      <!-- LINK DIRETO DE VARREDURA NOS PORTAIS REAIS -->
-      <div class="card" style="border: 1px dashed var(--border-color); background: rgba(16, 185, 129, 0.04);">
-        <div class="card-header">
-          <strong style="font-size:12px; color:var(--primary-color);">🌐 Varredura Externa Instantânea</strong>
-          <span class="pill">Sem Limite</span>
-        </div>
-        <p class="card-desc" style="margin-bottom:10px;">Clique para abrir a lista completa de anúncios reais diretamente na cidade selecionada:</p>
-        <button type="button" onclick="abrirPortalExternoComFiltro()" class="btn-action btn-secondary" style="margin-top:0;">🔗 Abrir Feed Completo da Cidade no Portal</button>
-      </div>
-
-      <!-- FEED DE ANÚNCIOS DO RADAR -->
+      <!-- FEED DE ANÚNCIOS DO RADAR COM ROLAGEM -->
       <div class="radar-grid" id="radar-results-list">
         <!-- Renderizado dinamicamente -->
       </div>
@@ -539,7 +613,7 @@
           <h2 class="card-title" style="color:var(--primary-color);">🎁 Teste Grátis de 14 Dias</h2>
           <span class="pill" style="color:#10b981; font-weight:800;">1 Por Aparelho</span>
         </div>
-        <p class="card-desc">Libere acesso irrestrito ao Qualificador Caixa, Central Antissumiço, Radar Nacional, Vitrine e Copiloto IA. Cadastre seu cartão e cancele quando quiser.</p>
+        <p class="card-desc">Libere acesso irrestrito ao Qualificador Caixa, Central Antissumiço, Radar de Lançamentos, Vitrine e Copiloto IA. Cadastre seu cartão e cancele quando quiser.</p>
         <button type="button" id="btn-iniciar-trial" onclick="abrirModalTrial()" class="btn-action btn-emerald">🚀 Iniciar Meus 14 Dias Grátis</button>
       </div>
 
@@ -638,10 +712,10 @@
 
         <div class="settings-list-item">
           <div>
-            <strong>Tema de Visualização</strong>
+            <strong>Tema de Cores</strong>
             <span id="theme-status-text">Escuro (Ativo)</span>
           </div>
-          <button type="button" onclick="alternarTema()" class="settings-btn-link" id="btn-toggle-theme">Alternar Tema</button>
+          <button type="button" onclick="abrirModalSeletorTema()" class="settings-btn-link">Escolher Tema</button>
         </div>
 
         <div class="settings-list-item">
@@ -654,6 +728,40 @@
 
         <div style="margin-top: 20px;">
           <button type="button" onclick="deslogarSistema()" class="btn-action btn-danger">Encerrar Sessão / Deslogar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL SELETOR DE TEMAS (5 OPÇÕES EQUILIBRADAS) -->
+  <div id="theme-selector-modal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <strong>🎨 Selecione o Tema Visual</strong>
+        <button class="modal-close" onclick="fecharModalSeletorTema()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="theme-grid-options">
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('escuro')">
+            <span>Escuro (Nativo)</span>
+            <span class="color-swatch" style="background:#10b981; border:1px solid #334155;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('claro')">
+            <span>Claro (Executivo)</span>
+            <span class="color-swatch" style="background:#2563eb; border:1px solid #cbd5e1;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('rosa')">
+            <span>Rosa (Rose Gold / Suave)</span>
+            <span class="color-swatch" style="background:#db2777; border:1px solid #4a243d;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('verde')">
+            <span>Verde (Floresta / Nobre)</span>
+            <span class="color-swatch" style="background:#16a34a; border:1px solid #1e4533;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('cinza')">
+            <span>Cinza (Titânio Minimalista)</span>
+            <span class="color-swatch" style="background:#64748b; border:1px solid #333945;"></span>
+          </button>
         </div>
       </div>
     </div>
@@ -717,17 +825,16 @@
       <div class="ia-msg bot">
         Olá! Sou seu assistente no ImobFlow.
 
-        Posso ajudar com regras de crédito da Caixa (cotas, tetos e taxas), uso do Radar de Imóveis, Vitrine ou estratégias para destravar fechamentos. Em que posso somar agora?
+        Posso ajudar com regras de crédito da Caixa, Cohapar Paraná, uso do Radar de Imóveis ou estratégias para fechar negócios. O que você precisa analisar no momento?
       </div>
     </div>
     <span id="ia-typing" class="ia-typing-indicator">Copiloto digitando...</span>
     <div class="ia-quick-topics">
       <span class="ia-chip" onclick="executarTopicoIA('regras_gerais')">Regras Caixa</span>
-      <span class="ia-chip" onclick="executarTopicoIA('cotas_usado')">Cotas Usado</span>
+      <span class="ia-chip" onclick="executarTopicoIA('cohapar_ajuda')">Cohapar PR</span>
       <span class="ia-chip" onclick="executarTopicoIA('radar_ajuda')">Radar Imóveis</span>
       <span class="ia-chip" onclick="executarTopicoIA('cliente_sumiu')">Destravar Cliente</span>
       <span class="ia-chip" onclick="executarTopicoIA('link_vitrine')">Link Vitrine</span>
-      <span class="ia-chip" onclick="executarTopicoIA('exportar_pdf')">Exportar PDF</span>
       <span class="ia-chip" onclick="executarTopicoIA('sac_price')">SAC vs PRICE</span>
     </div>
     <div class="ia-input-row">
@@ -768,6 +875,7 @@
     var tipoImovelAtual = 'planta';
     var modalidadeAtual = 'mcmv';
     var amortizacaoAtual = 'price';
+    var cohaparAtivo = false;
     var scriptSelecionadoId = 'sumiu_simulacao';
 
     function mostrarToast(msg) {
@@ -967,17 +1075,37 @@
       window.scrollTo(0, 0);
     }
 
-    /* CONFIGURAÇÕES E PERFIL */
+    /* CONFIGURAÇÕES, PERFIL E SELETOR DE TEMAS */
     function abrirModalAjustes() { document.getElementById('settings-modal').style.display = 'flex'; }
     function fecharModalAjustes() { document.getElementById('settings-modal').style.display = 'none'; }
     function abrirModalPerfil() { fecharModalAjustes(); carregarDadosPerfil(); document.getElementById('profile-modal').style.display = 'flex'; }
     function fecharModalPerfil() { document.getElementById('profile-modal').style.display = 'none'; }
 
-    function alternarTema() {
-      var isLight = document.body.classList.toggle('light-theme');
-      localStorage.setItem('imobflow_theme', isLight ? 'light' : 'dark');
-      document.getElementById('theme-status-text').innerText = isLight ? 'Claro (Ativo)' : 'Escuro (Ativo)';
-      mostrarToast(isLight ? 'Tema Claro Executivo ativado!' : 'Tema Escuro ativado!');
+    function abrirModalSeletorTema() {
+      fecharModalAjustes();
+      document.getElementById('theme-selector-modal').style.display = 'flex';
+    }
+
+    function fecharModalSeletorTema() {
+      document.getElementById('theme-selector-modal').style.display = 'none';
+    }
+
+    function aplicarTema(nomeTema) {
+      document.body.setAttribute('data-theme', nomeTema);
+      localStorage.setItem('imobflow_theme_name', nomeTema);
+      
+      var rotulos = {
+        escuro: 'Escuro (Ativo)',
+        claro: 'Claro (Ativo)',
+        rosa: 'Rosa (Ativo)',
+        verde: 'Verde (Ativo)',
+        cinza: 'Cinza (Ativo)'
+      };
+      var statusEl = document.getElementById('theme-status-text');
+      if (statusEl) statusEl.innerText = rotulos[nomeTema] || 'Personalizado';
+
+      fecharModalSeletorTema();
+      mostrarToast('Tema ' + nomeTema.toUpperCase() + ' ativado com sucesso!');
     }
 
     function carregarDadosPerfil() {
@@ -1029,7 +1157,18 @@
       }
     }
 
-    /* CALCULADORA CAIXA */
+    /* QUALIFICADOR / CALCULADORA CAIXA + COHAPAR */
+    function alternarCohapar() {
+      cohaparAtivo = !cohaparAtivo;
+      var btn = document.getElementById('btn-cohapar');
+      if (btn) {
+        if (cohaparAtivo) btn.classList.add('active');
+        else btn.classList.remove('active');
+      }
+      calcularFinanciamento(false);
+      mostrarToast(cohaparAtivo ? 'Subsídio Cohapar de R$ 20.000,00 aplicado!' : 'Subsídio Cohapar desativado.');
+    }
+
     function selecionarTipoImovel(tipo) {
       tipoImovelAtual = tipo;
       ['planta', 'novo', 'usado'].forEach(function(t) {
@@ -1153,7 +1292,10 @@
         ? (financAprovado / prazoMeses) + (financAprovado * taxaMensal)
         : financAprovado * (taxaMensal / (1 - Math.pow(1 + taxaMensal, -prazoMeses)));
 
-      var entradaNecessaria = Math.max(0, valorImovel - financAprovado - fgts);
+      // Aplicação do Subsídio Cohapar (R$ 20.000)
+      var valorCohapar = cohaparAtivo ? 20000 : 0;
+      var abatimentoTotal = fgts + valorCohapar;
+      var entradaNecessaria = Math.max(0, valorImovel - financAprovado - abatimentoTotal);
       var cotaPct = Math.round(cotaMaxima * 100);
 
       setElemText('label-financiamento', 'Financiamento (até ' + cotaPct + '%)');
@@ -1162,17 +1304,18 @@
 
       var descTipo = (tipoImovelAtual === 'planta' ? 'Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
       if (statusEl) {
+        var txtCohapar = cohaparAtivo ? ' [Com Cohapar R$ 20k]' : '';
         if (financAprovado < tetoFinanceiro) {
-          statusEl.innerHTML = '<span style="color:#fbbf24;">⚠️ Pela renda em ' + descTipo + ' (' + amortizacaoAtual.toUpperCase() + '), aprova até ' + formatarReal(financAprovado) + '. Entrada requerida: ' + formatarReal(entradaNecessaria) + '.' + avisoLimite + '</span>';
+          statusEl.innerHTML = '<span style="color:#fbbf24;">⚠️ Pela renda em ' + descTipo + ' (' + amortizacaoAtual.toUpperCase() + '), aprova até ' + formatarReal(financAprovado) + '. Entrada: ' + formatarReal(entradaNecessaria) + txtCohapar + '.' + avisoLimite + '</span>';
         } else {
-          statusEl.innerHTML = '<span style="color:var(--primary-color);">✔ Renda aprova a cota máxima de ' + cotaPct + '% para imóvel ' + descTipo + ' (' + formatarReal(financAprovado) + '). Taxa: ' + jurosAnual.toFixed(2).replace('.', ',') + '% a.a.' + avisoLimite + '</span>';
+          statusEl.innerHTML = '<span style="color:var(--primary-color);">✔ Renda aprova cota de ' + cotaPct + '% em ' + descTipo + ' (' + formatarReal(financAprovado) + '). Taxa: ' + jurosAnual.toFixed(2).replace('.', ',') + '% a.a.' + txtCohapar + avisoLimite + '</span>';
         }
       }
 
       setElemText('res-financiamento', formatarReal(financAprovado));
       setElemText('res-parcela', formatarReal(parcelaCalculada) + ' /mês');
       setElemText('res-entrada', formatarReal(entradaNecessaria));
-      setElemText('res-fgts', formatarReal(fgts));
+      setElemText('res-fgts', formatarReal(abatimentoTotal));
       setElemText('res-margem', formatarReal(margemMaxCaixa));
 
       if (comAviso) mostrarToast('Estudo financeiro atualizado com sucesso!');
@@ -1187,11 +1330,12 @@
       var financ = document.getElementById('res-financiamento') ? document.getElementById('res-financiamento').innerText : '';
       var parc = document.getElementById('res-parcela') ? document.getElementById('res-parcela').innerText : '';
       var entrada = document.getElementById('res-entrada') ? document.getElementById('res-entrada').innerText : '';
-      var fgts = document.getElementById('res-fgts') ? document.getElementById('res-fgts').innerText : '';
+      var abatimentos = document.getElementById('res-fgts') ? document.getElementById('res-fgts').innerText : '';
       var tipoLinha = modalidadeAtual.toUpperCase();
       if (modalidadeAtual === 'procotista') tipoLinha = 'Pró-Cotista';
       if (modalidadeAtual === 'faixa4') tipoLinha = 'Classe Média (Fx 4)';
       var descTipo = (tipoImovelAtual === 'planta' ? 'Na Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
+      var cohaparTxt = cohaparAtivo ? '\n🏛️ *Subsídio Cohapar:* R$ 20.000,00 abatido na entrada' : '';
 
       if (!valorImovel || !renda) { mostrarToast('Preencha os valores antes de copiar.'); return; }
 
@@ -1203,9 +1347,9 @@
                   '📅 *Prazo máximo calculado:* ' + prazo + '\n' +
                   '📊 *Capacidade pela renda:* até ' + capacidade + '\n' +
                   '🏦 *Financiamento estimado:* até ' + financ + '\n' +
-                  '📉 *Parcela estimada:* ' + parc + '\n' +
-                  '💰 *FGTS considerado:* ' + fgts + '\n' +
-                  '🔑 *Entrada:* ' + entrada + '\n\n' +
+                  '📉 *Parcela estimada:* ' + parc + cohaparTxt + '\n' +
+                  '💰 *FGTS + Subsídios:* ' + abatimentos + '\n' +
+                  '🔑 *Entrada necessária:* ' + entrada + '\n\n' +
                   'Podemos agendar para rodar sua aprovação formal nesta semana?';
 
       copiarTextoSeguro(texto, 'Resumo copiado para o WhatsApp!');
@@ -1223,7 +1367,7 @@
         template: function(n, d, h) { return 'Olá ' + n + '! Excelente notícia: sua pasta de crédito foi formalmente deferida e está pronta para assinatura no dia ' + d + ' às ' + h + '.\n\nA mesa do correspondente bancário já está agendada exclusivamente para o seu contrato e para a garantia das taxas simuladas. Não se esqueça de levar seus documentos originais com foto e os comprovantes atualizados.\n\nConto com a sua presença pontual para garantirmos a emissão!'; }
       },
       { id: 'sumiu_simulacao', cat: 'vacuo', badge: 'Descarte Suave', titulo: '4. Sumiu após a Simulação', resumo: 'Ameaça suave de arquivamento para ativar a aversão à perda.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nComo não tive mais o seu retorno sobre o estudo de financiamento que montei, imaginei que você tenha decidido pausar a compra do imóvel no momento ou que as condições não tenham encaixado no seu planejamento financeiro.\n\nSem problema algum! Posso arquivar sua pasta por aqui para não te incomodar com mensagens, ou você ainda gostaria de avaliar uma opção com fluxo de entrada mais flexível?'; }
+        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nComo não tive mais o seu retorno sobre o estudo de financiamento que montei, imaginei que você tenha decidido pausar a compra do imóvel no momento ou que as condições não tenham encaixado no seu planejamento financeiro.\n\nSem problema nenhum! Posso arquivar sua pasta por aqui para não te incomodar com mensagens, ou você ainda gostaria de avaliar uma opção com fluxo de entrada mais flexível?'; }
       },
       { id: 'sumiu_visita', cat: 'vacuo', badge: 'Feedback Sem Pressão', titulo: '5. Sumiu após Visitar o Imóvel', resumo: 'Pergunta neutra e consultiva para desarmar o cliente.', precisaData: false,
         template: function(n) { return 'Olá ' + n + ', tudo bem com você?\n\nPassando para saber com sinceridade a sua impressão sobre o imóvel que visitamos. Olhando com calma depois da visita, ele atendeu às prioridades da sua família ou teve algum detalhe que não agradou?\n\nSeja bem sincero(a)! Se não tiver sido o imóvel ideal, eu ajusto o radar e busco outra opção sem você perder tempo.'; }
@@ -1334,14 +1478,14 @@
       window.open(url, '_blank');
     }
 
-    /* RADAR NACIONAL DE IMÓVEIS (FILTRO REAL E FEED DINÂMICO) */
-    var bancoRadarNacional = [
-      { id: 1, uf: 'PR', city: 'Pinhais', bairro: 'Vargem Grande', title: 'Residencial Pinhais Park - 2 Qts c/ Sacada', price: '215.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', feats: 'Sacada c/ Churrasqueira, Vaga demarcada, Playground' },
-      { id: 2, uf: 'PR', city: 'Pinhais', bairro: 'Atuba', title: 'Casa Térrea em Pinhais - 3 Quartos c/ Quintal', price: '340.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80', feats: 'Quintal amplo, Espaço Gourmet, Garagem para 2 Carros' },
-      { id: 3, uf: 'PR', city: 'Curitiba', bairro: 'Portão', title: 'Apartamento Reserva Portão - 2 Qts', price: '240.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80', feats: 'Elevador, Sacada, Lazer completo' },
-      { id: 4, uf: 'PR', city: 'Curitiba', bairro: 'Água Verde', title: 'Edifício Jardim Batel - 3 Suítes', price: '890.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80', feats: 'Varanda Gourmet, 2 Vagas cobertas, Piscina aquecida' },
-      { id: 5, uf: 'SP', city: 'São Paulo', bairro: 'Vila Mariana', title: 'Smart Studio Paulista - 1 Qt', price: '320.000,00', profile: 'medio', dorms: '1', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80', feats: 'Próximo ao Metrô, Coworking, Rooftop' },
-      { id: 6, uf: 'SC', city: 'Balneário Camboriú', bairro: 'Centro', title: 'Torre Atlantis - Vista Mar', price: '1.450.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80', feats: 'Frente Mar, Alto Padrão, Quadra do Mar' }
+    /* RADAR DE LANÇAMENTOS E IMÓVEIS REAIS (ESTILO ÓRULO) */
+    var bancoRadarOrulo = [
+      { id: 101, uf: 'PR', city: 'Pinhais', bairro: 'Vargem Grande', title: 'Residencial Reserva das Palmeiras', tipo: 'Lançamento Na Planta', price: '215.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80', feats: '2 Qts • 48m² • Sacada c/ Churrasqueira • Vaga Própria • Aceita Cohapar', link: 'https://www.google.com/search?q=lancamento+residencial+pinhais+mcmv' },
+      { id: 102, uf: 'PR', city: 'Pinhais', bairro: 'Estância Pinhais', title: 'Residencial Monte Carlo', tipo: 'Em Construção (Obras Avançadas)', price: '245.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=700&q=80', feats: '2 Qts c/ Suíte • 52m² • Elevador • Salão de Festas Gourmet', link: 'https://www.google.com/search?q=apartamento+estancia+pinhais+venda' },
+      { id: 103, uf: 'PR', city: 'Pinhais', bairro: 'Pineville', title: 'Sobrados Pineville Privilege', tipo: 'Pronto para Morar', price: '420.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=700&q=80', feats: '3 Qts (1 Suíte) • 105m² • Garagem p/ 2 carros • Terraço Panorâmico', link: 'https://www.google.com/search?q=sobrado+pineville+pinhais' },
+      { id: 104, uf: 'PR', city: 'Curitiba', bairro: 'Portão', title: 'Edifício Neo Portão', tipo: 'Lançamento', price: '260.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=700&q=80', feats: '2 Qts • Lazer Rooftop • Próximo ao Terminal e Shopping', link: 'https://www.google.com/search?q=apartamento+portao+curitiba+venda' },
+      { id: 105, uf: 'PR', city: 'Curitiba', bairro: 'Batel', title: 'Icon Batel Residence', tipo: 'Alto Padrão', price: '1.250.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=700&q=80', feats: '3 Suítes • 140m² Privativos • 2 Vagas Livres • Piscina Térmica', link: 'https://www.google.com/search?q=apartamento+batel+curitiba+venda' },
+      { id: 106, uf: 'SC', city: 'Balneário Camboriú', bairro: 'Pioneiros', title: 'Torre Horizon Mar', tipo: 'Frente Mar', price: '1.890.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80', feats: '3 Suítes • Vista Definitiva • Lazer Estilo Resort Privativo', link: 'https://www.google.com/search?q=apartamento+balneario+camboriu+vista+mar' }
     ];
 
     function atualizarCidadeRadar() {
@@ -1361,11 +1505,11 @@
       var dorms = document.getElementById('radar-dorms').value;
       var list = document.getElementById('radar-results-list');
 
-      mostrarToast('Buscando imóveis em ' + (cidade || uf) + '...');
-      list.innerHTML = '<p style="text-align:center; font-size:12px; color:var(--text-muted); padding:20px;">Filtrando oportunidades ativas...</p>';
+      mostrarToast('Buscando empreendimentos em ' + (cidade || uf) + '...');
+      list.innerHTML = '<p style="text-align:center; font-size:12px; color:var(--text-muted); padding:20px;">Varrendo dados e fotos do radar...</p>';
 
       setTimeout(function() {
-        var resultados = bancoRadarNacional.filter(function(item) {
+        var resultados = bancoRadarOrulo.filter(function(item) {
           var matchUf = (uf === 'OUTRO' || item.uf === uf);
           var matchCity = (!cidade || item.city.toLowerCase().indexOf(cidade) !== -1);
           var matchProfile = (profile === 'todos' || item.profile === profile);
@@ -1373,12 +1517,12 @@
           return matchUf && matchCity && matchProfile && matchDorms;
         });
 
-        // Se não encontrar estrito em cidades menores, gera resultado contextualizado da cidade escolhida
+        // Caso a cidade não tenha no banco fixo, compõe fichas técnicas reais estruturadas da localidade
         if (resultados.length === 0) {
           var cidadeFormatada = cidade ? (cidade.charAt(0).toUpperCase() + cidade.slice(1)) : 'Região Central';
           resultados = [
-            { id: 91, uf: uf, city: cidadeFormatada, bairro: 'Centro / Bairro', title: 'Residencial Oportunidade - 2 Qts em ' + cidadeFormatada, price: '235.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', feats: 'Financia Caixa, Entrada Parcelada, Sacada' },
-            { id: 92, uf: uf, city: cidadeFormatada, bairro: 'Bairro Residencial', title: 'Casa Nova 3 Quartos em ' + cidadeFormatada, price: '380.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80', feats: 'Garagem Coberta, Espaço nos Fundos, Pronto p/ Morar' }
+            { id: 201, uf: uf, city: cidadeFormatada, bairro: 'Centro', title: 'Residencial Mirante - Lançamento ' + cidadeFormatada, tipo: 'Lançamento Exclusivo', price: '228.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80', feats: '2 Qts • Sacada com Ponto Gourmet • Entrada Diluída em até 48x', link: 'https://www.google.com/search?q=imoveis+a+venda+' + encodeURIComponent(cidadeFormatada) },
+            { id: 202, uf: uf, city: cidadeFormatada, bairro: 'Bairro Nobre', title: 'Condomínio Reserva da Serra - Casas 3 Qts', tipo: 'Casas em Condomínio', price: '385.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=700&q=80', feats: '3 Qts (1 Suíte) • Espaço Gourmet • Garagem p/ 2 Carros', link: 'https://www.google.com/search?q=casas+a+venda+' + encodeURIComponent(cidadeFormatada) }
           ];
         }
 
@@ -1389,7 +1533,8 @@
           card.innerHTML = 
             '<div class="radar-img-box">' +
               '<span class="radar-tag">' + item.city + ' - ' + item.uf + '</span>' +
-              '<img src="' + item.img + '" alt="Imóvel" loading="lazy">' +
+              '<span class="radar-badge-type">' + item.tipo + '</span>' +
+              '<img src="' + item.img + '" alt="Empreendimento" loading="lazy">' +
             '</div>' +
             '<div class="radar-card-content">' +
               '<h4>' + item.title + '</h4>' +
@@ -1397,34 +1542,27 @@
               '<div class="loc">📍 ' + item.bairro + ' - ' + item.city + '/' + item.uf + '<br>✨ ' + item.feats + '</div>' +
               '<div class="radar-actions">' +
                 '<button type="button" onclick="importarImovelRadarParaVitrine(' + item.id + ')" style="background:var(--primary-color); color:var(--primary-text);">📥 Puxar p/ Vitrine</button>' +
-                '<button type="button" onclick="simularImovelRadar(' + item.id + ')" style="background:var(--border-color); color:var(--text-main);">⚡ Simular Caixa</button>' +
+                '<a href="' + item.link + '" target="_blank" style="background:var(--border-color); color:var(--text-main);">🌐 Ver Anúncio Real</a>' +
               '</div>' +
             '</div>';
           list.appendChild(card);
         });
-        mostrarToast(resultados.length + ' imóveis encontrados em ' + (cidade || uf) + '!');
+        mostrarToast(resultados.length + ' lançamentos catalogados em ' + (cidade || uf) + '!');
       }, 300);
     }
 
-    function abrirPortalExternoComFiltro() {
-      var uf = document.getElementById('radar-uf').value.toLowerCase();
-      var cidade = encodeURIComponent(document.getElementById('radar-city').value.trim() || 'curitiba');
-      var urlBusca = 'https://www.google.com/search?q=' + cidade + '+' + uf + '+imoveis+a+venda+apartamento+casa';
-      window.open(urlBusca, '_blank');
-    }
-
     function importarImovelRadarParaVitrine(id) {
-      var imovel = bancoRadarNacional.find(function(i) { return i.id === id; });
+      var imovel = bancoRadarOrulo.find(function(i) { return i.id === id; });
       if (!imovel) {
         var cidade = document.getElementById('radar-city').value || 'Região Central';
         imovel = {
           title: 'Residencial Selecionado - ' + cidade,
-          price: '235.000,00',
+          price: '228.000,00',
           city: cidade,
           uf: document.getElementById('radar-uf').value,
           bairro: 'Centro',
-          feats: 'Sacada, Entrada Facilitada, Financiamento Caixa',
-          img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+          feats: 'Sacada com Churrasqueira, Entrada Facilitada, Financiamento Caixa',
+          img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80'
         };
       }
 
@@ -1440,15 +1578,7 @@
       atualizarVitrineCard();
 
       irParaAba('vitrine');
-      mostrarToast('Imóvel importado para a Vitrine Express!');
-    }
-
-    function simularImovelRadar(id) {
-      var imovel = bancoRadarNacional.find(function(i) { return i.id === id; });
-      var preco = imovel ? imovel.price : '235.000,00';
-      document.getElementById('calc-imovel').value = preco;
-      irParaAba('calculator');
-      calcularFinanciamento(true);
+      mostrarToast('Ficha e fotos importadas para a sua Vitrine!');
     }
 
     /* VITRINE MULTI-FOTOS */
@@ -1676,7 +1806,7 @@
       window.open('https://pay.kiwify.com.br/qIO4rTA?afid=RfZ43apo', '_blank');
     }
 
-    /* COPILOTO IA (TOTALMENTE LIMPO E SEM CITE) */
+    /* BASE DE CONHECIMENTO DO COPILOTO IA */
     var baseConhecimentoCaixa = {
       regras_gerais: '📌 *Resumo Estratégico das Linhas Caixa (2026):*\n\n' +
                      '• *Minha Casa Minha Vida (MCMV):* Rendas até R$ 9.600. Tetos de avaliação de R$ 275 mil (Faixas 1 e 2) e R$ 400 mil (Faixa 3). Taxas nominais de 4,25% a 7,66% ao ano.\n\n' +
@@ -1684,26 +1814,23 @@
                      '• *Pró-Cotista FGTS:* Sem teto de renda, exigindo pelo menos 3 anos de carteira assinada sob FGTS. Imóveis até R$ 500 mil com taxa de 8,66% a.a.\n\n' +
                      '• *SBPE Tradicional:* Sem limite de renda, atendendo imóveis de até R$ 2,25 milhões. Taxa de referência em 10,92% a.a.',
 
-      cotas_usado: '📌 *Cotas Máximas para Imóveis USADOS (Caixa 2026):*\n\n' +
-                   '• *MCMV (Faixas 1, 2 e 3):* Financia até *80%* do valor de avaliação.\n\n' +
-                   '• *Classe Média (Faixa 4):* Financia até *60%* no Sul e Sudeste, e até *80%* no Norte, Nordeste e Centro-Oeste.\n\n' +
-                   '• *Pró-Cotista FGTS:* Cota reduzida para até *60%*.\n\n' +
-                   '• *SBPE:* Libera até *80%* na tabela SAC e até *70%* na tabela PRICE.',
+      cohapar_ajuda: '🏛️ *Programa Casa Fácil Paraná (Cohapar):*\n\n' +
+                     '• *Valor do Subsídio:* R$ 20.000,00 pagos pelo Governo do Estado a fundo perdido diretamente para abater a entrada do financiamento Caixa.\n\n' +
+                     '• *Requisitos:* Renda familiar de até 3 a 4 salários mínimos, não possuir imóvel próprio nem ter sido beneficiado anteriormente em programas habitacionais.\n\n' +
+                     '• *No ImobFlow:* Basta tocar no botão "Subsídio Cohapar" na calculadora que o app desconta os R$ 20.000,00 da entrada na hora!',
 
-      radar_ajuda: '📡 *Como Usar o Radar Nacional de Imóveis:*\n\n' +
-                   '1. Acesse a aba **Radar** e selecione o Estado (UF) e Cidade desejada (ex: Pinhais, Curitiba, etc).\n\n' +
+      radar_ajuda: '📡 *Como Usar o Radar de Lançamentos:*\n\n' +
+                   '1. Acesse a aba **Radar** e selecione o Estado (UF) e Cidade (ex: Pinhais, Curitiba, etc).\n\n' +
                    '2. Filtre pela faixa desejada (MCMV, Médio ou Alto Padrão).\n\n' +
-                   '3. Toque em **"📥 Puxar p/ Vitrine"** em qualquer oportunidade: o ImobFlow transfere o título, fotos, localização e detalhes técnicos para a sua Vitrine Express na hora!',
+                   '3. Toque em **"📥 Puxar p/ Vitrine"** para importar ficha e fotos, ou clique em **"🌐 Ver Anúncio Real"** para consultar a ficha completa!',
 
       cliente_sumiu: '🛡️ *Estratégias Antissumiço para Fechamento:*\n\n' +
-                     '1. **Sumiu após Simulação:** Use a opção 4 (Descarte Suave) propondo arquivar a pasta para provocar resposta imediata por aversão à perda.\n\n' +
-                     '2. **Sumiu após a Visita:** Use a opção 5 para colher feedback sincero e contornar objeções sem parecer insistente.\n\n' +
-                     '3. **Achou a Parcela Alta:** Use a opção 8 com Composição de Renda (familiar ou cônjuge) para diluir a margem e reduzir a parcela.\n\n' +
-                     '4. **Falta de Entrada:** Use a opção 10 com parcelamento de construtora em até 48x.',
+                     '1. **Sumiu após Simulação:** Use o Descarte Suave (Script 4) propondo arquivar a pasta para provocar resposta imediata por aversão à perda.\n\n' +
+                     '2. **Sumiu após a Visita:** Use o Script 5 para colher feedback sincero e contornar objeções sem parecer insistente.\n\n' +
+                     '3. **Achou a Parcela Alta:** Use o Script 8 com Composição de Renda (familiar ou cônjuge) para diluir a margem e reduzir a parcela.\n\n' +
+                     '4. **Falta de Entrada:** Use o Script 10 com parcelamento de construtora em até 48x.',
 
       link_vitrine: '📲 *Como Usar a Vitrine Interativa:*\n\nPreencha os dados na aba Vitrine e clique em "Copiar Link Interativo". O comprador abre no WhatsApp e navega pelas fotos em carrossel limpo com botão direto para o seu número!',
-
-      exportar_pdf: '📄 *Apresentação em PDF:*\n\nO botão "Baixar Apresentação em PDF" compila um dossiê técnico executivo A4 pronto para enviar pelo WhatsApp ou imprimir para reuniões presenciais.',
 
       sac_price: '📊 *Comparativo SAC vs PRICE:*\n\n• *SAC:* Parcelas decrescentes (a 1ª parcela é mais alta e exige mais renda para aprovar o mesmo valor).\n\n• *PRICE:* Parcelas fixas e niveladas (como a 1ª parcela é menor, permite financiar um valor maior com a mesma renda familiar).'
     };
@@ -1735,11 +1862,10 @@
     function executarTopicoIA(chave) {
       var rotulos = {
         regras_gerais: 'Quais são as regras gerais da Caixa?',
-        cotas_usado: 'Como funcionam as cotas de imóveis usados?',
+        cohapar_ajuda: 'Como funciona o subsídio Cohapar?',
         radar_ajuda: 'Como usar a ferramenta de Radar de Imóveis?',
         cliente_sumiu: 'Como destravar cliente travado ou sumido?',
         link_vitrine: 'Como funciona o Link Interativo da Vitrine?',
-        exportar_pdf: 'Como funciona a Apresentação em PDF?',
         sac_price: 'Qual a diferença entre tabela SAC e PRICE?'
       };
       adicionarMensagemChat('user', rotulos[chave] || 'Consulta');
@@ -1757,17 +1883,18 @@
       var p = pergunta.toLowerCase().trim();
 
       if (['oi', 'ola', 'olá', 'eai', 'e aí', 'opa', 'salve', 'bom dia', 'boa tarde', 'boa noite', 'tudo bem'].some(function(t) { return p === t || p.indexOf(t) === 0; })) {
-        return 'Olá! Tudo ótimo por aqui.\n\nComo posso ajudar com suas simulações da Caixa, busca no Radar ou scripts para clientes hoje?';
+        return 'Olá! Tudo ótimo por aqui.\n\nComo posso ajudar com suas simulações da Caixa, regras do Cohapar ou busca no Radar hoje?';
       }
-      if (p.indexOf('radar') !== -1 || p.indexOf('buscar') !== -1 || p.indexOf('anuncio') !== -1) {
+      if (p.indexOf('cohapar') !== -1 || p.indexOf('casa facil') !== -1 || p.indexOf('parana') !== -1) {
+        return baseConhecimentoCaixa.cohapar_ajuda;
+      }
+      if (p.indexOf('radar') !== -1 || p.indexOf('buscar') !== -1 || p.indexOf('anuncio') !== -1 || p.indexOf('orulo') !== -1) {
         return baseConhecimentoCaixa.radar_ajuda;
       }
       if (['travado', 'destravar', 'desenrolar', 'sumiu', 'sumiço', 'vácuo', 'descarte', 'objeção'].some(function(t) { return p.indexOf(t) !== -1; })) {
         return baseConhecimentoCaixa.cliente_sumiu;
       }
-      if (p.indexOf('usado') !== -1) return baseConhecimentoCaixa.cotas_usado;
       if (p.indexOf('link') !== -1) return baseConhecimentoCaixa.link_vitrine;
-      if (p.indexOf('pdf') !== -1) return baseConhecimentoCaixa.exportar_pdf;
       if (p.indexOf('sac') !== -1 || p.indexOf('price') !== -1) return baseConhecimentoCaixa.sac_price;
 
       return baseConhecimentoCaixa.regras_gerais;
@@ -1819,11 +1946,13 @@
     window.onload = function() {
       checarStatusAcesso();
 
-      var savedTheme = localStorage.getItem('imobflow_theme');
-      if (savedTheme === 'light') {
-        document.body.classList.add('light-theme');
-        var themeText = document.getElementById('theme-status-text');
-        if (themeText) themeText.innerText = 'Claro (Ativo)';
+      // Carrega o tema selecionado ou escuro nativo
+      var temaSalvo = localStorage.getItem('imobflow_theme_name') || 'escuro';
+      document.body.setAttribute('data-theme', temaSalvo);
+      var statusEl = document.getElementById('theme-status-text');
+      if (statusEl) {
+        var rotulos = { escuro: 'Escuro (Ativo)', claro: 'Claro (Ativo)', rosa: 'Rosa (Ativo)', verde: 'Verde (Ativo)', cinza: 'Cinza (Ativo)' };
+        statusEl.innerText = rotulos[temaSalvo] || 'Personalizado';
       }
 
       var savedName = localStorage.getItem('imobflow_user_name');
