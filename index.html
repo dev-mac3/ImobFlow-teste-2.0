@@ -96,7 +96,7 @@
     .result-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
     .result-title { font-size: 11px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
     .result-status { font-size: 12px; color: var(--text-main); margin-bottom: 12px; line-height: 1.4; }
-    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
     .result-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px; }
     .result-item span { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 4px; }
     .result-item strong { font-size: 14px; font-weight: 700; color: var(--text-main); }
@@ -210,7 +210,7 @@
           <h2 class="card-title">⚡ Estudo de Financiamento</h2>
           <span class="pill" id="badge-tipo-linha">MCMV (Caixa)</span>
         </div>
-        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel)[span_0](start_span)[span_0](end_span).</p>
+        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel).</p>
 
         <span class="selector-label">Tipo do Imóvel:</span>
         <div class="pill-group">
@@ -227,11 +227,11 @@
           <button type="button" id="btn-mod-sbpe" class="pill-btn" onclick="selecionarModalidade('sbpe')">SBPE</button>
         </div>
 
-        <!-- SELETOR INVERTIDO: PRICE PRIMEIRO, SAC SEGUNDO -->
+        <!-- SELETOR COM PRICE PRIMEIRO E SAC DEPOIS -->
         <span class="selector-label">Tabela de Amortização:</span>
         <div class="pill-group">
-          <button type="button" id="btn-tab-price" class="pill-btn" onclick="selecionarAmortizacao('price')">PRICE (Fixa)</button>
-          <button type="button" id="btn-tab-sac" class="pill-btn active" onclick="selecionarAmortizacao('sac')">SAC (Decrescente)</button>
+          <button type="button" id="btn-tab-price" class="pill-btn active" onclick="selecionarAmortizacao('price')">PRICE (Fixa)</button>
+          <button type="button" id="btn-tab-sac" class="pill-btn" onclick="selecionarAmortizacao('sac')">SAC (Decrescente)</button>
         </div>
 
         <div class="form-group">
@@ -264,4 +264,4 @@
         <p id="res-status" class="result-status">Preencha os dados acima para simular.</p>
         <div class="result-grid">
           <div class="result-item">
-      
+            <span>Prazo Máximo
