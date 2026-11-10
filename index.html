@@ -44,7 +44,41 @@
       --copilot-bg: linear-gradient(135deg, #2563eb, #1d4ed8);
     }
 
-    /* TEMA: ROSA (ROSE GOLD SUAVE) */
+    /* TEMA: LARANJA (SOLAR SUAVE) */
+    body[data-theme="laranja"] {
+      --bg-body: #0f0a06;
+      --bg-header: rgba(30, 20, 12, 0.95);
+      --bg-card: #1f140a;
+      --bg-input: #0a0603;
+      --bg-nav: #170d06;
+      --text-main: #fff7ed;
+      --text-muted: #fdba74;
+      --border-color: #432818;
+      --border-focus: #f97316;
+      --primary-color: #f97316;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(0,0,0,0.6);
+      --copilot-bg: linear-gradient(135deg, #f97316, #ea580c);
+    }
+
+    /* TEMA: ROSA CLARO (FUNDO ROSE CLARO + SUB-COR BORDEAUX) */
+    body[data-theme="rosaclaro"] {
+      --bg-body: #fff1f2;
+      --bg-header: rgba(255, 241, 242, 0.95);
+      --bg-card: #ffffff;
+      --bg-input: #ffe4e6;
+      --bg-nav: #ffffff;
+      --text-main: #881337;
+      --text-muted: #9f1239;
+      --border-color: #fecdd3;
+      --border-focus: #be185d;
+      --primary-color: #be185d;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(190,24,93,0.08);
+      --copilot-bg: linear-gradient(135deg, #be185d, #9d174d);
+    }
+
+    /* TEMA: ROSA (ROSE GOLD ESCURO) */
     body[data-theme="rosa"] {
       --bg-body: #190b14;
       --bg-header: rgba(36, 17, 29, 0.95);
@@ -99,12 +133,14 @@
 
     /* Topbar */
     header { background: var(--bg-header); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 40; padding: 12px 16px; }
-    .topbar-content { max-width: 480px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .topbar-content { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
     .logo-box { display: flex; align-items: center; gap: 10px; }
     .logo-badge { width: 34px; height: 34px; background: var(--primary-color); border-radius: 8px; color: var(--primary-text); font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 16px; }
     .logo-text h1 { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
     .pro-tag { background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800; }
     body[data-theme="claro"] .pro-tag { background: rgba(37, 99, 235, 0.15); color: #2563eb; }
+    body[data-theme="laranja"] .pro-tag { background: rgba(249, 115, 22, 0.2); color: #fb923c; }
+    body[data-theme="rosaclaro"] .pro-tag { background: rgba(190, 24, 93, 0.15); color: #be185d; }
     body[data-theme="rosa"] .pro-tag { background: rgba(219, 39, 119, 0.2); color: #f472b6; }
     body[data-theme="verde"] .pro-tag { background: rgba(22, 163, 74, 0.2); color: #4ade80; }
     body[data-theme="cinza"] .pro-tag { background: rgba(100, 116, 139, 0.25); color: #cbd5e1; }
@@ -116,8 +152,15 @@
 
     #trial-banner { background: var(--primary-color); color: var(--primary-text); font-size: 11px; font-weight: 800; padding: 6px 12px; text-align: center; display: none; }
 
-    /* Container Principal */
-    main { max-width: 480px; margin: 0 auto; padding: 16px; position: relative; z-index: 10; }
+    /* LAYOUT RESPONSIVO ADAPTADO PARA DESKTOP */
+    main { max-width: 1080px; margin: 0 auto; padding: 16px; position: relative; z-index: 10; }
+    
+    @media (min-width: 820px) {
+      .desktop-split-view { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; align-items: start; }
+      .radar-grid { display: grid !important; grid-template-columns: 1fr 1fr; gap: 14px !important; }
+      .script-catalog { max-height: 480px !important; }
+    }
+
     .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 16px; box-shadow: 0 10px 25px -5px var(--card-shadow); }
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .card-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
@@ -143,6 +186,8 @@
     .btn-cohapar-toggle { display: flex; align-items: center; justify-content: space-between; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s ease; }
     .btn-cohapar-toggle.active { border-color: var(--primary-color); background: rgba(16, 185, 129, 0.12); }
     body[data-theme="claro"] .btn-cohapar-toggle.active { background: rgba(37, 99, 235, 0.1); }
+    body[data-theme="laranja"] .btn-cohapar-toggle.active { background: rgba(249, 115, 22, 0.15); }
+    body[data-theme="rosaclaro"] .btn-cohapar-toggle.active { background: rgba(190, 24, 93, 0.12); }
     body[data-theme="rosa"] .btn-cohapar-toggle.active { background: rgba(219, 39, 119, 0.12); }
     body[data-theme="verde"] .btn-cohapar-toggle.active { background: rgba(22, 163, 74, 0.15); }
     body[data-theme="cinza"] .btn-cohapar-toggle.active { background: rgba(100, 116, 139, 0.18); }
@@ -164,7 +209,7 @@
     /* Resultados (8 Blocos Simétricos) */
     .result-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
     .result-title { font-size: 11px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-    .result-status { font-size: 12px; color: var(--text-main); margin-bottom: 12px; line-height: 1.4; }
+    .result-status { font-size: 12px; color: var(--text-main); margin-bottom: 12px; line-height: 1.5; }
     .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .result-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px; min-height: 60px; display: flex; flex-direction: column; justify-content: center; }
     .result-item span { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 4px; }
@@ -177,6 +222,8 @@
     .script-card-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; cursor: pointer; transition: all 0.15s ease; text-align: left; }
     .script-card-item:hover, .script-card-item.selected { border-color: var(--primary-color); background: rgba(16, 185, 129, 0.08); }
     body[data-theme="claro"] .script-card-item.selected { background: rgba(37, 99, 235, 0.08); }
+    body[data-theme="laranja"] .script-card-item.selected { background: rgba(249, 115, 22, 0.1); }
+    body[data-theme="rosaclaro"] .script-card-item.selected { background: rgba(190, 24, 93, 0.08); }
     body[data-theme="rosa"] .script-card-item.selected { background: rgba(219, 39, 119, 0.08); }
     body[data-theme="verde"] .script-card-item.selected { background: rgba(22, 163, 74, 0.1); }
     body[data-theme="cinza"] .script-card-item.selected { background: rgba(100, 116, 139, 0.12); }
@@ -200,7 +247,7 @@
 
     /* Vitrine */
     #card-export-area { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-top: 12px; user-select: none; }
-    .vitrine-img-container { height: 230px; background: #000; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; touch-action: pan-y; }
+    .vitrine-img-container { height: 260px; background: #000; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; touch-action: pan-y; }
     .vitrine-img { width: 100%; height: 100%; object-fit: cover; }
     .vitrine-badge { position: absolute; top: 12px; left: 12px; background: var(--primary-color); color: var(--primary-text); font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 6px; z-index: 5; }
     .vitrine-counter { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 12px; z-index: 5; }
@@ -226,7 +273,7 @@
 
     /* Barra Inferior (4 Abas) */
     nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-nav); border-top: 1px solid var(--border-color); z-index: 999; padding-bottom: env(safe-area-inset-bottom, 0px); }
-    .nav-container { max-width: 480px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; padding: 8px 6px; }
+    .nav-container { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; padding: 8px 6px; }
     .nav-btn { background: none; border: none; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 10.5px; font-weight: 600; cursor: pointer; padding: 6px 0; }
     .nav-btn.active { color: var(--primary-color); }
     .nav-icon { font-size: 17px; margin-bottom: 2px; }
@@ -254,9 +301,9 @@
     .theme-option-btn:hover { border-color: var(--primary-color); }
     .color-swatch { width: 18px; height: 18px; border-radius: 50%; display: inline-block; }
 
-    /* Copiloto IA (Espaçamento e Legibilidade Aprimorados) */
-    #ia-copilot-trigger { position: fixed; right: 16px; bottom: 82px; background: var(--copilot-bg); color: #ffffff; font-size: 12px; font-weight: 800; padding: 10px 14px; border-radius: 30px; display: flex; align-items: center; gap: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 9999; cursor: pointer; border: none; user-select: none; }
-    #ia-copilot-modal { display: none; position: fixed; right: 12px; bottom: 80px; width: calc(100% - 24px); max-width: 420px; height: 510px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; z-index: 10000; flex-direction: column; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.85); }
+    /* Copiloto IA */
+    #ia-copilot-trigger { position: fixed; right: 20px; bottom: 85px; background: var(--copilot-bg); color: #ffffff; font-size: 12px; font-weight: 800; padding: 10px 16px; border-radius: 30px; display: flex; align-items: center; gap: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 9999; cursor: pointer; border: none; user-select: none; }
+    #ia-copilot-modal { display: none; position: fixed; right: 20px; bottom: 80px; width: calc(100% - 40px); max-width: 440px; height: 520px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; z-index: 10000; flex-direction: column; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.85); }
     .ia-header { background: var(--bg-input); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
     .ia-header strong { font-size: 13px; color: var(--primary-color); }
     .ia-close { background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer; }
@@ -302,163 +349,165 @@
   <main>
     <!-- ABA 1: CALCULADORA -->
     <section id="tab-calculator">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="card-title">⚡ Estudo de Financiamento</h2>
-          <span class="pill" id="badge-tipo-linha">MCMV (Caixa)</span>
-        </div>
-        <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel).</p>
+      <div class="desktop-split-view">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">⚡ Estudo de Financiamento</h2>
+            <span class="pill" id="badge-tipo-linha">MCMV (Caixa)</span>
+          </div>
+          <p class="card-desc">Cálculo assertivo baseado na tabela oficial da Caixa (taxas e cotas por tipo de imóvel).</p>
 
-        <span class="selector-label">Tipo do Imóvel:</span>
-        <div class="pill-group">
-          <button type="button" id="btn-tipo-planta" class="pill-btn active" onclick="selecionarTipoImovel('planta')">Na Planta</button>
-          <button type="button" id="btn-tipo-novo" class="pill-btn" onclick="selecionarTipoImovel('novo')">Novo</button>
-          <button type="button" id="btn-tipo-usado" class="pill-btn" onclick="selecionarTipoImovel('usado')">Usado</button>
-        </div>
+          <span class="selector-label">Tipo do Imóvel:</span>
+          <div class="pill-group">
+            <button type="button" id="btn-tipo-planta" class="pill-btn active" onclick="selecionarTipoImovel('planta')">Na Planta</button>
+            <button type="button" id="btn-tipo-novo" class="pill-btn" onclick="selecionarTipoImovel('novo')">Novo</button>
+            <button type="button" id="btn-tipo-usado" class="pill-btn" onclick="selecionarTipoImovel('usado')">Usado</button>
+          </div>
 
-        <span class="selector-label">Linha de Financiamento:</span>
-        <div class="pill-group">
-          <button type="button" id="btn-mod-mcmv" class="pill-btn active" onclick="selecionarModalidade('mcmv')">MCMV</button>
-          <button type="button" id="btn-mod-faixa4" class="pill-btn" onclick="selecionarModalidade('faixa4')">Classe Média (Fx 4)</button>
-          <button type="button" id="btn-mod-procotista" class="pill-btn" onclick="selecionarModalidade('procotista')">Pró-Cotista</button>
-          <button type="button" id="btn-mod-sbpe" class="pill-btn" onclick="selecionarModalidade('sbpe')">SBPE</button>
-        </div>
+          <span class="selector-label">Linha de Financiamento:</span>
+          <div class="pill-group">
+            <button type="button" id="btn-mod-mcmv" class="pill-btn active" onclick="selecionarModalidade('mcmv')">MCMV</button>
+            <button type="button" id="btn-mod-faixa4" class="pill-btn" onclick="selecionarModalidade('faixa4')">Classe Média (Fx 4)</button>
+            <button type="button" id="btn-mod-procotista" class="pill-btn" onclick="selecionarModalidade('procotista')">Pró-Cotista</button>
+            <button type="button" id="btn-mod-sbpe" class="pill-btn" onclick="selecionarModalidade('sbpe')">SBPE</button>
+          </div>
 
-        <span class="selector-label">Tabela de Amortização:</span>
-        <div class="pill-group">
-          <button type="button" id="btn-tab-price" class="pill-btn active" onclick="selecionarAmortizacao('price')">PRICE (Fixa)</button>
-          <button type="button" id="btn-tab-sac" class="pill-btn" onclick="selecionarAmortizacao('sac')">SAC (Decrescente)</button>
-        </div>
+          <span class="selector-label">Tabela de Amortização:</span>
+          <div class="pill-group">
+            <button type="button" id="btn-tab-price" class="pill-btn active" onclick="selecionarAmortizacao('price')">PRICE (Fixa)</button>
+            <button type="button" id="btn-tab-sac" class="pill-btn" onclick="selecionarAmortizacao('sac')">SAC (Decrescente)</button>
+          </div>
 
-        <div class="form-group">
-          <label>Valor do Imóvel Desejado (R$)</label>
-          <input type="text" inputmode="numeric" id="calc-imovel" placeholder="Ex: 215.000,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
-        </div>
-
-        <div class="form-group">
-          <label>Renda Bruta Familiar (R$)</label>
-          <input type="text" inputmode="numeric" id="calc-income" placeholder="Ex: 4.500,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
-        </div>
-
-        <div class="form-row">
           <div class="form-group">
-            <label>Saldo FGTS (R$)</label>
-            <input type="text" inputmode="numeric" id="calc-fgts" placeholder="Ex: 15.000,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
+            <label>Valor do Imóvel Desejado (R$)</label>
+            <input type="text" inputmode="numeric" id="calc-imovel" placeholder="Ex: 215.000,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
           </div>
+
           <div class="form-group">
-            <label>Idade do Comprador</label>
-            <input type="number" inputmode="numeric" id="calc-age" placeholder="Ex: 28" min="18" max="79" oninput="calcularFinanciamento(false)">
+            <label>Renda Bruta Familiar (R$)</label>
+            <input type="text" inputmode="numeric" id="calc-income" placeholder="Ex: 4.500,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
           </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Saldo FGTS (R$)</label>
+              <input type="text" inputmode="numeric" id="calc-fgts" placeholder="Ex: 15.000,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
+            </div>
+            <div class="form-group">
+              <label>Idade do Comprador</label>
+              <input type="number" inputmode="numeric" id="calc-age" placeholder="Ex: 28" min="18" max="79" oninput="calcularFinanciamento(false)">
+            </div>
+          </div>
+
+          <!-- BOTÃO COHAPAR -->
+          <div class="btn-cohapar-toggle" id="btn-cohapar" onclick="alternarCohapar()">
+            <div>
+              <span>🏛️ Subsídio Cohapar (Casa Fácil)</span>
+              <small>Abater R$ 20.000,00 da entrada (Governo do Paraná)</small>
+            </div>
+            <div class="badge-check" id="check-cohapar">✔</div>
+          </div>
+
+          <button type="button" onclick="calcularFinanciamento(true)" class="btn-action btn-emerald">⚡ Calcular Financiamento</button>
         </div>
 
-        <!-- BOTÃO COHAPAR (SUBSÍDIO DE ENTRADA DO PARANÁ) -->
-        <div class="btn-cohapar-toggle" id="btn-cohapar" onclick="alternarCohapar()">
-          <div>
-            <span>🏛️ Subsídio Cohapar (Casa Fácil)</span>
-            <small>Abater R$ 20.000,00 da entrada (Governo do Paraná)</small>
+        <!-- OS 8 BLOCOS DO DIAGNÓSTICO BANCÁRIO -->
+        <div class="result-box">
+          <div class="result-title">✔ Diagnóstico Bancário de Aprovação</div>
+          <p id="res-status" class="result-status">Preencha os dados acima para simular.</p>
+          <div class="result-grid">
+            <div class="result-item">
+              <span>Prazo Máximo Caixa</span>
+              <strong id="res-prazo" class="highlight">—</strong>
+            </div>
+            <div class="result-item">
+              <span id="label-parcela">Parcela Fixa (PRICE)</span>
+              <strong id="res-parcela">—</strong>
+            </div>
+            <div class="result-item">
+              <span>Taxa de Juros Nominal</span>
+              <strong id="res-taxa" class="highlight">—</strong>
+            </div>
+            <div class="result-item">
+              <span>Capacidade pela Renda</span>
+              <strong id="res-capacidade">—</strong>
+            </div>
+            <div class="result-item">
+              <span id="label-financiamento">Financiamento Aprovado</span>
+              <strong id="res-financiamento">—</strong>
+            </div>
+            <div class="result-item">
+              <span>Entrada</span>
+              <strong id="res-entrada" class="highlight">—</strong>
+            </div>
+            <div class="result-item">
+              <span>FGTS + Subsídios</span>
+              <strong id="res-fgts">—</strong>
+            </div>
+            <div class="result-item">
+              <span>Margem Máx. Caixa (30%)</span>
+              <strong id="res-margem">—</strong>
+            </div>
           </div>
-          <div class="badge-check" id="check-cohapar">✔</div>
+          <button type="button" onclick="copiarResumoWhatsApp()" class="btn-action btn-secondary">Copiar Resumo p/ WhatsApp</button>
+          <p class="disclaimer">Cálculo rigorosamente alinhado à tabela oficial da Caixa (taxas cotistas S/SE/CO e limites de cota por modalidade).</p>
         </div>
-
-        <button type="button" onclick="calcularFinanciamento(true)" class="btn-action btn-emerald">⚡ Calcular Financiamento</button>
-      </div>
-
-      <!-- OS 8 BLOCOS DO DIAGNÓSTICO BANCÁRIO -->
-      <div class="result-box">
-        <div class="result-title">✔ Diagnóstico Bancário de Aprovação</div>
-        <p id="res-status" class="result-status">Preencha os dados acima para simular.</p>
-        <div class="result-grid">
-          <div class="result-item">
-            <span>Prazo Máximo Caixa</span>
-            <strong id="res-prazo" class="highlight">—</strong>
-          </div>
-          <div class="result-item">
-            <span id="label-parcela">Parcela Fixa (PRICE)</span>
-            <strong id="res-parcela">—</strong>
-          </div>
-          <div class="result-item">
-            <span>Taxa de Juros Nominal</span>
-            <strong id="res-taxa" class="highlight">—</strong>
-          </div>
-          <div class="result-item">
-            <span>Capacidade pela Renda</span>
-            <strong id="res-capacidade">—</strong>
-          </div>
-          <div class="result-item">
-            <span id="label-financiamento">Financiamento Aprovado</span>
-            <strong id="res-financiamento">—</strong>
-          </div>
-          <div class="result-item">
-            <span>Entrada</span>
-            <strong id="res-entrada" class="highlight">—</strong>
-          </div>
-          <div class="result-item">
-            <span>FGTS + Subsídios</span>
-            <strong id="res-fgts">—</strong>
-          </div>
-          <div class="result-item">
-            <span>Margem Máx. Caixa (30%)</span>
-            <strong id="res-margem">—</strong>
-          </div>
-        </div>
-        <button type="button" onclick="copiarResumoWhatsApp()" class="btn-action btn-secondary">Copiar Resumo p/ WhatsApp</button>
-        <p class="disclaimer">Cálculo alinhado à tabela oficial da Caixa (taxas cotistas S/SE/CO e limites de cota por modalidade).</p>
       </div>
     </section>
 
     <!-- ABA 2: CENTRAL ANTISSUMIÇO REFORMULADA -->
     <section id="tab-agenda" class="hidden">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="card-title">🛡️ Central Antissumiço</h2>
-          <span class="pill">15 Scripts Assertivos</span>
-        </div>
-        <p class="card-desc">Gere mensagens táticas profundas para blindar visitas, recuperar vácuos e quebrar objeções no WhatsApp.</p>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>Nome do Cliente</label>
-            <input type="text" id="lead-name" placeholder="Ex: Carlos" oninput="atualizarPreviewScript()">
+      <div class="desktop-split-view">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">🛡️ Central Antissumiço</h2>
+            <span class="pill">15 Scripts Assertivos</span>
           </div>
-          <div class="form-group">
-            <label>WhatsApp do Cliente (Opcional)</label>
-            <input type="text" id="lead-phone" placeholder="Ex: (41) 98888-7777" oninput="aplicarMascaraTelefone(this)">
+          <p class="card-desc">Gere mensagens táticas profundas para blindar visitas, recuperar vácuos e quebrar objeções no WhatsApp.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome do Cliente</label>
+              <input type="text" id="lead-name" placeholder="Ex: Carlos" oninput="atualizarPreviewScript()">
+            </div>
+            <div class="form-group">
+              <label>WhatsApp do Cliente (Opcional)</label>
+              <input type="text" id="lead-phone" placeholder="Ex: (41) 98888-7777" oninput="aplicarMascaraTelefone(this)">
+            </div>
           </div>
-        </div>
 
-        <div id="agenda-date-time-row" class="form-row hidden">
-          <div class="form-group">
-            <label>Data</label>
-            <input type="date" id="lead-date" onchange="atualizarPreviewScript()">
+          <div id="agenda-date-time-row" class="form-row hidden">
+            <div class="form-group">
+              <label>Data</label>
+              <input type="date" id="lead-date" onchange="atualizarPreviewScript()">
+            </div>
+            <div class="form-group">
+              <label>Horário</label>
+              <input type="time" id="lead-time" value="15:00" onchange="atualizarPreviewScript()">
+            </div>
           </div>
-          <div class="form-group">
-            <label>Horário</label>
-            <input type="time" id="lead-time" value="15:00" onchange="atualizarPreviewScript()">
+
+          <span class="selector-label">Filtrar por Categoria:</span>
+          <div class="pill-group">
+            <button type="button" class="pill-btn active" onclick="filtrarCategoriaScript('todos', this)">Todos</button>
+            <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('visita', this)">Visitas</button>
+            <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('vacuo', this)">Vácuo</button>
+            <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('objecao', this)">Objeções</button>
+            <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('bancario', this)">Bancário</button>
           </div>
+
+          <div class="script-catalog" id="script-catalog-list"></div>
         </div>
 
-        <span class="selector-label">Filtrar por Categoria:</span>
-        <div class="pill-group">
-          <button type="button" class="pill-btn active" onclick="filtrarCategoriaScript('todos', this)">Todos</button>
-          <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('visita', this)">Visitas</button>
-          <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('vacuo', this)">Vácuo</button>
-          <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('objecao', this)">Objeções</button>
-          <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('bancario', this)">Bancário</button>
+        <div class="card" id="card-script-result">
+          <div class="card-header">
+            <span style="font-size: 12px; font-weight:700;">Mensagem Formatada para Envio</span>
+            <span id="script-badge" class="pill" style="color: #10b981;">Gatilho Ativo</span>
+          </div>
+          <div id="script-text" class="script-box"></div>
+          <button type="button" onclick="copiarScriptTexto()" class="btn-action btn-secondary">📋 Copiar Mensagem</button>
+          <button type="button" onclick="confirmarEEnviarWhatsApp()" class="btn-action btn-whatsapp-direct">💬 Enviar no WhatsApp</button>
         </div>
-
-        <div class="script-catalog" id="script-catalog-list">
-          <!-- Montado dinamicamente via JS -->
-        </div>
-      </div>
-
-      <div class="card" id="card-script-result">
-        <div class="card-header">
-          <span style="font-size: 12px; font-weight:700;">Mensagem Formatada para Envio</span>
-          <span id="script-badge" class="pill" style="color: #10b981;">Gatilho Ativo</span>
-        </div>
-        <div id="script-text" class="script-box"></div>
-        <button type="button" onclick="copiarScriptTexto()" class="btn-action btn-secondary">📋 Copiar Mensagem</button>
-        <button type="button" onclick="confirmarEEnviarWhatsApp()" class="btn-action btn-whatsapp-direct">💬 Enviar no WhatsApp</button>
       </div>
     </section>
 
@@ -488,7 +537,7 @@
           </div>
           <div class="form-group">
             <label>Cidade / Município</label>
-            <input type="text" id="radar-city" placeholder="Ex: Pinhais, Curitiba, São Paulo..." value="Pinhais">
+            <input type="text" id="radar-city" placeholder="Ex: Portão, Curitiba, Pinhais..." value="Portão">
           </div>
         </div>
 
@@ -496,19 +545,19 @@
           <div class="form-group">
             <label>Padrão / Faixa</label>
             <select id="radar-profile">
+              <option value="todos">Todas as Faixas</option>
               <option value="mcmv">MCMV (Econômico / Até R$ 400k)</option>
               <option value="medio">Médio Padrão (Até R$ 750k)</option>
               <option value="alto">Alto Padrão / Luxo</option>
-              <option value="todos">Todas as Faixas</option>
             </select>
           </div>
           <div class="form-group">
             <label>Quartos</label>
             <select id="radar-dorms">
+              <option value="todos">Qualquer</option>
               <option value="2">2 Quartos</option>
               <option value="3">3 Quartos</option>
               <option value="1">1 Quarto / Studio</option>
-              <option value="todos">Qualquer</option>
             </select>
           </div>
         </div>
@@ -517,92 +566,94 @@
       </div>
 
       <!-- FEED DE ANÚNCIOS DO RADAR COM ROLAGEM -->
-      <div class="radar-grid" id="radar-results-list">
-        <!-- Renderizado dinamicamente -->
-      </div>
+      <div class="radar-grid" id="radar-results-list"></div>
     </section>
 
     <!-- ABA 4: VITRINE INTERATIVA -->
     <section id="tab-vitrine" class="hidden">
-      <div id="vitrine-form-card" class="card">
-        <div class="card-header">
-          <h2 class="card-title">📲 Vitrine Interativa & Exportação</h2>
-          <span class="pill">Multi-Fotos</span>
-        </div>
-        <p class="card-desc">Carregue fotos, gere um link público para o cliente navegar ou exporte em PDF.</p>
+      <div class="desktop-split-view">
+        <div id="vitrine-form-card" class="card">
+          <div class="card-header">
+            <h2 class="card-title">📲 Vitrine Interativa & Exportação</h2>
+            <span class="pill">Multi-Fotos</span>
+          </div>
+          <p class="card-desc">Carregue fotos, gere um link público para o cliente navegar ou exporte em PDF.</p>
 
-        <div class="form-group">
-          <label>Fotos do Imóvel (Selecione 1 ou várias)</label>
-          <input type="file" id="prop-photos-input" accept="image/*" multiple onchange="carregarMultiplasFotos(this)">
-        </div>
-
-        <div class="form-group">
-          <label>Título do Imóvel</label>
-          <input type="text" id="prop-title" placeholder="Ex: Residencial Araucária - 2 Qts" oninput="atualizarVitrineCard()">
-        </div>
-
-        <div class="form-row">
           <div class="form-group">
-            <label>Preço</label>
-            <input type="text" id="prop-price" placeholder="Ex: 240.000,00" oninput="aplicarMascaraMoeda(this); atualizarVitrineCard()">
+            <label>Fotos do Imóvel (Selecione 1 ou várias de uma vez)</label>
+            <input type="file" id="prop-photos-input" accept="image/*" multiple onchange="carregarMultiplasFotos(this)">
           </div>
+
           <div class="form-group">
-            <label>Bairro / Cidade</label>
-            <input type="text" id="prop-location" placeholder="Ex: Vargem Grande - Pinhais/PR" oninput="atualizarVitrineCard()">
+            <label>Título do Imóvel</label>
+            <input type="text" id="prop-title" placeholder="Ex: Residencial República Argentina - 2 Qts" oninput="atualizarVitrineCard()">
           </div>
-        </div>
 
-        <div class="form-group">
-          <label>Destaques (separados por vírgula)</label>
-          <input type="text" id="prop-features" placeholder="Ex: Vaga Coberta, Sacada c/ Churrasqueira, Elevador" oninput="atualizarVitrineCard()">
-        </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preço</label>
+              <input type="text" id="prop-price" placeholder="Ex: 344.400,00" oninput="aplicarMascaraMoeda(this); atualizarVitrineCard()">
+            </div>
+            <div class="form-group">
+              <label>Bairro / Cidade</label>
+              <input type="text" id="prop-location" placeholder="Ex: Portão - Curitiba/PR" oninput="atualizarVitrineCard()">
+            </div>
+          </div>
 
-        <div class="form-row">
           <div class="form-group">
-            <label>Seu Nome / Imobiliária</label>
-            <input type="text" id="prop-agent" placeholder="Ex: Gabriel Macena" oninput="atualizarVitrineCard()">
+            <label>Destaques (separados por vírgula)</label>
+            <input type="text" id="prop-features" placeholder="Ex: Sacada c/ Churrasqueira, Academia, 1 Vaga" oninput="atualizarVitrineCard()">
           </div>
-          <div class="form-group">
-            <label>Seu WhatsApp (com DDD)</label>
-            <input type="text" id="prop-phone" placeholder="Ex: (41) 98782-9577" oninput="atualizarVitrineCard()">
-          </div>
-        </div>
-      </div>
 
-      <div id="card-export-area">
-        <div class="vitrine-img-container" id="swipe-area">
-          <span class="vitrine-badge">OPORTUNIDADE EXCLUSIVA</span>
-          <div id="arrow-prev" class="slide-arrow prev" style="display:none;" onclick="mudarFotoSlide(-1)">◀</div>
-          <div id="arrow-next" class="slide-arrow next" style="display:none;" onclick="mudarFotoSlide(1)">▶</div>
-          <img id="main-preview-img" class="vitrine-img" src="" style="display:none;" alt="Imóvel">
-          <span id="prev-photo-placeholder" style="color: #64748b; font-size: 13px;">[Selecione fotos acima]</span>
-          <span id="photo-counter" class="vitrine-counter" style="display:none;">1 / 1</span>
-        </div>
-        <div id="gallery-dots-bar" class="gallery-dots" style="display:none;"></div>
-        
-        <div class="vitrine-body">
-          <div class="vitrine-title-row">
-            <h4 id="prev-title">Título do Imóvel</h4>
-            <span id="prev-price" class="vitrine-price">R$ 0,00</span>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Seu Nome / Imobiliária</label>
+              <input type="text" id="prop-agent" placeholder="Ex: Gabriel Macena" oninput="atualizarVitrineCard()">
+            </div>
+            <div class="form-group">
+              <label>Seu WhatsApp (com DDD)</label>
+              <input type="text" id="prop-phone" placeholder="Ex: (41) 98782-9577" oninput="atualizarVitrineCard()">
+            </div>
           </div>
-          <p id="prev-location" class="vitrine-loc">📍 Localização do Imóvel</p>
-          <div id="prev-badges" class="tags-container">
-            <span class="tag-item">Destaque 1</span>
-            <span class="tag-item">Destaque 2</span>
-          </div>
-          
-          <div class="corretor-footer">
-            <span id="prev-agent">Atendimento: <strong>Seu Nome</strong></span>
-            <span id="prev-phone">📞 <strong>Seu Telefone</strong></span>
-          </div>
-        </div>
-      </div>
 
-      <div id="vitrine-broker-actions">
-        <button type="button" onclick="copiarLinkPublicoInterativo()" class="btn-action btn-emerald">🔗 Copiar Link Interativo para o Cliente</button>
-        <button type="button" onclick="baixarApresentacaoPDF()" class="btn-action btn-purple">📄 Baixar Apresentação em PDF (Multi-Fotos)</button>
-        <button type="button" onclick="baixarCardComoImagem()" class="btn-action btn-download">📥 Baixar Card em Imagem (PNG)</button>
-        <button type="button" onclick="copiarTextoVitrine()" class="btn-action btn-secondary">Copiar Legenda p/ WhatsApp</button>
+          <div id="vitrine-broker-actions">
+            <button type="button" onclick="copiarLinkPublicoInterativo()" class="btn-action btn-emerald">🔗 Copiar Link Interativo para o Cliente</button>
+            <button type="button" onclick="baixarApresentacaoPDF()" class="btn-action btn-purple">📄 Baixar Apresentação em PDF (Multi-Fotos)</button>
+            <button type="button" onclick="baixarCardComoImagem()" class="btn-action btn-download">📥 Baixar Card em Imagem (PNG)</button>
+            <button type="button" onclick="copiarTextoVitrine()" class="btn-action btn-secondary">Copiar Legenda p/ WhatsApp</button>
+          </div>
+        </div>
+
+        <div>
+          <div id="card-export-area">
+            <div class="vitrine-img-container" id="swipe-area">
+              <span class="vitrine-badge">OPORTUNIDADE EXCLUSIVA</span>
+              <div id="arrow-prev" class="slide-arrow prev" style="display:none;" onclick="mudarFotoSlide(-1)">◀</div>
+              <div id="arrow-next" class="slide-arrow next" style="display:none;" onclick="mudarFotoSlide(1)">▶</div>
+              <img id="main-preview-img" class="vitrine-img" src="" style="display:none;" alt="Imóvel">
+              <span id="prev-photo-placeholder" style="color: #64748b; font-size: 13px;">[Selecione fotos acima]</span>
+              <span id="photo-counter" class="vitrine-counter" style="display:none;">1 / 1</span>
+            </div>
+            <div id="gallery-dots-bar" class="gallery-dots" style="display:none;"></div>
+            
+            <div class="vitrine-body">
+              <div class="vitrine-title-row">
+                <h4 id="prev-title">Título do Imóvel</h4>
+                <span id="prev-price" class="vitrine-price">R$ 0,00</span>
+              </div>
+              <p id="prev-location" class="vitrine-loc">📍 Localização do Imóvel</p>
+              <div id="prev-badges" class="tags-container">
+                <span class="tag-item">Destaque 1</span>
+                <span class="tag-item">Destaque 2</span>
+              </div>
+              
+              <div class="corretor-footer">
+                <span id="prev-agent">Atendimento: <strong>Seu Nome</strong></span>
+                <span id="prev-phone">📞 <strong>Seu Telefone</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -733,7 +784,7 @@
     </div>
   </div>
 
-  <!-- MODAL SELETOR DE TEMAS (5 OPÇÕES EQUILIBRADAS) -->
+  <!-- MODAL SELETOR DE TEMAS (7 OPÇÕES EQUILIBRADAS) -->
   <div id="theme-selector-modal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -750,12 +801,20 @@
             <span>Claro (Executivo)</span>
             <span class="color-swatch" style="background:#2563eb; border:1px solid #cbd5e1;"></span>
           </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('laranja')">
+            <span>Laranja (Solar / Ousado)</span>
+            <span class="color-swatch" style="background:#f97316; border:1px solid #ea580c;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('rosaclaro')">
+            <span>Rosa Claro (Fundo Suave + Bordeaux)</span>
+            <span class="color-swatch" style="background:#be185d; border:1px solid #fecdd3;"></span>
+          </button>
           <button type="button" class="theme-option-btn" onclick="aplicarTema('rosa')">
-            <span>Rosa (Rose Gold / Suave)</span>
+            <span>Rosa Escuro (Rose Gold Profundo)</span>
             <span class="color-swatch" style="background:#db2777; border:1px solid #4a243d;"></span>
           </button>
           <button type="button" class="theme-option-btn" onclick="aplicarTema('verde')">
-            <span>Verde (Floresta / Nobre)</span>
+            <span>Verde (Floresta Nobre)</span>
             <span class="color-swatch" style="background:#16a34a; border:1px solid #1e4533;"></span>
           </button>
           <button type="button" class="theme-option-btn" onclick="aplicarTema('cinza')">
@@ -1097,6 +1156,8 @@
       var rotulos = {
         escuro: 'Escuro (Ativo)',
         claro: 'Claro (Ativo)',
+        laranja: 'Laranja (Ativo)',
+        rosaclaro: 'Rosa Claro (Ativo)',
         rosa: 'Rosa (Ativo)',
         verde: 'Verde (Ativo)',
         cinza: 'Cinza (Ativo)'
@@ -1157,7 +1218,7 @@
       }
     }
 
-    /* QUALIFICADOR / CALCULADORA CAIXA + COHAPAR */
+    /* QUALIFICADOR / CALCULADORA CAIXA + TRAVAS DE TETO */
     function alternarCohapar() {
       cohaparAtivo = !cohaparAtivo;
       var btn = document.getElementById('btn-cohapar');
@@ -1214,6 +1275,17 @@
       if (el) el.innerText = val;
     }
 
+    function zerarResultados() {
+      setElemText('res-prazo', '—');
+      setElemText('res-parcela', '—');
+      setElemText('res-taxa', '—');
+      setElemText('res-capacidade', '—');
+      setElemText('res-financiamento', '—');
+      setElemText('res-entrada', '—');
+      setElemText('res-fgts', '—');
+      setElemText('res-margem', '—');
+    }
+
     function calcularFinanciamento(comAviso) {
       var imovelEl = document.getElementById('calc-imovel');
       var rendaEl = document.getElementById('calc-income');
@@ -1228,15 +1300,39 @@
 
       if (renda <= 0 || valorImovel <= 0) {
         if (statusEl) statusEl.innerText = 'Preencha o valor do imóvel e a renda para simular.';
-        setElemText('res-prazo', '—');
-        setElemText('res-parcela', '—');
-        setElemText('res-taxa', '—');
-        setElemText('res-capacidade', '—');
-        setElemText('res-financiamento', '—');
-        setElemText('res-entrada', '—');
-        setElemText('res-fgts', '—');
-        setElemText('res-margem', '—');
+        zerarResultados();
         return;
+      }
+
+      // TRAVAS ESTRITAS DE TETO DE RENDA E IMÓVEL
+      if (modalidadeAtual === 'mcmv') {
+        if (renda > 9600) {
+          if (statusEl) statusEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⛔ Renda de R$ ' + renda.toLocaleString('pt-BR') + ' excede o teto do MCMV (R$ 9.600,00). Alterne para o botão "Classe Média (Fx 4)" ou "SBPE" acima.</span>';
+          zerarResultados();
+          return;
+        }
+        if (valorImovel > 400000) {
+          if (statusEl) statusEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⛔ Imóvel de R$ ' + valorImovel.toLocaleString('pt-BR') + ' excede o teto máximo do MCMV (R$ 400.000,00). Alterne para o botão "Classe Média (Fx 4)" ou "SBPE" acima.</span>';
+          zerarResultados();
+          return;
+        }
+      } else if (modalidadeAtual === 'faixa4') {
+        if (renda > 13000) {
+          if (statusEl) statusEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⛔ Renda familiar de R$ ' + renda.toLocaleString('pt-BR') + ' excede o limite da Faixa 4 (R$ 13.000,00). Alterne para o botão "SBPE" acima.</span>';
+          zerarResultados();
+          return;
+        }
+        if (valorImovel > 600000) {
+          if (statusEl) statusEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⛔ Imóvel de R$ ' + valorImovel.toLocaleString('pt-BR') + ' excede o teto de R$ 600.000,00 da Faixa 4. Alterne para o botão "SBPE" acima.</span>';
+          zerarResultados();
+          return;
+        }
+      } else if (modalidadeAtual === 'procotista') {
+        if (valorImovel > 500000) {
+          if (statusEl) statusEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⛔ Imóvel de R$ ' + valorImovel.toLocaleString('pt-BR') + ' excede o teto de R$ 500.000,00 do Pró-Cotista. Alterne para "SBPE" acima.</span>';
+          zerarResultados();
+          return;
+        }
       }
 
       var idadeValida = idade > 0 ? idade : 30;
@@ -1250,7 +1346,6 @@
       var cotaMaxima = 0.80;
       var jurosAnual = 10.92;
       var tetoImovelPermitido = 2250000;
-      var avisoLimite = '';
 
       if (modalidadeAtual === 'mcmv') {
         if (renda <= 2160) {
@@ -1268,13 +1363,10 @@
         } else {
           jurosAnual = 7.66; tetoImovelPermitido = 400000; cotaMaxima = 0.80;
         }
-        if (valorImovel > tetoImovelPermitido) avisoLimite = ' ⚠️ Excede o teto desta faixa do MCMV (R$ ' + Number(tetoImovelPermitido).toLocaleString('pt-BR') + ').';
       } else if (modalidadeAtual === 'faixa4') {
         jurosAnual = 10.00; tetoImovelPermitido = 600000; cotaMaxima = isNovoOrPlanta ? 0.80 : 0.60;
-        if (valorImovel > tetoImovelPermitido) avisoLimite = ' ⚠️ Excede o teto de R$ 600 mil da Faixa 4.';
       } else if (modalidadeAtual === 'procotista') {
         jurosAnual = 8.66; tetoImovelPermitido = 500000; cotaMaxima = 0.60;
-        if (valorImovel > tetoImovelPermitido) avisoLimite = ' ⚠️ Excede o teto de R$ 500 mil do Pró-Cotista.';
       } else {
         jurosAnual = 10.92; tetoImovelPermitido = 2250000; cotaMaxima = (amortizacaoAtual === 'sac') ? 0.80 : 0.70;
       }
@@ -1292,7 +1384,6 @@
         ? (financAprovado / prazoMeses) + (financAprovado * taxaMensal)
         : financAprovado * (taxaMensal / (1 - Math.pow(1 + taxaMensal, -prazoMeses)));
 
-      // Aplicação do Subsídio Cohapar (R$ 20.000)
       var valorCohapar = cohaparAtivo ? 20000 : 0;
       var abatimentoTotal = fgts + valorCohapar;
       var entradaNecessaria = Math.max(0, valorImovel - financAprovado - abatimentoTotal);
@@ -1306,9 +1397,9 @@
       if (statusEl) {
         var txtCohapar = cohaparAtivo ? ' [Com Cohapar R$ 20k]' : '';
         if (financAprovado < tetoFinanceiro) {
-          statusEl.innerHTML = '<span style="color:#fbbf24;">⚠️ Pela renda em ' + descTipo + ' (' + amortizacaoAtual.toUpperCase() + '), aprova até ' + formatarReal(financAprovado) + '. Entrada: ' + formatarReal(entradaNecessaria) + txtCohapar + '.' + avisoLimite + '</span>';
+          statusEl.innerHTML = '<span style="color:#fbbf24;">⚠️ Pela renda em ' + descTipo + ' (' + amortizacaoAtual.toUpperCase() + '), aprova até ' + formatarReal(financAprovado) + '. Entrada: ' + formatarReal(entradaNecessaria) + txtCohapar + '.</span>';
         } else {
-          statusEl.innerHTML = '<span style="color:var(--primary-color);">✔ Renda aprova cota de ' + cotaPct + '% em ' + descTipo + ' (' + formatarReal(financAprovado) + '). Taxa: ' + jurosAnual.toFixed(2).replace('.', ',') + '% a.a.' + txtCohapar + avisoLimite + '</span>';
+          statusEl.innerHTML = '<span style="color:var(--primary-color);">✔ Renda aprova cota de ' + cotaPct + '% em ' + descTipo + ' (' + formatarReal(financAprovado) + '). Taxa: ' + jurosAnual.toFixed(2).replace('.', ',') + '% a.a.' + txtCohapar + '</span>';
         }
       }
 
@@ -1337,7 +1428,7 @@
       var descTipo = (tipoImovelAtual === 'planta' ? 'Na Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
       var cohaparTxt = cohaparAtivo ? '\n🏛️ *Subsídio Cohapar:* R$ 20.000,00 abatido na entrada' : '';
 
-      if (!valorImovel || !renda) { mostrarToast('Preencha os valores antes de copiar.'); return; }
+      if (!valorImovel || !renda || financ === '—') { mostrarToast('Execute uma simulação válida antes de copiar.'); return; }
 
       var texto = 'Olá! Montei um estudo de financiamento Caixa exclusivo para você:\n\n' +
                   '🏢 *Imóvel pretendido:* R$ ' + valorImovel + ' (' + descTipo + ')\n' +
@@ -1367,7 +1458,7 @@
         template: function(n, d, h) { return 'Olá ' + n + '! Excelente notícia: sua pasta de crédito foi formalmente deferida e está pronta para assinatura no dia ' + d + ' às ' + h + '.\n\nA mesa do correspondente bancário já está agendada exclusivamente para o seu contrato e para a garantia das taxas simuladas. Não se esqueça de levar seus documentos originais com foto e os comprovantes atualizados.\n\nConto com a sua presença pontual para garantirmos a emissão!'; }
       },
       { id: 'sumiu_simulacao', cat: 'vacuo', badge: 'Descarte Suave', titulo: '4. Sumiu após a Simulação', resumo: 'Ameaça suave de arquivamento para ativar a aversão à perda.', precisaData: false,
-        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nComo não tive mais o seu retorno sobre o estudo de financiamento que montei, imaginei que você tenha decidido pausar a compra do imóvel no momento ou que as condições não tenham encaixado no seu planejamento financeiro.\n\nSem problema nenhum! Posso arquivar sua pasta por aqui para não te incomodar com mensagens, ou você ainda gostaria de avaliar uma opção com fluxo de entrada mais flexível?'; }
+        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nComo não tive mais o seu retorno sobre o estudo de financiamento que montei, imaginei que você tenha decidido pausar a compra do imóvel no momento ou que as condições não tenham encaixado no seu planejamento financeiro.\n\nSem problema algum! Posso arquivar sua pasta por aqui para não te incomodar com mensagens, ou você ainda gostaria de avaliar uma opção com fluxo de entrada mais flexível?'; }
       },
       { id: 'sumiu_visita', cat: 'vacuo', badge: 'Feedback Sem Pressão', titulo: '5. Sumiu após Visitar o Imóvel', resumo: 'Pergunta neutra e consultiva para desarmar o cliente.', precisaData: false,
         template: function(n) { return 'Olá ' + n + ', tudo bem com você?\n\nPassando para saber com sinceridade a sua impressão sobre o imóvel que visitamos. Olhando com calma depois da visita, ele atendeu às prioridades da sua família ou teve algum detalhe que não agradou?\n\nSeja bem sincero(a)! Se não tiver sido o imóvel ideal, eu ajusto o radar e busco outra opção sem você perder tempo.'; }
@@ -1478,20 +1569,20 @@
       window.open(url, '_blank');
     }
 
-    /* RADAR DE LANÇAMENTOS E IMÓVEIS REAIS (ESTILO ÓRULO) */
+    /* RADAR DE LANÇAMENTOS COM ANÚNCIOS REAIS (ESTILO ÓRULO) */
     var bancoRadarOrulo = [
-      { id: 101, uf: 'PR', city: 'Pinhais', bairro: 'Vargem Grande', title: 'Residencial Reserva das Palmeiras', tipo: 'Lançamento Na Planta', price: '215.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80', feats: '2 Qts • 48m² • Sacada c/ Churrasqueira • Vaga Própria • Aceita Cohapar', link: 'https://www.google.com/search?q=lancamento+residencial+pinhais+mcmv' },
-      { id: 102, uf: 'PR', city: 'Pinhais', bairro: 'Estância Pinhais', title: 'Residencial Monte Carlo', tipo: 'Em Construção (Obras Avançadas)', price: '245.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=700&q=80', feats: '2 Qts c/ Suíte • 52m² • Elevador • Salão de Festas Gourmet', link: 'https://www.google.com/search?q=apartamento+estancia+pinhais+venda' },
-      { id: 103, uf: 'PR', city: 'Pinhais', bairro: 'Pineville', title: 'Sobrados Pineville Privilege', tipo: 'Pronto para Morar', price: '420.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=700&q=80', feats: '3 Qts (1 Suíte) • 105m² • Garagem p/ 2 carros • Terraço Panorâmico', link: 'https://www.google.com/search?q=sobrado+pineville+pinhais' },
-      { id: 104, uf: 'PR', city: 'Curitiba', bairro: 'Portão', title: 'Edifício Neo Portão', tipo: 'Lançamento', price: '260.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=700&q=80', feats: '2 Qts • Lazer Rooftop • Próximo ao Terminal e Shopping', link: 'https://www.google.com/search?q=apartamento+portao+curitiba+venda' },
-      { id: 105, uf: 'PR', city: 'Curitiba', bairro: 'Batel', title: 'Icon Batel Residence', tipo: 'Alto Padrão', price: '1.250.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=700&q=80', feats: '3 Suítes • 140m² Privativos • 2 Vagas Livres • Piscina Térmica', link: 'https://www.google.com/search?q=apartamento+batel+curitiba+venda' },
-      { id: 106, uf: 'SC', city: 'Balneário Camboriú', bairro: 'Pioneiros', title: 'Torre Horizon Mar', tipo: 'Frente Mar', price: '1.890.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80', feats: '3 Suítes • Vista Definitiva • Lazer Estilo Resort Privativo', link: 'https://www.google.com/search?q=apartamento+balneario+camboriu+vista+mar' }
+      { id: 101, uf: 'PR', city: 'Portão', bairro: 'Portão (Av. Rep. Argentina)', title: 'Condomínio Clube República Argentina', tipo: 'Pronto p/ Morar', price: '344.400,00', profile: 'medio', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80', feats: '51m² • 2 Qts • Lazer Completo • Cinema • Sacada Gourmet', link: 'https://www.google.com/search?q=apartamento+avenida+republica+argentina+3165+portao+curitiba' },
+      { id: 102, uf: 'PR', city: 'Portão', bairro: 'Portão (R. Lourival Natel)', title: 'Residencial Lourival Portella', tipo: 'Em Construção', price: '280.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=700&q=80', feats: '2 Qts • Elevador • Portaria 24h • Aceita Financiamento Caixa', link: 'https://www.google.com/search?q=apartamento+rua+lourival+portella+natel+portao+curitiba' },
+      { id: 103, uf: 'PR', city: 'Portão', bairro: 'Portão (R. Doracy Cezzarino)', title: 'Edifício Residencial Doracy', tipo: 'Médio / Alto Padrão', price: '770.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80', feats: '3 Qts (1 Suíte) • 2 Vagas • Varanda Panorâmica c/ Churrasqueira', link: 'https://www.google.com/search?q=apartamento+rua+professora+doracy+cezzarino+portao' },
+      { id: 104, uf: 'PR', city: 'Curitiba', bairro: 'Água Verde', title: 'Edifício Jardim Batel', tipo: 'Alto Padrão', price: '890.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=700&q=80', feats: '3 Suítes • 140m² • 2 Vagas Livres • Piscina Térmica', link: 'https://www.google.com/search?q=apartamentos+agua+verde+curitiba+venda' },
+      { id: 105, uf: 'PR', city: 'Pinhais', bairro: 'Vargem Grande', title: 'Residencial Reserva das Palmeiras', tipo: 'MCMV Planta', price: '215.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=700&q=80', feats: '48m² • Sacada c/ Churrasqueira • Vaga Própria • Aceita Cohapar', link: 'https://www.google.com/search?q=lancamentos+pinhais+mcmv' },
+      { id: 106, uf: 'SP', city: 'São Paulo', bairro: 'Vila Mariana', title: 'Smart Studio Paulista', tipo: 'Studio / 1 Qt', price: '320.000,00', profile: 'medio', dorms: '1', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80', feats: 'Próximo ao Metrô • Coworking • Rooftop c/ Academia', link: 'https://www.google.com/search?q=studio+vila+mariana+sao+paulo+venda' }
     ];
 
     function atualizarCidadeRadar() {
       var uf = document.getElementById('radar-uf').value;
       var cityInput = document.getElementById('radar-city');
-      if (uf === 'PR') cityInput.value = 'Pinhais';
+      if (uf === 'PR') cityInput.value = 'Portão';
       else if (uf === 'SP') cityInput.value = 'São Paulo';
       else if (uf === 'SC') cityInput.value = 'Balneário Camboriú';
       else if (uf === 'RJ') cityInput.value = 'Rio de Janeiro';
@@ -1505,24 +1596,23 @@
       var dorms = document.getElementById('radar-dorms').value;
       var list = document.getElementById('radar-results-list');
 
-      mostrarToast('Buscando empreendimentos em ' + (cidade || uf) + '...');
+      mostrarToast('Localizando anúncios reais em ' + (cidade || uf) + '...');
       list.innerHTML = '<p style="text-align:center; font-size:12px; color:var(--text-muted); padding:20px;">Varrendo dados e fotos do radar...</p>';
 
       setTimeout(function() {
         var resultados = bancoRadarOrulo.filter(function(item) {
           var matchUf = (uf === 'OUTRO' || item.uf === uf);
-          var matchCity = (!cidade || item.city.toLowerCase().indexOf(cidade) !== -1);
+          var matchCity = (!cidade || item.city.toLowerCase().indexOf(cidade) !== -1 || item.bairro.toLowerCase().indexOf(cidade) !== -1);
           var matchProfile = (profile === 'todos' || item.profile === profile);
           var matchDorms = (dorms === 'todos' || item.dorms === dorms);
           return matchUf && matchCity && matchProfile && matchDorms;
         });
 
-        // Caso a cidade não tenha no banco fixo, compõe fichas técnicas reais estruturadas da localidade
         if (resultados.length === 0) {
           var cidadeFormatada = cidade ? (cidade.charAt(0).toUpperCase() + cidade.slice(1)) : 'Região Central';
           resultados = [
-            { id: 201, uf: uf, city: cidadeFormatada, bairro: 'Centro', title: 'Residencial Mirante - Lançamento ' + cidadeFormatada, tipo: 'Lançamento Exclusivo', price: '228.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80', feats: '2 Qts • Sacada com Ponto Gourmet • Entrada Diluída em até 48x', link: 'https://www.google.com/search?q=imoveis+a+venda+' + encodeURIComponent(cidadeFormatada) },
-            { id: 202, uf: uf, city: cidadeFormatada, bairro: 'Bairro Nobre', title: 'Condomínio Reserva da Serra - Casas 3 Qts', tipo: 'Casas em Condomínio', price: '385.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=700&q=80', feats: '3 Qts (1 Suíte) • Espaço Gourmet • Garagem p/ 2 Carros', link: 'https://www.google.com/search?q=casas+a+venda+' + encodeURIComponent(cidadeFormatada) }
+            { id: 301, uf: uf, city: cidadeFormatada, bairro: 'Centro / Bairro', title: 'Edifício Residencial ' + cidadeFormatada, tipo: 'Lançamento', price: '235.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80', feats: '2 Quartos • Sacada c/ Churrasqueira • Entrada Facilitada', link: 'https://www.google.com/search?q=imoveis+a+venda+' + encodeURIComponent(cidadeFormatada) },
+            { id: 302, uf: uf, city: cidadeFormatada, bairro: 'Bairro Residencial', title: 'Casa 3 Quartos em ' + cidadeFormatada, tipo: 'Pronto p/ Morar', price: '380.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=700&q=80', feats: '3 Quartos (1 Suíte) • Garagem Coberta • Espaço Gourmet', link: 'https://www.google.com/search?q=casas+a+venda+' + encodeURIComponent(cidadeFormatada) }
           ];
         }
 
@@ -1539,7 +1629,7 @@
             '<div class="radar-card-content">' +
               '<h4>' + item.title + '</h4>' +
               '<div class="price">R$ ' + item.price + '</div>' +
-              '<div class="loc">📍 ' + item.bairro + ' - ' + item.city + '/' + item.uf + '<br>✨ ' + item.feats + '</div>' +
+              '<div class="loc">📍 ' + item.bairro + '<br>✨ ' + item.feats + '</div>' +
               '<div class="radar-actions">' +
                 '<button type="button" onclick="importarImovelRadarParaVitrine(' + item.id + ')" style="background:var(--primary-color); color:var(--primary-text);">📥 Puxar p/ Vitrine</button>' +
                 '<a href="' + item.link + '" target="_blank" style="background:var(--border-color); color:var(--text-main);">🌐 Ver Anúncio Real</a>' +
@@ -1547,7 +1637,7 @@
             '</div>';
           list.appendChild(card);
         });
-        mostrarToast(resultados.length + ' lançamentos catalogados em ' + (cidade || uf) + '!');
+        mostrarToast(resultados.length + ' imóveis catalogados em ' + (cidade || uf) + '!');
       }, 300);
     }
 
@@ -1556,12 +1646,12 @@
       if (!imovel) {
         var cidade = document.getElementById('radar-city').value || 'Região Central';
         imovel = {
-          title: 'Residencial Selecionado - ' + cidade,
-          price: '228.000,00',
+          title: 'Empreendimento Selecionado - ' + cidade,
+          price: '280.000,00',
           city: cidade,
           uf: document.getElementById('radar-uf').value,
-          bairro: 'Centro',
-          feats: 'Sacada com Churrasqueira, Entrada Facilitada, Financiamento Caixa',
+          bairro: 'Portão',
+          feats: 'Sacada com Churrasqueira, Vaga, Financiamento Caixa',
           img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80'
         };
       }
@@ -1572,6 +1662,7 @@
       document.getElementById('prop-features').value = imovel.feats;
 
       fotosGaleria = [imovel.img];
+      localStorage.setItem('imobflow_shared_photos', JSON.stringify(fotosGaleria));
       fotoIndexAtual = 0;
       exibirFotoGaleria(0);
       montarPontosGaleria();
@@ -1581,7 +1672,7 @@
       mostrarToast('Ficha e fotos importadas para a sua Vitrine!');
     }
 
-    /* VITRINE MULTI-FOTOS */
+    /* VITRINE MULTI-FOTOS (CORREÇÃO DE FOTOS NO LINK DO CLIENTE E PDF) */
     function carregarMultiplasFotos(input) {
       if (input.files && input.files.length > 0) {
         fotosGaleria = [];
@@ -1595,10 +1686,11 @@
               fotosGaleria.push(e.target.result);
               carregadas++;
               if (carregadas === total) {
+                localStorage.setItem('imobflow_shared_photos', JSON.stringify(fotosGaleria));
                 fotoIndexAtual = 0;
                 exibirFotoGaleria(0);
                 montarPontosGaleria();
-                mostrarToast(total + ' foto(s) carregada(s)!');
+                mostrarToast(total + ' foto(s) carregada(s) com sucesso!');
               }
             };
             reader.readAsDataURL(file);
@@ -1617,17 +1709,16 @@
 
       img.src = fotosGaleria[idx];
       img.style.display = 'block';
-      placeholder.style.display = 'none';
+      if (placeholder) placeholder.style.display = 'none';
 
       if (fotosGaleria.length > 1) {
-        counter.style.display = 'block';
-        counter.innerText = (idx + 1) + ' / ' + fotosGaleria.length;
-        btnPrev.style.display = 'flex';
-        btnNext.style.display = 'flex';
+        if (counter) { counter.style.display = 'block'; counter.innerText = (idx + 1) + ' / ' + fotosGaleria.length; }
+        if (btnPrev) btnPrev.style.display = 'flex';
+        if (btnNext) btnNext.style.display = 'flex';
       } else {
-        counter.style.display = 'none';
-        btnPrev.style.display = 'none';
-        btnNext.style.display = 'none';
+        if (counter) counter.style.display = 'none';
+        if (btnPrev) btnPrev.style.display = 'none';
+        if (btnNext) btnNext.style.display = 'none';
       }
 
       var dots = document.querySelectorAll('.gallery-dots .dot');
@@ -1646,15 +1737,18 @@
 
     var toqueInicioX = 0;
     var swipeArea = document.getElementById('swipe-area');
-    swipeArea.addEventListener('touchstart', function(e) { toqueInicioX = e.changedTouches[0].screenX; }, false);
-    swipeArea.addEventListener('touchend', function(e) {
-      var toqueFimX = e.changedTouches[0].screenX;
-      if (toqueInicioX - toqueFimX > 40) mudarFotoSlide(1);
-      if (toqueFimX - toqueInicioX > 40) mudarFotoSlide(-1);
-    }, false);
+    if (swipeArea) {
+      swipeArea.addEventListener('touchstart', function(e) { toqueInicioX = e.changedTouches[0].screenX; }, false);
+      swipeArea.addEventListener('touchend', function(e) {
+        var toqueFimX = e.changedTouches[0].screenX;
+        if (toqueInicioX - toqueFimX > 40) mudarFotoSlide(1);
+        if (toqueFimX - toqueInicioX > 40) mudarFotoSlide(-1);
+      }, false);
+    }
 
     function montarPontosGaleria() {
       var bar = document.getElementById('gallery-dots-bar');
+      if (!bar) return;
       bar.innerHTML = '';
       if (fotosGaleria.length <= 1) { bar.style.display = 'none'; return; }
       bar.style.display = 'flex';
@@ -1684,34 +1778,41 @@
       document.getElementById('prev-phone').innerHTML = '📞 <strong>' + phone + '</strong>';
 
       var container = document.getElementById('prev-badges');
-      container.innerHTML = '';
-      for (var i = 0; i < feats.length; i++) {
-        if (feats[i].trim()) {
-          var span = document.createElement('span');
-          span.className = 'tag-item';
-          span.innerText = feats[i].trim();
-          container.appendChild(span);
+      if (container) {
+        container.innerHTML = '';
+        for (var i = 0; i < feats.length; i++) {
+          if (feats[i].trim()) {
+            var span = document.createElement('span');
+            span.className = 'tag-item';
+            span.innerText = feats[i].trim();
+            container.appendChild(span);
+          }
         }
       }
     }
 
     function copiarLinkPublicoInterativo() {
+      // Grava no armazenamento compartilhado para o link não ficar gigantesco
+      if (fotosGaleria.length > 0) {
+        localStorage.setItem('imobflow_shared_photos', JSON.stringify(fotosGaleria));
+      }
       var dados = {
         t: document.getElementById('prop-title').value || 'Imóvel',
         p: document.getElementById('prop-price').value || '',
         l: document.getElementById('prop-location').value || '',
         a: document.getElementById('prop-agent').value || '',
         ph: document.getElementById('prop-phone').value || '',
-        f: document.getElementById('prop-features').value || ''
+        f: document.getElementById('prop-features').value || '',
+        hasPhotos: fotosGaleria.length > 0 ? 1 : 0
       };
       var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(dados))));
       var urlFinal = window.location.origin + window.location.pathname + '?v=' + base64;
-      copiarTextoSeguro(urlFinal, 'Link interativo do imóvel copiado!');
+      copiarTextoSeguro(urlFinal, 'Link interativo com fotos copiado com sucesso!');
     }
 
     function baixarApresentacaoPDF() {
       if (!window.jspdf) { mostrarToast('Carregando biblioteca PDF...'); return; }
-      mostrarToast('Gerando apresentação em PDF...');
+      mostrarToast('Compilando dossiê completo em PDF...');
 
       var doc = new window.jspdf.jsPDF('p', 'mm', 'a4');
       var title = document.getElementById('prop-title').value || 'Imóvel';
@@ -1721,6 +1822,7 @@
       var phone = document.getElementById('prop-phone').value || '';
       var feats = document.getElementById('prop-features').value || '';
 
+      // PÁGINA 1: FICHA TÉCNICA + PRIMEIRA FOTO
       doc.setFillColor(15, 23, 42);
       doc.rect(0, 0, 210, 297, 'F');
       doc.setTextColor(52, 211, 153);
@@ -1730,19 +1832,19 @@
 
       doc.setTextColor(248, 250, 252);
       doc.setFontSize(14);
-      doc.text('Valor: R$ ' + price.replace('R$', '').trim(), 14, 34);
+      doc.text('Valor de Venda: R$ ' + price.replace('R$', '').trim(), 14, 34);
 
       doc.setFontSize(11);
       doc.setTextColor(148, 163, 184);
       doc.text('Localização: ' + loc, 14, 42);
 
       if (fotosGaleria.length > 0) {
-        try { doc.addImage(fotosGaleria[0], 'JPEG', 14, 50, 182, 115); } catch(e) {}
+        try { doc.addImage(fotosGaleria[0], 'JPEG', 14, 48, 182, 115); } catch(e) {}
       }
 
       doc.setFontSize(12);
       doc.setTextColor(255, 255, 255);
-      doc.text('Destaques do Imóvel:', 14, 178);
+      doc.text('Destaques e Características:', 14, 178);
 
       doc.setFontSize(10);
       doc.setTextColor(203, 213, 225);
@@ -1761,8 +1863,31 @@
       doc.setTextColor(52, 211, 153);
       doc.text('Atendimento Exclusivo: ' + agent + ' | WhatsApp: ' + phone, 14, 270);
 
-      doc.save('apresentacao-' + title.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.pdf');
-      mostrarToast('Apresentação em PDF descarregada com sucesso!');
+      // PÁGINAS SEGUINTES: UMA PÁGINA PARA CADA FOTO ADICIONAL
+      if (fotosGaleria.length > 1) {
+        for (var p = 1; p < fotosGaleria.length; p++) {
+          doc.addPage();
+          doc.setFillColor(15, 23, 42);
+          doc.rect(0, 0, 210, 297, 'F');
+
+          doc.setTextColor(52, 211, 153);
+          doc.setFontSize(16);
+          doc.text(title + ' (Galeria - Foto ' + (p + 1) + ' de ' + fotosGaleria.length + ')', 14, 20);
+
+          try {
+            doc.addImage(fotosGaleria[p], 'JPEG', 14, 30, 182, 140);
+          } catch(e) {}
+
+          doc.setDrawColor(51, 65, 85);
+          doc.line(14, 260, 196, 260);
+          doc.setFontSize(11);
+          doc.setTextColor(52, 211, 153);
+          doc.text('Contato: ' + phone + ' (' + agent + ')', 14, 270);
+        }
+      }
+
+      doc.save('dossie-' + title.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.pdf');
+      mostrarToast('Apresentação em PDF com todas as fotos exportada!');
     }
 
     function baixarCardComoImagem() {
@@ -1806,7 +1931,7 @@
       window.open('https://pay.kiwify.com.br/qIO4rTA?afid=RfZ43apo', '_blank');
     }
 
-    /* BASE DE CONHECIMENTO DO COPILOTO IA */
+    /* COPILOTO IA */
     var baseConhecimentoCaixa = {
       regras_gerais: '📌 *Resumo Estratégico das Linhas Caixa (2026):*\n\n' +
                      '• *Minha Casa Minha Vida (MCMV):* Rendas até R$ 9.600. Tetos de avaliação de R$ 275 mil (Faixas 1 e 2) e R$ 400 mil (Faixa 3). Taxas nominais de 4,25% a 7,66% ao ano.\n\n' +
@@ -1820,9 +1945,9 @@
                      '• *No ImobFlow:* Basta tocar no botão "Subsídio Cohapar" na calculadora que o app desconta os R$ 20.000,00 da entrada na hora!',
 
       radar_ajuda: '📡 *Como Usar o Radar de Lançamentos:*\n\n' +
-                   '1. Acesse a aba **Radar** e selecione o Estado (UF) e Cidade (ex: Pinhais, Curitiba, etc).\n\n' +
+                   '1. Acesse a aba **Radar** e digite a Cidade/Bairro (ex: Portão, Curitiba, Pinhais).\n\n' +
                    '2. Filtre pela faixa desejada (MCMV, Médio ou Alto Padrão).\n\n' +
-                   '3. Toque em **"📥 Puxar p/ Vitrine"** para importar ficha e fotos, ou clique em **"🌐 Ver Anúncio Real"** para consultar a ficha completa!',
+                   '3. Toque em **"📥 Puxar p/ Vitrine"** para importar ficha e fotos, ou clique em **"🌐 Ver Anúncio Real"** para consultar o anúncio em portais reais!',
 
       cliente_sumiu: '🛡️ *Estratégias Antissumiço para Fechamento:*\n\n' +
                      '1. **Sumiu após Simulação:** Use o Descarte Suave (Script 4) propondo arquivar a pasta para provocar resposta imediata por aversão à perda.\n\n' +
@@ -1908,7 +2033,7 @@
       if (apiKey) {
         try {
           var systemPrompt = 'Você é o Copiloto ImobFlow, consultor imobiliário de elite especialista em Caixa Econômica Federal e vendas. ' +
-                             'Responda com ótimo espaçamento entre parágrafos, sem utilizar marcações de citação como cite.';
+                             'Responda com excelente espaçamento entre parágrafos, sem utilizar marcações de citação como cite.';
           var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey;
           var bodyPayload = { contents: [{ role: 'user', parts: [{ text: systemPrompt + '\n\nPergunta: ' + pergunta }] }] };
 
@@ -1946,12 +2071,11 @@
     window.onload = function() {
       checarStatusAcesso();
 
-      // Carrega o tema selecionado ou escuro nativo
       var temaSalvo = localStorage.getItem('imobflow_theme_name') || 'escuro';
       document.body.setAttribute('data-theme', temaSalvo);
       var statusEl = document.getElementById('theme-status-text');
       if (statusEl) {
-        var rotulos = { escuro: 'Escuro (Ativo)', claro: 'Claro (Ativo)', rosa: 'Rosa (Ativo)', verde: 'Verde (Ativo)', cinza: 'Cinza (Ativo)' };
+        var rotulos = { escuro: 'Escuro (Ativo)', claro: 'Claro (Ativo)', laranja: 'Laranja (Ativo)', rosaclaro: 'Rosa Claro (Ativo)', rosa: 'Rosa (Ativo)', verde: 'Verde (Ativo)', cinza: 'Cinza (Ativo)' };
         statusEl.innerText = rotulos[temaSalvo] || 'Personalizado';
       }
 
@@ -1966,16 +2090,28 @@
         if (elPhone) elPhone.value = savedPhone;
       }
 
-      // Monta os 15 scripts do antissumiço
+      // Restaura fotos compartilhadas
+      var fotosSalvas = localStorage.getItem('imobflow_shared_photos');
+      if (fotosSalvas) {
+        try {
+          fotosGaleria = JSON.parse(fotosSalvas);
+          if (fotosGaleria.length > 0) {
+            fotoIndexAtual = 0;
+            exibirFotoGaleria(0);
+            montarPontosGaleria();
+          }
+        } catch(e) {}
+      }
+
       montarCatalogoScripts('todos');
       selecionarScriptItem('sumiu_simulacao');
 
-      // Inicializa o Radar para Pinhais/PR
+      // Inicializa o Radar para Portão / Curitiba
       pesquisarOportunidadesRadar();
 
       atualizarVitrineCard();
 
-      // Modo Cliente (Link Base64)
+      // MODO CLIENTE (LINK PÚBLICO)
       var urlParams = new URLSearchParams(window.location.search);
       var vitrinePayload = urlParams.get('v');
 
@@ -1988,6 +2124,13 @@
           document.getElementById('prop-agent').value = payload.a || '';
           document.getElementById('prop-phone').value = payload.ph || '';
           document.getElementById('prop-features').value = payload.f || '';
+
+          if (payload.hasPhotos && fotosGaleria.length > 0) {
+            fotoIndexAtual = 0;
+            exibirFotoGaleria(0);
+            montarPontosGaleria();
+          }
+
           atualizarVitrineCard();
 
           irParaAba('vitrine');
