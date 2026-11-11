@@ -13,6 +13,8 @@
   <!-- Bibliotecas para exportar Imagem e PDF -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
     
@@ -135,11 +137,12 @@
       --copilot-bg: linear-gradient(135deg, #64748b, #475569);
     }
 
-    body[data-theme="amarelo"] { --bg-body: #14110a; --bg-header: rgba(31,26,12,0.95); --bg-card: #1f1a0c; --bg-input: #110e06; --bg-nav: #1a150a; --text-main: #fffbeb; --text-muted: #d6c27a; --border-color: #473b14; --border-focus: #facc15; --primary-color: #facc15; --primary-text: #1a1400; --card-shadow: rgba(0,0,0,0.6); --copilot-bg: linear-gradient(135deg, #facc15, #eab308); }
-    body[data-theme="amarelo"] .pro-tag { background: rgba(250,204,21,0.2); color: #fde047; }
-    body[data-theme="amarelo"] .btn-cohapar-toggle.active { background: rgba(250,204,21,0.14); }
-    body[data-theme="amarelo"] .script-card-item.selected { background: rgba(250,204,21,0.1); }
-    body[data-theme="amarelo"] #ia-copilot-trigger { color: #1a1400; }
+    /* TEMA: AMARELO CLARO (CREME DOURADO) */
+    body[data-theme="amarelo"] { --bg-body: #fffbeb; --bg-header: rgba(255,251,235,0.95); --bg-card: #ffffff; --bg-input: #fef3c7; --bg-nav: #ffffff; --text-main: #422006; --text-muted: #854d0e; --border-color: #fde68a; --border-focus: #ca8a04; --primary-color: #ca8a04; --primary-text: #1c1400; --card-shadow: rgba(202,138,4,0.12); --copilot-bg: linear-gradient(135deg, #facc15, #ca8a04); }
+    body[data-theme="amarelo"] .pro-tag { background: rgba(202,138,4,0.18); color: #854d0e; }
+    body[data-theme="amarelo"] .btn-cohapar-toggle.active { background: rgba(250,204,21,0.25); }
+    body[data-theme="amarelo"] .script-card-item.selected { background: rgba(250,204,21,0.2); }
+    body[data-theme="amarelo"] #ia-copilot-trigger { color: #1c1400; }
     body { background-color: var(--bg-body); color: var(--text-main); padding-bottom: 115px; transition: background-color 0.2s, color 0.2s; }
 
     /* Topbar */
@@ -355,6 +358,67 @@
     .cli-acoes button, .cli-acoes select { background: var(--border-color); color: var(--text-main); border: none; border-radius: 8px; font-size: 11.5px; font-weight: 600; padding: 8px 10px; cursor: pointer; width: auto; margin: 0; }
     .cli-acoes button[data-a="wa"] { background: #22c55e; color: #020617; }
     .cli-acoes button[data-a="del"] { background: transparent; color: #ef4444; }
+
+    /* ===== MAC3 SCORE + FOLLOW-UP INTELIGENTE ===== */
+    .cli-abas { margin-bottom: 14px; }
+    .nav-icon { position: relative; display: inline-block; }
+    .nav-badge { position: absolute; top: -4px; right: -10px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 10px; background: #ef4444; color: #fff; font-size: 10px; font-weight: 800; line-height: 16px; text-align: center; }
+    .mac-box { border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; margin-bottom: 12px; background: var(--bg-card); }
+    .mac-box h4 { font-size: 13px; color: var(--primary-color); margin-bottom: 4px; }
+    .mac-box p { font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
+    .mac-preview { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 12px; font-weight: 700; color: var(--text-main); }
+    .mac-bar { flex: 1; height: 8px; border-radius: 8px; background: var(--border-color); overflow: hidden; }
+    .mac-bar > i { display: block; height: 100%; border-radius: 8px; background: #94a3b8; transition: width .25s; }
+    .mac-bar > i.quente { background: #ef4444; } .mac-bar > i.morno { background: #f59e0b; } .mac-bar > i.frio { background: #3b82f6; }
+    .mac-badge { font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+    .mac-badge.quente { background: rgba(239,68,68,0.15); color: #dc2626; }
+    .mac-badge.morno { background: rgba(245,158,11,0.18); color: #b45309; }
+    .mac-badge.frio { background: rgba(59,130,246,0.15); color: #2563eb; }
+    .mac-badge.nada { background: var(--border-color); color: var(--text-muted); }
+    .mac-rank { display: flex; flex-direction: column; gap: 10px; }
+    .mac-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; }
+    .mac-item-top { display: flex; align-items: center; gap: 10px; }
+    .mac-pos { width: 26px; height: 26px; border-radius: 50%; background: var(--primary-color); color: var(--primary-text); font-weight: 900; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .mac-item-top strong { flex: 1; font-size: 14px; color: var(--text-main); }
+    .mac-score-num { font-size: 20px; font-weight: 900; color: var(--text-main); }
+    .mac-pilares { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; margin-top: 10px; }
+    .mac-pilar { font-size: 10.5px; color: var(--text-muted); font-weight: 600; }
+    .mac-pilar .mac-bar { height: 5px; margin-top: 3px; }
+    .mac-dica { font-size: 11.5px; color: var(--text-muted); margin-top: 8px; }
+    .fu-item { background: var(--bg-input); border: 1px solid var(--border-color); border-left: 4px solid #f59e0b; border-radius: 12px; padding: 12px; }
+    .fu-item.critico { border-left-color: #ef4444; }
+    .fu-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 4px; font-weight: 600; }
+    .fu-msg { width: 100%; margin-top: 10px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px; font-size: 13px; line-height: 1.45; min-height: 96px; resize: vertical; outline: none; font-family: inherit; }
+    .fu-acoes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .fu-acoes button { background: var(--border-color); color: var(--text-main); border: none; border-radius: 8px; font-size: 11.5px; font-weight: 700; padding: 9px 11px; cursor: pointer; width: auto; margin: 0; }
+    .fu-acoes button.wa { background: #22c55e; color: #020617; }
+    .fu-prox { font-size: 11px; color: var(--text-muted); margin-top: 8px; }
+    .fu-vazio { text-align: center; padding: 18px 8px; font-size: 13px; color: var(--text-muted); }
+    .fu-config { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); margin-bottom: 12px; font-weight: 600; }
+    .fu-config select { width: auto; padding: 8px 10px; font-size: 12px; }
+
+    /* ===== MAC3Docs ===== */
+    .nav-container { grid-template-columns: repeat(6, 1fr); }
+    .nav-btn { font-size: 9.5px; }
+    #docs-prev { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 2500; overflow-y: auto; padding: 16px; }
+    .docs-drop { border: 2px dashed var(--border-color); border-radius: 12px; padding: 18px; text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 10px; cursor: pointer; line-height: 1.5; }
+    .docs-drop.over { border-color: var(--primary-color); }
+    .docs-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .docs-chip { font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: 20px; background: var(--border-color); color: var(--text-muted); }
+    .docs-chip.ok { background: rgba(34,197,94,.18); color: #16a34a; }
+    .docs-item { display: flex; gap: 10px; align-items: center; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; padding: 8px; margin-bottom: 8px; }
+    .docs-item img { width: 48px; height: 60px; object-fit: cover; border-radius: 6px; background: #fff; flex-shrink: 0; }
+    .docs-info { flex: 1; min-width: 0; }
+    .docs-info b { display: block; font-size: 12px; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .docs-info select { margin-top: 5px; padding: 6px; font-size: 11.5px; }
+    .docs-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    .docs-btns button { background: var(--border-color); color: var(--text-main); border: none; border-radius: 6px; width: 30px; height: 26px; font-size: 12px; cursor: pointer; }
+    .docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+    .docs-pg { background: var(--bg-card); border-radius: 10px; padding: 8px; text-align: center; font-size: 11px; color: var(--text-main); }
+    .docs-pg img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #fff; border-radius: 6px; margin-bottom: 6px; }
+    .docs-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .docs-grid2 .span2 { grid-column: 1 / -1; }
+    .docs-sec { font-size: 12px; font-weight: 800; color: var(--primary-color); margin: 14px 0 8px; }
   </style>
 </head>
 <body data-theme="escuro">
@@ -380,6 +444,72 @@
   </header>
 
   <main>
+    <!-- ABA 0: MAC3Docs -->
+    <section id="tab-docs" class="hidden">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">📁 MAC3Docs</h2>
+          <span class="pill">100% no aparelho</span>
+        </div>
+        <p class="card-desc">Junte fotos e PDFs do cliente em um único PDF na ordem certa e gere a ficha cadastral pronta para o WhatsApp. Nada é enviado a servidor.</p>
+        <div class="pill-group">
+          <button type="button" id="docs-sub-pdf" class="pill-btn active" onclick="docsSub('pdf')">📎 Juntar em PDF</button>
+          <button type="button" id="docs-sub-ficha" class="pill-btn" onclick="docsSub('ficha')">📋 Ficha cadastral</button>
+        </div>
+      </div>
+
+      <input type="file" id="docs-input" class="hidden" multiple accept="image/*,application/pdf,.pdf" onchange="docsAdd(this.files); this.value='';">
+      <input type="file" id="docs-cam" class="hidden" accept="image/*" capture="environment" onchange="docsAdd(this.files); this.value='';">
+
+      <!-- Parte 1: PDF -->
+      <div id="docs-pdf" class="card">
+        <div class="docs-drop" id="docs-drop" onclick="document.getElementById('docs-input').click()">
+          📥 Toque para escolher fotos (JPG, PNG, WebP…) e PDFs<br>ou arraste os arquivos até aqui
+        </div>
+        <button type="button" class="btn-action btn-secondary" style="margin-top:0" onclick="document.getElementById('docs-cam').click()">📷 Fotografar documento</button>
+
+        <div class="step-title"><span class="step-num">1</span> Documentos básicos</div>
+        <div class="docs-chips" id="docs-chips"></div>
+
+        <div class="step-title"><span class="step-num">2</span> Ordem dos documentos</div>
+        <span class="hint" style="margin:-4px 0 10px">Escolha a categoria de cada um; a ordem segue a lista do banco. Ajuste com ▲ ▼ ou arrastando.</span>
+        <div id="docs-lista"></div>
+        <button type="button" class="btn-action btn-secondary" onclick="docsOrdenar(true)">↕️ Ordenar por categoria</button>
+
+        <div class="step-title"><span class="step-num">3</span> Gerar PDF</div>
+        <label>Nome do cliente (vai no nome do arquivo)</label>
+        <input type="text" id="docs-nome" placeholder="Ex.: Maria Silva">
+        <label style="margin-top:10px">Qualidade / tamanho</label>
+        <select id="docs-qual">
+          <option value="bal">Equilibrada (recomendada)</option>
+          <option value="max">Menor tamanho (para limite de envio)</option>
+          <option value="orig">Alta qualidade (maior arquivo)</option>
+        </select>
+        <label style="display:flex;gap:8px;align-items:center;margin-top:10px;font-weight:600"><input type="checkbox" id="docs-red-pdf" style="width:auto"> Reduzir também os PDFs (páginas viram imagem)</label>
+        <button type="button" class="btn-action btn-purple" onclick="docsPreview()">👁️ Pré-visualizar ordem</button>
+        <button type="button" id="docs-btn-gerar" class="btn-action btn-emerald" onclick="docsGerar()">📄 Gerar PDF único</button>
+        <div id="docs-resultado" class="hidden" style="margin-top:12px">
+          <div class="result-status" id="docs-res-txt"></div>
+          <button type="button" class="btn-action btn-download" onclick="docsBaixar()">⬇️ Baixar PDF</button>
+          <button type="button" class="btn-action btn-whatsapp-direct" onclick="docsCompartilhar()">📤 Compartilhar / enviar</button>
+        </div>
+      </div>
+
+      <!-- Parte 2: Ficha -->
+      <div id="docs-ficha" class="card hidden">
+        <p class="card-desc">Usa os documentos da aba “Juntar em PDF”. O app lê os textos (OCR) e preenche o que encontrar. <strong>Sempre confira os dados</strong>: foto torta ou escura pode gerar erros.</p>
+        <div class="fu-config" id="docs-ficha-info"></div>
+        <button type="button" class="btn-action btn-secondary" style="margin-top:0" onclick="document.getElementById('docs-input').click()">➕ Adicionar documentos</button>
+        <button type="button" id="docs-btn-ler" class="btn-action btn-emerald" onclick="docsLerFicha()">🔍 Ler documentos e preencher</button>
+        <span class="hint" id="docs-ocr-status"></span>
+        <div id="docs-form"></div>
+        <button type="button" class="btn-action btn-whatsapp-direct" onclick="docsFichaWhats()">💬 Abrir no WhatsApp</button>
+        <button type="button" class="btn-action btn-download" onclick="copiarTextoSeguro(docsFichaTexto(), 'Ficha copiada! É só colar no WhatsApp.')">📋 Copiar para WhatsApp</button>
+        <button type="button" class="btn-action btn-secondary" onclick="docsFichaLimpar()">🗑️ Limpar ficha</button>
+        <span class="hint">Por segurança, a ficha não fica salva: ao fechar o app, os dados somem.</span>
+      </div>
+    </section>
+
     <!-- ABA 1: CALCULADORA -->
     <section id="tab-calculator">
       <div class="desktop-split-view">
@@ -717,6 +847,13 @@
 
     <!-- ABA: CLIENTES -->
     <section id="tab-clientes" class="hidden">
+      <div class="pill-group cli-abas">
+        <button type="button" id="cli-aba-lista" class="pill-btn active" onclick="mostrarPainelClientes('lista')">👥 Lista</button>
+        <button type="button" id="cli-aba-mac3" class="pill-btn" onclick="mostrarPainelClientes('mac3')">🎯 MAC3 Score</button>
+        <button type="button" id="cli-aba-follow" class="pill-btn" onclick="mostrarPainelClientes('follow')">🔔 Follow-up <span id="cli-fu-count"></span></button>
+      </div>
+
+      <div id="cli-painel-lista">
       <div class="card">
         <div class="card-header">
           <h2 class="card-title">👥 Meus Clientes</h2>
@@ -741,6 +878,23 @@
             </div>
             <div class="form-group"><label>Falar de novo em</label><input type="date" id="cli-data"></div>
           </div>
+          <div class="mac-box">
+            <h4>🎯 MAC3 Score</h4>
+            <p>Responda os 4 pontos e o app calcula a pontuação do comprador de 0 a 100.</p>
+            <div class="form-row">
+              <div class="form-group"><label>Intenção de compra</label>
+                <select id="mac-i" onchange="atualizarPreviewMac()"><option value="">Selecione</option><option value="1">Só pesquisando</option><option value="2">Comparando opções</option><option value="3">Decidido a comprar</option><option value="4">Pronto para fechar</option></select></div>
+              <div class="form-group"><label>Capacidade financeira</label>
+                <select id="mac-a" onchange="atualizarPreviewMac()"><option value="">Selecione</option><option value="1">Renda/entrada indefinida</option><option value="2">Crédito em análise</option><option value="3">Renda compatível</option><option value="4">Crédito aprovado / entrada pronta</option></select></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Urgência</label>
+                <select id="mac-u" onchange="atualizarPreviewMac()"><option value="">Selecione</option><option value="1">Sem pressa</option><option value="2">Em até 6 meses</option><option value="3">Em até 3 meses</option><option value="4">Neste mês</option></select></div>
+              <div class="form-group"><label>Engajamento</label>
+                <select id="mac-e" onchange="atualizarPreviewMac()"><option value="">Selecione</option><option value="1">Não responde</option><option value="2">Responde devagar</option><option value="3">Responde bem</option><option value="4">Pede visita / proposta</option></select></div>
+            </div>
+            <div class="mac-preview"><span id="mac-prev-txt">Sem score</span><div class="mac-bar"><i id="mac-prev-bar" style="width:0%"></i></div></div>
+          </div>
           <button type="button" onclick="salvarCliente()" class="btn-action btn-emerald">💾 Salvar cliente</button>
           <button type="button" id="cli-btn-cancelar" onclick="cancelarEdicaoCliente()" class="btn-action btn-secondary hidden">Cancelar edição</button>
         </details>
@@ -751,6 +905,40 @@
           <button type="button" class="pill-btn" onclick="filtrarClientes('fechados', this)">Encerrados</button>
         </div>
         <div class="cli-lista" id="cli-lista"></div>
+      </div>
+      </div>
+
+      <!-- PAINEL MAC3 SCORE -->
+      <div id="cli-painel-mac3" class="hidden">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">🎯 MAC3 Score — pontuação do comprador</h2>
+            <span class="pill">Diferencial forte</span>
+          </div>
+          <p class="card-desc">Classifica o lead por intenção de compra, capacidade financeira, urgência e engajamento. O corretor sabe quem priorizar.</p>
+          <div class="cli-resumo">
+            <div class="cli-box"><strong id="mac-n-quente" style="color:#ef4444;">0</strong><span>🔥 Quentes</span></div>
+            <div class="cli-box"><strong id="mac-n-morno" style="color:#f59e0b;">0</strong><span>🌤 Mornos</span></div>
+            <div class="cli-box"><strong id="mac-n-frio" style="color:#3b82f6;">0</strong><span>❄️ Frios</span></div>
+          </div>
+          <div class="mac-rank" id="mac-ranking"></div>
+        </div>
+      </div>
+
+      <!-- PAINEL FOLLOW-UP INTELIGENTE -->
+      <div id="cli-painel-follow" class="hidden">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">🔔 Follow-up inteligente</h2>
+            <span class="pill" id="fu-pill">0</span>
+          </div>
+          <p class="card-desc">Identifica clientes sem retorno e sugere a próxima mensagem. Ao enviar, o app agenda o próximo lembrete sozinho; o aviso aparece no ícone de Clientes sempre que você abrir o app.</p>
+          <div class="fu-config">
+            <span>Considerar sem retorno após</span>
+            <select id="fu-limite" onchange="salvarLimiteFollowup(this.value)"><option value="2">2 dias</option><option value="3">3 dias</option><option value="5">5 dias</option><option value="7">7 dias</option></select>
+          </div>
+          <div class="cli-lista" id="fu-lista"></div>
+        </div>
       </div>
     </section>
 
@@ -880,7 +1068,7 @@
             <span>Onde o app abre</span>
           </div>
           <select id="set-aba" onchange="salvarAbaInicial(this.value)" class="settings-btn-link">
-            <option value="calculator">Qualificador</option><option value="agenda">Antissumiço</option><option value="clientes">Clientes</option><option value="vitrine">Vitrine</option><option value="radar">Radar</option>
+            <option value="docs">MAC3Docs</option><option value="calculator">Qualificador</option><option value="agenda">Antissumiço</option><option value="clientes">Clientes</option><option value="vitrine">Vitrine</option><option value="radar">Radar</option>
           </select>
         </div>
 
@@ -945,7 +1133,7 @@
             <span>Verde (Floresta Nobre)</span>
             <span class="color-swatch" style="background:#16a34a; border:1px solid #1e4533;"></span>
           </button>
-          <button type="button" class="theme-option-btn" onclick="aplicarTema('amarelo')"><span>Amarelo (Ouro Executivo)</span><span class="color-swatch" style="background:#facc15; border:1px solid #473b14;"></span></button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('amarelo')"><span>Amarelo Claro (Creme Dourado)</span><span class="color-swatch" style="background:#fef3c7; border:1px solid #ca8a04;"></span></button>
           <button type="button" class="theme-option-btn" onclick="aplicarTema('cinza')">
             <span>Cinza (Titânio Minimalista)</span>
             <span class="color-swatch" style="background:#64748b; border:1px solid #333945;"></span>
@@ -1021,6 +1209,10 @@
   <!-- Navegação Inferior (5 Abas) -->
   <nav id="app-nav">
     <div class="nav-container">
+      <button type="button" id="nav-docs" onclick="irParaAba('docs')" class="nav-btn">
+        <span class="nav-icon">📁</span>
+        MAC3Docs
+      </button>
       <button type="button" id="nav-calculator" onclick="irParaAba('calculator')" class="nav-btn active">
         <span class="nav-icon">⚡</span>
         Qualificador
@@ -1030,7 +1222,7 @@
         Antissumiço
       </button>
       <button type="button" id="nav-clientes" onclick="irParaAba('clientes')" class="nav-btn">
-        <span class="nav-icon">👥</span>
+        <span class="nav-icon">👥<span id="nav-clientes-badge" class="nav-badge hidden">0</span></span>
         Clientes
       </button>
       <button type="button" id="nav-vitrine" onclick="irParaAba('vitrine')" class="nav-btn">
@@ -1045,6 +1237,7 @@
   </nav>
 
   <div id="toast" class="toast"></div>
+  <div id="docs-prev"></div>
 
   <script>
     var temporizadorToast;
@@ -1191,7 +1384,7 @@
     }
 
     function irParaAba(idAba) {
-      var abas = ['calculator', 'agenda', 'clientes', 'radar', 'vitrine', 'planos'];
+      var abas = ['docs', 'calculator', 'agenda', 'clientes', 'radar', 'vitrine', 'planos'];
       for (var i = 0; i < abas.length; i++) {
         var el = document.getElementById('tab-' + abas[i]);
         var navBtn = document.getElementById('nav-' + abas[i]);
@@ -1209,7 +1402,7 @@
 
     /* CONFIGURAÇÕES, PERFIL E SELETOR DE TEMAS */
     /* ===== BACKUP (arquivo .json no aparelho; sem servidor) ===== */
-    var CHAVES_BACKUP = ['imobflow_clientes', 'imobflow_signature', 'imobflow_aba_inicial', 'imobflow_dias_retorno', 'imobflow_shared_photos', 'imobflow_calc', 'imobflow_theme_name', 'imobflow_user_name', 'imobflow_user_email', 'imobflow_user_phone'];
+    var CHAVES_BACKUP = ['imobflow_clientes', 'imobflow_signature', 'imobflow_aba_inicial', 'imobflow_dias_retorno', 'imobflow_dias_sem_retorno', 'imobflow_shared_photos', 'imobflow_calc', 'imobflow_theme_name', 'imobflow_user_name', 'imobflow_user_email', 'imobflow_user_phone'];
 
     function exportarBackup() {
       var dados = {};
@@ -1289,6 +1482,8 @@
       cliEditId = null;
       ['cli-nome', 'cli-fone', 'cli-obs'].forEach(function(id) { var e = document.getElementById(id); if (e) e.value = ''; });
       var f = document.getElementById('cli-fase'); if (f) f.value = 'novo';
+      ['mac-i', 'mac-a', 'mac-u', 'mac-e'].forEach(function(id) { var e = document.getElementById(id); if (e) e.value = ''; });
+      atualizarPreviewMac();
       var d = document.getElementById('cli-data'); if (d) d.value = dataISO(diasRetornoPadrao());
       var c = document.getElementById('cli-btn-cancelar'); if (c) c.className = 'btn-action btn-secondary hidden';
       var t = document.getElementById('cli-form-titulo'); if (t) t.innerText = '➕ Adicionar cliente';
@@ -1298,10 +1493,10 @@
     function salvarCliente() {
       var nome = document.getElementById('cli-nome').value.trim();
       if (!nome) { mostrarToast('Digite o nome do cliente.'); return; }
-      var dados = { nome: nome, fone: document.getElementById('cli-fone').value.trim(), obs: document.getElementById('cli-obs').value.trim(), fase: document.getElementById('cli-fase').value, data: document.getElementById('cli-data').value };
+      var dados = { nome: nome, fone: document.getElementById('cli-fone').value.trim(), obs: document.getElementById('cli-obs').value.trim(), fase: document.getElementById('cli-fase').value, data: document.getElementById('cli-data').value, mac: lerMacForm() };
       var lista = lerClientes();
-      if (cliEditId) { lista = lista.map(function(c) { return c.id === cliEditId ? Object.assign({ id: c.id }, dados) : c; }); }
-      else { dados.id = 'c' + Date.now(); lista.unshift(dados); }
+      if (cliEditId) { lista = lista.map(function(c) { return c.id === cliEditId ? Object.assign({}, c, dados) : c; }); }
+      else { dados.id = 'c' + Date.now(); dados.criadoEm = dataISO(0); dados.ultimoContato = dataISO(0); dados.tentativas = 0; lista.unshift(dados); }
       if (!gravarClientes(lista)) return;
       cancelarEdicaoCliente(); renderizarClientes(); mostrarToast('Cliente salvo!');
     }
@@ -1336,6 +1531,7 @@
         return true;
       }).sort(function(a, b) { var x = a.data || '9999', y = b.data || '9999'; return x < y ? -1 : (x > y ? 1 : 0); });
 
+      renderizarMac3(); renderizarFollowup();
       if (!lista.length) { box.innerHTML = '<p class="card-desc" style="margin:8px 0 0;">' + (todos.length ? 'Nenhum cliente neste filtro.' : 'Nenhum cliente ainda. Toque em "Adicionar cliente" para começar.') + '</p>'; return; }
       box.innerHTML = '';
       lista.forEach(function(c) {
@@ -1350,7 +1546,7 @@
         var card = document.createElement('div');
         card.className = 'cli-card';
         card.innerHTML =
-          '<div class="cli-top"><strong>' + escapeHtml(c.nome) + '</strong><span class="cli-fase">' + escapeHtml(CLI_FASES[c.fase] || c.fase) + '</span></div>' +
+          '<div class="cli-top"><strong>' + escapeHtml(c.nome) + '</strong>' + badgeMac(c) + '<span class="cli-fase">' + escapeHtml(CLI_FASES[c.fase] || c.fase) + '</span></div>' +
           (c.obs ? '<div class="cli-obs">' + escapeHtml(c.obs) + '</div>' : '') +
           (rot ? '<div class="cli-data ' + cls + '">' + rot + '</div>' : '') +
           '<div class="cli-acoes">' +
@@ -1369,25 +1565,222 @@
           mostrarToast('Escolha a mensagem para ' + c.nome + '.');
         };
         var wa = card.querySelector('[data-a="wa"]');
-        if (wa) wa.onclick = function() { window.open('https://wa.me/55' + (c.fone || '').replace(/\D/g, ''), '_blank'); };
+        if (wa) wa.onclick = function() { window.open('https://wa.me/55' + (c.fone || '').replace(/\D/g, ''), '_blank'); if (aberto(c)) registrarContato(c.id); };
         card.querySelector('[data-a="fase"]').onchange = function() { atualizarCliente(c.id, { fase: this.value }); };
         card.querySelector('[data-a="adiar"]').onchange = function() { if (this.value) atualizarCliente(c.id, { data: dataISO(parseInt(this.value, 10)) }); };
-        card.querySelector('[data-a="edit"]').onclick = function() {
-          cliEditId = c.id;
-          document.getElementById('cli-nome').value = c.nome; document.getElementById('cli-fone').value = c.fone || '';
-          document.getElementById('cli-obs').value = c.obs || ''; document.getElementById('cli-fase').value = c.fase || 'novo';
-          document.getElementById('cli-data').value = c.data || '';
-          document.getElementById('cli-btn-cancelar').className = 'btn-action btn-secondary';
-          document.getElementById('cli-form-titulo').innerText = '✏️ Editando cliente';
-          document.getElementById('cli-form-box').open = true;
-          window.scrollTo(0, 0);
-        };
+        card.querySelector('[data-a="edit"]').onclick = function() { abrirEdicaoCliente(c.id); };
         card.querySelector('[data-a="del"]').onclick = function() {
           if (!confirm('Excluir ' + c.nome + '?')) return;
           gravarClientes(lerClientes().filter(function(x) { return x.id !== c.id; }));
           renderizarClientes();
         };
         box.appendChild(card);
+      });
+    }
+
+
+    /* ===== MAC3 SCORE ===== */
+    var MAC_ROTULOS = { i: 'Intenção', a: 'Capacidade', u: 'Urgência', e: 'Engajamento' };
+    function lerMacForm() {
+      var m = { i: parseInt(document.getElementById('mac-i').value, 10), a: parseInt(document.getElementById('mac-a').value, 10), u: parseInt(document.getElementById('mac-u').value, 10), e: parseInt(document.getElementById('mac-e').value, 10) };
+      return (m.i && m.a && m.u && m.e) ? m : null;
+    }
+    function calcularMac(m) {
+      if (!m || !m.i || !m.a || !m.u || !m.e) return null;
+      return Math.round(((m.i + m.a + m.u + m.e) - 4) / 12 * 100);
+    }
+    function classeMac(score) { return score === null ? 'nada' : (score >= 70 ? 'quente' : (score >= 40 ? 'morno' : 'frio')); }
+    function rotuloMac(score) { return score === null ? 'Sem score' : (score >= 70 ? '🔥 Quente' : (score >= 40 ? '🌤 Morno' : '❄️ Frio')); }
+    function badgeMac(c) {
+      var sc = calcularMac(c.mac);
+      return '<span class="mac-badge ' + classeMac(sc) + '">' + (sc === null ? 'Sem score' : rotuloMac(sc) + ' ' + sc) + '</span>';
+    }
+    function atualizarPreviewMac() {
+      var sc = calcularMac(lerMacForm()), t = document.getElementById('mac-prev-txt'), b = document.getElementById('mac-prev-bar');
+      if (!t || !b) return;
+      t.innerText = sc === null ? 'Sem score' : 'Score ' + sc + ' · ' + rotuloMac(sc);
+      b.style.width = (sc === null ? 0 : sc) + '%'; b.className = classeMac(sc);
+    }
+    function dicaMac(c, sc) {
+      if (sc === null) return 'Avalie este cliente para ver a prioridade.';
+      var m = c.mac;
+      if (sc >= 70) return 'Priorize agora: ligue ou chame no WhatsApp ainda hoje.';
+      if (m.a <= 2 && m.i >= 3) return 'Quer comprar, mas falta crédito: simule o financiamento na calculadora.';
+      if (m.e <= 2) return 'Pouco engajado: envie algo útil (opções ou simulação) para reaquecer.';
+      if (m.u <= 2) return 'Sem pressa: mantenha contato leve e agende follow-up.';
+      return 'Continue nutrindo com informações e novas opções.';
+    }
+    function renderizarMac3() {
+      var box = document.getElementById('mac-ranking'); if (!box) return;
+      var abertos = lerClientes().filter(function(c) { return c.fase !== 'fechado' && c.fase !== 'perdido'; });
+      var com = abertos.filter(function(c) { return calcularMac(c.mac) !== null; }).sort(function(a, b) { return calcularMac(b.mac) - calcularMac(a.mac); });
+      var sem = abertos.filter(function(c) { return calcularMac(c.mac) === null; });
+      var n = { quente: 0, morno: 0, frio: 0 };
+      com.forEach(function(c) { n[classeMac(calcularMac(c.mac))]++; });
+      document.getElementById('mac-n-quente').innerText = n.quente; document.getElementById('mac-n-morno').innerText = n.morno; document.getElementById('mac-n-frio').innerText = n.frio;
+      if (!abertos.length) { box.innerHTML = '<p class="card-desc" style="margin:0;">Cadastre clientes na aba Lista para ver o ranking de prioridade.</p>'; return; }
+      box.innerHTML = '';
+      com.concat(sem).forEach(function(c, idx) {
+        var sc = calcularMac(c.mac), cls = classeMac(sc), el = document.createElement('div');
+        el.className = 'mac-item';
+        var pil = '';
+        if (sc !== null) pil = '<div class="mac-pilares">' + ['i', 'a', 'u', 'e'].map(function(k) { return '<div class="mac-pilar">' + MAC_ROTULOS[k] + ' · ' + c.mac[k] + '/4<div class="mac-bar"><i class="' + cls + '" style="width:' + (c.mac[k] * 25) + '%"></i></div></div>'; }).join('') + '</div>';
+        el.innerHTML = '<div class="mac-item-top"><span class="mac-pos">' + (sc === null ? '–' : (idx + 1)) + '</span><strong>' + escapeHtml(c.nome) + '</strong>' +
+          (sc === null ? '' : '<span class="mac-score-num">' + sc + '</span>') + badgeMac(c) + '</div>' + pil +
+          '<div class="mac-dica">' + dicaMac(c, sc) + '</div>' +
+          '<div class="cli-acoes">' + (c.fone ? '<button type="button" data-a="wa" style="background:#22c55e;color:#020617;">💬 WhatsApp</button>' : '') + '<button type="button" data-a="av">' + (sc === null ? '🎯 Avaliar' : '✏️ Reavaliar') + '</button></div>';
+        var wa = el.querySelector('[data-a="wa"]');
+        if (wa) wa.onclick = function() { window.open('https://wa.me/55' + (c.fone || '').replace(/\D/g, ''), '_blank'); registrarContato(c.id); };
+        el.querySelector('[data-a="av"]').onclick = function() { abrirEdicaoCliente(c.id, true); };
+        box.appendChild(el);
+      });
+    }
+
+    /* ===== EDIÇÃO E PAINÉIS ===== */
+    function mostrarPainelClientes(p) {
+      ['lista', 'mac3', 'follow'].forEach(function(k) {
+        var painel = document.getElementById('cli-painel-' + k), aba = document.getElementById('cli-aba-' + k);
+        if (painel) painel.className = (k === p) ? '' : 'hidden';
+        if (aba) aba.className = (k === p) ? 'pill-btn active' : 'pill-btn';
+      });
+      window.scrollTo(0, 0);
+    }
+    function abrirEdicaoCliente(id, irParaMac) {
+      var c = lerClientes().filter(function(x) { return x.id === id; })[0]; if (!c) return;
+      mostrarPainelClientes('lista');
+      cliEditId = c.id;
+      document.getElementById('cli-nome').value = c.nome; document.getElementById('cli-fone').value = c.fone || '';
+      document.getElementById('cli-obs').value = c.obs || ''; document.getElementById('cli-fase').value = c.fase || 'novo';
+      document.getElementById('cli-data').value = c.data || '';
+      var m = c.mac || {};
+      ['i', 'a', 'u', 'e'].forEach(function(k) { document.getElementById('mac-' + k).value = m[k] || ''; });
+      atualizarPreviewMac();
+      document.getElementById('cli-btn-cancelar').className = 'btn-action btn-secondary';
+      document.getElementById('cli-form-titulo').innerText = '✏️ Editando cliente';
+      document.getElementById('cli-form-box').open = true;
+      if (irParaMac) { var mb = document.getElementById('mac-i'); if (mb) mb.scrollIntoView({ block: 'center' }); } else window.scrollTo(0, 0);
+    }
+
+    /* ===== FOLLOW-UP INTELIGENTE ===== */
+    var FU_CADENCIA = [2, 3, 5, 7, 15];
+    var fuVariante = {};
+    function limiteSemRetorno() { return parseInt(localStorage.getItem('imobflow_dias_sem_retorno'), 10) || 3; }
+    function salvarLimiteFollowup(v) { localStorage.setItem('imobflow_dias_sem_retorno', v); renderizarFollowup(); atualizarBadgeFollowup(); }
+    function diasEntre(iso) {
+      if (!iso) return 0;
+      var a = new Date(iso + 'T00:00:00'), b = new Date(dataISO(0) + 'T00:00:00');
+      return Math.max(0, Math.round((b - a) / 86400000));
+    }
+    function dataBaseContato(c) {
+      if (c.ultimoContato) return c.ultimoContato;
+      if (c.criadoEm) return c.criadoEm;
+      var ts = parseInt((c.id || '').replace(/\D/g, ''), 10);
+      if (ts > 1e12) { var d = new Date(ts); return d.getFullYear() + '-' + p2(d.getMonth() + 1) + '-' + p2(d.getDate()); }
+      return dataISO(0);
+    }
+    function precisaFollowup(c) {
+      if (c.fase === 'fechado' || c.fase === 'perdido') return false;
+      var hoje = dataISO(0);
+      return (c.data && c.data <= hoje) || diasEntre(dataBaseContato(c)) >= limiteSemRetorno();
+    }
+    function listaFollowup() {
+      return lerClientes().filter(precisaFollowup).sort(function(a, b) {
+        var sa = calcularMac(a.mac), sb = calcularMac(b.mac);
+        return (sb === null ? -1 : sb) - (sa === null ? -1 : sa) || diasEntre(dataBaseContato(b)) - diasEntre(dataBaseContato(a));
+      });
+    }
+    function atualizarBadgeFollowup() {
+      var n = listaFollowup().length;
+      var bd = document.getElementById('nav-clientes-badge'); if (bd) { bd.innerText = n > 9 ? '9+' : n; bd.className = n ? 'nav-badge' : 'nav-badge hidden'; }
+      var ct = document.getElementById('cli-fu-count'); if (ct) ct.innerText = n ? '(' + n + ')' : '';
+      return n;
+    }
+    function mensagemSugerida(c) {
+      var primeiro = (c.nome || '').trim().split(/\s+/)[0] || 'tudo bem';
+      var eu = localStorage.getItem('imobflow_user_name') || '';
+      var ass = localStorage.getItem('imobflow_signature') || '';
+      var tent = c.tentativas || 0, v = fuVariante[c.id] || 0;
+      var obs = c.obs ? ' (' + c.obs.replace(/[.!?]+$/, '') + ')' : '';
+      var T = {
+        novo: [
+          'Oi, ' + primeiro + '! Tudo bem?' + (eu ? ' Aqui é ' + eu + '.' : '') + ' Vi que você procura um imóvel' + obs + '. Posso te mandar algumas opções que combinam com o que você busca?',
+          primeiro + ', separei alguns imóveis que podem te interessar. Prefere que eu envie por aqui mesmo?'
+        ],
+        conversa: [
+          'Oi, ' + primeiro + '! Passando para saber se você conseguiu pensar sobre o que conversamos' + obs + '. Posso te enviar novas opções ou uma simulação atualizada?',
+          primeiro + ', surgiu uma condição que pode caber no seu orçamento. Posso te explicar rapidinho?'
+        ],
+        visita: [
+          'Oi, ' + primeiro + '! Só confirmando nossa visita. Qual horário fica melhor para você?',
+          primeiro + ', quer que eu reserve um novo horário para você conhecer o imóvel? Tenho disponibilidade nesta semana.'
+        ],
+        proposta: [
+          'Oi, ' + primeiro + '! Conseguiu analisar a proposta? Se quiser, ajusto algum ponto para ficarmos alinhados.',
+          primeiro + ', as condições da proposta podem mudar em breve. Vamos conversar hoje para garantir?'
+        ]
+      };
+      var lista = T[c.fase] || T.conversa, txt;
+      if (tent >= 4 && !v) txt = primeiro + ', não quero ser insistente. Ainda faz sentido buscar o imóvel? Se preferir pausar, sem problema, fico à disposição quando quiser retomar.';
+      else txt = lista[(tent + v) % lista.length];
+      return txt + (ass ? '\n\n' + ass : '');
+    }
+    function registrarContato(id, naoRenderizar) {
+      var lista = lerClientes(), prox = '';
+      lista = lista.map(function(c) {
+        if (c.id !== id) return c;
+        var t = (c.tentativas || 0) + 1;
+        c.tentativas = t; c.ultimoContato = dataISO(0);
+        c.data = dataISO(FU_CADENCIA[Math.min(t - 1, FU_CADENCIA.length - 1)]);
+        prox = c.data;
+        return c;
+      });
+      gravarClientes(lista);
+      if (!naoRenderizar) renderizarClientes();
+      return prox;
+    }
+    function lembreteGoogleAgenda(c) {
+      var d = (c.data || dataISO(1)).replace(/-/g, '');
+      var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent('Follow-up: ' + c.nome) +
+        '&dates=' + d + 'T090000/' + d + 'T093000&details=' + encodeURIComponent('Retomar contato com ' + c.nome + (c.obs ? ' - ' + c.obs : '') + ' (' + (CLI_FASES[c.fase] || '') + ')');
+      window.open(url, '_blank');
+    }
+    function renderizarFollowup() {
+      var box = document.getElementById('fu-lista'); if (!box) return;
+      var sel = document.getElementById('fu-limite'); if (sel) sel.value = String(limiteSemRetorno());
+      var lista = listaFollowup();
+      atualizarBadgeFollowup();
+      var pill = document.getElementById('fu-pill'); if (pill) pill.innerText = lista.length;
+      if (!lista.length) { box.innerHTML = '<div class="fu-vazio">✅ Tudo em dia! Nenhum cliente sem retorno no momento.</div>'; return; }
+      var focado = document.activeElement && document.activeElement.className === 'fu-msg';
+      if (focado) return;
+      box.innerHTML = '';
+      lista.forEach(function(c) {
+        var dias = diasEntre(dataBaseContato(c)), crit = dias >= limiteSemRetorno() * 2;
+        var el = document.createElement('div');
+        el.className = 'fu-item' + (crit ? ' critico' : '');
+        var dm = c.data ? c.data.split('-').reverse().slice(0, 2).join('/') : '';
+        el.innerHTML = '<div class="cli-top"><strong>' + escapeHtml(c.nome) + '</strong>' + badgeMac(c) + '</div>' +
+          '<div class="fu-meta">' + (crit ? '⚠️ ' : '⏳ ') + (dias === 0 ? 'Contato hoje' : dias + (dias === 1 ? ' dia' : ' dias') + ' sem contato') + ' · ' + escapeHtml(CLI_FASES[c.fase] || c.fase) + ' · tentativa ' + ((c.tentativas || 0) + 1) + '</div>' +
+          '<textarea class="fu-msg" data-a="txt">' + escapeHtml(mensagemSugerida(c)) + '</textarea>' +
+          '<div class="fu-acoes">' +
+            (c.fone ? '<button type="button" class="wa" data-a="wa">💬 Enviar no WhatsApp</button>' : '') +
+            '<button type="button" data-a="copy">📋 Copiar</button>' +
+            '<button type="button" data-a="outra">🔄 Outra sugestão</button>' +
+            '<button type="button" data-a="ok">✅ Já falei</button>' +
+            '<button type="button" data-a="ag">📅 Google Agenda</button>' +
+          '</div>' +
+          '<div class="fu-prox">Ao registrar o contato, o próximo lembrete é agendado automaticamente' + (dm ? ' (atual: ' + dm + ')' : '') + '.</div>';
+        var txt = el.querySelector('[data-a="txt"]');
+        var wa = el.querySelector('[data-a="wa"]');
+        if (wa) wa.onclick = function() {
+          window.open('https://wa.me/55' + (c.fone || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(txt.value), '_blank');
+          var p = registrarContato(c.id); mostrarToast('Contato registrado! Próximo lembrete: ' + p.split('-').reverse().slice(0, 2).join('/'));
+        };
+        el.querySelector('[data-a="copy"]').onclick = function() { copiarTextoSeguro(txt.value, 'Mensagem copiada!'); };
+        el.querySelector('[data-a="outra"]').onclick = function() { fuVariante[c.id] = (fuVariante[c.id] || 0) + 1; renderizarFollowup(); };
+        el.querySelector('[data-a="ok"]').onclick = function() { var p = registrarContato(c.id); mostrarToast('Registrado! Próximo lembrete: ' + p.split('-').reverse().slice(0, 2).join('/')); };
+        el.querySelector('[data-a="ag"]').onclick = function() { lembreteGoogleAgenda(c); };
+        box.appendChild(el);
       });
     }
 
@@ -1465,7 +1858,7 @@
         claro: 'Claro (Ativo)',
         laranja: 'Laranja (Ativo)',
         rosaclaro: 'Rosa Claro (Ativo)',
-        rosa: 'Rosa (Ativo)', amarelo: 'Amarelo (Ativo)',
+        rosa: 'Rosa (Ativo)', amarelo: 'Amarelo Claro (Ativo)',
         verde: 'Verde (Ativo)',
         cinza: 'Cinza (Ativo)'
       };
@@ -2598,7 +2991,7 @@ function usarValorCalculadoraRadar() {
       document.body.setAttribute('data-theme', temaSalvo);
       var statusEl = document.getElementById('theme-status-text');
       if (statusEl) {
-        var rotulos = { escuro: 'Escuro (Ativo)', claro: 'Claro (Ativo)', laranja: 'Laranja (Ativo)', rosaclaro: 'Rosa Claro (Ativo)', rosa: 'Rosa (Ativo)', amarelo: 'Amarelo (Ativo)', verde: 'Verde (Ativo)', cinza: 'Cinza (Ativo)' };
+        var rotulos = { escuro: 'Escuro (Ativo)', claro: 'Claro (Ativo)', laranja: 'Laranja (Ativo)', rosaclaro: 'Rosa Claro (Ativo)', rosa: 'Rosa (Ativo)', amarelo: 'Amarelo Claro (Ativo)', verde: 'Verde (Ativo)', cinza: 'Cinza (Ativo)' };
         statusEl.innerText = rotulos[temaSalvo] || 'Personalizado';
       }
 
@@ -2650,6 +3043,7 @@ function usarValorCalculadoraRadar() {
 
       renderizarClientes();
       carregarAjustesExtras();
+      setTimeout(function() { var n = atualizarBadgeFollowup(); if (n) mostrarToast('🔔 ' + n + (n === 1 ? ' cliente precisa' : ' clientes precisam') + ' de follow-up'); }, 900);
 
       atualizarVitrineCard();
 
@@ -2667,6 +3061,353 @@ function usarValorCalculadoraRadar() {
         try { aplicarModoCliente(JSON.parse(decodeURIComponent(escape(atob(vitrinePayload))))); } catch (e) {}
       }
     };
+
+    /* ===== MAC3Docs: juntar documentos em PDF + ficha cadastral ===== */
+    var DOCS_CATS = [['ident','Identidade (RG/CNH)'],['cpf','CPF'],['civil','Estado civil (certidão)'],['resid','Comprovante de residência'],['renda','Comprovante de renda'],['ctps','Carteira de trabalho'],['ir','Imposto de renda'],['fgts','Extrato FGTS'],['imovel','Imóvel (matrícula/IPTU)'],['outros','Outros']];
+    var DOCS_BASICOS = [['ident','Identidade'],['cpf','CPF'],['civil','Est. civil'],['resid','Residência'],['renda','Renda']];
+    var docsItens = [], docsSeq = 0, docsDrag = null, docsBlob = null, docsWorker = null;
+    if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    function docsEsc(s) { return String(s).replace(/[&<>"]/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+    function docsCatIdx(c) { for (var i = 0; i < DOCS_CATS.length; i++) if (DOCS_CATS[i][0] === c) return i; return 99; }
+    function docsAdivinhar(n) {
+      n = n.toLowerCase();
+      var r = [['ctps',/ctps|carteira.?de.?trab/],['fgts',/fgts/],['ir',/irpf|imposto|declara/],['cpf',/cpf/],['ident',/\brg\b|cnh|identidade|habilita/],['civil',/certid|casamento|nascimento|uni[aã]o/],['resid',/resid|endere|luz|[aá]gua|energia|conta/],['renda',/holerite|contracheque|renda|extrato|pro.?labore|salario/],['imovel',/matr[ií]cula|iptu|im[oó]vel/]];
+      for (var i = 0; i < r.length; i++) if (r[i][1].test(n)) return r[i][0];
+      return 'outros';
+    }
+
+    function docsSub(s) {
+      document.getElementById('docs-pdf').classList.toggle('hidden', s !== 'pdf');
+      document.getElementById('docs-ficha').classList.toggle('hidden', s !== 'ficha');
+      document.getElementById('docs-sub-pdf').classList.toggle('active', s === 'pdf');
+      document.getElementById('docs-sub-ficha').classList.toggle('active', s === 'ficha');
+      if (s === 'ficha') docsRenderFicha();
+    }
+
+    /* ---- leitura de arquivos ---- */
+    function docsImg(file) {
+      return new Promise(function(ok, no) {
+        var u = URL.createObjectURL(file), i = new Image();
+        i.onload = function() { ok({ img: i, url: u }); };
+        i.onerror = function() { URL.revokeObjectURL(u); no(); };
+        i.src = u;
+      });
+    }
+    async function docsPdfDoc(file) {
+      var buf = await file.arrayBuffer();
+      return pdfjsLib.getDocument({ data: new Uint8Array(buf) }).promise;
+    }
+    async function docsPdfPagina(pdf, n, scale) {
+      var p = await pdf.getPage(n), v = p.getViewport({ scale: scale }), c = document.createElement('canvas');
+      c.width = v.width; c.height = v.height;
+      var ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+      await p.render({ canvasContext: ctx, viewport: v }).promise;
+      return c;
+    }
+
+    async function docsAdd(files) {
+      if (!files || !files.length) return;
+      if (!window.pdfjsLib || !window.PDFLib) { mostrarToast('Bibliotecas ainda carregando. Verifique a internet e tente de novo.'); return; }
+      mostrarToast('Lendo ' + files.length + ' arquivo(s)…');
+      for (var k = 0; k < files.length; k++) {
+        var f = files[k], ehPdf = f.type === 'application/pdf' || /\.pdf$/i.test(f.name);
+        try {
+          var it = { id: ++docsSeq, file: f, name: f.name, cat: docsAdivinhar(f.name), rot: 0, kind: ehPdf ? 'pdf' : 'img', pages: 1, thumb: '' };
+          if (ehPdf) {
+            var pdf = await docsPdfDoc(f); it.pages = pdf.numPages;
+            it.thumb = (await docsPdfPagina(pdf, 1, 0.35)).toDataURL('image/jpeg', 0.6);
+          } else {
+            var r = await docsImg(f); it.thumb = r.url;
+          }
+          docsItens.push(it);
+        } catch (e) {
+          mostrarToast('Não consegui abrir "' + f.name + '" (PDF com senha ou formato não suportado, como HEIC fora do iPhone).');
+        }
+      }
+      docsOrdenar(false); docsRender();
+    }
+
+    /* ---- lista / ordem ---- */
+    function docsOrdenar(avisar) {
+      docsItens = docsItens.map(function(d, i) { return { d: d, i: i }; })
+        .sort(function(a, b) { return docsCatIdx(a.d.cat) - docsCatIdx(b.d.cat) || a.i - b.i; })
+        .map(function(x) { return x.d; });
+      docsRender();
+      if (avisar) mostrarToast('Ordenado pela lista do banco.');
+    }
+    function docsMover(i, dir) {
+      var j = i + dir; if (j < 0 || j >= docsItens.length) return;
+      var t = docsItens[i]; docsItens[i] = docsItens[j]; docsItens[j] = t; docsRender();
+    }
+    function docsSoltar(i) {
+      if (docsDrag === null || docsDrag === i) return;
+      var it = docsItens.splice(docsDrag, 1)[0]; docsItens.splice(i, 0, it); docsDrag = null; docsRender();
+    }
+    function docsCat(i, v) { docsItens[i].cat = v; docsOrdenar(false); }
+    function docsGirar(i) { docsItens[i].rot = (docsItens[i].rot + 90) % 360; docsRender(); }
+    function docsRemover(i) { docsItens.splice(i, 1); docsRender(); }
+
+    function docsRender() {
+      var el = document.getElementById('docs-lista'); if (!el) return;
+      var tem = {}; docsItens.forEach(function(d) { tem[d.cat] = true; });
+      document.getElementById('docs-chips').innerHTML = DOCS_BASICOS.map(function(c) {
+        return '<span class="docs-chip' + (tem[c[0]] ? ' ok' : '') + '">' + (tem[c[0]] ? '✅ ' : '⬜ ') + c[1] + '</span>';
+      }).join('');
+      if (!docsItens.length) { el.innerHTML = '<div class="fu-vazio">Nenhum documento ainda.</div>'; }
+      else el.innerHTML = docsItens.map(function(d, i) {
+        var ops = DOCS_CATS.map(function(c) { return '<option value="' + c[0] + '"' + (c[0] === d.cat ? ' selected' : '') + '>' + c[1] + '</option>'; }).join('');
+        return '<div class="docs-item" draggable="true" ondragstart="docsDrag=' + i + '" ondragover="event.preventDefault()" ondrop="docsSoltar(' + i + ')">' +
+          '<img src="' + d.thumb + '" style="transform:rotate(' + d.rot + 'deg)" alt="">' +
+          '<div class="docs-info"><b>' + (i + 1) + '. ' + docsEsc(d.name) + '</b><span class="hint" style="margin:0">' + (d.kind === 'pdf' ? 'PDF · ' + d.pages + ' pág.' : 'Imagem') + '</span>' +
+          '<select onchange="docsCat(' + i + ', this.value)">' + ops + '</select></div>' +
+          '<div class="docs-btns"><button type="button" onclick="docsMover(' + i + ',-1)">▲</button><button type="button" onclick="docsGirar(' + i + ')">↻</button><button type="button" onclick="docsMover(' + i + ',1)">▼</button><button type="button" onclick="docsRemover(' + i + ')">✕</button></div></div>';
+      }).join('');
+      var inf = document.getElementById('docs-ficha-info');
+      if (inf) inf.innerText = docsItens.length + ' documento(s) carregado(s)';
+      docsBlob = null; var r = document.getElementById('docs-resultado'); if (r) r.classList.add('hidden');
+    }
+
+    function docsPreview() {
+      if (!docsItens.length) { mostrarToast('Adicione documentos primeiro.'); return; }
+      var tot = docsItens.reduce(function(s, d) { return s + d.pages; }, 0);
+      var ov = document.getElementById('docs-prev');
+      ov.innerHTML = '<div style="max-width:700px;margin:0 auto"><div style="display:flex;justify-content:space-between;align-items:center;color:#fff;margin-bottom:12px"><strong>Ordem final · ' + tot + ' página(s)</strong><button type="button" class="modal-close" style="color:#fff;font-size:20px" onclick="document.getElementById(\'docs-prev\').style.display=\'none\'">✕</button></div>' +
+        '<div class="docs-grid">' + docsItens.map(function(d, i) {
+          var cn = DOCS_CATS[docsCatIdx(d.cat)][1];
+          return '<div class="docs-pg"><img src="' + d.thumb + '" style="transform:rotate(' + d.rot + 'deg)" alt=""><b>' + (i + 1) + '</b> · ' + docsEsc(cn) + '<br><span style="color:var(--text-muted)">' + (d.kind === 'pdf' ? d.pages + ' pág.' : '1 pág.') + '</span></div>';
+        }).join('') + '</div>' +
+        '<button type="button" class="btn-action btn-emerald" onclick="document.getElementById(\'docs-prev\').style.display=\'none\'; docsGerar()">📄 Está certo, gerar PDF</button></div>';
+      ov.style.display = 'block';
+    }
+
+    /* ---- geração do PDF ---- */
+    async function docsJpeg(d, max, q) {
+      var r = await docsImg(d.file), w = r.img.naturalWidth, h = r.img.naturalHeight, s = Math.min(1, max / Math.max(w, h));
+      var gir = d.rot % 180 !== 0, c = document.createElement('canvas');
+      c.width = Math.round((gir ? h : w) * s); c.height = Math.round((gir ? w : h) * s);
+      var ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+      ctx.translate(c.width / 2, c.height / 2); ctx.rotate(d.rot * Math.PI / 180);
+      ctx.drawImage(r.img, -w * s / 2, -h * s / 2, w * s, h * s);
+      URL.revokeObjectURL(r.url);
+      return docsCanvasJpeg(c, q);
+    }
+    function docsCanvasJpeg(c, q) {
+      return new Promise(function(ok) {
+        c.toBlob(function(b) { b.arrayBuffer().then(function(buf) { ok({ bytes: new Uint8Array(buf), w: c.width, h: c.height }); }); }, 'image/jpeg', q);
+      });
+    }
+    async function docsPaginaImg(out, j) {
+      var img = await out.embedJpg(j.bytes), land = j.w > j.h, PW = land ? 842 : 595, PH = land ? 595 : 842, m = 20;
+      var s = Math.min((PW - 2 * m) / j.w, (PH - 2 * m) / j.h), pg = out.addPage([PW, PH]);
+      pg.drawImage(img, { x: (PW - j.w * s) / 2, y: (PH - j.h * s) / 2, width: j.w * s, height: j.h * s });
+    }
+
+    async function docsGerar() {
+      if (!docsItens.length) { mostrarToast('Adicione documentos primeiro.'); return; }
+      var btn = document.getElementById('docs-btn-gerar'), nivel = document.getElementById('docs-qual').value;
+      var cfg = { orig: [3000, 0.92, 2], bal: [1800, 0.78, 1.5], max: [1300, 0.6, 1.1] }[nivel];
+      var reduz = document.getElementById('docs-red-pdf').checked && nivel !== 'orig';
+      btn.disabled = true;
+      try {
+        var out = await PDFLib.PDFDocument.create();
+        for (var i = 0; i < docsItens.length; i++) {
+          var d = docsItens[i]; btn.innerText = 'Gerando ' + (i + 1) + '/' + docsItens.length + '…';
+          if (d.kind === 'img') await docsPaginaImg(out, await docsJpeg(d, cfg[0], cfg[1]));
+          else if (reduz) {
+            var pdf = await docsPdfDoc(d.file);
+            for (var p = 1; p <= pdf.numPages; p++) {
+              var c = await docsPdfPagina(pdf, p, cfg[2]);
+              if (d.rot) { var c2 = document.createElement('canvas'), g = d.rot % 180 !== 0; c2.width = g ? c.height : c.width; c2.height = g ? c.width : c.height; var x = c2.getContext('2d'); x.translate(c2.width / 2, c2.height / 2); x.rotate(d.rot * Math.PI / 180); x.drawImage(c, -c.width / 2, -c.height / 2); c = c2; }
+              await docsPaginaImg(out, await docsCanvasJpeg(c, cfg[1]));
+            }
+          } else {
+            var src = await PDFLib.PDFDocument.load(await d.file.arrayBuffer(), { ignoreEncryption: true });
+            var pgs = await out.copyPages(src, src.getPageIndices());
+            pgs.forEach(function(pg) { if (d.rot) pg.setRotation(PDFLib.degrees((pg.getRotation().angle + d.rot) % 360)); out.addPage(pg); });
+          }
+        }
+        docsBlob = new Blob([await out.save()], { type: 'application/pdf' });
+        var mb = docsBlob.size / 1048576;
+        document.getElementById('docs-res-txt').innerHTML = '✅ PDF pronto: <strong>' + out.getPageCount() + ' páginas · ' + mb.toFixed(1).replace('.', ',') + ' MB</strong>' + (mb > 10 ? '<br>⚠️ Acima de 10 MB. Se o portal recusar, gere de novo em “Menor tamanho”.' : '');
+        document.getElementById('docs-resultado').classList.remove('hidden');
+      } catch (e) {
+        mostrarToast('Erro ao gerar o PDF. Verifique se algum arquivo está corrompido.');
+      }
+      btn.disabled = false; btn.innerText = '📄 Gerar PDF único';
+    }
+    function docsNomeArquivo() {
+      var n = (document.getElementById('docs-nome').value || '').trim().replace(/[^\w\u00C0-\u00FF ]+/g, '').replace(/\s+/g, '_');
+      return 'MAC3Docs_' + (n || 'documentos') + '.pdf';
+    }
+    function docsBaixar() {
+      if (!docsBlob) return;
+      var u = URL.createObjectURL(docsBlob), a = document.createElement('a');
+      a.href = u; a.download = docsNomeArquivo(); a.style.display = 'none'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function() { URL.revokeObjectURL(u); }, 30000);
+    }
+    function docsCompartilhar() {
+      if (!docsBlob) return;
+      var f = new File([docsBlob], docsNomeArquivo(), { type: 'application/pdf' });
+      if (navigator.canShare && navigator.canShare({ files: [f] })) navigator.share({ files: [f], title: 'Documentos' }).catch(function() {});
+      else { docsBaixar(); mostrarToast('Este navegador não compartilha arquivos: o PDF foi baixado.'); }
+    }
+    (function() {
+      var z = document.getElementById('docs-drop'); if (!z) return;
+      z.addEventListener('dragover', function(e) { e.preventDefault(); z.classList.add('over'); });
+      z.addEventListener('dragleave', function() { z.classList.remove('over'); });
+      z.addEventListener('drop', function(e) { e.preventDefault(); z.classList.remove('over'); docsAdd(e.dataTransfer.files); });
+    })();
+
+    /* ---- ficha cadastral ---- */
+    var DOCS_CAMPOS = [
+      ['sec','Comprador'],['nome','Nome completo','txt',1],['cpf','CPF','cpf'],['rg','RG','txt'],['nasc','Nascimento','data'],['idade','Idade','ro'],
+      ['civil','Estado civil','civil'],['prof','Profissão','txt'],['mae','Nome da mãe','txt',1],['pai','Nome do pai','txt',1],
+      ['tel','Telefone','tel'],['email','E-mail','txt'],['sec','Endereço'],['end','Logradouro e nº','txt',1],['cep','CEP','cep'],['cidade','Cidade/UF','txt'],
+      ['sec','Renda'],['renda','Renda bruta mensal (R$)','moeda'],['empresa','Empresa','txt'],
+      ['sec','Imóvel'],['mat','Matrícula nº','txt'],['insc','Inscrição imobiliária','txt']
+    ];
+    var DOCS_CIVIS = ['', 'Solteiro(a)', 'Casado(a)', 'União estável', 'Divorciado(a)', 'Viúvo(a)', 'Separado(a)'];
+    function docsRenderFicha() {
+      var el = document.getElementById('docs-form'); if (el.innerHTML) return;
+      var h = '<div class="docs-grid2">';
+      DOCS_CAMPOS.forEach(function(c) {
+        if (c[0] === 'sec') { h += '<div class="docs-sec span2">' + c[1] + '</div>'; return; }
+        var id = 'fc-' + c[0], cls = c[3] ? 'span2' : '', inp;
+        if (c[2] === 'civil') inp = '<select id="' + id + '">' + DOCS_CIVIS.map(function(o) { return '<option>' + o + '</option>'; }).join('') + '</select>';
+        else if (c[2] === 'ro') inp = '<input id="' + id + '" readonly>';
+        else {
+          var on = { cpf: "docsMasc(this,'cpf')", cep: "docsMasc(this,'cep')", data: "docsMasc(this,'data');docsIdade()", tel: 'aplicarMascaraTelefone(this)', moeda: 'aplicarMascaraMoeda(this)' }[c[2]] || '';
+          inp = '<input id="' + id + '" type="text"' + (c[2] !== 'txt' ? ' inputmode="numeric"' : '') + (on ? ' oninput="' + on + '"' : '') + '>';
+        }
+        h += '<div class="' + cls + '"><label>' + c[1] + '</label>' + inp + '</div>';
+      });
+      el.innerHTML = h + '</div>';
+    }
+    function docsMasc(el, t) {
+      var v = el.value.replace(/\D/g, '');
+      if (t === 'cpf') { v = v.slice(0, 11).replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2'); }
+      else if (t === 'cep') { v = v.slice(0, 8).replace(/(\d{5})(\d)/, '$1-$2'); }
+      else { v = v.slice(0, 8).replace(/(\d{2})(\d)/, '$1/$2').replace(/(\d{2})(\d)/, '$1/$2'); }
+      el.value = v;
+    }
+    function docsIdade() {
+      var m = (document.getElementById('fc-nasc').value || '').match(/^(\d{2})\/(\d{2})\/(\d{4})$/), o = document.getElementById('fc-idade');
+      if (!m) { o.value = ''; return; }
+      var h = new Date(), a = h.getFullYear() - +m[3];
+      if (h.getMonth() + 1 < +m[2] || (h.getMonth() + 1 === +m[2] && h.getDate() < +m[1])) a--;
+      o.value = (a >= 0 && a < 120) ? a + ' anos' : '';
+    }
+    function docsFichaLimpar() {
+      document.querySelectorAll('#docs-form input, #docs-form select').forEach(function(e) { e.value = ''; });
+      mostrarToast('Ficha limpa.');
+    }
+    function docsFichaTexto() {
+      function v(k) { var e = document.getElementById('fc-' + k); return e ? e.value.trim() : ''; }
+      var L = [['👤 *Nome:* ', v('nome')], ['🪪 *CPF:* ', v('cpf')], ['🆔 *RG:* ', v('rg')], ['🎂 *Nascimento:* ', v('nasc') + (v('idade') ? ' (' + v('idade') + ')' : '')],
+        ['💍 *Estado civil:* ', v('civil')], ['💼 *Profissão:* ', v('prof')], ['👩 *Mãe:* ', v('mae')], ['👨 *Pai:* ', v('pai')], ['📱 *Telefone:* ', v('tel')], ['✉️ *E-mail:* ', v('email')],
+        ['🏠 *Endereço:* ', [v('end'), v('cidade'), v('cep') && 'CEP ' + v('cep')].filter(Boolean).join(' - ')],
+        ['💰 *Renda bruta:* ', v('renda') && 'R$ ' + v('renda')], ['🏢 *Empresa:* ', v('empresa')], ['📑 *Matrícula:* ', v('mat')], ['🏷️ *Inscrição:* ', v('insc')]];
+      return '📋 *FICHA CADASTRAL*\n\n' + L.filter(function(x) { return x[1]; }).map(function(x) { return x[0] + x[1]; }).join('\n');
+    }
+    function docsFichaWhats() { window.open('https://wa.me/?text=' + encodeURIComponent(docsFichaTexto()), '_blank'); }
+
+    /* ---- OCR + extração ---- */
+    async function docsOcr() {
+      if (docsWorker) return docsWorker;
+      if (!window.Tesseract) await new Promise(function(ok, no) {
+        var s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js'; s.onload = ok; s.onerror = no; document.head.appendChild(s);
+      });
+      docsWorker = await Tesseract.createWorker('por');
+      return docsWorker;
+    }
+    async function docsTexto(d) {
+      var cv;
+      if (d.kind === 'pdf') {
+        var pdf = await docsPdfDoc(d.file), t = '';
+        for (var p = 1; p <= Math.min(pdf.numPages, 4); p++) {
+          var tc = await (await pdf.getPage(p)).getTextContent();
+          t += tc.items.map(function(i) { return i.str + (i.hasEOL ? '\n' : ' '); }).join('') + '\n';
+        }
+        if (t.replace(/\s/g, '').length > 80) return t;
+        cv = await docsPdfPagina(pdf, 1, 2.2);
+      } else {
+        var r = await docsImg(d.file), s = Math.min(1, 2200 / Math.max(r.img.naturalWidth, r.img.naturalHeight));
+        cv = document.createElement('canvas'); cv.width = r.img.naturalWidth * s; cv.height = r.img.naturalHeight * s;
+        var cx = cv.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height); cx.drawImage(r.img, 0, 0, cv.width, cv.height);
+        URL.revokeObjectURL(r.url);
+      }
+      return (await (await docsOcr()).recognize(cv)).data.text;
+    }
+    async function docsLerFicha() {
+      if (!docsItens.length) { mostrarToast('Adicione os documentos primeiro.'); return; }
+      var btn = document.getElementById('docs-btn-ler'), st = document.getElementById('docs-ocr-status'), blocos = [];
+      btn.disabled = true;
+      try {
+        for (var i = 0; i < docsItens.length; i++) {
+          btn.innerText = 'Lendo ' + (i + 1) + '/' + docsItens.length + '…';
+          st.innerText = i === 0 ? 'Na primeira vez baixa o leitor de texto em português (alguns MB). Aguarde.' : '';
+          blocos.push({ cat: docsItens[i].cat, txt: await docsTexto(docsItens[i]) });
+        }
+        var n = docsPreencher(docsExtrair(blocos));
+        st.innerText = n ? n + ' campo(s) preenchido(s). Confira tudo antes de enviar.' : 'Não consegui identificar dados. Tente fotos mais nítidas e retas.';
+      } catch (e) { st.innerText = 'Falha na leitura (precisa de internet na primeira vez).'; }
+      btn.disabled = false; btn.innerText = '🔍 Ler documentos e preencher';
+    }
+    function docsPreencher(o) {
+      var n = 0;
+      Object.keys(o).forEach(function(k) {
+        var e = document.getElementById('fc-' + k);
+        if (e && o[k] && !e.value) { e.value = o[k]; n++; }
+      });
+      docsIdade();
+      return n;
+    }
+    function docsCpfOk(s) {
+      var d = s.replace(/\D/g, ''); if (d.length !== 11 || /^(\d)\1+$/.test(d)) return false;
+      for (var t = 9; t < 11; t++) { var sm = 0; for (var i = 0; i < t; i++) sm += +d[i] * (t + 1 - i); if (((sm * 10) % 11) % 10 !== +d[t]) return false; }
+      return true;
+    }
+    function docsExtrair(blocos) {
+      var o = {}, todo = blocos.map(function(b) { return b.txt; }).join('\n').toUpperCase();
+      function txtCat(cs) { return blocos.filter(function(b) { return cs.indexOf(b.cat) >= 0; }).map(function(b) { return b.txt; }).join('\n').toUpperCase(); }
+      function linhas(t) { return t.split(/\n/).map(function(l) { return l.trim(); }).filter(Boolean); }
+      function nomeOk(l) { return l && /^[A-ZÀ-Ú' ]{6,60}$/.test(l) && l.indexOf(' ') > 0; }
+      function depois(L, re) {
+        for (var i = 0; i < L.length; i++) {
+          if (!re.test(L[i])) continue;
+          var m = L[i].match(/[:\-]\s*([A-ZÀ-Ú' ]{6,60})$/); if (m && nomeOk(m[1].trim())) return m[1].trim();
+          for (var j = i + 1; j <= i + 2 && j < L.length; j++) if (nomeOk(L[j])) return L[j];
+        }
+        return '';
+      }
+      var cp = todo.match(/\b\d{3}[.\s]?\d{3}[.\s]?\d{3}[-\s]?\d{2}\b/g) || [];
+      for (var i = 0; i < cp.length; i++) if (docsCpfOk(cp[i])) { var dg = cp[i].replace(/\D/g, ''); o.cpf = dg.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4'); break; }
+      var Lp = linhas(txtCat(['ident', 'cpf', 'civil', 'outros']) || todo);
+      o.nome = depois(Lp, /^\W*(?:\d+\s*)?NOME(?:\s*\/\s*NAME)?(?:\s+E\s+SOBRENOME)?\W*$|^\W*NOME\s*[:\-]/);
+      o.mae = depois(Lp, /M[ÃA]E/);
+      o.pai = depois(Lp, /^\W*(?:NOME DO )?PAI\b|FILIA[ÇC][ÃA]O.*PAI/);
+      if (!o.mae) { var fi = Lp.findIndex(function(l) { return /FILIA[ÇC][ÃA]O/.test(l); }); if (fi >= 0) { var ns = Lp.slice(fi + 1, fi + 5).filter(nomeOk); if (ns[0] && !o.pai) o.pai = ns[0]; if (ns[1]) o.mae = ns[1]; } }
+      var mr = todo.match(/(?:REGISTRO GERAL|IDENTIDADE|\bRG\b)[^\d\n]{0,20}(\d[\d.\-]{5,12}[\dX])/);
+      if (mr) o.rg = mr[1];
+      for (var j = 0; j < Lp.length; j++) {
+        if (/NASC/.test(Lp[j])) { var dm = (Lp[j] + ' ' + (Lp[j + 1] || '') + ' ' + (Lp[j + 2] || '')).match(/(\d{2})[\/.\-](\d{2})[\/.\-](\d{4})/); if (dm) { o.nasc = dm[1] + '/' + dm[2] + '/' + dm[3]; break; } }
+      }
+      var ec = todo.match(/\b(CASAD[OA]|SOLTEIR[OA]|DIVORCIAD[OA]|VI[ÚU]V[OA]|SEPARAD[OA]|UNI[ÃA]O EST[ÁA]VEL)\b/);
+      if (ec) o.civil = /CASAD/.test(ec[1]) ? 'Casado(a)' : /SOLT/.test(ec[1]) ? 'Solteiro(a)' : /DIVORC/.test(ec[1]) ? 'Divorciado(a)' : /VI[ÚU]V/.test(ec[1]) ? 'Viúvo(a)' : /SEPARAD/.test(ec[1]) ? 'Separado(a)' : 'União estável';
+      var em = todo.match(/[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}/); if (em) o.email = em[0].toLowerCase();
+      var re = txtCat(['resid']) || todo, Lr = linhas(re);
+      var cep = re.match(/\b\d{5}-?\d{3}\b/); if (cep) o.cep = cep[0].replace(/^(\d{5})-?(\d{3})$/, '$1-$2');
+      var ed = Lr.filter(function(l) { return /^(RUA|R\.|AV\.?|AVENIDA|ALAMEDA|TRAVESSA|TV\.|ESTRADA|RODOVIA)\s/.test(l); })[0]; if (ed) o.end = ed.slice(0, 80);
+      var ci = re.match(/([A-ZÀ-Ú ]{3,40})\s*[-\/,]\s*([A-Z]{2})\b(?=[^A-Z]|$)/); if (ci && cep) o.cidade = ci[1].trim() + '/' + ci[2];
+      var rt = txtCat(['renda']), rb = rt.match(/(?:TOTAL (?:DE )?(?:VENCIMENTOS|PROVENTOS)|SAL[ÁA]RIO BASE|BRUTO)[^\d]{0,40}(\d{1,3}(?:\.\d{3})*,\d{2})/);
+      if (rb) o.renda = rb[1];
+      var mt = txtCat(['imovel']).match(/MATR[ÍI]CULA\s*(?:N[ºO°.]*)?\s*[:\-]?\s*(\d[\d.]{2,9})/); if (mt) o.mat = mt[1];
+      var ins = txtCat(['imovel']).match(/INSCRI[ÇC][ÃA]O[^\d\n]{0,30}(\d[\d.\-\/]{5,24})/); if (ins) o.insc = ins[1];
+      var pf = txtCat(['ctps']).match(/CARGO[:\s]+([A-ZÀ-Ú ]{4,40})/); if (pf) o.prof = pf[1].trim();
+      return o;
+    }
+    docsRender();
   </script>
 </body>
 </html>
