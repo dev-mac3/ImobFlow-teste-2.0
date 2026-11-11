@@ -383,7 +383,7 @@
             <h2 class="card-title">⚡ Estudo de Financiamento</h2>
             <span class="pill" id="badge-tipo-linha">MCMV (Caixa)</span>
           </div>
-          <p class="card-desc">Cálculo oficial de aprovação e cotas parametrizadas Caixa.</p>
+          <p class="card-desc">Cálculo de aprovação e cotas parametrizadas Caixa.</p>
 
           <span class="selector-label">Tipo do Imóvel:</span>
           <div class="pill-group">
@@ -478,7 +478,7 @@
             </div>
           </div>
           <button type="button" onclick="copiarResumoWhatsApp()" class="btn-action btn-secondary">Copiar Resumo p/ WhatsApp</button>
-          <p class="disclaimer">Simulação estimada com regras de referência (nov/2026). Não inclui seguros MIP/DFI nem tarifa de administração. Taxas variam com relacionamento, renda e região. Aprovação sujeita à análise da Caixa.</p>
+          <p class="disclaimer">Simulação estimada com regras de referência (nov/2026). A prestação inclui estimativa de seguros MIP/DFI e tarifa de administração (R$ 25), que entram nos 30% da renda. Juros do MCMV calculados para não cotista do FGTS; cotista paga cerca de 0,5 p.p. a menos. Taxas variam com relacionamento, renda e região. Aprovação sujeita à análise da Caixa.</p>
         </div>
       </div>
     </section>
@@ -1627,12 +1627,14 @@
       var cotaMaxima = 0.80, jurosAnual = 11.49;
 
       if (modalidadeAtual === 'mcmv') {
-        // Faixa 1: 4,00-4,50% | Faixa 2: 4,75-5,50% | Faixa 3: 6,50-7,66% (referência, varia por renda/região)
-        if (renda <= 3200) jurosAnual = lerp(renda, 4.00, 4.50, 0, 3200);
-        else if (renda <= 5000) jurosAnual = lerp(renda, 4.75, 5.50, 3200, 5000);
-        else jurosAnual = lerp(renda, 6.50, 7.66, 5000, 9600);
+        // Juros nominais (Caixa/Min. das Cidades, vigentes desde 22/04/2026), não cotista, regiões CO/S/SE.
+        // Faixa 1 (até 3.200): ~4,75% a 5,25% | Faixa 2 (até 5.000): 5,50% a 7,00% | Faixa 3 (até 9.600): 8,16%
+        // Cotista FGTS (3+ anos) paga cerca de 0,5 p.p. a menos; N/NE têm taxas menores nas faixas 1 e 2.
+        if (renda <= 3200) jurosAnual = lerp(renda, 4.75, 5.25, 0, 3200);
+        else if (renda <= 5000) jurosAnual = lerp(renda, 5.50, 7.00, 3200, 5000);
+        else jurosAnual = 8.16;
         jurosAnual = Math.round(jurosAnual * 100) / 100;
-        cotaMaxima = (isNovoOrPlanta && sac) ? 0.90 : 0.80;
+        cotaMaxima = 0.80; // Faixas 1 a 3: financia até 80% do imóvel
       } else if (modalidadeAtual === 'faixa4') {
         jurosAnual = 10.00;
         cotaMaxima = isNovoOrPlanta ? (sac ? 0.90 : 0.80) : 0.60;
@@ -1644,18 +1646,23 @@
         cotaMaxima = sac ? 0.90 : 0.80;
       }
 
-      var margemMaxCaixa = renda * 0.30;
+      var margemMaxCaixa = renda * 0.30; // Caixa: prestação total até 30% da renda bruta familiar
       var tetoFinanceiro = valorImovel * cotaMaxima;
-      var taxaMensal = Math.pow(1 + (jurosAnual / 100), 1/12) - 1;
+      var taxaMensal = (jurosAnual / 100) / 12; // taxa nominal dividida por 12, como no contrato Caixa
 
-      var financPelaRenda = (amortizacaoAtual === 'sac') 
-        ? (margemMaxCaixa / ((1 / prazoMeses) + taxaMensal))
-        : margemMaxCaixa * (1 - Math.pow(1 + taxaMensal, -prazoMeses)) / taxaMensal;
+      // A prestação da Caixa = juros + amortização + seguro MIP + seguro DFI + tarifa de administração.
+      // Estimativas: tarifa R$ 25/mês; DFI ~0,005%/mês do imóvel; MIP ~0,018%/mês do financiado aos 30 anos, subindo com a idade.
+      var TARIFA_ADM = 25;
+      var dfiMensal = valorImovel * 0.00005;
+      var mipTaxa = Math.min(0.0007, 0.00018 + Math.max(0, idadeValida - 30) * (0.00035 / 30));
+      var fatorEncargo = (amortizacaoAtual === 'sac')
+        ? (1 / prazoMeses) + taxaMensal                                   // 1ª parcela SAC
+        : taxaMensal / (1 - Math.pow(1 + taxaMensal, -prazoMeses));       // parcela fixa PRICE
+
+      var financPelaRenda = Math.max(0, (margemMaxCaixa - TARIFA_ADM - dfiMensal) / (fatorEncargo + mipTaxa));
 
       var financAprovado = Math.min(financPelaRenda, tetoFinanceiro);
-      var parcelaCalculada = (amortizacaoAtual === 'sac')
-        ? (financAprovado / prazoMeses) + (financAprovado * taxaMensal)
-        : financAprovado * (taxaMensal / (1 - Math.pow(1 + taxaMensal, -prazoMeses)));
+      var parcelaCalculada = financAprovado * (fatorEncargo + mipTaxa) + dfiMensal + TARIFA_ADM;
 
       var cohaparElegivel = renda <= 4 * 1621; // até 4 salários mínimos
       cohaparAplicado = cohaparAtivo && cohaparElegivel;
@@ -2405,7 +2412,7 @@ function usarValorCalculadoraRadar() {
     /* BASE DE CONHECIMENTO DO COPILOTO IA */
     var baseConhecimentoCaixa = {
       regras_gerais: '📌 *Linhas Caixa (referência nov/2026):*\n\n' +
-                     '• *MCMV:* Faixa 1 até R$ 3.200 (4% a 4,5% a.a.), Faixa 2 até R$ 5.000 (4,75% a 5,5%), Faixa 3 até R$ 9.600 (6,5% a 7,66%). Financia até 90% (SAC) e 80% (Price) em imóvel novo/planta. Imóvel até ~R$ 400 mil (teto da Faixa 3; varia por região).\n\n' +
+                     '• *MCMV:* Faixa 1 até R$ 3.200 (4% a 5,25% a.a.), Faixa 2 até R$ 5.000 (4,75% a 7%), Faixa 3 até R$ 9.600 (7,66% cotista FGTS e 8,16% não cotista). Financia até 80% do imóvel, prazo até 420 meses, prestação (com seguros e tarifa) limitada a 30% da renda bruta. Imóvel até ~R$ 400 mil (teto da Faixa 3; varia por região).\n\n' +
                      '• *Classe Média (Faixa 4):* renda de R$ 9.600,01 a R$ 13.000, imóvel até R$ 600 mil, juros em torno de 10% a.a., com até 90% (SAC) e 80% (Price) em imóvel novo/planta\n\n' +
                      '• *Pró-Cotista FGTS:* 9,01% a.a., sem limite de renda e sem teto de imóvel. Novo/planta: até 80% (SAC) e 60% (Price).\n\n' +
                      '• *SBPE:* 11,49% a.a., até 90% (SAC, prazo até 420 meses) e 80% (Price, prazo até 360 meses). Parcela limitada a 30% da renda.\n\n' +
