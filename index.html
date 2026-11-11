@@ -851,6 +851,7 @@
         <button type="button" id="cli-aba-lista" class="pill-btn active" onclick="mostrarPainelClientes('lista')">👥 Lista</button>
         <button type="button" id="cli-aba-mac3" class="pill-btn" onclick="mostrarPainelClientes('mac3')">🎯 MAC3 Score</button>
         <button type="button" id="cli-aba-follow" class="pill-btn" onclick="mostrarPainelClientes('follow')">🔔 Follow-up <span id="cli-fu-count"></span></button>
+        <button type="button" id="cli-aba-com" class="pill-btn" onclick="mostrarPainelClientes('com')">💰 Comissões</button>
       </div>
 
       <div id="cli-painel-lista">
@@ -877,6 +878,10 @@
               <select id="cli-fase"><option value="novo">Novo contato</option><option value="conversa">Em conversa</option><option value="visita">Visita marcada</option><option value="proposta">Proposta enviada</option><option value="fechado">Fechado ✅</option><option value="perdido">Perdido</option></select>
             </div>
             <div class="form-group"><label>Falar de novo em</label><input type="date" id="cli-data"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Valor do imóvel (R$)</label><input type="text" id="cli-valor" inputmode="numeric" placeholder="Ex: 300.000,00" oninput="aplicarMascaraMoeda(this)"></div>
+            <div class="form-group"><label>Sua comissão (% do valor)</label><input type="number" id="cli-com" inputmode="decimal" step="0.1" min="0" max="10" placeholder="Ex: 2"></div>
           </div>
           <div class="mac-box">
             <h4>🎯 MAC3 Score</h4>
@@ -925,6 +930,23 @@
         </div>
       </div>
 
+      <!-- PAINEL PREVISÃO DE COMISSÕES -->
+      <div id="cli-painel-com" class="hidden">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">💰 Previsão de comissões</h2>
+            <span class="pill" id="com-pill">0</span>
+          </div>
+          <p class="card-desc">Usa o valor do imóvel e a comissão (%) de cada cliente. Sua comissão (%) é o que VOCÊ recebe da venda, informada em cada cliente. O previsto multiplica essa comissão pela chance de fechar da fase (Novo 5%, Conversa 15%, Visita 30%, Proposta 60%): são estimativas genéricas, não dados do seu funil.</p>
+          <div class="cli-resumo">
+            <div class="cli-box"><strong id="com-n-prev" style="color:#10b981;">R$ 0</strong><span>Previsto</span></div>
+            <div class="cli-box"><strong id="com-n-jogo">R$ 0</strong><span>Em negociação</span></div>
+            <div class="cli-box"><strong id="com-n-fech" style="color:#f59e0b;">R$ 0</strong><span>Fechado</span></div>
+          </div>
+          <div class="cli-lista" id="com-lista"></div>
+        </div>
+      </div>
+
       <!-- PAINEL FOLLOW-UP INTELIGENTE -->
       <div id="cli-painel-follow" class="hidden">
         <div class="card">
@@ -970,19 +992,19 @@
 
         <div style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-            <strong>Individual Semestral<span style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:20px; background:#10b981; color:#022c22; margin-left:6px; vertical-align:middle;">-17%</span></strong>
-            <span style="font-size:16px; font-weight:800; color:var(--text-main); white-space:nowrap;">R$ 297,00<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/6 meses</small></span>
+            <strong>Individual Semestral<span style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:20px; background:#10b981; color:#022c22; margin-left:6px; vertical-align:middle;">-25%</span></strong>
+            <span style="font-size:16px; font-weight:800; color:var(--text-main); white-space:nowrap;">R$ 269,55<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/6 meses</small></span>
           </div>
-          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a R$ 49,50/mês. Você economiza R$ 62 em relação ao mensal.</p>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a ~R$ 44,93/mês. Você economiza R$ 89,85 em relação ao mensal.</p>
           <button type="button" onclick="abrirCheckout('semestral')" class="btn-action btn-emerald" style="margin-top:10px;">Assinar Semestral</button>
         </div>
 
         <div style="background: rgba(37, 99, 235, 0.05); border: 2px solid var(--primary-color); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <strong style="color:var(--primary-color);">Individual Anual</strong>
-            <span style="font-size:16px; font-weight:800; color:var(--primary-color);">R$ 497,00<small style="font-size:10px; color:var(--text-muted);">/ano</small></span>
+            <span style="font-size:16px; font-weight:800; color:var(--primary-color);">R$ 481,60<small style="font-size:10px; color:var(--text-muted);">/ano</small></span>
           </div>
-          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Equivale a ~R$ 41,40/mês (Economia de 30%)</p>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Equivale a ~R$ 40,13/mês (Economia de 33%: R$ 237,20 em relação ao mensal)</p>
           <button type="button" onclick="abrirCheckout('anual')" class="btn-action btn-emerald" style="margin-top:10px;">Garantir Acesso Anual</button>
         </div>
 
@@ -997,11 +1019,20 @@
 
         <div style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 12px; padding: 14px; margin-top: 12px;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-            <strong style="color:#c084fc;">Imobiliárias Semestral<span style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:20px; background:#10b981; color:#022c22; margin-left:6px; vertical-align:middle;">-16%</span></strong>
-            <span style="font-size:16px; font-weight:800; color:#c084fc; white-space:nowrap;">R$ 4.997,00<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/6 meses</small></span>
+            <strong style="color:#c084fc;">Imobiliárias Trimestral<span style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:20px; background:#10b981; color:#022c22; margin-left:6px; vertical-align:middle;">-15%</span></strong>
+            <span style="font-size:16px; font-weight:800; color:#c084fc; white-space:nowrap;">R$ 2.542,35<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/3 meses</small></span>
           </div>
-          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a ~R$ 832,83/mês. Economia de R$ 985 em relação ao mensal.</p>
-          <button type="button" onclick="abrirCheckout('equipe_semestral')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Contratar Semestral</button>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a ~R$ 847,45/mês. Economia de R$ 448,65 em relação ao mensal.</p>
+          <button type="button" onclick="abrirCheckout('equipe_trimestral')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Contratar Trimestral</button>
+        </div>
+
+        <div style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 12px; padding: 14px; margin-top: 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <strong style="color:#c084fc;">Imobiliárias Anual<span style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:20px; background:#10b981; color:#022c22; margin-left:6px; vertical-align:middle;">-33%</span></strong>
+            <span style="font-size:16px; font-weight:800; color:#c084fc; white-space:nowrap;">R$ 8.015,88<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/ano</small></span>
+          </div>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a ~R$ 667,99/mês. Economia de R$ 3.948,12 em relação ao mensal.</p>
+          <button type="button" onclick="abrirCheckout('equipe_anual')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Contratar Anual</button>
         </div>
       </div>
     <p style="text-align:center; font-size:11px; color:var(--text-muted); margin-top:14px;">
@@ -1187,7 +1218,7 @@
       <div class="ia-msg bot">
         Olá! Sou seu assistente no ImobFlow.
 
-        Posso ajudar com regras de crédito da Caixa, Cohapar Paraná, uso do Radar de Imóveis ou estratégias para fechar negócios. O que você precisa analisar no momento?
+        Posso ajudar com regras de crédito da Caixa, Cohapar Paraná e com todas as funções do app: Qualificador, MAC3Docs, Antissumiço, Clientes, Vitrine, Radar e Comissões. O que você precisa analisar no momento?
       </div>
     </div>
     <span id="ia-typing" class="ia-typing-indicator">Copiloto digitando...</span>
@@ -1199,6 +1230,11 @@
       <span class="ia-chip" onclick="executarTopicoIA('cohapar_ajuda')">Cohapar PR</span>
       <span class="ia-chip" onclick="executarTopicoIA('radar_ajuda')">Radar Imóveis</span>
       <span class="ia-chip" onclick="executarTopicoIA('cliente_sumiu')">Destravar Cliente</span>
+      <span class="ia-chip" onclick="executarTopicoIA('app_guia')">Guia do app</span>
+      <span class="ia-chip" onclick="executarTopicoIA('docs_ajuda')">MAC3Docs</span>
+      <span class="ia-chip" onclick="executarTopicoIA('vitrine_ajuda')">Vitrine</span>
+      <span class="ia-chip" onclick="executarTopicoIA('clientes_ajuda')">Clientes & MAC3</span>
+      <span class="ia-chip" onclick="executarTopicoIA('comissoes_ajuda')">Comissões</span>
     </div>
     <div class="ia-input-row">
       <input type="text" id="ia-user-input" placeholder="Digite sua dúvida..." onkeypress="if(event.key==='Enter') enviarMensagemCopiloto()">
@@ -1480,7 +1516,7 @@
 
     function cancelarEdicaoCliente() {
       cliEditId = null;
-      ['cli-nome', 'cli-fone', 'cli-obs'].forEach(function(id) { var e = document.getElementById(id); if (e) e.value = ''; });
+      ['cli-nome', 'cli-fone', 'cli-obs', 'cli-valor', 'cli-com'].forEach(function(id) { var e = document.getElementById(id); if (e) e.value = ''; });
       var f = document.getElementById('cli-fase'); if (f) f.value = 'novo';
       ['mac-i', 'mac-a', 'mac-u', 'mac-e'].forEach(function(id) { var e = document.getElementById(id); if (e) e.value = ''; });
       atualizarPreviewMac();
@@ -1493,7 +1529,7 @@
     function salvarCliente() {
       var nome = document.getElementById('cli-nome').value.trim();
       if (!nome) { mostrarToast('Digite o nome do cliente.'); return; }
-      var dados = { nome: nome, fone: document.getElementById('cli-fone').value.trim(), obs: document.getElementById('cli-obs').value.trim(), fase: document.getElementById('cli-fase').value, data: document.getElementById('cli-data').value, mac: lerMacForm() };
+      var dados = { nome: nome, fone: document.getElementById('cli-fone').value.trim(), obs: document.getElementById('cli-obs').value.trim(), fase: document.getElementById('cli-fase').value, valor: document.getElementById('cli-valor').value.trim(), com: document.getElementById('cli-com').value, data: document.getElementById('cli-data').value, mac: lerMacForm() };
       var lista = lerClientes();
       if (cliEditId) { lista = lista.map(function(c) { return c.id === cliEditId ? Object.assign({}, c, dados) : c; }); }
       else { dados.id = 'c' + Date.now(); dados.criadoEm = dataISO(0); dados.ultimoContato = dataISO(0); dados.tentativas = 0; lista.unshift(dados); }
@@ -1638,12 +1674,29 @@
 
     /* ===== EDIÇÃO E PAINÉIS ===== */
     function mostrarPainelClientes(p) {
-      ['lista', 'mac3', 'follow'].forEach(function(k) {
+      ['lista', 'mac3', 'follow', 'com'].forEach(function(k) {
         var painel = document.getElementById('cli-painel-' + k), aba = document.getElementById('cli-aba-' + k);
         if (painel) painel.className = (k === p) ? '' : 'hidden';
         if (aba) aba.className = (k === p) ? 'pill-btn active' : 'pill-btn';
       });
+      if (p === 'com') renderizarComissoes();
       window.scrollTo(0, 0);
+    }
+    var COM_PROB = { novo: 0.05, conversa: 0.15, visita: 0.3, proposta: 0.6, fechado: 1, perdido: 0 };
+    function numMoeda(v) { return parseFloat(String(v || '').replace(/\./g, '').replace(',', '.')) || 0; }
+    function brlCurto(n) { return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }); }
+    function renderizarComissoes() {
+      var itens = lerClientes().map(function(c) { var b = numMoeda(c.valor) * (parseFloat(c.com) || 0) / 100, p = COM_PROB[c.fase] || 0; return { c: c, b: b, p: p, e: b * p }; }).filter(function(x) { return x.b > 0 && x.c.fase !== 'perdido'; });
+      var aberto = itens.filter(function(x) { return x.c.fase !== 'fechado'; });
+      var soma = function(l, k) { return l.reduce(function(t, x) { return t + x[k]; }, 0); };
+      document.getElementById('com-n-prev').innerText = brlCurto(soma(aberto, 'e'));
+      document.getElementById('com-n-jogo').innerText = brlCurto(soma(aberto, 'b'));
+      document.getElementById('com-n-fech').innerText = brlCurto(soma(itens.filter(function(x) { return x.c.fase === 'fechado'; }), 'b'));
+      document.getElementById('com-pill').innerText = itens.length;
+      itens.sort(function(a, b) { return b.e - a.e; });
+      document.getElementById('com-lista').innerHTML = itens.length ? itens.map(function(x) {
+        return '<div class="cli-card" style="cursor:pointer;margin-bottom:8px" onclick="abrirEdicaoCliente(\'' + escapeHtml(x.c.id) + '\')"><div class="cli-top"><strong>' + escapeHtml(x.c.nome) + '</strong><span class="cli-fase">' + escapeHtml(CLI_FASES[x.c.fase] || x.c.fase) + '</span></div><div class="hint">Comissão ' + brlCurto(x.b) + ' · chance ' + Math.round(x.p * 100) + '% · previsto <strong>' + brlCurto(x.e) + '</strong></div></div>';
+      }).join('') : '<p class="hint">Nenhum cliente com valor e comissão preenchidos. Toque em um cliente, informe o valor do imóvel e a % de comissão.</p>';
     }
     function abrirEdicaoCliente(id, irParaMac) {
       var c = lerClientes().filter(function(x) { return x.id === id; })[0]; if (!c) return;
@@ -1652,6 +1705,7 @@
       document.getElementById('cli-nome').value = c.nome; document.getElementById('cli-fone').value = c.fone || '';
       document.getElementById('cli-obs').value = c.obs || ''; document.getElementById('cli-fase').value = c.fase || 'novo';
       document.getElementById('cli-data').value = c.data || '';
+      document.getElementById('cli-valor').value = c.valor || ''; document.getElementById('cli-com').value = c.com || '';
       var m = c.mac || {};
       ['i', 'a', 'u', 'e'].forEach(function(k) { document.getElementById('mac-' + k).value = m[k] || ''; });
       atualizarPreviewMac();
@@ -2874,6 +2928,36 @@ function usarValorCalculadoraRadar() {
                      '4. **Falta de Entrada:** Use o script "Falta Dinheiro para a Entrada": mostra FGTS, subsídios e parcelamento com a construtora (confirme as condições reais do empreendimento).'
     };
 
+    Object.assign(baseConhecimentoCaixa, {
+      app_guia: '🧭 *O que o ImobFlow faz (abas de baixo):*\n\n• *MAC3Docs:* junta fotos e PDFs do cliente em um PDF único e gera a ficha cadastral.\n• *Qualificador:* simula financiamento (MCMV, Classe Média, Pró-Cotista, SBPE).\n• *Antissumiço:* 20 scripts de WhatsApp para visitas, vácuo, objeções e bancário.\n• *Clientes:* lista com fases, MAC3 Score, Follow-up e Previsão de Comissões.\n• *Vitrine:* monta o cartão do imóvel e envia por WhatsApp, link, PDF ou imagem.\n• *Radar:* abre portais já filtrados por cidade, tipo, quartos e valor.\n• *Planos e Ajustes:* teste, assinatura, tema, backup e chave Gemini.\n\nPergunte sobre qualquer uma delas.',
+      qualificador_ajuda: '⚡ *Qualificador (simulador):*\n\n1. Escolha o tipo (Na Planta, Novo ou Usado), a linha (MCMV, Classe Média Fx 4, Pró-Cotista ou SBPE) e a amortização (PRICE parcela fixa ou SAC parcela decrescente).\n2. Informe valor do imóvel, renda bruta, FGTS disponível e idade.\n3. Ative *Cohapar* (subsídio no Paraná) e *Cotista FGTS 36 meses* (reduz juros do MCMV) se o cliente se encaixar.\n\nO resultado mostra prazo, parcela, taxa, capacidade, financiamento, entrada, FGTS + subsídios e margem. É estimativa: a aprovação final é da Caixa. Toque em *Minha simulação* para eu explicar o resultado atual.',
+      docs_ajuda: '📁 *MAC3Docs:*\n\n• *Juntar em PDF:* escolha fotos/PDFs ou fotografe, defina a categoria e a ordem (▲ ▼ ou arrastando), escolha a qualidade e toque em *Gerar PDF único*; depois baixe ou compartilhe.\n• *Ficha cadastral:* o app lê os documentos (OCR) e preenche os campos; confira sempre, foto torta ou escura gera erro. Abra no WhatsApp ou copie.\n\nTudo roda no aparelho, sem enviar a servidor. A ficha não fica salva: some ao fechar o app.',
+      antissumico_ajuda: '🛡️ *Central Antissumiço:*\n\n1. Digite nome (e WhatsApp, opcional) do cliente; para visitas, data e horário.\n2. Filtre por categoria: Visitas, Vácuo, Objeções ou Bancário.\n3. Escolha um dos 20 scripts: o texto aparece editável.\n4. Envie pelo WhatsApp ou crie a tarefa com data, horário, lembrete e duração.\n\nA assinatura no fim das mensagens se configura em Ajustes.',
+      vitrine_ajuda: '📲 *Vitrine:*\n\n1. Adicione várias fotos, título, preço, localização, características e condições.\n2. Preencha seu nome/imobiliária e WhatsApp (ficam salvos).\n3. Veja a prévia como o cliente verá e use: *WhatsApp*, *Copiar link*, *Baixar PDF*; em *Mais opções*: salvar como imagem, copiar texto pronto ou *Simular financiamento deste imóvel*.',
+      clientes_ajuda: '👥 *Clientes:*\n\n• *Lista:* nome, WhatsApp, o que procura, fase (Novo, Conversa, Visita, Proposta, Fechado, Perdido), data de retorno, valor do imóvel e comissão. Filtros: Todos, Para hoje, Em andamento, Encerrados.\n• *MAC3 Score:* nota por intenção, capacidade financeira, urgência e engajamento; classifica em quente, morno e frio para você priorizar.\n• *Follow-up:* aponta quem está sem retorno (limite de 2 a 7 dias) e sugere a mensagem; o aviso aparece no ícone de Clientes.\n• *Comissões:* veja a aba de previsão.',
+      comissoes_ajuda: '💰 *Previsão de comissões:*\n\nEm *Clientes*, ao salvar ou editar um cliente, informe o *valor do imóvel* e a *comissão (%)*. Na aba *Comissões* o app mostra: *Previsto* (comissão ponderada pela fase: Novo 5%, Conversa 15%, Visita 30%, Proposta 60%), *Em negociação* (comissão total em aberto) e *Fechado*. É estimativa baseada na fase, não garantia de venda.',
+      planos_ajuda: '💳 *Planos:*\n\nA aba *Planos* tem o teste grátis de 14 dias (1 por aparelho) com acesso a tudo, e as assinaturas individuais (mensal, semestral e anual) e para imobiliárias (mensal, trimestral e anual). Valores e condições atualizados ficam na própria aba.',
+      ajustes_ajuda: '⚙️ *Configurações (ícone de engrenagem):*\n\n• *Meu Perfil:* nome, telefone e e-mail.\n• *Tema de cores:* 8 temas.\n• *Conexão Gemini IA:* chave opcional que deixa o Copiloto responder perguntas livres; sem ela uso a base interna.\n• *Backup:* exportar e importar clientes, perfil e tema.\n• *Assinatura das mensagens* do Antissumiço e *aba inicial* do app.\n• Termos de uso e Política de privacidade.',
+      privacidade_ajuda: '🔒 *Dados e privacidade:*\n\nClientes, perfil e fotos ficam no próprio aparelho (use o Backup para não perder). Documentos do MAC3Docs são processados localmente. Se você configurar a chave Gemini, o texto das suas perguntas ao Copiloto é enviado à Google: não inclua dados pessoais de clientes nelas.'
+    });
+    var ROTAS_COPILOTO = [
+      ['sbpe_regras', ['sbpe', 'sfh', 'taxa de mercado']],
+      ['procotista_regras', ['procotista', 'pro-cotista', 'pro cotista']],
+      ['cohapar_ajuda', ['cohapar', 'casa facil', 'parana']],
+      ['radar_ajuda', ['radar', 'portal', 'portais', 'anuncio', 'orulo', 'viva real', 'vivareal', 'zap']],
+      ['cliente_sumiu', ['travado', 'destravar', 'desenrolar', 'sumiu', 'sumico', 'vacuo', 'descarte', 'objecao', 'parcela alta']],
+      ['antissumico_ajuda', ['antissumico', 'script', 'agendar', 'tarefa', 'lembrete']],
+      ['docs_ajuda', ['mac3docs', 'documento', 'pdf unico', 'juntar', 'ficha', 'ocr', 'cadastral']],
+      ['vitrine_ajuda', ['vitrine', 'foto', 'link', 'imagem', 'legenda', 'cartao']],
+      ['comissoes_ajuda', ['comiss', 'previsao', 'quanto vou ganhar', 'ganho']],
+      ['clientes_ajuda', ['cliente', 'mac3 score', 'score', 'follow', 'retorno', 'lead', 'fase', 'quente', 'funil']],
+      ['qualificador_ajuda', ['qualificador', 'simul', 'financiamento', 'parcela', 'entrada', 'fgts', 'renda', 'price', 'sac', 'prazo', 'cotista']],
+      ['planos_ajuda', ['plano', 'assinar', 'trial', 'teste gratis', 'preco', 'mensal', 'trimestral', 'semestral', 'anual', '14 dias', 'pagamento', 'kiwify']],
+      ['ajustes_ajuda', ['tema', 'backup', 'exportar', 'importar', 'perfil', 'gemini', 'chave', 'configura', 'ajuste', 'aba inicial', 'assinatura das']],
+      ['privacidade_ajuda', ['privacidade', 'lgpd', 'seguranca', 'servidor', 'termos', 'meus dados']],
+      ['app_guia', ['o que o app', 'funcoes', 'funcionalidades', 'como usar', 'tutorial', 'ajuda', 'o que voce faz', 'recursos', 'abas']]
+    ];
+
     function textoSimulacao() {
       var g = function(id) { var e = document.getElementById(id); return e ? e.innerText : '—'; };
       if (!/\d/.test(g('res-financiamento'))) return 'Ainda não há simulação. Preencha o valor do imóvel e a renda na aba Qualificador.';
@@ -2912,7 +2996,8 @@ function usarValorCalculadoraRadar() {
         procotista_regras: 'Como funciona o Pró-Cotista FGTS?',
         cohapar_ajuda: 'Como funciona o subsídio Cohapar?',
         radar_ajuda: 'Como usar a ferramenta de Radar de Imóveis?',
-        cliente_sumiu: 'Como destravar cliente travado ou sumido?'
+        cliente_sumiu: 'Como destravar cliente travado ou sumido?',
+        app_guia: 'O que o app faz?', docs_ajuda: 'Como usar o MAC3Docs?', vitrine_ajuda: 'Como usar a Vitrine?', clientes_ajuda: 'Como funciona a aba Clientes?', comissoes_ajuda: 'Como ver minha previsão de comissões?'
       };
       adicionarMensagemChat('user', rotulos[chave] || 'Consulta');
 
@@ -2932,13 +3017,14 @@ function usarValorCalculadoraRadar() {
       if (['oi', 'ola', 'olá', 'eai', 'e aí', 'opa', 'salve', 'bom dia', 'boa tarde', 'boa noite', 'tudo bem'].some(function(t) { return p === t || p.indexOf(t) === 0; })) {
         return 'Olá! Tudo ótimo por aqui.\n\nComo posso ajudar com suas simulações da Caixa, regras do SBPE, Pró-Cotista ou busca no Radar hoje?';
       }
-      if (p.indexOf('sbpe') !== -1) return baseConhecimentoCaixa.sbpe_regras;
-      if (p.indexOf('procotista') !== -1 || p.indexOf('pro-cotista') !== -1) return baseConhecimentoCaixa.procotista_regras;
-      if (p.indexOf('cohapar') !== -1 || p.indexOf('casa facil') !== -1 || p.indexOf('parana') !== -1) return baseConhecimentoCaixa.cohapar_ajuda;
-      if (p.indexOf('radar') !== -1 || p.indexOf('buscar') !== -1 || p.indexOf('anuncio') !== -1 || p.indexOf('orulo') !== -1) return baseConhecimentoCaixa.radar_ajuda;
-      if (['travado', 'destravar', 'desenrolar', 'sumiu', 'sumiço', 'vácuo', 'descarte', 'objeção'].some(function(t) { return p.indexOf(t) !== -1; })) return baseConhecimentoCaixa.cliente_sumiu;
-
-      return baseConhecimentoCaixa.regras_gerais;
+      var q = p.normalize('NFD').replace(/[\u0300-\u036f]/g, ''), melhor = null, pontos = 0;
+      ROTAS_COPILOTO.forEach(function(r) {
+        var n = r[1].filter(function(k) { return q.indexOf(k) !== -1; }).length;
+        if (n > pontos) { pontos = n; melhor = r[0]; }
+      });
+      if (melhor) return baseConhecimentoCaixa[melhor];
+      if (['regra', 'caixa', 'mcmv', 'minha casa', 'juros', 'taxa'].some(function(t) { return q.indexOf(t) !== -1; })) return baseConhecimentoCaixa.regras_gerais;
+      return 'Não tenho uma resposta exata para isso na base interna. Com a chave Gemini (Ajustes) respondo perguntas livres. Enquanto isso, posso ajudar com:\n\n' + baseConhecimentoCaixa.app_guia;
     }
 
     async function processarRespostaIA(pergunta) {
@@ -2948,8 +3034,10 @@ function usarValorCalculadoraRadar() {
       var apiKey = localStorage.getItem('imobflow_gemini_key') || '';
       if (apiKey) {
         try {
-          var systemPrompt = 'Você é o Copiloto ImobFlow, consultor imobiliário de elite especialista em Caixa Econômica Federal e fechamento de vendas. ' +
-                             'Responda com excelente espaçamento entre parágrafos, sem utilizar marcações de citação como cite. Baseie-se nestas regras de referência e, se não tiver certeza, peça para confirmar no simulador oficial da Caixa.\n\n' + baseConhecimentoCaixa.regras_gerais + '\n\n' + textoSimulacao();
+          var base = Object.keys(baseConhecimentoCaixa).map(function(c) { return baseConhecimentoCaixa[c]; }).join('\n\n');
+          var cl = lerClientes(), ab = cl.filter(function(c) { return c.fase !== 'fechado' && c.fase !== 'perdido'; }).length;
+          var systemPrompt = 'Você é o Copiloto ImobFlow, consultor imobiliário de elite especialista em Caixa Econômica Federal e fechamento de vendas, e também o guia de uso do app ImobFlow. ' +
+                             'Responda em português, curto e com bom espaçamento, sem marcações de citação. Para dúvidas sobre o Caixa, baseie-se nas regras de referência e, se não tiver certeza, peça para confirmar no simulador oficial. Para dúvidas sobre o app, explique com os nomes exatos das abas e botões descritos abaixo e NÃO invente funções que não estejam listadas; se algo não existir, diga que o app ainda não tem.\n\n' + base + '\n\n' + textoSimulacao() + '\n\nClientes cadastrados: ' + cl.length + ' (' + ab + ' em andamento).';
           var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
           var bodyPayload = { contents: [{ role: 'user', parts: [{ text: systemPrompt + '\n\nPergunta: ' + pergunta }] }] };
 
