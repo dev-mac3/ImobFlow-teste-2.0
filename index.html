@@ -1,1 +1,2242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ImobFlow - Central de Fechamento</title>
+  <!-- Bibliotecas para exportar Imagem e PDF -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+    
+    /* TEMA PADRÃO: ESCURO */
+    :root, body[data-theme="escuro"] {
+      --bg-body: #020617;
+      --bg-header: rgba(15, 23, 42, 0.95);
+      --bg-card: #0f172a;
+      --bg-input: #020617;
+      --bg-nav: #0b1329;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+      --border-focus: #10b981;
+      --primary-color: #10b981;
+      --primary-text: #020617;
+      --card-shadow: rgba(0,0,0,0.5);
+      --copilot-bg: linear-gradient(135deg, #10b981, #059669);
+    }
 
+    /* TEMA: CLARO (EXECUTIVO) */
+    body[data-theme="claro"] {
+      --bg-body: #f8fafc;
+      --bg-header: rgba(255, 255, 255, 0.95);
+      --bg-card: #ffffff;
+      --bg-input: #f1f5f9;
+      --bg-nav: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --border-focus: #2563eb;
+      --primary-color: #2563eb;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(0,0,0,0.06);
+      --copilot-bg: linear-gradient(135deg, #2563eb, #1d4ed8);
+    }
+
+    /* TEMA: LARANJA (SOLAR SUAVE) */
+    body[data-theme="laranja"] {
+      --bg-body: #0f0a06;
+      --bg-header: rgba(30, 20, 12, 0.95);
+      --bg-card: #1f140a;
+      --bg-input: #0a0603;
+      --bg-nav: #170d06;
+      --text-main: #fff7ed;
+      --text-muted: #fdba74;
+      --border-color: #432818;
+      --border-focus: #f97316;
+      --primary-color: #f97316;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(0,0,0,0.6);
+      --copilot-bg: linear-gradient(135deg, #f97316, #ea580c);
+    }
+
+    /* TEMA: ROSA CLARO */
+    body[data-theme="rosaclaro"] {
+      --bg-body: #fff1f2;
+      --bg-header: rgba(255, 241, 242, 0.95);
+      --bg-card: #ffffff;
+      --bg-input: #ffe4e6;
+      --bg-nav: #ffffff;
+      --text-main: #881337;
+      --text-muted: #9f1239;
+      --border-color: #fecdd3;
+      --border-focus: #be185d;
+      --primary-color: #be185d;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(190,24,93,0.08);
+      --copilot-bg: linear-gradient(135deg, #be185d, #9d174d);
+    }
+
+    /* TEMA: ROSA ESCURO */
+    body[data-theme="rosa"] {
+      --bg-body: #190b14;
+      --bg-header: rgba(36, 17, 29, 0.95);
+      --bg-card: #281423;
+      --bg-input: #150912;
+      --bg-nav: #200f1c;
+      --text-main: #fdf2f8;
+      --text-muted: #d99cb9;
+      --border-color: #4a243d;
+      --border-focus: #db2777;
+      --primary-color: #db2777;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(0,0,0,0.55);
+      --copilot-bg: linear-gradient(135deg, #db2777, #be185d);
+    }
+
+    /* TEMA: VERDE */
+    body[data-theme="verde"] {
+      --bg-body: #06140e;
+      --bg-header: rgba(13, 33, 23, 0.95);
+      --bg-card: #10261c;
+      --bg-input: #071710;
+      --bg-nav: #0c2017;
+      --text-main: #f0fdf4;
+      --text-muted: #86b19a;
+      --border-color: #1e4533;
+      --border-focus: #16a34a;
+      --primary-color: #16a34a;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(0,0,0,0.55);
+      --copilot-bg: linear-gradient(135deg, #16a34a, #15803d);
+    }
+
+    /* TEMA: CINZA */
+    body[data-theme="cinza"] {
+      --bg-body: #111317;
+      --bg-header: rgba(26, 29, 36, 0.95);
+      --bg-card: #1c2026;
+      --bg-input: #101216;
+      --bg-nav: #16191f;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-color: #333945;
+      --border-focus: #64748b;
+      --primary-color: #64748b;
+      --primary-text: #ffffff;
+      --card-shadow: rgba(0,0,0,0.5);
+      --copilot-bg: linear-gradient(135deg, #64748b, #475569);
+    }
+
+    body { background-color: var(--bg-body); color: var(--text-main); padding-bottom: 115px; transition: background-color 0.2s, color 0.2s; }
+
+    /* Topbar */
+    header { background: var(--bg-header); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 40; padding: 12px 16px; }
+    .topbar-content { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo-box { display: flex; align-items: center; gap: 10px; }
+    .logo-badge { width: 34px; height: 34px; background: var(--primary-color); border-radius: 8px; color: var(--primary-text); font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .logo-text h1 { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .pro-tag { background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800; }
+    body[data-theme="claro"] .pro-tag { background: rgba(37, 99, 235, 0.15); color: #2563eb; }
+    body[data-theme="laranja"] .pro-tag { background: rgba(249, 115, 22, 0.2); color: #fb923c; }
+    body[data-theme="rosaclaro"] .pro-tag { background: rgba(190, 24, 93, 0.15); color: #be185d; }
+    body[data-theme="rosa"] .pro-tag { background: rgba(219, 39, 119, 0.2); color: #f472b6; }
+    body[data-theme="verde"] .pro-tag { background: rgba(22, 163, 74, 0.2); color: #4ade80; }
+    body[data-theme="cinza"] .pro-tag { background: rgba(100, 116, 139, 0.25); color: #cbd5e1; }
+    .logo-text p { font-size: 11px; color: var(--text-muted); }
+    
+    .topbar-actions { display: flex; align-items: center; gap: 8px; }
+    .btn-planos { background: var(--border-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-gear { background: var(--border-color); border: 1px solid var(--border-color); color: var(--text-main); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; }
+
+    #trial-banner { background: var(--primary-color); color: var(--primary-text); font-size: 11px; font-weight: 800; padding: 6px 12px; text-align: center; display: none; }
+
+    /* LAYOUT RESPONSIVO DESKTOP */
+    main { max-width: 1080px; margin: 0 auto; padding: 16px; position: relative; z-index: 10; }
+    
+    @media (min-width: 820px) {
+      .desktop-split-view { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; align-items: start; }
+      .radar-grid { display: grid !important; grid-template-columns: 1fr 1fr; gap: 14px !important; }
+      .script-catalog { max-height: 480px !important; }
+    }
+
+    .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 16px; box-shadow: 0 10px 25px -5px var(--card-shadow); }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .card-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+    .pill { background: var(--border-color); color: var(--text-muted); font-size: 10px; padding: 3px 8px; border-radius: 20px; font-weight: 600; }
+    .card-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.4; }
+
+    /* Seletores Pílula */
+    .selector-label { display: block; font-size: 11px; font-weight: 600; color: var(--text-main); margin-bottom: 6px; }
+    .pill-group { display: flex; gap: 6px; margin-bottom: 12px; background: var(--bg-input); padding: 4px; border-radius: 10px; border: 1px solid var(--border-color); width: 100%; overflow-x: auto; scrollbar-width: none; }
+    .pill-group::-webkit-scrollbar { display: none; }
+    .pill-btn { flex: 1; background: transparent; border: none; color: var(--text-muted); padding: 9px 6px; font-size: 11px; font-weight: 700; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.15s ease; white-space: nowrap; }
+    .pill-btn.active { background: var(--primary-color); color: var(--primary-text); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+
+    /* Formulários */
+    .form-group { margin-bottom: 12px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    label { display: block; font-size: 11px; font-weight: 600; color: var(--text-main); margin-bottom: 6px; }
+    input, select { width: 100%; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; color: var(--text-main); font-size: 14px; outline: none; }
+    input:focus, select:focus { border-color: var(--border-focus); }
+    input[type="file"] { font-size: 12px; padding: 8px; }
+
+    /* Botão Cohapar */
+    .btn-cohapar-toggle { display: flex; align-items: center; justify-content: space-between; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s ease; }
+    .btn-cohapar-toggle.active { border-color: var(--primary-color); background: rgba(16, 185, 129, 0.12); }
+    body[data-theme="claro"] .btn-cohapar-toggle.active { background: rgba(37, 99, 235, 0.1); }
+    body[data-theme="laranja"] .btn-cohapar-toggle.active { background: rgba(249, 115, 22, 0.15); }
+    body[data-theme="rosaclaro"] .btn-cohapar-toggle.active { background: rgba(190, 24, 93, 0.12); }
+    body[data-theme="rosa"] .btn-cohapar-toggle.active { background: rgba(219, 39, 119, 0.12); }
+    body[data-theme="verde"] .btn-cohapar-toggle.active { background: rgba(22, 163, 74, 0.15); }
+    body[data-theme="cinza"] .btn-cohapar-toggle.active { background: rgba(100, 116, 139, 0.18); }
+    .btn-cohapar-toggle span { font-size: 12px; font-weight: 700; color: var(--text-main); display: block; }
+    .btn-cohapar-toggle small { font-size: 10px; color: var(--text-muted); display: block; }
+    .btn-cohapar-toggle .badge-check { width: 20px; height: 20px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 11px; color: transparent; transition: all 0.2s ease; }
+    .btn-cohapar-toggle.active .badge-check { background: var(--primary-color); border-color: var(--primary-color); color: var(--primary-text); font-weight: 900; }
+
+    /* Botões */
+    .btn-action { display: block; width: 100%; text-align: center; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; padding: 14px; cursor: pointer; user-select: none; }
+    .btn-action:active { transform: scale(0.98); opacity: 0.9; }
+    .btn-emerald { background: var(--primary-color); color: var(--primary-text); margin-top: 8px; }
+    .btn-secondary { background: var(--border-color); border: 1px solid var(--border-color); color: var(--primary-color); margin-top: 10px; font-weight: 600; font-size: 12px; }
+    .btn-whatsapp-direct { background: #22c55e; color: #020617; font-weight: 800; font-size: 13px; margin-top: 8px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-download { background: #3b82f6; color: #ffffff; margin-top: 10px; }
+    .btn-purple { background: #8b5cf6; color: #ffffff; margin-top: 10px; }
+    .btn-danger { background: #ef4444; color: #ffffff; margin-top: 10px; }
+
+    /* Resultados (8 Blocos Simétricos) */
+    .result-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
+    .result-title { font-size: 11px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .result-status { font-size: 12px; color: var(--text-main); margin-bottom: 12px; line-height: 1.5; }
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .result-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px; min-height: 60px; display: flex; flex-direction: column; justify-content: center; }
+    .result-item span { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 4px; }
+    .result-item strong { font-size: 14px; font-weight: 700; color: var(--text-main); }
+    .result-item strong.highlight { color: var(--primary-color); }
+    .disclaimer { font-size: 10px; color: var(--text-muted); line-height: 1.4; margin-top: 12px; }
+
+    /* Antissumiço em Lista Visual */
+    .script-catalog { display: flex; flex-direction: column; gap: 8px; max-height: 350px; overflow-y: auto; padding-right: 4px; margin-top: 8px; }
+    .script-card-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; cursor: pointer; transition: all 0.15s ease; text-align: left; }
+    .script-card-item:hover, .script-card-item.selected { border-color: var(--primary-color); background: rgba(16, 185, 129, 0.08); }
+    body[data-theme="claro"] .script-card-item.selected { background: rgba(37, 99, 235, 0.08); }
+    body[data-theme="laranja"] .script-card-item.selected { background: rgba(249, 115, 22, 0.1); }
+    body[data-theme="rosaclaro"] .script-card-item.selected { background: rgba(190, 24, 93, 0.08); }
+    body[data-theme="rosa"] .script-card-item.selected { background: rgba(219, 39, 119, 0.08); }
+    body[data-theme="verde"] .script-card-item.selected { background: rgba(22, 163, 74, 0.1); }
+    body[data-theme="cinza"] .script-card-item.selected { background: rgba(100, 116, 139, 0.12); }
+    .script-card-item .item-title { font-size: 13px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 3px; }
+    .script-card-item .item-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+    .script-box { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; font-size: 13px; color: var(--text-main); line-height: 1.7; white-space: pre-line; margin: 12px 0; border-left: 3px solid var(--primary-color); }
+
+    /* Radar de Imóveis (Estilo Órulo) */
+    .radar-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; max-height: 480px; overflow-y: auto; padding-right: 4px; }
+    .radar-card { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .radar-img-box { position: relative; height: 170px; background: #000; }
+    .radar-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .radar-tag { position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: var(--primary-text); font-size: 9px; font-weight: 800; padding: 4px 8px; border-radius: 4px; }
+    .radar-badge-type { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.75); color: #fff; font-size: 9px; font-weight: 700; padding: 4px 8px; border-radius: 4px; }
+    .radar-card-content { padding: 12px; }
+    .radar-card-content h4 { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+    .radar-card-content .price { font-size: 15px; font-weight: 900; color: var(--primary-color); margin-bottom: 6px; }
+    .radar-card-content .loc { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
+    .radar-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .radar-actions button, .radar-actions a { padding: 9px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+
+    /* Vitrine */
+    #card-export-area { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-top: 12px; user-select: none; }
+    .vitrine-img-container { height: 260px; background: #000; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; touch-action: pan-y; }
+    .vitrine-img { width: 100%; height: 100%; object-fit: cover; }
+    .vitrine-badge { position: absolute; top: 12px; left: 12px; background: var(--primary-color); color: var(--primary-text); font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 6px; z-index: 5; }
+    .vitrine-counter { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 12px; z-index: 5; }
+    
+    .slide-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(15, 23, 42, 0.75); border: 1px solid #334155; color: #fff; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; z-index: 6; }
+    .slide-arrow.prev { left: 8px; }
+    .slide-arrow.next { right: 8px; }
+    
+    .gallery-dots { display: flex; gap: 6px; justify-content: center; padding: 8px; background: var(--bg-input); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-color); cursor: pointer; transition: all 0.2s; }
+    .dot.active { background: var(--primary-color); width: 18px; border-radius: 4px; }
+    
+    .vitrine-body { padding: 16px; }
+    .vitrine-title-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .vitrine-title-row h4 { font-size: 15px; font-weight: 700; color: var(--text-main); }
+    .vitrine-price { color: var(--primary-color); font-weight: 900; font-size: 16px; white-space: nowrap; }
+    .vitrine-loc { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; }
+    .tags-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .tag-item { background: var(--border-color); color: var(--text-main); font-size: 10px; padding: 4px 8px; border-radius: 4px; }
+    
+    .corretor-footer { border-top: 1px dashed var(--border-color); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-main); }
+    .corretor-footer strong { color: var(--text-main); }
+
+    /* Barra Inferior (4 Abas) */
+    nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-nav); border-top: 1px solid var(--border-color); z-index: 999; padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .nav-container { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; padding: 8px 6px; }
+    .nav-btn { background: none; border: none; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 10.5px; font-weight: 600; cursor: pointer; padding: 6px 0; }
+    .nav-btn.active { color: var(--primary-color); }
+    .nav-icon { font-size: 17px; margin-bottom: 2px; }
+
+    #btn-lead-whatsapp-float { display: none; position: fixed; bottom: 16px; left: 16px; right: 16px; max-width: 448px; margin: 0 auto; background: #10b981; color: #020617; font-size: 14px; font-weight: 800; padding: 14px; border-radius: 12px; text-align: center; text-decoration: none; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); z-index: 1000; }
+    .toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%) translateY(20px); background: #10b981; color: #020617; padding: 10px 18px; border-radius: 8px; font-size: 12px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 10005; max-width: 90%; text-align: center; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Modais */
+    #settings-modal, #profile-modal, #trial-modal, #theme-selector-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center; padding: 16px; }
+    .modal-sheet { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; width: 100%; max-width: 420px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+    .modal-header { background: var(--bg-input); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+    .modal-header strong { font-size: 14px; color: var(--text-main); }
+    .modal-close { background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer; }
+    .modal-body { padding: 16px; max-height: 80vh; overflow-y: auto; }
+    
+    .settings-list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
+    .settings-list-item strong { font-size: 13px; color: var(--text-main); display: block; margin-bottom: 2px; }
+    .settings-list-item span { font-size: 11px; color: var(--text-muted); }
+    .settings-btn-link { background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
+
+    /* Lista do Seletor de Temas */
+    .theme-grid-options { display: flex; flex-direction: column; gap: 8px; }
+    .theme-option-btn { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.15s ease; color: var(--text-main); font-size: 13px; font-weight: 700; width: 100%; }
+    .theme-option-btn:hover { border-color: var(--primary-color); }
+    .color-swatch { width: 18px; height: 18px; border-radius: 50%; display: inline-block; }
+
+    /* Copiloto IA */
+    #ia-copilot-trigger { position: fixed; right: 20px; bottom: 85px; background: var(--copilot-bg); color: #ffffff; font-size: 12px; font-weight: 800; padding: 10px 16px; border-radius: 30px; display: flex; align-items: center; gap: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 9999; cursor: pointer; border: none; user-select: none; }
+    #ia-copilot-modal { display: none; position: fixed; right: 20px; bottom: 80px; width: calc(100% - 40px); max-width: 440px; height: 520px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; z-index: 10000; flex-direction: column; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.85); }
+    .ia-header { background: var(--bg-input); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+    .ia-header strong { font-size: 13px; color: var(--primary-color); }
+    .ia-close { background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer; }
+    
+    .ia-body { flex: 1; padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 13px; }
+    .ia-msg { padding: 12px 16px; border-radius: 14px; max-width: 92%; line-height: 1.7; white-space: pre-line; word-break: break-word; font-size: 13px; letter-spacing: 0.2px; }
+    .ia-msg.bot { background: var(--border-color); color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .ia-msg.user { background: var(--primary-color); color: var(--primary-text); font-weight: 600; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .ia-typing-indicator { font-size: 11px; color: var(--text-muted); font-style: italic; display: none; margin-left: 10px; }
+    
+    .ia-quick-topics { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px; background: var(--bg-input); border-top: 1px solid var(--border-color); }
+    .ia-chip { background: var(--bg-card); color: var(--text-muted); font-size: 10px; padding: 6px 10px; border-radius: 12px; cursor: pointer; border: 1px solid var(--border-color); }
+    
+    .ia-input-row { display: flex; padding: 10px; background: var(--bg-input); border-top: 1px solid var(--border-color); gap: 6px; }
+    .ia-input-row input { flex: 1; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); padding: 9px 12px; font-size: 12px; }
+    .ia-input-row button { background: var(--primary-color); border: none; color: var(--primary-text); font-weight: 800; border-radius: 8px; padding: 0 14px; cursor: pointer; }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body data-theme="escuro">
+
+  <!-- Banner do Trial de 14 Dias -->
+  <div id="trial-banner">⏳ Período de Testes Ativo: <span id="trial-days-left">14 dias restantes</span>. Aproveite todos os recursos!</div>
+
+  <!-- Topbar -->
+  <header id="app-header">
+    <div class="topbar-content">
+      <div class="logo-box">
+        <div class="logo-badge">IF</div>
+        <div class="logo-text">
+          <h1>ImobFlow <span class="pro-tag">PRO</span></h1>
+          <p>Hub do Corretor de Elite</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button type="button" onclick="irParaAba('planos')" class="btn-planos">👑 Planos</button>
+        <button type="button" onclick="abrirModalAjustes()" class="btn-gear" title="Configurações">⚙️</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ABA 1: CALCULADORA -->
+    <section id="tab-calculator">
+      <div class="desktop-split-view">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">⚡ Estudo de Financiamento</h2>
+            <span class="pill" id="badge-tipo-linha">MCMV (Caixa)</span>
+          </div>
+          <p class="card-desc">Cálculo oficial de aprovação e cotas parametrizadas Caixa.</p>
+
+          <span class="selector-label">Tipo do Imóvel:</span>
+          <div class="pill-group">
+            <button type="button" id="btn-tipo-planta" class="pill-btn active" onclick="selecionarTipoImovel('planta')">Na Planta</button>
+            <button type="button" id="btn-tipo-novo" class="pill-btn" onclick="selecionarTipoImovel('novo')">Novo</button>
+            <button type="button" id="btn-tipo-usado" class="pill-btn" onclick="selecionarTipoImovel('usado')">Usado</button>
+          </div>
+
+          <span class="selector-label">Linha de Financiamento:</span>
+          <div class="pill-group">
+            <button type="button" id="btn-mod-mcmv" class="pill-btn active" onclick="selecionarModalidade('mcmv')">MCMV</button>
+            <button type="button" id="btn-mod-faixa4" class="pill-btn" onclick="selecionarModalidade('faixa4')">Classe Média (Fx 4)</button>
+            <button type="button" id="btn-mod-procotista" class="pill-btn" onclick="selecionarModalidade('procotista')">Pró-Cotista</button>
+            <button type="button" id="btn-mod-sbpe" class="pill-btn" onclick="selecionarModalidade('sbpe')">SBPE</button>
+          </div>
+
+          <span class="selector-label">Tabela de Amortização:</span>
+          <div class="pill-group">
+            <button type="button" id="btn-tab-price" class="pill-btn active" onclick="selecionarAmortizacao('price')">PRICE (Fixa)</button>
+            <button type="button" id="btn-tab-sac" class="pill-btn" onclick="selecionarAmortizacao('sac')">SAC (Decrescente)</button>
+          </div>
+
+          <div class="form-group">
+            <label>Valor do Imóvel Desejado (R$)</label>
+            <input type="text" inputmode="numeric" id="calc-imovel" placeholder="Ex: 215.000,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
+          </div>
+
+          <div class="form-group">
+            <label>Renda Bruta Familiar (R$)</label>
+            <input type="text" inputmode="numeric" id="calc-income" placeholder="Ex: 4.500,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Saldo FGTS (R$)</label>
+              <input type="text" inputmode="numeric" id="calc-fgts" placeholder="Ex: 15.000,00" oninput="aplicarMascaraMoeda(this); calcularFinanciamento(false)">
+            </div>
+            <div class="form-group">
+              <label>Idade do Comprador</label>
+              <input type="number" inputmode="numeric" id="calc-age" placeholder="Ex: 28" min="18" max="79" oninput="calcularFinanciamento(false)">
+            </div>
+          </div>
+
+          <!-- BOTÃO COHAPAR -->
+          <div class="btn-cohapar-toggle" id="btn-cohapar" onclick="alternarCohapar()">
+            <div>
+              <span>🏛️ Subsídio Cohapar (Casa Fácil)</span>
+              <small>Abater R$ 20.000,00 da entrada (Governo do Paraná)</small>
+            </div>
+            <div class="badge-check" id="check-cohapar">✔</div>
+          </div>
+
+          <button type="button" onclick="calcularFinanciamento(true)" class="btn-action btn-emerald">⚡ Calcular Financiamento</button>
+        </div>
+
+        <!-- OS 8 BLOCOS DO DIAGNÓSTICO BANCÁRIO -->
+        <div class="result-box">
+          <div class="result-title">✔ Diagnóstico Bancário de Aprovação</div>
+          <p id="res-status" class="result-status">Preencha os dados acima para simular.</p>
+          <div class="result-grid">
+            <div class="result-item">
+              <span>Prazo Máximo Caixa</span>
+              <strong id="res-prazo" class="highlight">—</strong>
+            </div>
+            <div class="result-item">
+              <span id="label-parcela">Parcela Fixa (PRICE)</span>
+              <strong id="res-parcela">—</strong>
+            </div>
+            <div class="result-item">
+              <span>Taxa de Juros Nominal</span>
+              <strong id="res-taxa" class="highlight">—</strong>
+            </div>
+            <div class="result-item">
+              <span>Capacidade pela Renda</span>
+              <strong id="res-capacidade">—</strong>
+            </div>
+            <div class="result-item">
+              <span id="label-financiamento">Financiamento Aprovado</span>
+              <strong id="res-financiamento">—</strong>
+            </div>
+            <div class="result-item">
+              <span>Entrada</span>
+              <strong id="res-entrada" class="highlight">—</strong>
+            </div>
+            <div class="result-item">
+              <span>FGTS + Subsídios</span>
+              <strong id="res-fgts">—</strong>
+            </div>
+            <div class="result-item">
+              <span>Margem Máx. Caixa (30%)</span>
+              <strong id="res-margem">—</strong>
+            </div>
+          </div>
+          <button type="button" onclick="copiarResumoWhatsApp()" class="btn-action btn-secondary">Copiar Resumo p/ WhatsApp</button>
+          <p class="disclaimer">Cálculo calibrado rigorosamente às cotas e limites operacionais da Caixa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 2: CENTRAL ANTISSUMIÇO REFORMULADA -->
+    <section id="tab-agenda" class="hidden">
+      <div class="desktop-split-view">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">🛡️ Central Antissumiço</h2>
+            <span class="pill">15 Scripts Assertivos</span>
+          </div>
+          <p class="card-desc">Gere mensagens táticas profundas para blindar visitas, recuperar vácuos e quebrar objeções no WhatsApp.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome do Cliente</label>
+              <input type="text" id="lead-name" placeholder="Ex: Carlos" oninput="atualizarPreviewScript()">
+            </div>
+            <div class="form-group">
+              <label>WhatsApp do Cliente (Opcional)</label>
+              <input type="text" id="lead-phone" placeholder="Ex: (41) 98888-7777" oninput="aplicarMascaraTelefone(this)">
+            </div>
+          </div>
+
+          <div id="agenda-date-time-row" class="form-row hidden">
+            <div class="form-group">
+              <label>Data</label>
+              <input type="date" id="lead-date" onchange="atualizarPreviewScript()">
+            </div>
+            <div class="form-group">
+              <label>Horário</label>
+              <input type="time" id="lead-time" value="15:00" onchange="atualizarPreviewScript()">
+            </div>
+          </div>
+
+          <span class="selector-label">Filtrar por Categoria:</span>
+          <div class="pill-group">
+            <button type="button" class="pill-btn active" onclick="filtrarCategoriaScript('todos', this)">Todos</button>
+            <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('visita', this)">Visitas</button>
+            <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('vacuo', this)">Vácuo</button>
+            <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('objecao', this)">Objeções</button>
+            <button type="button" class="pill-btn" onclick="filtrarCategoriaScript('bancario', this)">Bancário</button>
+          </div>
+
+          <div class="script-catalog" id="script-catalog-list"></div>
+        </div>
+
+        <div class="card" id="card-script-result">
+          <div class="card-header">
+            <span style="font-size: 12px; font-weight:700;">Mensagem Formatada para Envio</span>
+            <span id="script-badge" class="pill" style="color: #10b981;">Gatilho Ativo</span>
+          </div>
+          <div id="script-text" class="script-box"></div>
+          <button type="button" onclick="copiarScriptTexto()" class="btn-action btn-secondary">📋 Copiar Mensagem</button>
+          <button type="button" onclick="confirmarEEnviarWhatsApp()" class="btn-action btn-whatsapp-direct">💬 Enviar no WhatsApp</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 3: RADAR DE IMÓVEIS (ESTILO ÓRULO COM ANÚNCIOS REAIS) -->
+    <section id="tab-radar" class="hidden">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">🔍 Radar de Imóveis</h2>
+      <span class="pill">Portais Reais</span>
+    </div>
+    <p class="card-desc">Gera buscas já filtradas nos portais e permite salvar os anúncios reais que você encontrar para importar na Vitrine.</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Estado (UF)</label>
+        <select id="radar-uf" onchange="atualizarCidadeRadar()">
+          <option value="PR" selected>Paraná (PR)</option><option value="SP">São Paulo (SP)</option>
+          <option value="SC">Santa Catarina (SC)</option><option value="RS">Rio Grande do Sul (RS)</option>
+          <option value="RJ">Rio de Janeiro (RJ)</option><option value="MG">Minas Gerais (MG)</option>
+          <option value="GO">Goiás (GO)</option><option value="BA">Bahia (BA)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Cidade</label><input type="text" id="radar-city" value="Curitiba" placeholder="Ex: Curitiba"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Bairro (opcional)</label><input type="text" id="radar-bairro" value="Portão" placeholder="Ex: Portão"></div>
+      <div class="form-group"><label>Tipo</label>
+        <select id="radar-tipo"><option value="apartamento">Apartamento</option><option value="casa">Casa</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Faixa</label>
+        <select id="radar-profile">
+          <option value="todos">Todas</option><option value="mcmv">Até R$ 400 mil</option>
+          <option value="medio">Até R$ 750 mil</option><option value="alto">Alto padrão</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Quartos</label>
+        <select id="radar-dorms"><option value="todos">Qualquer</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+      </div>
+    </div>
+    <button type="button" onclick="gerarBuscasPortais()" class="btn-action btn-emerald">📡 Buscar nos Portais</button>
+  </div>
+
+  <div id="radar-portais"></div>
+
+  <div class="card">
+    <div class="card-header"><h2 class="card-title">📌 Meus Anúncios Salvos</h2><span class="pill" id="radar-count">0</span></div>
+    <p class="card-desc">Achou um anúncio real? Cole o link e os dados aqui. Ele fica salvo e pode ser puxado para a Vitrine com um toque.</p>
+    <div class="form-group"><label>Link do anúncio</label><input type="url" id="rd-link" placeholder="https://..."></div>
+    <div class="form-group"><label>Título</label><input type="text" id="rd-title" placeholder="Ex: Apto 2 qts - Portão"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Preço</label><input type="text" id="rd-price" inputmode="numeric" placeholder="344.400,00" oninput="aplicarMascaraMoeda(this)"></div>
+      <div class="form-group"><label>Bairro / Cidade</label><input type="text" id="rd-local" placeholder="Portão - Curitiba/PR"></div>
+    </div>
+    <div class="form-group"><label>Destaques (vírgula)</label><input type="text" id="rd-feats" placeholder="2 Qts, 1 Vaga, Sacada"></div>
+    <div class="form-group"><label>Fotos por link (separe por vírgula)</label><input type="text" id="rd-fotourl" placeholder="https://.../foto1.jpg, https://.../foto2.jpg"></div>
+    <div class="form-group"><label>ou enviar fotos do aparelho</label><input type="file" id="rd-fotofile" accept="image/*" multiple></div>
+    <button type="button" onclick="salvarAnuncioRadar()" class="btn-action btn-emerald">💾 Salvar Anúncio</button>
+    <div class="radar-grid" id="radar-saved-list"></div>
+  </div>
+</section>
+
+    <!-- ABA 4: VITRINE INTERATIVA -->
+    <section id="tab-vitrine" class="hidden">
+      <div class="desktop-split-view">
+        <div id="vitrine-form-card" class="card">
+          <div class="card-header">
+            <h2 class="card-title">📲 Vitrine Interativa & Exportação</h2>
+            <span class="pill">Multi-Fotos</span>
+          </div>
+          <p class="card-desc">Carregue fotos, gere um link público para o cliente navegar ou exporte em PDF.</p>
+
+          <div class="form-group">
+            <label>Fotos do Imóvel (Selecione 1 ou várias de uma vez)</label>
+            <input type="file" id="prop-photos-input" accept="image/*" multiple onchange="carregarMultiplasFotos(this)">
+          </div>
+
+          <div class="form-group">
+            <label>Título do Imóvel</label>
+            <input type="text" id="prop-title" placeholder="Ex: Condomínio República Argentina - 2 Qts" oninput="atualizarVitrineCard()">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preço</label>
+              <input type="text" id="prop-price" placeholder="Ex: 344.400,00" oninput="aplicarMascaraMoeda(this); atualizarVitrineCard()">
+            </div>
+            <div class="form-group">
+              <label>Bairro / Cidade</label>
+              <input type="text" id="prop-location" placeholder="Ex: Portão - Curitiba/PR" oninput="atualizarVitrineCard()">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Destaques (separados por vírgula)</label>
+            <input type="text" id="prop-features" placeholder="Ex: Sacada c/ Churrasqueira, Academia, 1 Vaga" oninput="atualizarVitrineCard()">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Seu Nome / Imobiliária</label>
+              <input type="text" id="prop-agent" placeholder="Ex: Gabriel Macena" oninput="atualizarVitrineCard()">
+            </div>
+            <div class="form-group">
+              <label>Seu WhatsApp (com DDD)</label>
+              <input type="text" id="prop-phone" placeholder="Ex: (41) 98782-9577" oninput="atualizarVitrineCard()">
+            </div>
+          </div>
+
+          <div id="vitrine-broker-actions">
+            <button type="button" onclick="copiarLinkPublicoInterativo()" class="btn-action btn-emerald">🔗 Copiar Link Interativo para o Cliente</button>
+            <button type="button" onclick="baixarApresentacaoPDF()" class="btn-action btn-purple">📄 Baixar Apresentação em PDF (Multi-Fotos)</button>
+            <button type="button" onclick="baixarCardComoImagem()" class="btn-action btn-download">📥 Baixar Card em Imagem (PNG)</button>
+            <button type="button" onclick="copiarTextoVitrine()" class="btn-action btn-secondary">Copiar Legenda p/ WhatsApp</button>
+          </div>
+        </div>
+
+        <div>
+          <div id="card-export-area">
+            <div class="vitrine-img-container" id="swipe-area">
+              <span class="vitrine-badge">OPORTUNIDADE EXCLUSIVA</span>
+              <div id="arrow-prev" class="slide-arrow prev" style="display:none;" onclick="mudarFotoSlide(-1)">◀</div>
+              <div id="arrow-next" class="slide-arrow next" style="display:none;" onclick="mudarFotoSlide(1)">▶</div>
+              <img id="main-preview-img" class="vitrine-img" src="" style="display:none;" alt="Imóvel">
+              <span id="prev-photo-placeholder" style="color: #64748b; font-size: 13px;">[Selecione fotos acima]</span>
+              <span id="photo-counter" class="vitrine-counter" style="display:none;">1 / 1</span>
+            </div>
+            <div id="gallery-dots-bar" class="gallery-dots" style="display:none;"></div>
+            
+            <div class="vitrine-body">
+              <div class="vitrine-title-row">
+                <h4 id="prev-title">Título do Imóvel</h4>
+                <span id="prev-price" class="vitrine-price">R$ 0,00</span>
+              </div>
+              <p id="prev-location" class="vitrine-loc">📍 Localização do Imóvel</p>
+              <div id="prev-badges" class="tags-container">
+                <span class="tag-item">Destaque 1</span>
+                <span class="tag-item">Destaque 2</span>
+              </div>
+              
+              <div class="corretor-footer">
+                <span id="prev-agent">Atendimento: <strong>Seu Nome</strong></span>
+                <span id="prev-phone">📞 <strong>Seu Telefone</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 5: PLANOS & TRIAL DE 14 DIAS -->
+    <section id="tab-planos" class="hidden">
+      <div id="box-trial-promo" class="card" style="border: 2px solid var(--primary-color); background: rgba(37,99,235,0.04);">
+        <div class="card-header">
+          <h2 class="card-title" style="color:var(--primary-color);">🎁 Teste Grátis de 14 Dias</h2>
+          <span class="pill" style="color:#10b981; font-weight:800;">1 Por Aparelho</span>
+        </div>
+        <p class="card-desc">Libere acesso irrestrito ao Qualificador Caixa, Central Antissumiço, Radar de Lançamentos, Vitrine e Copiloto IA. Cadastre seu cartão e cancele quando quiser.</p>
+        <button type="button" id="btn-iniciar-trial" onclick="abrirModalTrial()" class="btn-action btn-emerald">🚀 Iniciar Meus 14 Dias Grátis</button>
+      </div>
+
+      <div class="card" style="border-color: #3b82f6;">
+        <div class="card-header">
+          <h2 class="card-title">Planos de Assinatura</h2>
+          <span class="pill" style="color: #60a5fa;">Recorrente</span>
+        </div>
+        <p class="card-desc">Escolha a sua modalidade de acesso contínuo à plataforma.</p>
+
+        <div style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>Individual Mensal</strong>
+            <span style="font-size:16px; font-weight:800; color:var(--text-main);">R$ 59,90<small style="font-size:10px; color:var(--text-muted);">/mês</small></span>
+          </div>
+          <button type="button" onclick="abrirCheckout('mensal')" class="btn-action" style="background:var(--border-color); color:var(--text-main); border:1px solid var(--border-color); margin-top:10px;">Assinar Mensal</button>
+        </div>
+
+        <div style="background: rgba(37, 99, 235, 0.05); border: 2px solid var(--primary-color); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:var(--primary-color);">Individual Anual</strong>
+            <span style="font-size:16px; font-weight:800; color:var(--primary-color);">R$ 497,00<small style="font-size:10px; color:var(--text-muted);">/ano</small></span>
+          </div>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Equivale a ~R$ 41,40/mês (Economia de 30%)</p>
+          <button type="button" onclick="abrirCheckout('anual')" class="btn-action btn-emerald" style="margin-top:10px;">Garantir Acesso Anual</button>
+        </div>
+
+        <div style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 12px; padding: 14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#c084fc;">Imobiliárias (Equipes)</strong>
+            <span style="font-size:16px; font-weight:800; color:#c084fc;">R$ 997,00<small style="font-size:10px; color:var(--text-muted);">/mês</small></span>
+          </div>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Até 50 corretores + Painel de Gestor</p>
+          <button type="button" onclick="abrirCheckout('equipe')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Contratar para a Equipe</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL DE ATIVAÇÃO DE TRIAL COM CARTÃO -->
+  <div id="trial-modal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <strong>💳 Ativação do Teste Grátis (14 Dias)</strong>
+        <button class="modal-close" onclick="fecharModalTrial()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px; line-height:1.4;">
+          Para garantir o benefício de <strong>1 teste por corretor</strong>, é necessário validar um cartão de crédito. Nenhuma cobrança será realizada durante os 14 dias.
+        </p>
+        
+        <form onsubmit="ativarTrialComCartao(event)">
+          <div class="form-group">
+            <label>Nome Impresso no Cartão</label>
+            <input type="text" id="trial-card-name" placeholder="Ex: GABRIEL MACENA" required>
+          </div>
+
+          <div class="form-group">
+            <label>Número do Cartão de Crédito</label>
+            <input type="text" id="trial-card-num" inputmode="numeric" placeholder="0000 0000 0000 0000" maxlength="19" oninput="aplicarMascaraCartao(this)" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Validade</label>
+              <input type="text" id="trial-card-val" placeholder="MM/AA" maxlength="5" oninput="aplicarMascaraValidade(this)" required>
+            </div>
+            <div class="form-group">
+              <label>CVV (Segurança)</label>
+              <input type="text" id="trial-card-cvv" inputmode="numeric" placeholder="123" maxlength="4" required>
+            </div>
+          </div>
+
+          <p style="font-size:10px; color:#10b981; margin:8px 0;">🔒 Transação protegida e tokenizada via checkout seguro.</p>
+          <button type="submit" class="btn-action btn-emerald">Confirmar & Liberar 14 Dias Grátis</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIGURAÇÕES GERAIS -->
+  <div id="settings-modal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <strong>⚙️ Configurações & Ajustes</strong>
+        <button class="modal-close" onclick="fecharModalAjustes()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="settings-list-item">
+          <div>
+            <strong>Perfil & Segurança</strong>
+            <span>Nome, telefone, e-mail e senha</span>
+          </div>
+          <button type="button" onclick="abrirModalPerfil()" class="settings-btn-link">Editar</button>
+        </div>
+
+        <div class="settings-list-item">
+          <div>
+            <strong>Tema de Cores</strong>
+            <span id="theme-status-text">Escuro (Ativo)</span>
+          </div>
+          <button type="button" onclick="abrirModalSeletorTema()" class="settings-btn-link">Escolher Tema</button>
+        </div>
+
+        <div class="settings-list-item">
+          <div>
+            <strong>Conexão Gemini IA</strong>
+            <span>Chave opcional para inteligência livre</span>
+          </div>
+          <button type="button" onclick="configurarChaveGemini()" class="settings-btn-link">Configurar</button>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <button type="button" onclick="deslogarSistema()" class="btn-action btn-danger">Encerrar Sessão / Deslogar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL SELETOR DE TEMAS (7 OPÇÕES EQUILIBRADAS) -->
+  <div id="theme-selector-modal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <strong>🎨 Selecione o Tema Visual</strong>
+        <button class="modal-close" onclick="fecharModalSeletorTema()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="theme-grid-options">
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('escuro')">
+            <span>Escuro (Nativo)</span>
+            <span class="color-swatch" style="background:#10b981; border:1px solid #334155;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('claro')">
+            <span>Claro (Executivo)</span>
+            <span class="color-swatch" style="background:#2563eb; border:1px solid #cbd5e1;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('laranja')">
+            <span>Laranja (Solar / Ousado)</span>
+            <span class="color-swatch" style="background:#f97316; border:1px solid #ea580c;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('rosaclaro')">
+            <span>Rosa Claro (Fundo Suave + Bordeaux)</span>
+            <span class="color-swatch" style="background:#be185d; border:1px solid #fecdd3;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('rosa')">
+            <span>Rosa Escuro (Rose Gold Profundo)</span>
+            <span class="color-swatch" style="background:#db2777; border:1px solid #4a243d;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('verde')">
+            <span>Verde (Floresta Nobre)</span>
+            <span class="color-swatch" style="background:#16a34a; border:1px solid #1e4533;"></span>
+          </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('cinza')">
+            <span>Cinza (Titânio Minimalista)</span>
+            <span class="color-swatch" style="background:#64748b; border:1px solid #333945;"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE PERFIL DO USUÁRIO -->
+  <div id="profile-modal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <strong>👤 Meu Perfil de Corretor</strong>
+        <button class="modal-close" onclick="fecharModalPerfil()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="salvarPerfilUsuario(event)">
+          <div class="form-group">
+            <label>Nome Completo</label>
+            <input type="text" id="prof-name" placeholder="Ex: Gabriel Macena" required>
+          </div>
+
+          <div class="form-group">
+            <label>E-mail Comercial</label>
+            <input type="email" id="prof-email" placeholder="Ex: contato@corretor.com" required>
+          </div>
+
+          <div class="form-group">
+            <label>WhatsApp / Telefone</label>
+            <input type="text" id="prof-phone" placeholder="Ex: (41) 98782-9577" oninput="aplicarMascaraTelefone(this)" required>
+          </div>
+
+          <div style="border-top: 1px dashed var(--border-color); margin: 16px 0; padding-top: 12px;">
+            <label style="color:var(--primary-color); font-weight:700;">Redefinir Senha de Acesso</label>
+            
+            <div class="form-group" style="margin-top:8px;">
+              <label>Nova Senha</label>
+              <input type="password" id="prof-pass" placeholder="Mínimo 6 dígitos">
+            </div>
+
+            <div class="form-group">
+              <label>Confirmar Nova Senha</label>
+              <input type="password" id="prof-pass-confirm" placeholder="Repita a nova senha">
+            </div>
+          </div>
+
+          <button type="submit" class="btn-action btn-emerald">Salvar Alterações</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão Flutuante Exclusivo do Cliente -->
+  <a id="btn-lead-whatsapp-float" href="#" target="_blank">💬 Falar com o Corretor no WhatsApp</a>
+
+  <!-- COPILOTO IA CONVERSACIONAL FLUTUANTE -->
+  <button id="ia-copilot-trigger" type="button" onclick="alternarCopilotoIA(event)" ontouchend="alternarCopilotoIA(event)">🤖 Copiloto IA</button>
+  <div id="ia-copilot-modal">
+    <div class="ia-header">
+      <strong>⚡ Copiloto ImobFlow</strong>
+      <button class="ia-close" type="button" onclick="alternarCopilotoIA(event)">✕</button>
+    </div>
+    <div class="ia-body" id="ia-chat-messages">
+      <div class="ia-msg bot">
+        Olá! Sou seu assistente no ImobFlow.
+
+        Posso ajudar com regras de crédito da Caixa, Cohapar Paraná, uso do Radar de Imóveis ou estratégias para fechar negócios. O que você precisa analisar no momento?
+      </div>
+    </div>
+    <span id="ia-typing" class="ia-typing-indicator">Copiloto digitando...</span>
+    <div class="ia-quick-topics">
+      <span class="ia-chip" onclick="executarTopicoIA('regras_gerais')">Regras Caixa</span>
+      <span class="ia-chip" onclick="executarTopicoIA('sbpe_regras')">Regras SBPE</span>
+      <span class="ia-chip" onclick="executarTopicoIA('procotista_regras')">Pró-Cotista</span>
+      <span class="ia-chip" onclick="executarTopicoIA('cohapar_ajuda')">Cohapar PR</span>
+      <span class="ia-chip" onclick="executarTopicoIA('radar_ajuda')">Radar Imóveis</span>
+      <span class="ia-chip" onclick="executarTopicoIA('cliente_sumiu')">Destravar Cliente</span>
+    </div>
+    <div class="ia-input-row">
+      <input type="text" id="ia-user-input" placeholder="Digite sua dúvida..." onkeypress="if(event.key==='Enter') enviarMensagemCopiloto()">
+      <button type="button" onclick="enviarMensagemCopiloto()">Enviar</button>
+    </div>
+  </div>
+
+  <!-- Navegação Inferior (4 Abas) -->
+  <nav id="app-nav">
+    <div class="nav-container">
+      <button type="button" id="nav-calculator" onclick="irParaAba('calculator')" class="nav-btn active">
+        <span class="nav-icon">⚡</span>
+        Qualificador
+      </button>
+      <button type="button" id="nav-agenda" onclick="irParaAba('agenda')" class="nav-btn">
+        <span class="nav-icon">🛡️</span>
+        Antissumiço
+      </button>
+      <button type="button" id="nav-radar" onclick="irParaAba('radar')" class="nav-btn">
+        <span class="nav-icon">📡</span>
+        Radar
+      </button>
+      <button type="button" id="nav-vitrine" onclick="irParaAba('vitrine')" class="nav-btn">
+        <span class="nav-icon">📲</span>
+        Vitrine
+      </button>
+    </div>
+  </nav>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    var temporizadorToast;
+    var fotosGaleria = [];
+    var fotoIndexAtual = 0;
+
+    var tipoImovelAtual = 'planta';
+    var modalidadeAtual = 'mcmv';
+    var amortizacaoAtual = 'price';
+    var cohaparAtivo = false;
+    var scriptSelecionadoId = 'sumiu_simulacao';
+
+    function mostrarToast(msg) {
+      var t = document.getElementById('toast');
+      if (!t) return;
+      t.innerText = msg;
+      t.className = 'toast show';
+      clearTimeout(temporizadorToast);
+      temporizadorToast = setTimeout(function() {
+        t.className = 'toast';
+      }, 2400);
+    }
+
+    /* SISTEMA DE TRAVA DE TRIAL E DISPOSITIVO */
+    function gerarFingerprintDispositivo() {
+      var raw = [navigator.userAgent, navigator.language, screen.width + 'x' + screen.height, screen.colorDepth, new Date().getTimezoneOffset()].join('###');
+      var hash = 0;
+      for (var i = 0; i < raw.length; i++) {
+        var char = raw.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0;
+      }
+      return 'dev_' + Math.abs(hash);
+    }
+
+    function checarStatusAcesso() {
+      var trialExpira = localStorage.getItem('imobflow_trial_expira');
+      var trialUsado = localStorage.getItem('imobflow_trial_usado');
+      var devId = gerarFingerprintDispositivo();
+      var devBloqueado = localStorage.getItem('imobflow_blocked_dev_' + devId);
+
+      var banner = document.getElementById('trial-banner');
+      var diasTxt = document.getElementById('trial-days-left');
+      var btnTrial = document.getElementById('btn-iniciar-trial');
+
+      if (trialExpira) {
+        var restanteMs = parseInt(trialExpira, 10) - Date.now();
+        if (restanteMs > 0) {
+          var dias = Math.ceil(restanteMs / (1000 * 60 * 60 * 24));
+          if (banner) banner.style.display = 'block';
+          if (diasTxt) diasTxt.innerText = dias + (dias === 1 ? ' dia restante' : ' dias restantes');
+          if (btnTrial) {
+            btnTrial.disabled = true;
+            btnTrial.innerText = '✔ Teste Ativo (' + dias + ' dias)';
+            btnTrial.style.opacity = '0.6';
+          }
+        } else {
+          if (banner) {
+            banner.style.display = 'block';
+            banner.style.background = '#ef4444';
+            banner.innerText = '⚠️ Seu período de testes de 14 dias expirou. Escolha um plano para continuar!';
+          }
+          if (btnTrial) {
+            btnTrial.disabled = true;
+            btnTrial.innerText = '❌ Período de Testes Esgotado';
+            btnTrial.style.opacity = '0.5';
+          }
+        }
+      } else if (trialUsado || devBloqueado) {
+        if (btnTrial) {
+          btnTrial.disabled = true;
+          btnTrial.innerText = '❌ Teste Já Utilizado Neste Aparelho';
+          btnTrial.style.opacity = '0.5';
+        }
+      }
+    }
+
+    function abrirModalTrial() {
+      var devId = gerarFingerprintDispositivo();
+      if (localStorage.getItem('imobflow_trial_usado') || localStorage.getItem('imobflow_blocked_dev_' + devId)) {
+        alert('Este aparelho já utilizou o período de testes grátis de 14 dias. Para continuar utilizando, selecione um plano.');
+        return;
+      }
+      document.getElementById('trial-modal').style.display = 'flex';
+    }
+
+    function fecharModalTrial() {
+      document.getElementById('trial-modal').style.display = 'none';
+    }
+
+    function aplicarMascaraCartao(input) {
+      var v = input.value.replace(/\D/g, '');
+      var partes = [];
+      for (var i = 0; i < v.length; i += 4) {
+        partes.push(v.substring(i, i + 4));
+      }
+      input.value = partes.join(' ');
+    }
+
+    function aplicarMascaraValidade(input) {
+      var v = input.value.replace(/\D/g, '');
+      if (v.length > 2) input.value = v.substring(0, 2) + '/' + v.substring(2, 4);
+      else input.value = v;
+    }
+
+    function ativarTrialComCartao(e) {
+      e.preventDefault();
+      var cardNum = document.getElementById('trial-card-num').value.replace(/\s/g, '');
+      if (cardNum.length < 13) {
+        alert('Por favor, informe um número de cartão de crédito válido.');
+        return;
+      }
+      var cardFingerprint = btoa(cardNum.substring(0, 6) + '...' + cardNum.substring(cardNum.length - 4));
+      if (localStorage.getItem('imobflow_used_card_' + cardFingerprint)) {
+        alert('Este cartão de crédito já foi cadastrado para um teste grátis anteriormente.');
+        return;
+      }
+
+      var catorzeDiasMs = 14 * 24 * 60 * 60 * 1000;
+      var dataExpiracao = Date.now() + catorzeDiasMs;
+      var devId = gerarFingerprintDispositivo();
+
+      localStorage.setItem('imobflow_trial_expira', dataExpiracao.toString());
+      localStorage.setItem('imobflow_trial_usado', 'true');
+      localStorage.setItem('imobflow_blocked_dev_' + devId, 'true');
+      localStorage.setItem('imobflow_used_card_' + cardFingerprint, 'true');
+
+      fecharModalTrial();
+      checarStatusAcesso();
+      mostrarToast('Teste de 14 dias ativado com sucesso!');
+      irParaAba('calculator');
+    }
+
+    /* MÁSCARAS & UTILITÁRIOS */
+    function aplicarMascaraMoeda(input) {
+      var valor = input.value.replace(/\D/g, '');
+      if (!valor) { input.value = ''; return; }
+      var numero = (parseFloat(valor) / 100).toFixed(2);
+      var partes = numero.split('.');
+      partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      input.value = partes.join(',');
+    }
+
+    function aplicarMascaraTelefone(input) {
+      var v = input.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.substring(0, 11);
+      if (v.length > 10) input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2, 7) + '-' + v.substring(7);
+      else if (v.length > 6) input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2, 6) + '-' + v.substring(6);
+      else if (v.length > 2) input.value = '(' + v.substring(0, 2) + ') ' + v.substring(2);
+      else input.value = v;
+    }
+
+    function converterMoedaParaNumero(valorTexto) {
+      if (!valorTexto) return 0;
+      var limpo = valorTexto.toString().replace(/\./g, '').replace(',', '.').replace(/[^0-9.-]+/g, '');
+      return parseFloat(limpo) || 0;
+    }
+
+    function formatarReal(val) {
+      return 'R$ ' + Math.round(val).toLocaleString('pt-BR');
+    }
+
+    function copiarTextoSeguro(texto, mensagemSucesso) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(texto).then(function() {
+          mostrarToast(mensagemSucesso || 'Copiado com sucesso!');
+        }).catch(function() {
+          copiarFallback(texto, mensagemSucesso);
+        });
+      } else {
+        copiarFallback(texto, mensagemSucesso);
+      }
+    }
+
+    function copiarFallback(texto, mensagemSucesso) {
+      var ta = document.createElement('textarea');
+      ta.value = texto;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      ta.style.top = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        mostrarToast(mensagemSucesso || 'Copiado com sucesso!');
+      } catch (err) {
+        mostrarToast('Selecione e copie manualmente.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    function irParaAba(idAba) {
+      var abas = ['calculator', 'agenda', 'radar', 'vitrine', 'planos'];
+      for (var i = 0; i < abas.length; i++) {
+        var el = document.getElementById('tab-' + abas[i]);
+        var navBtn = document.getElementById('nav-' + abas[i]);
+        if (el) {
+          if (abas[i] === idAba) el.className = el.className.replace('hidden', '').trim();
+          else if (el.className.indexOf('hidden') === -1) el.className += ' hidden';
+        }
+        if (navBtn) {
+          if (abas[i] === idAba) navBtn.className = 'nav-btn active';
+          else navBtn.className = 'nav-btn';
+        }
+      }
+      window.scrollTo(0, 0);
+    }
+
+    /* CONFIGURAÇÕES, PERFIL E SELETOR DE TEMAS */
+    function abrirModalAjustes() { document.getElementById('settings-modal').style.display = 'flex'; }
+    function fecharModalAjustes() { document.getElementById('settings-modal').style.display = 'none'; }
+    function abrirModalPerfil() { fecharModalAjustes(); carregarDadosPerfil(); document.getElementById('profile-modal').style.display = 'flex'; }
+    function fecharModalPerfil() { document.getElementById('profile-modal').style.display = 'none'; }
+
+    function abrirModalSeletorTema() {
+      fecharModalAjustes();
+      document.getElementById('theme-selector-modal').style.display = 'flex';
+    }
+
+    function fecharModalSeletorTema() {
+      document.getElementById('theme-selector-modal').style.display = 'none';
+    }
+
+    function aplicarTema(nomeTema) {
+      document.body.setAttribute('data-theme', nomeTema);
+      localStorage.setItem('imobflow_theme_name', nomeTema);
+      
+      var rotulos = {
+        escuro: 'Escuro (Ativo)',
+        claro: 'Claro (Ativo)',
+        laranja: 'Laranja (Ativo)',
+        rosaclaro: 'Rosa Claro (Ativo)',
+        rosa: 'Rosa (Ativo)',
+        verde: 'Verde (Ativo)',
+        cinza: 'Cinza (Ativo)'
+      };
+      var statusEl = document.getElementById('theme-status-text');
+      if (statusEl) statusEl.innerText = rotulos[nomeTema] || 'Personalizado';
+
+      fecharModalSeletorTema();
+      mostrarToast('Tema ' + nomeTema.toUpperCase() + ' ativado com sucesso!');
+    }
+
+    function carregarDadosPerfil() {
+      document.getElementById('prof-name').value = localStorage.getItem('imobflow_user_name') || '';
+      document.getElementById('prof-email').value = localStorage.getItem('imobflow_user_email') || '';
+      document.getElementById('prof-phone').value = localStorage.getItem('imobflow_user_phone') || '';
+    }
+
+    function salvarPerfilUsuario(e) {
+      e.preventDefault();
+      var nome = document.getElementById('prof-name').value.trim();
+      var email = document.getElementById('prof-email').value.trim();
+      var tel = document.getElementById('prof-phone').value.trim();
+      var pass = document.getElementById('prof-pass').value;
+      var passConf = document.getElementById('prof-pass-confirm').value;
+
+      if (pass || passConf) {
+        if (pass.length < 6) { alert('A nova senha deve ter pelo menos 6 caracteres.'); return; }
+        if (pass !== passConf) { alert('As senhas digitadas não coincidem.'); return; }
+        localStorage.setItem('imobflow_user_pass', pass);
+      }
+
+      localStorage.setItem('imobflow_user_name', nome);
+      localStorage.setItem('imobflow_user_email', email);
+      localStorage.setItem('imobflow_user_phone', tel);
+
+      document.getElementById('prop-agent').value = nome;
+      document.getElementById('prop-phone').value = tel;
+      atualizarVitrineCard();
+
+      fecharModalPerfil();
+      mostrarToast('Dados salvos com sucesso!');
+    }
+
+    function deslogarSistema() {
+  if (!confirm('Deseja realmente deslogar e limpar a sessão deste aparelho?')) return;
+  var manter = {};
+  Object.keys(localStorage).forEach(function(k) {
+    if (k.indexOf('imobflow_trial') === 0 || k.indexOf('imobflow_blocked_dev_') === 0 || k.indexOf('imobflow_used_card_') === 0) manter[k] = localStorage.getItem(k);
+  });
+  localStorage.clear();
+  Object.keys(manter).forEach(function(k) { localStorage.setItem(k, manter[k]); });
+  location.reload();
+}
+
+    function configurarChaveGemini() {
+      var chaveAtual = localStorage.getItem('imobflow_gemini_key') || '';
+      var novaChave = prompt('Insira sua Chave de API Google Gemini (AI Studio):\n(Deixe vazio para usar o motor analítico integrado)', chaveAtual);
+      if (novaChave !== null) {
+        localStorage.setItem('imobflow_gemini_key', novaChave.trim());
+        fecharModalAjustes();
+        mostrarToast(novaChave.trim() ? 'Conexão Gemini IA ativada!' : 'Usando motor nativo integrado!');
+      }
+    }
+
+    /* QUALIFICADOR / CALCULADORA CAIXA + TRAVAS DE TETO */
+    function alternarCohapar() {
+      cohaparAtivo = !cohaparAtivo;
+      var btn = document.getElementById('btn-cohapar');
+      if (btn) {
+        if (cohaparAtivo) btn.classList.add('active');
+        else btn.classList.remove('active');
+      }
+      calcularFinanciamento(false);
+      mostrarToast(cohaparAtivo ? 'Subsídio Cohapar de R$ 20.000,00 aplicado!' : 'Subsídio Cohapar desativado.');
+    }
+
+    function selecionarTipoImovel(tipo) {
+      tipoImovelAtual = tipo;
+      ['planta', 'novo', 'usado'].forEach(function(t) {
+        var btn = document.getElementById('btn-tipo-' + t);
+        if (btn) btn.className = (t === tipo) ? 'pill-btn active' : 'pill-btn';
+      });
+      calcularFinanciamento(false);
+    }
+
+    function selecionarModalidade(tipo) {
+      modalidadeAtual = tipo;
+      ['mcmv', 'faixa4', 'procotista', 'sbpe'].forEach(function(m) {
+        var btn = document.getElementById('btn-mod-' + m);
+        if (btn) btn.className = (m === tipo) ? 'pill-btn active' : 'pill-btn';
+      });
+
+      var badge = document.getElementById('badge-tipo-linha');
+      if (tipo === 'mcmv') badge.innerText = 'MCMV (Caixa)';
+      else if (tipo === 'faixa4') badge.innerText = 'Classe Média (Fx 4)';
+      else if (tipo === 'procotista') badge.innerText = 'Pró-Cotista FGTS';
+      else badge.innerText = 'SBPE / Mercado';
+
+      calcularFinanciamento(false);
+    }
+
+    function selecionarAmortizacao(tipo) {
+      amortizacaoAtual = tipo;
+      var btnSac = document.getElementById('btn-tab-sac');
+      var btnPrice = document.getElementById('btn-tab-price');
+      if (btnSac) btnSac.className = tipo === 'sac' ? 'pill-btn active' : 'pill-btn';
+      if (btnPrice) btnPrice.className = tipo === 'price' ? 'pill-btn active' : 'pill-btn';
+
+      var label = document.getElementById('label-parcela');
+      if (label) {
+        if (tipo === 'price') label.innerText = 'Parcela Fixa (PRICE)';
+        else label.innerText = '1ª Parcela Est. (SAC)';
+      }
+      calcularFinanciamento(false);
+    }
+
+    function setElemText(id, val) {
+      var el = document.getElementById(id);
+      if (el) el.innerText = val;
+    }
+
+    function zerarResultados() {
+      setElemText('res-prazo', '—');
+      setElemText('res-parcela', '—');
+      setElemText('res-taxa', '—');
+      setElemText('res-capacidade', '—');
+      setElemText('res-financiamento', '—');
+      setElemText('res-entrada', '—');
+      setElemText('res-fgts', '—');
+      setElemText('res-margem', '—');
+    }
+
+    function calcularFinanciamento(comAviso) {
+      var imovelEl = document.getElementById('calc-imovel');
+      var rendaEl = document.getElementById('calc-income');
+      var fgtsEl = document.getElementById('calc-fgts');
+      var idadeEl = document.getElementById('calc-age');
+      var statusEl = document.getElementById('res-status');
+
+      var valorImovel = converterMoedaParaNumero(imovelEl ? imovelEl.value : 0);
+      var renda = converterMoedaParaNumero(rendaEl ? rendaEl.value : 0);
+      var fgts = converterMoedaParaNumero(fgtsEl ? fgtsEl.value : 0);
+      var idade = parseFloat(idadeEl ? idadeEl.value : 0) || 0;
+
+      if (renda <= 0 || valorImovel <= 0) {
+        if (statusEl) statusEl.innerText = 'Preencha o valor do imóvel e a renda para simular.';
+        zerarResultados();
+        return;
+      }
+
+      // TRAVAS ESTRITAS DE TETO DE RENDA E IMÓVEL
+      if (modalidadeAtual === 'mcmv') {
+        if (renda > 9600) {
+          if (statusEl) statusEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⛔ Renda de R$ ' + renda.toLocaleString('pt-BR') + ' excede o teto do MCMV (R$ 9.600,00). Alterne para o botão "Classe Média (Fx 4)" ou "SBPE" acima.</span>';
+          zerarResultados();
+          return;
+        }
+        if (valorImovel > 400000) {
+          if (statusEl) statusEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⛔ Imóvel de R$ ' + valorImovel.toLocaleString('pt-BR') + ' excede o teto máximo do MCMV (R$ 400.000,00). Alterne para o botão "Classe Média (Fx 4)" ou "SBPE" acima.</span>';
+          zerarResultados();
+          return;
+        }
+      } else if (modalidadeAtual === 'faixa4') {
+        if (renda > 13000) {
+          if (statusEl) statusEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⛔ Renda familiar de R$ ' + renda.toLocaleString('pt-BR') + ' excede o limite da Faixa 4 (R$ 13.000,00). Alterne para o botão "SBPE" acima.</span>';
+          zerarResultados();
+          return;
+        }
+        if (valorImovel > 600000) {
+          if (statusEl) statusEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⛔ Imóvel de R$ ' + valorImovel.toLocaleString('pt-BR') + ' excede o teto de R$ 600.000,00 da Faixa 4. Alterne para o botão "SBPE" acima.</span>';
+          zerarResultados();
+          return;
+        }
+      } else if (modalidadeAtual === 'procotista') {
+        if (valorImovel > 500000) {
+          if (statusEl) statusEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⛔ Imóvel de R$ ' + valorImovel.toLocaleString('pt-BR') + ' excede o teto de R$ 500.000,00 do Pró-Cotista. Alterne para "SBPE" acima.</span>';
+          zerarResultados();
+          return;
+        }
+      }
+
+      var idadeValida = idade > 0 ? idade : 30;
+      var anosLivres = Math.max(0, 80.5 - idadeValida);
+      
+      // REGRA DE PRAZO MÁXIMO POR MODALIDADE E AMORTIZAÇÃO
+      var tetoPrazoModalidade = 420;
+      if (modalidadeAtual === 'sbpe' && amortizacaoAtual === 'price') {
+        tetoPrazoModalidade = 360; // PRICE SBPE: MÁXIMO 360 MESES
+      }
+
+      var prazoMeses = Math.min(tetoPrazoModalidade, Math.max(12, Math.floor(anosLivres * 12)));
+      var prazoAnos = (prazoMeses / 12).toFixed(1);
+
+      setElemText('res-prazo', prazoMeses + ' meses (' + prazoAnos + ' anos)');
+
+      var isNovoOrPlanta = (tipoImovelAtual === 'planta' || tipoImovelAtual === 'novo');
+      var cotaMaxima = 0.80;
+      var jurosAnual = 10.92;
+      var tetoImovelPermitido = 2250000;
+
+      if (modalidadeAtual === 'mcmv') {
+        if (renda <= 2160) {
+          jurosAnual = 4.25; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else if (renda <= 2850) {
+          jurosAnual = 4.50; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else if (renda <= 3200) {
+          jurosAnual = 4.75; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else if (renda <= 3500) {
+          jurosAnual = 5.00; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else if (renda <= 4000) {
+          jurosAnual = 5.50; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else if (renda <= 5000) {
+          jurosAnual = 6.50; tetoImovelPermitido = 275000; cotaMaxima = isNovoOrPlanta ? (amortizacaoAtual === 'sac' ? 0.90 : 0.80) : 0.80;
+        } else {
+          jurosAnual = 7.66; tetoImovelPermitido = 400000; cotaMaxima = 0.80;
+        }
+      } else if (modalidadeAtual === 'faixa4') {
+        jurosAnual = 10.00; tetoImovelPermitido = 600000; cotaMaxima = isNovoOrPlanta ? 0.80 : 0.60;
+      } else if (modalidadeAtual === 'procotista') {
+        // REGRAS DO PRÓ-COTISTA FGTS: TAXA 9.01%
+        jurosAnual = 9.01;
+        tetoImovelPermitido = 500000;
+        if (isNovoOrPlanta) {
+          // NOVO / PLANTA: 80% SAC E 60% PRICE
+          cotaMaxima = (amortizacaoAtual === 'sac') ? 0.80 : 0.60;
+        } else {
+          // USADO: 60% SAC E 50% PRICE
+          cotaMaxima = (amortizacaoAtual === 'sac') ? 0.60 : 0.50;
+        }
+      } else {
+        // REGRAS DO SBPE: TAXA 11.49% | SAC 90% (420M) E PRICE 80% (360M)
+        jurosAnual = 11.49;
+        tetoImovelPermitido = 2250000;
+        cotaMaxima = (amortizacaoAtual === 'sac') ? 0.90 : 0.80;
+      }
+
+      var margemMaxCaixa = renda * 0.30;
+      var tetoFinanceiro = valorImovel * cotaMaxima;
+      var taxaMensal = Math.pow(1 + (jurosAnual / 100), 1/12) - 1;
+
+      var financPelaRenda = (amortizacaoAtual === 'sac') 
+        ? (margemMaxCaixa / ((1 / prazoMeses) + taxaMensal))
+        : margemMaxCaixa * (1 - Math.pow(1 + taxaMensal, -prazoMeses)) / taxaMensal;
+
+      var financAprovado = Math.min(financPelaRenda, tetoFinanceiro);
+      var parcelaCalculada = (amortizacaoAtual === 'sac')
+        ? (financAprovado / prazoMeses) + (financAprovado * taxaMensal)
+        : financAprovado * (taxaMensal / (1 - Math.pow(1 + taxaMensal, -prazoMeses)));
+
+      var valorCohapar = cohaparAtivo ? 20000 : 0;
+      var abatimentoTotal = fgts + valorCohapar;
+      var entradaNecessaria = Math.max(0, valorImovel - financAprovado - abatimentoTotal);
+      var cotaPct = Math.round(cotaMaxima * 100);
+
+      setElemText('label-financiamento', 'Financiamento (até ' + cotaPct + '%)');
+      setElemText('res-taxa', jurosAnual.toFixed(2).replace('.', ',') + '% a.a.');
+      setElemText('res-capacidade', formatarReal(financPelaRenda));
+
+      var descTipo = (tipoImovelAtual === 'planta' ? 'Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
+      if (statusEl) {
+        var txtCohapar = cohaparAtivo ? ' [Com Cohapar R$ 20k]' : '';
+        if (financAprovado < tetoFinanceiro) {
+          statusEl.innerHTML = '<span style="color:#fbbf24;">⚠️ Pela renda em ' + descTipo + ' (' + amortizacaoAtual.toUpperCase() + '), aprova até ' + formatarReal(financAprovado) + '. Entrada: ' + formatarReal(entradaNecessaria) + txtCohapar + '.</span>';
+        } else {
+          statusEl.innerHTML = '<span style="color:var(--primary-color);">✔ Renda aprova cota de ' + cotaPct + '% em ' + descTipo + ' (' + formatarReal(financAprovado) + '). Taxa: ' + jurosAnual.toFixed(2).replace('.', ',') + '% a.a.' + txtCohapar + '</span>';
+        }
+      }
+
+      setElemText('res-financiamento', formatarReal(financAprovado));
+      setElemText('res-parcela', formatarReal(parcelaCalculada) + ' /mês');
+      setElemText('res-entrada', formatarReal(entradaNecessaria));
+      setElemText('res-fgts', formatarReal(abatimentoTotal));
+      setElemText('res-margem', formatarReal(margemMaxCaixa));
+
+      if (comAviso) mostrarToast('Estudo financeiro atualizado com sucesso!');
+    }
+
+    function copiarResumoWhatsApp() {
+      var valorImovel = document.getElementById('calc-imovel') ? document.getElementById('calc-imovel').value : '';
+      var renda = document.getElementById('calc-income') ? document.getElementById('calc-income').value : '';
+      var prazo = document.getElementById('res-prazo') ? document.getElementById('res-prazo').innerText : '';
+      var taxa = document.getElementById('res-taxa') ? document.getElementById('res-taxa').innerText : '';
+      var capacidade = document.getElementById('res-capacidade') ? document.getElementById('res-capacidade').innerText : '';
+      var financ = document.getElementById('res-financiamento') ? document.getElementById('res-financiamento').innerText : '';
+      var parc = document.getElementById('res-parcela') ? document.getElementById('res-parcela').innerText : '';
+      var entrada = document.getElementById('res-entrada') ? document.getElementById('res-entrada').innerText : '';
+      var abatimentos = document.getElementById('res-fgts') ? document.getElementById('res-fgts').innerText : '';
+      var tipoLinha = modalidadeAtual.toUpperCase();
+      if (modalidadeAtual === 'procotista') tipoLinha = 'Pró-Cotista FGTS';
+      if (modalidadeAtual === 'faixa4') tipoLinha = 'Classe Média (Fx 4)';
+      var descTipo = (tipoImovelAtual === 'planta' ? 'Na Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
+      var cohaparTxt = cohaparAtivo ? '\n🏛️ *Subsídio Cohapar:* R$ 20.000,00 abatido na entrada' : '';
+
+      if (!valorImovel || !renda || financ === '—') { mostrarToast('Execute uma simulação válida antes de copiar.'); return; }
+
+      var texto = 'Olá! Montei um estudo de financiamento Caixa exclusivo para você:\n\n' +
+                  '🏢 *Imóvel pretendido:* R$ ' + valorImovel + ' (' + descTipo + ')\n' +
+                  '💼 *Renda familiar declarada:* R$ ' + renda + '\n' +
+                  '📌 *Linha:* ' + tipoLinha + ' (Tabela ' + amortizacaoAtual.toUpperCase() + ')\n' +
+                  '📈 *Taxa de juros:* ' + taxa + '\n' +
+                  '📅 *Prazo máximo calculado:* ' + prazo + '\n' +
+                  '📊 *Capacidade pela renda:* até ' + capacidade + '\n' +
+                  '🏦 *Financiamento estimado:* até ' + financ + '\n' +
+                  '📉 *Parcela estimada:* ' + parc + cohaparTxt + '\n' +
+                  '💰 *FGTS + Subsídios:* ' + abatimentos + '\n' +
+                  '🔑 *Entrada necessária:* ' + entrada + '\n\n' +
+                  'Podemos agendar para rodar sua aprovação formal nesta semana?';
+
+      copiarTextoSeguro(texto, 'Resumo copiado para o WhatsApp!');
+    }
+
+    /* CENTRAL ANTISSUMIÇO REFORMULADA (TEXTOS ROBUSTOS E ASSERTIVOS) */
+    var listaScriptsAntisumico = [
+      { id: 'visita', cat: 'visita', badge: 'Compromisso & Portaria', titulo: '1. Confirmação de Visita', resumo: 'Blindagem de agenda com bloqueio de horário e portaria.', precisaData: true,
+        template: function(n, d, h) { return 'Olá ' + n + ', tudo bem?\n\nJá reservei a minha agenda para receber você com exclusividade no dia ' + d + ' às ' + h + '.\n\nComo o acesso ao empreendimento exige o envio prévio dos nomes na portaria e organizei 40 minutos para tirar todas as dúvidas da pasta sem pressa, peço a gentileza de me confirmar se está tudo mantido por aí. Caso surja algum imprevisto, me avise com pelo menos 2 horas de antecedência.\n\nPosso confirmar seu nome na portaria? Nos vemos às ' + h + '!'; }
+      },
+      { id: 'duas_horas', cat: 'visita', badge: 'Filtro Anti-Gasolina', titulo: '2. Checagem 2 Horas Antes', resumo: 'Checagem estratégica antes de sair para o deslocamento.', precisaData: true,
+        template: function(n, d, h) { return 'Olá ' + n + '! Passando rápido para confirmar nosso encontro hoje às ' + h + '.\n\nEstou organizando a rota da tarde, separando as chaves e o dossiê financeiro da unidade que separei para você. Você conseguiu manter o horário certinho ou já está a caminho?\n\nQualquer ajuste na rota, me avise por aqui!'; }
+      },
+      { id: 'assinatura', cat: 'visita', badge: 'Autoridade Presencial', titulo: '3. Reunião de Aprovação Caixa', resumo: 'Notificação solene de crédito deferido na mesa bancária.', precisaData: true,
+        template: function(n, d, h) { return 'Olá ' + n + '! Excelente notícia: sua pasta de crédito foi formalmente deferida e está pronta para assinatura no dia ' + d + ' às ' + h + '.\n\nA mesa do correspondente bancário já está agendada exclusivamente para o seu contrato e para a garantia das taxas simuladas. Não se esqueça de levar seus documentos originais com foto e os comprovantes atualizados.\n\nConto com a sua presença pontual para garantirmos a emissão!'; }
+      },
+      { id: 'sumiu_simulacao', cat: 'vacuo', badge: 'Descarte Suave', titulo: '4. Sumiu após a Simulação', resumo: 'Ameaça suave de arquivamento para ativar a aversão à perda.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nComo não tive mais o seu retorno sobre o estudo de financiamento que montei, imaginei que você tenha decidido pausar a compra do imóvel no momento ou que as condições não tenham encaixado no seu planejamento financeiro.\n\nSem problema nenhum! Posso arquivar sua pasta por aqui para não te incomodar com mensagens, ou você ainda gostaria de avaliar uma opção com fluxo de entrada mais flexível?'; }
+      },
+      { id: 'sumiu_visita', cat: 'vacuo', badge: 'Feedback Sem Pressão', titulo: '5. Sumiu após Visitar o Imóvel', resumo: 'Pergunta neutra e consultiva para desarmar o cliente.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo bem com você?\n\nPassando para saber com sinceridade a sua impressão sobre o imóvel que visitamos. Olhando com calma depois da visita, ele atendeu às prioridades da sua família ou teve algum detalhe que não agradou?\n\nSeja bem sincero(a)! Se não tiver sido o imóvel ideal, eu ajusto o radar e busco outra opção sem você perder tempo.'; }
+      },
+      { id: 'revisita', cat: 'vacuo', badge: 'Oportunidade Reversa', titulo: '6. Reaquecimento de Lead Frio', resumo: 'Notificação de oportunidade pontual de entrada facilitada.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', lembrei de você hoje!\n\nEntrou no radar uma oportunidade pontual com valor de entrada bem abaixo do padrão de mercado e subsídio ampliado, exatamente no perfil que conversamos anteriormente.\n\nVocê ainda está avaliando a compra do imóvel próprio ou essa parte já foi resolvida por aí?'; }
+      },
+      { id: 'sumiu_proposta', cat: 'vacuo', badge: 'Segurança da Tabela', titulo: '7. Sumiu após Receber a Proposta', resumo: 'Pressão legítima de construtora para liberação de vaga.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo bem?\n\nA gerência da construtora me pediu uma posição hoje sobre a condição diferenciada que eu segurei para você na proposta. Como o fluxo de atendimento daquela torre aumentou, preciso confirmar se mantemos a reserva formal ou se posso liberar a unidade para o próximo cliente da fila.\n\nConsegue me dar uma posição até as 17h?'; }
+      },
+      { id: 'parcela_alta', cat: 'objecao', badge: 'Composição de Renda', titulo: '8. Achou a Parcela Alta', resumo: 'Estratégia matemática para esticar a margem e baratear a parcela.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Compreendo perfeitamente o seu ponto. Se a parcela inicial ficou no teto do seu orçamento mensal, nós temos uma saída técnica muito eficiente: incluir uma composição de renda com um segundo comprador (familiar, noivo(a) ou cônjuge).\n\nAo compor a renda, a Caixa estica a margem de segurança e o valor da parcela mensal reduz significativamente, além de aumentar o potencial de subsídio. Tem alguém de confiança que toparia compor com você?'; }
+      },
+      { id: 'medo_divida', cat: 'objecao', badge: 'Custo da Inação', titulo: '9. Medo de Financiamento Longo', resumo: 'Confronto analítico entre patrimônio que valoriza e aluguel perdido.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', é completamente compreensível ter receio ao assumir um financiamento de longo prazo. Mas faça essa conta rápida comigo: pagando aluguel, você gasta em 5 anos mais de R$ 90 mil sem construir um único centavo de patrimônio.\n\nNo financiamento Caixa, cada parcela paga amortiza a sua dívida e o imóvel valoriza ano após ano. Além disso, você tem a liberdade de amortizar com o FGTS e liquidar em muito menos tempo. Podemos analisar uma parcela que fique equivalente ao que você já paga de aluguel?'; }
+      },
+      { id: 'falta_entrada', cat: 'objecao', badge: 'Engenharia de Entrada', titulo: '10. Falta Dinheiro para a Entrada', resumo: 'Apresenta diluição durante a obra em até 48x + FGTS.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Não ter o valor integral da entrada à vista não é impeditivo para fechar negócio. Nós conseguimos parcelar o saldo da entrada direto com a construtora durante o período de obras em até 36x ou 48x, além de utilizar o saldo do seu FGTS para amortizar o montante inicial.\n\nPosso desenhar um fluxo de pagamento personalizado para você ver como a entrada fica diluída sem pesar no mês a mês?'; }
+      },
+      { id: 'vai_pensar', cat: 'objecao', badge: 'Isolamento de Dúvida', titulo: '11. "Vou Pensar e te Aviso"', resumo: 'Isolamento técnico para descobrir o real motivo da hesitação.', precisaData: false,
+        template: function(n) { return 'Perfeito, ' + n + '! Tomar uma decisão com calma e responsabilidade é fundamental. Mas me permita uma pergunta direta: de tudo o que analisamos, o que mais gerou dúvida em você? Foi a localização, o valor da entrada necessária ou o valor da parcela?\n\nSe for condição de pagamento, eu consigo sentar com a diretoria e buscar uma flexibilização agora para viabilizar para você!'; }
+      },
+      { id: 'consultar_terceiro', cat: 'objecao', badge: 'Apoio na Apresentação', titulo: '12. "Preciso Falar com Meu Cônjuge/Pai"', resumo: 'Oferece suporte profissional para blindar a conversa em família.', precisaData: false,
+        template: function(n) { return 'Excelente iniciativa, ' + n + '! Uma decisão patrimonial deve ser tomada em família mesmo. Como os números da Caixa envolvem termos técnicos, seguros e regras de amortização que às vezes geram dúvidas, quer que eu grave um áudio explicativo ou faça uma chamada rápida de 5 minutos com vocês dois para esclarecer tudo de forma transparente?\n\nEstou à disposição para apoiar vocês nessa conversa!'; }
+      },
+      { id: 'documentos', cat: 'bancario', badge: 'Urgência Bancária', titulo: '13. Cobrança de Documentos', resumo: 'Gatilho de lote semanal para garantir reserva de taxa.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + ', tudo certo?\n\nEstou com o canal do correspondente bancário da Caixa aberto finalizando a remessa deste lote semanal. Para assegurar que o seu processo entre com as taxas de juros promocionais vigentes garantidas, faltam apenas aqueles últimos documentos pendentes da sua lista.\n\nConsegue me enviar as fotos legíveis por aqui hoje para não perdermos o lote e não correr risco de virada de taxa?'; }
+      },
+      { id: 'reprovou_credito', cat: 'bancario', badge: 'Plano de Saneamento', titulo: '14. Crédito Condicionado / Reprovado', resumo: 'Acalma o lead e oferece rota prática para reverter em poucos dias.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Tivemos o retorno da análise preliminar e a Caixa solicitou um condicionamento de margem. Quero te tranquilizar: isso acontece com frequência e é perfeitamente contornável!\n\nNós podemos reorganizar pequenos apontamentos de score ou incluir uma composição de renda para rodar uma nova aprovação formal e liberar o montante desejado. Vamos conversar 5 minutos hoje para traçar o plano de ação correto?'; }
+      },
+      { id: 'urgencia_unidade', cat: 'bancario', badge: 'Fim de Lote', titulo: '15. Última Unidade no Preço Antigo', resumo: 'Aviso formal sobre virada de tabela e aumento iminente.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Passando para te atualizar com transparência: restam apenas 2 unidades disponíveis nessa mesma metragem e com o valor de tabela antigo. A partir da próxima semana haverá reajuste oficial de preços pela construtora devido ao avanço da obra.\n\nSe você ainda deseja garantir essa unidade com a condição especial que calculamos, me avise agora para segurarmos a sua ficha de reserva!'; }
+      }
+    ];
+
+    function montarCatalogoScripts(categoria) {
+      var container = document.getElementById('script-catalog-list');
+      if (!container) return;
+      container.innerHTML = '';
+
+      var filtrados = listaScriptsAntisumico.filter(function(s) {
+        return (categoria === 'todos' || s.cat === categoria);
+      });
+
+      filtrados.forEach(function(s) {
+        var card = document.createElement('div');
+        card.className = (s.id === scriptSelecionadoId) ? 'script-card-item selected' : 'script-card-item';
+        card.onclick = function() { selecionarScriptItem(s.id); };
+        card.innerHTML = '<span class="item-title">' + s.titulo + '</span><span class="item-desc">' + s.resumo + '</span>';
+        container.appendChild(card);
+      });
+    }
+
+    function filtrarCategoriaScript(cat, btn) {
+      var btns = btn.parentElement.querySelectorAll('.pill-btn');
+      btns.forEach(function(b) { b.className = 'pill-btn'; });
+      btn.className = 'pill-btn active';
+      montarCatalogoScripts(cat);
+    }
+
+    function selecionarScriptItem(id) {
+      scriptSelecionadoId = id;
+      var activePill = document.querySelector('#tab-agenda .pill-btn.active');
+      var cat = activePill ? activePill.innerText.toLowerCase().replace('todos', 'todos').replace('visitas', 'visita').replace('vácuo', 'vacuo').replace('objeções', 'objecao').replace('bancário', 'bancario') : 'todos';
+      montarCatalogoScripts(cat);
+
+      var achado = listaScriptsAntisumico.find(function(s) { return s.id === id; });
+      var linhaData = document.getElementById('agenda-date-time-row');
+      if (achado && achado.precisaData) {
+        linhaData.className = 'form-row';
+      } else {
+        linhaData.className = 'form-row hidden';
+      }
+      atualizarPreviewScript();
+    }
+
+    function atualizarPreviewScript() {
+      var achado = listaScriptsAntisumico.find(function(s) { return s.id === scriptSelecionadoId; });
+      if (!achado) return;
+
+      var nome = document.getElementById('lead-name').value.trim() || 'Cliente';
+      var date = document.getElementById('lead-date').value;
+      var time = document.getElementById('lead-time').value || '15:00';
+      var dateFormatted = 'data combinada';
+      if (date) {
+        var parts = date.split('-');
+        if (parts.length === 3) dateFormatted = parts[2] + '/' + parts[1] + '/' + parts[0];
+      }
+
+      var textoFinal = achado.template(nome, dateFormatted, time);
+      document.getElementById('script-text').innerText = textoFinal;
+      document.getElementById('script-badge').innerText = achado.badge;
+    }
+
+    function copiarScriptTexto() {
+      var text = document.getElementById('script-text').innerText;
+      copiarTextoSeguro(text, 'Script copiado com sucesso!');
+    }
+
+    function confirmarEEnviarWhatsApp() {
+      var text = document.getElementById('script-text').innerText;
+      if (!text) { mostrarToast('Selecione um script primeiro.'); return; }
+      var phoneInput = document.getElementById('lead-phone').value.replace(/\D/g, '');
+      var url = (phoneInput && phoneInput.length >= 10)
+        ? 'https://wa.me/55' + phoneInput + '?text=' + encodeURIComponent(text)
+        : 'https://api.whatsapp.com/send?text=' + encodeURIComponent(text);
+      window.open(url, '_blank');
+    }
+
+    /* ================= RADAR v2 ================= */
+var UF_SLUG = { PR:'parana', SP:'sao-paulo', SC:'santa-catarina', RS:'rio-grande-do-sul', RJ:'rio-de-janeiro', MG:'minas-gerais', GO:'goias', BA:'bahia' };
+var RADAR_KEY = 'imobflow_radar_salvos';
+
+function normalizarTexto(s) { return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
+function slugify(s) { return normalizarTexto(s).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+function escapeHtml(s) {
+  return (s == null ? '' : s).toString().replace(/[&<>"']/g, function(c) {
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+function urlSegura(u) { return /^https?:\/\//i.test((u || '').trim()) ? u.trim() : ''; }
+
+function atualizarCidadeRadar() {
+  var c = { PR:'Curitiba', SP:'São Paulo', SC:'Balneário Camboriú', RJ:'Rio de Janeiro', RS:'Porto Alegre', MG:'Belo Horizonte', GO:'Goiânia', BA:'Salvador' };
+  document.getElementById('radar-city').value = c[document.getElementById('radar-uf').value] || '';
+  document.getElementById('radar-bairro').value = '';
+}
+
+function gerarBuscasPortais() {
+  var uf = document.getElementById('radar-uf').value;
+  var cidade = document.getElementById('radar-city').value.trim();
+  var bairro = document.getElementById('radar-bairro').value.trim();
+  var tipo = document.getElementById('radar-tipo').value;
+  var perfil = document.getElementById('radar-profile').value;
+  var dorms = document.getElementById('radar-dorms').value;
+  if (!cidade) { mostrarToast('Informe a cidade.'); return; }
+
+  var cs = slugify(cidade), bs = slugify(bairro), u = uf.toLowerCase();
+  var tipoPlural = tipo === 'casa' ? 'casas' : 'apartamentos';
+  var faixaTxt = { mcmv:'até 400 mil', medio:'até 750 mil', alto:'alto padrão', todos:'' }[perfil];
+  var texto = tipo + ' à venda ' + (bairro ? bairro + ' ' : '') + cidade + ' ' + uf + (dorms !== 'todos' ? ' ' + dorms + ' quartos' : '') + (faixaTxt ? ' ' + faixaTxt : '');
+  var google = function(site) { return 'https://www.google.com/search?q=' + encodeURIComponent('site:' + site + ' ' + texto); };
+
+  var portais = [
+    { nome:'Chaves na Mão', desc:'Busca direta por região', url:'https://www.chavesnamao.com.br/' + tipoPlural + '-a-venda/' + u + '-' + cs + '/' + (bs ? bs + '/' : '') },
+    { nome:'VivaReal', desc:'Busca direta por região', url: UF_SLUG[uf] ? 'https://www.vivareal.com.br/venda/' + UF_SLUG[uf] + '/' + cs + '/' + (bs ? 'bairros/' + bs + '/' : '') : google('vivareal.com.br') },
+    { nome:'QuintoAndar', desc:'Compra por região', url:'https://www.quintoandar.com.br/comprar/imovel/' + (bs ? bs + '-' : '') + cs + '-' + u + '-brasil' },
+    { nome:'ZAP Imóveis', desc:'Anúncios indexados (com seus filtros)', url: google('zapimoveis.com.br') },
+    { nome:'OLX Imóveis', desc:'Anúncios indexados (com seus filtros)', url: google('olx.com.br/imoveis') },
+    { nome:'Imovelweb', desc:'Anúncios indexados (com seus filtros)', url: google('imovelweb.com.br') },
+    { nome:'Órulo', desc:'Plataforma de lançamentos (requer login)', url:'https://www.orulo.com.br/' }
+  ];
+
+  var html = '<div class="card"><div class="card-header"><h2 class="card-title">Resultados em ' + escapeHtml((bairro ? bairro + ', ' : '') + cidade) + '</h2></div>' +
+             '<p class="card-desc">Abra o portal, escolha o anúncio, copie o link e salve abaixo em "Meus Anúncios".</p><div class="script-catalog" style="max-height:none;">';
+  portais.forEach(function(p) {
+    html += '<a href="' + escapeHtml(p.url) + '" target="_blank" rel="noopener" class="script-card-item" style="text-decoration:none; display:block;">' +
+            '<span class="item-title">🌐 ' + escapeHtml(p.nome) + '</span><span class="item-desc">' + escapeHtml(p.desc) + '</span></a>';
+  });
+  document.getElementById('radar-portais').innerHTML = html + '</div></div>';
+  mostrarToast('Buscas geradas!');
+}
+
+/* --- Anúncios salvos --- */
+function lerSalvos() { try { return JSON.parse(localStorage.getItem(RADAR_KEY) || '[]'); } catch (e) { return []; } }
+function gravarSalvos(l) {
+  try { localStorage.setItem(RADAR_KEY, JSON.stringify(l)); return true; }
+  catch (e) { mostrarToast('Memória cheia. Use fotos por link ou exclua anúncios.'); return false; }
+}
+
+function comprimirFoto(file, cb) {
+  var r = new FileReader();
+  r.onload = function(e) {
+    var img = new Image();
+    img.onload = function() {
+      var max = 900, k = Math.min(1, max / Math.max(img.width, img.height));
+      var c = document.createElement('canvas');
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      cb(c.toDataURL('image/jpeg', 0.7));
+    };
+    img.onerror = function() { cb(null); };
+    img.src = e.target.result;
+  };
+  r.onerror = function() { cb(null); };
+  r.readAsDataURL(file);
+}
+
+function salvarAnuncioRadar() {
+  var link = urlSegura(document.getElementById('rd-link').value);
+  var titulo = document.getElementById('rd-title').value.trim();
+  if (!link) { mostrarToast('Cole o link completo do anúncio (https://...).'); return; }
+  if (!titulo) { mostrarToast('Informe um título.'); return; }
+
+  var item = {
+    id: 'a' + Date.now(), link: link, title: titulo,
+    price: document.getElementById('rd-price').value,
+    local: document.getElementById('rd-local').value.trim(),
+    feats: document.getElementById('rd-feats').value.trim(),
+    fotos: document.getElementById('rd-fotourl').value.split(',').map(urlSegura).filter(Boolean)
+  };
+  var files = Array.prototype.slice.call(document.getElementById('rd-fotofile').files || []);
+
+  var finalizar = function() {
+    var lista = lerSalvos(); lista.unshift(item);
+    if (!gravarSalvos(lista)) return;
+    ['rd-link','rd-title','rd-price','rd-local','rd-feats','rd-fotourl','rd-fotofile'].forEach(function(id) { document.getElementById(id).value = ''; });
+    renderizarSalvosRadar();
+    mostrarToast('Anúncio salvo!');
+  };
+
+  if (!files.length) { finalizar(); return; }
+  var pendentes = files.length;
+  files.forEach(function(f) {
+    comprimirFoto(f, function(data) {
+      if (data) item.fotos.push(data);
+      if (--pendentes === 0) finalizar();
+    });
+  });
+}
+
+function renderizarSalvosRadar() {
+  var lista = lerSalvos();
+  var box = document.getElementById('radar-saved-list');
+  document.getElementById('radar-count').innerText = lista.length;
+  if (!box) return;
+  if (!lista.length) { box.innerHTML = '<p class="card-desc" style="margin-top:12px;">Nenhum anúncio salvo ainda.</p>'; return; }
+  box.innerHTML = '';
+  lista.forEach(function(it) {
+    var card = document.createElement('div');
+    card.className = 'radar-card';
+    var foto = it.fotos && it.fotos[0] ? '<img src="' + escapeHtml(it.fotos[0]) + '" alt="Imóvel" loading="lazy" onerror="this.style.display=\'none\'">' : '';
+    card.innerHTML =
+      '<div class="radar-img-box">' + (it.fotos && it.fotos.length > 1 ? '<span class="radar-tag">' + it.fotos.length + ' fotos</span>' : '') + foto + '</div>' +
+      '<div class="radar-card-content"><h4>' + escapeHtml(it.title) + '</h4>' +
+      (it.price ? '<div class="price">R$ ' + escapeHtml(it.price) + '</div>' : '') +
+      '<div class="loc">' + (it.local ? '📍 ' + escapeHtml(it.local) + '<br>' : '') + escapeHtml(it.feats) + '</div>' +
+      '<div class="radar-actions">' +
+        '<a href="' + escapeHtml(it.link) + '" target="_blank" rel="noopener" style="background:var(--border-color); color:var(--text-main);">🌐 Abrir Anúncio</a>' +
+        '<button type="button" class="b-imp" style="background:var(--primary-color); color:var(--primary-text);">📥 Puxar p/ Vitrine</button>' +
+        '<button type="button" class="b-del" style="background:#ef4444; color:#fff; grid-column:span 2;">🗑 Excluir</button>' +
+      '</div></div>';
+    card.querySelector('.b-imp').onclick = function() { importarImovelRadarParaVitrine(it.id); };
+    card.querySelector('.b-del').onclick = function() {
+      if (!confirm('Excluir este anúncio?')) return;
+      gravarSalvos(lerSalvos().filter(function(x) { return x.id !== it.id; }));
+      renderizarSalvosRadar();
+    };
+    box.appendChild(card);
+  });
+}
+
+function importarImovelRadarParaVitrine(id) {
+  var it = lerSalvos().find(function(x) { return x.id === id; });
+  if (!it) { mostrarToast('Anúncio não encontrado.'); return; }
+  document.getElementById('prop-title').value = it.title;
+  document.getElementById('prop-price').value = it.price || '';
+  document.getElementById('prop-location').value = it.local || '';
+  document.getElementById('prop-features').value = it.feats || '';
+  fotosGaleria = (it.fotos || []).slice();
+  try { localStorage.setItem('imobflow_shared_photos', JSON.stringify(fotosGaleria)); } catch (e) {}
+  fotoIndexAtual = 0;
+  if (fotosGaleria.length) exibirFotoGaleria(0);
+  montarPontosGaleria();
+  atualizarVitrineCard();
+  irParaAba('vitrine');
+  mostrarToast('Ficha e fotos importadas para a Vitrine!');
+}
+
+    /* VITRINE MULTI-FOTOS (CORREÇÃO DE FOTOS NO LINK DO CLIENTE E PDF) */
+    function carregarMultiplasFotos(input) {
+      if (input.files && input.files.length > 0) {
+        fotosGaleria = [];
+        var total = input.files.length;
+        var carregadas = 0;
+
+        for (var i = 0; i < total; i++) {
+          (function(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              fotosGaleria.push(e.target.result);
+              carregadas++;
+              if (carregadas === total) {
+                try { localStorage.setItem('imobflow_shared_photos', JSON.stringify(fotosGaleria)); } catch (e) {}
+                fotoIndexAtual = 0;
+                exibirFotoGaleria(0);
+                montarPontosGaleria();
+                mostrarToast(total + ' foto(s) carregada(s) com sucesso!');
+              }
+            };
+            reader.readAsDataURL(file);
+          })(input.files[i]);
+        }
+      }
+    }
+
+    function exibirFotoGaleria(idx) {
+      if (fotosGaleria.length === 0) return;
+      var img = document.getElementById('main-preview-img');
+      var placeholder = document.getElementById('prev-photo-placeholder');
+      var counter = document.getElementById('photo-counter');
+      var btnPrev = document.getElementById('arrow-prev');
+      var btnNext = document.getElementById('arrow-next');
+
+      img.src = fotosGaleria[idx];
+      img.style.display = 'block';
+      if (placeholder) placeholder.style.display = 'none';
+
+      if (fotosGaleria.length > 1) {
+        if (counter) { counter.style.display = 'block'; counter.innerText = (idx + 1) + ' / ' + fotosGaleria.length; }
+        if (btnPrev) btnPrev.style.display = 'flex';
+        if (btnNext) btnNext.style.display = 'flex';
+      } else {
+        if (counter) counter.style.display = 'none';
+        if (btnPrev) btnPrev.style.display = 'none';
+        if (btnNext) btnNext.style.display = 'none';
+      }
+
+      var dots = document.querySelectorAll('.gallery-dots .dot');
+      dots.forEach(function(d, i) {
+        d.className = (i === idx) ? 'dot active' : 'dot';
+      });
+    }
+
+    function mudarFotoSlide(direcao) {
+      if (fotosGaleria.length <= 1) return;
+      fotoIndexAtual += direcao;
+      if (fotoIndexAtual < 0) fotoIndexAtual = fotosGaleria.length - 1;
+      if (fotoIndexAtual >= fotosGaleria.length) fotoIndexAtual = 0;
+      exibirFotoGaleria(fotoIndexAtual);
+    }
+
+    var toqueInicioX = 0;
+    var swipeArea = document.getElementById('swipe-area');
+    if (swipeArea) {
+      swipeArea.addEventListener('touchstart', function(e) { toqueInicioX = e.changedTouches[0].screenX; }, false);
+      swipeArea.addEventListener('touchend', function(e) {
+        var toqueFimX = e.changedTouches[0].screenX;
+        if (toqueInicioX - toqueFimX > 40) mudarFotoSlide(1);
+        if (toqueFimX - toqueInicioX > 40) mudarFotoSlide(-1);
+      }, false);
+    }
+
+    function montarPontosGaleria() {
+      var bar = document.getElementById('gallery-dots-bar');
+      if (!bar) return;
+      bar.innerHTML = '';
+      if (fotosGaleria.length <= 1) { bar.style.display = 'none'; return; }
+      bar.style.display = 'flex';
+      for (var i = 0; i < fotosGaleria.length; i++) {
+        (function(index) {
+          var dot = document.createElement('div');
+          dot.className = index === 0 ? 'dot active' : 'dot';
+          dot.onclick = function() { fotoIndexAtual = index; exibirFotoGaleria(index); };
+          bar.appendChild(dot);
+        })(i);
+      }
+    }
+
+    function atualizarVitrineCard() {
+      var title = document.getElementById('prop-title').value || 'Título do Imóvel';
+      var price = document.getElementById('prop-price').value || '0,00';
+      var loc = document.getElementById('prop-location').value || 'Localização do Imóvel';
+      var agent = document.getElementById('prop-agent').value || 'Seu Nome';
+      var phone = document.getElementById('prop-phone').value || 'Seu Telefone';
+      var featsRaw = document.getElementById('prop-features').value || 'Destaque 1, Destaque 2';
+      var feats = featsRaw.split(',');
+
+      document.getElementById('prev-title').innerText = title;
+      document.getElementById('prev-price').innerText = 'R$ ' + price.replace('R$', '').trim();
+      document.getElementById('prev-location').innerText = '📍 ' + loc;
+      var elAg = document.getElementById('prev-agent');
+      elAg.textContent = 'Atendimento: ' + agent;
+      var elPh = document.getElementById('prev-phone');
+      elPh.textContent = '📞 ' + phone;
+
+      var container = document.getElementById('prev-badges');
+      if (container) {
+        container.innerHTML = '';
+        for (var i = 0; i < feats.length; i++) {
+          if (feats[i].trim()) {
+            var span = document.createElement('span');
+            span.className = 'tag-item';
+            span.innerText = feats[i].trim();
+            container.appendChild(span);
+          }
+        }
+      }
+    }
+
+    function copiarLinkPublicoInterativo() {
+      if (fotosGaleria.length > 0) {
+        localStorage.setItem('imobflow_shared_photos', JSON.stringify(fotosGaleria));
+      }
+      var dados = {
+        t: document.getElementById('prop-title').value || 'Imóvel',
+        p: document.getElementById('prop-price').value || '',
+        l: document.getElementById('prop-location').value || '',
+        a: document.getElementById('prop-agent').value || '',
+        ph: document.getElementById('prop-phone').value || '',
+        f: document.getElementById('prop-features').value || '',
+        fu: fotosGaleria.filter(function(f) { return /^https?:\/\//i.test(f); }),
+        hasPhotos: fotosGaleria.length > 0 ? 1 : 0
+      };
+      var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(dados))));
+      var urlFinal = window.location.origin + window.location.pathname + '?v=' + base64;
+      copiarTextoSeguro(urlFinal, 'Link interativo com fotos copiado com sucesso!');
+    }
+
+    function baixarApresentacaoPDF() {
+      if (!window.jspdf) { mostrarToast('Carregando biblioteca PDF...'); return; }
+      mostrarToast('Compilando dossiê completo em PDF...');
+
+      var doc = new window.jspdf.jsPDF('p', 'mm', 'a4');
+      var title = document.getElementById('prop-title').value || 'Imóvel';
+      var price = document.getElementById('prop-price').value || 'Consulte';
+      var loc = document.getElementById('prop-location').value || '';
+      var agent = document.getElementById('prop-agent').value || 'Corretor';
+      var phone = document.getElementById('prop-phone').value || '';
+      var feats = document.getElementById('prop-features').value || '';
+
+      // PÁGINA 1: FICHA TÉCNICA + PRIMEIRA FOTO
+      doc.setFillColor(15, 23, 42);
+      doc.rect(0, 0, 210, 297, 'F');
+      doc.setTextColor(52, 211, 153);
+      doc.setFontSize(22);
+      doc.setFont('helvetica', 'bold');
+      doc.text(title, 14, 25);
+
+      doc.setTextColor(248, 250, 252);
+      doc.setFontSize(14);
+      doc.text('Valor de Venda: R$ ' + price.replace('R$', '').trim(), 14, 34);
+
+      doc.setFontSize(11);
+      doc.setTextColor(148, 163, 184);
+      doc.text('Localização: ' + loc, 14, 42);
+
+      if (fotosGaleria.length > 0) {
+        try { doc.addImage(fotosGaleria[0], 'JPEG', 14, 48, 182, 115); } catch(e) {}
+      }
+
+      doc.setFontSize(12);
+      doc.setTextColor(255, 255, 255);
+      doc.text('Destaques e Características:', 14, 178);
+
+      doc.setFontSize(10);
+      doc.setTextColor(203, 213, 225);
+      var listaF = feats.split(',');
+      var posTop = 186;
+      for (var f = 0; f < listaF.length; f++) {
+        if (listaF[f].trim()) {
+          doc.text('• ' + listaF[f].trim(), 16, posTop);
+          posTop += 7;
+        }
+      }
+
+      doc.setDrawColor(51, 65, 85);
+      doc.line(14, 260, 196, 260);
+      doc.setFontSize(11);
+      doc.setTextColor(52, 211, 153);
+      doc.text('Atendimento Exclusivo: ' + agent + ' | WhatsApp: ' + phone, 14, 270);
+
+      // PÁGINAS SEGUINTES: UMA PÁGINA PARA CADA FOTO ADICIONAL
+      if (fotosGaleria.length > 1) {
+        for (var p = 1; p < fotosGaleria.length; p++) {
+          doc.addPage();
+          doc.setFillColor(15, 23, 42);
+          doc.rect(0, 0, 210, 297, 'F');
+
+          doc.setTextColor(52, 211, 153);
+          doc.setFontSize(16);
+          doc.text(title + ' (Galeria - Foto ' + (p + 1) + ' de ' + fotosGaleria.length + ')', 14, 20);
+
+          try {
+            doc.addImage(fotosGaleria[p], 'JPEG', 14, 30, 182, 140);
+          } catch(e) {}
+
+          doc.setDrawColor(51, 65, 85);
+          doc.line(14, 260, 196, 260);
+          doc.setFontSize(11);
+          doc.setTextColor(52, 211, 153);
+          doc.text('Contato: ' + phone + ' (' + agent + ')', 14, 270);
+        }
+      }
+
+      doc.save('dossie-' + title.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.pdf');
+      mostrarToast('Apresentação em PDF com todas as fotos exportada!');
+    }
+
+    function baixarCardComoImagem() {
+      var cardArea = document.getElementById('card-export-area');
+      mostrarToast('Gerando imagem em alta resolução...');
+
+      html2canvas(cardArea, { scale: 2, backgroundColor: '#0f172a', useCORS: true }).then(function(canvas) {
+        var link = document.createElement('a');
+        link.download = 'card-imovel-' + Date.now() + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        mostrarToast('Card baixado com sucesso!');
+      }).catch(function() {
+        mostrarToast('Erro ao exportar imagem.');
+      });
+    }
+
+    function copiarTextoVitrine() {
+      var title = document.getElementById('prop-title').value || 'Imóvel em Destaque';
+      var price = document.getElementById('prop-price').value || 'Sob Consulta';
+      var loc = document.getElementById('prop-location').value || '';
+      var agent = document.getElementById('prop-agent').value || '';
+      var phone = document.getElementById('prop-phone').value || '';
+      var badges = document.querySelectorAll('#prev-badges .tag-item');
+      var listaBadges = [];
+      for (var i = 0; i < badges.length; i++) listaBadges.push('✔ ' + badges[i].innerText);
+
+      var texto = '🏢 *' + title + '*\n' +
+                  '💰 Valor: R$ ' + price.replace('R$', '').trim() + '\n' +
+                  (loc ? '📍 ' + loc + '\n\n' : '\n') +
+                  '*Destaques:*\n' + listaBadges.join('\n') + '\n\n' +
+                  (agent ? '👤 *Responsável:* ' + agent + '\n' : '') +
+                  (phone ? '📲 *Contato:* ' + phone + '\n\n' : '\n') +
+                  'Quer simular o financiamento e entrada deste imóvel? Me chame aqui!';
+
+      copiarTextoSeguro(texto, 'Legenda copiada para o WhatsApp!');
+    }
+
+    function abrirCheckout(plano) {
+      mostrarToast('Redirecionando para o checkout seguro da Kiwify...');
+      window.open('https://pay.kiwify.com.br/qIO4rTA?afid=RfZ43apo', '_blank');
+    }
+
+    /* BASE DE CONHECIMENTO DO COPILOTO IA */
+    var baseConhecimentoCaixa = {
+      regras_gerais: '📌 *Resumo Estratégico das Linhas Caixa (2026):*\n\n' +
+                     '• *Minha Casa Minha Vida (MCMV):* Rendas até R$ 9.600. Tetos de R$ 275 mil a R$ 400 mil. Taxas de 4,25% a 7,66% a.a.\n\n' +
+                     '• *Classe Média (Faixa 4):* Renda entre R$ 9.600,01 e R$ 13.000. Teto de R$ 600 mil com juros fixados em 10% a.a.\n\n' +
+                     '• *Pró-Cotista FGTS:* Taxa de 9,01% a.a. Imóvel novo/planta financia até 80% (SAC) e 60% (PRICE). Imóvel usado financia até 60% (SAC) e 50% (PRICE).\n\n' +
+                     '• *SBPE Tradicional:* Taxa de 11,49% a.a. Financia até 90% no SAC (prazo de até 420 meses) e até 80% na PRICE (prazo travado em 360 meses).',
+
+      sbpe_regras: '📌 *Parâmetros Exatos do SBPE Caixa (2026):*\n\n' +
+                   '• *Taxa de Juros:* 11,49% ao ano.\n\n' +
+                   '• *Tabela SAC:* Cota máxima de até 90% do valor do imóvel com prazo estendido de até 420 meses (35 anos).\n\n' +
+                   '• *Tabela PRICE:* Cota máxima de até 80% do valor do imóvel com prazo limite de até 360 meses (30 anos).\n\n' +
+                   '• *Teto do Imóvel:* Atende imóveis de até R$ 2.250.000,00 sem limite de renda familiar.',
+
+      procotista_regras: '📌 *Parâmetros Exatos do Pró-Cotista FGTS (2026):*\n\n' +
+                         '• *Taxa de Juros:* 9,01% ao ano.\n\n' +
+                         '• *Imóveis Novos ou na Planta:* Financia até 80% pela tabela SAC e até 60% pela tabela PRICE.\n\n' +
+                         '• *Imóveis Usados:* Financia até 60% pela tabela SAC e até 50% pela tabela PRICE.\n\n' +
+                         '• *Teto:* Imóveis até R$ 500 mil. Exige pelo menos 3 anos de trabalho sob regime de FGTS.',
+
+      cohapar_ajuda: '🏛️ *Programa Casa Fácil Paraná (Cohapar):*\n\n' +
+                     '• *Valor do Subsídio:* R$ 20.000,00 pagos pelo Governo do Estado a fundo perdido diretamente para abater a entrada do financiamento Caixa.\n\n' +
+                     '• *Requisitos:* Renda familiar de até 3 a 4 salários mínimos, não possuir imóvel próprio nem ter sido beneficiado anteriormente.\n\n' +
+                     '• *No ImobFlow:* Basta tocar no botão "Subsídio Cohapar" na calculadora que o app desconta os R$ 20.000,00 da entrada na hora!',
+
+      radar_ajuda: '📡 *Como Usar o Radar de Lançamentos:*\n\n' +
+                   '1. Acesse a aba **Radar** e digite a Cidade/Bairro (ex: Portão, Curitiba, Pinhais).\n\n' +
+                   '2. Filtre pela faixa desejada (MCMV, Médio ou Alto Padrão).\n\n' +
+                   '3. Toque em **"📥 Puxar p/ Vitrine"** para importar ficha e fotos, ou clique em **"🌐 Ver Anúncio Real"** para consultar no Chaves na Mão e portais reais!',
+
+      cliente_sumiu: '🛡️ *Estratégias Antissumiço para Fechamento:*\n\n' +
+                     '1. **Sumiu após Simulação:** Use o Descarte Suave (Script 4) propondo arquivar a pasta para provocar resposta imediata por aversão à perda.\n\n' +
+                     '2. **Sumiu após a Visita:** Use o Script 5 para colher feedback sincero e contornar objeções sem parecer insistente.\n\n' +
+                     '3. **Achou a Parcela Alta:** Use o Script 8 com Composição de Renda (familiar ou cônjuge) para diluir a margem e reduzir a parcela.\n\n' +
+                     '4. **Falta de Entrada:** Use o Script 10 com parcelamento de construtora em até 48x.'
+    };
+
+    function alternarCopilotoIA(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      var modal = document.getElementById('ia-copilot-modal');
+      var aberto = modal.style.display === 'flex';
+      modal.style.display = aberto ? 'none' : 'flex';
+      if (!aberto) {
+        var chat = document.getElementById('ia-chat-messages');
+        chat.scrollTop = chat.scrollHeight;
+        setTimeout(function() {
+          var input = document.getElementById('ia-user-input');
+          if (input) input.focus();
+        }, 100);
+      }
+    }
+
+    function adicionarMensagemChat(autor, texto) {
+      var chat = document.getElementById('ia-chat-messages');
+      var msgDiv = document.createElement('div');
+      msgDiv.className = 'ia-msg ' + autor;
+      msgDiv.innerText = texto;
+      chat.appendChild(msgDiv);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function executarTopicoIA(chave) {
+      var rotulos = {
+        regras_gerais: 'Quais são as regras gerais da Caixa?',
+        sbpe_regras: 'Quais são os limites e prazos do SBPE?',
+        procotista_regras: 'Como funciona o Pró-Cotista FGTS?',
+        cohapar_ajuda: 'Como funciona o subsídio Cohapar?',
+        radar_ajuda: 'Como usar a ferramenta de Radar de Imóveis?',
+        cliente_sumiu: 'Como destravar cliente travado ou sumido?'
+      };
+      adicionarMensagemChat('user', rotulos[chave] || 'Consulta');
+
+      var typing = document.getElementById('ia-typing');
+      typing.style.display = 'block';
+
+      setTimeout(function() {
+        typing.style.display = 'none';
+        if (baseConhecimentoCaixa[chave]) adicionarMensagemChat('bot', baseConhecimentoCaixa[chave]);
+      }, 350);
+    }
+
+    function gerarRespostaLocal(pergunta) {
+      var p = pergunta.toLowerCase().trim();
+
+      if (['oi', 'ola', 'olá', 'eai', 'e aí', 'opa', 'salve', 'bom dia', 'boa tarde', 'boa noite', 'tudo bem'].some(function(t) { return p === t || p.indexOf(t) === 0; })) {
+        return 'Olá! Tudo ótimo por aqui.\n\nComo posso ajudar com suas simulações da Caixa, regras do SBPE, Pró-Cotista ou busca no Radar hoje?';
+      }
+      if (p.indexOf('sbpe') !== -1) return baseConhecimentoCaixa.sbpe_regras;
+      if (p.indexOf('procotista') !== -1 || p.indexOf('pro-cotista') !== -1) return baseConhecimentoCaixa.procotista_regras;
+      if (p.indexOf('cohapar') !== -1 || p.indexOf('casa facil') !== -1 || p.indexOf('parana') !== -1) return baseConhecimentoCaixa.cohapar_ajuda;
+      if (p.indexOf('radar') !== -1 || p.indexOf('buscar') !== -1 || p.indexOf('anuncio') !== -1 || p.indexOf('orulo') !== -1) return baseConhecimentoCaixa.radar_ajuda;
+      if (['travado', 'destravar', 'desenrolar', 'sumiu', 'sumiço', 'vácuo', 'descarte', 'objeção'].some(function(t) { return p.indexOf(t) !== -1; })) return baseConhecimentoCaixa.cliente_sumiu;
+
+      return baseConhecimentoCaixa.regras_gerais;
+    }
+
+    async function processarRespostaIA(pergunta) {
+      var typing = document.getElementById('ia-typing');
+      typing.style.display = 'block';
+
+      var apiKey = localStorage.getItem('imobflow_gemini_key') || '';
+      if (apiKey) {
+        try {
+          var systemPrompt = 'Você é o Copiloto ImobFlow, consultor imobiliário de elite especialista em Caixa Econômica Federal e fechamento de vendas. ' +
+                             'Responda com excelente espaçamento entre parágrafos, sem utilizar marcações de citação como cite.';
+          var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey;
+          var bodyPayload = { contents: [{ role: 'user', parts: [{ text: systemPrompt + '\n\nPergunta: ' + pergunta }] }] };
+
+          var response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bodyPayload)
+          });
+          var data = await response.json();
+          typing.style.display = 'none';
+
+          if (data && data.candidates && data.candidates[0] && data.candidates[0].content) {
+            adicionarMensagemChat('bot', data.candidates[0].content.parts[0].text);
+            return;
+          }
+        } catch(err) {}
+      }
+
+      setTimeout(function() {
+        typing.style.display = 'none';
+        adicionarMensagemChat('bot', gerarRespostaLocal(pergunta));
+      }, 350);
+    }
+
+    function enviarMensagemCopiloto() {
+      var input = document.getElementById('ia-user-input');
+      var val = input.value.trim();
+      if (!val) return;
+      adicionarMensagemChat('user', val);
+      input.value = '';
+      processarRespostaIA(val);
+    }
+
+    /* INICIALIZAÇÃO */
+    window.onload = function() {
+      checarStatusAcesso();
+
+      var temaSalvo = localStorage.getItem('imobflow_theme_name') || 'escuro';
+      document.body.setAttribute('data-theme', temaSalvo);
+      var statusEl = document.getElementById('theme-status-text');
+      if (statusEl) {
+        var rotulos = { escuro: 'Escuro (Ativo)', claro: 'Claro (Ativo)', laranja: 'Laranja (Ativo)', rosaclaro: 'Rosa Claro (Ativo)', rosa: 'Rosa (Ativo)', verde: 'Verde (Ativo)', cinza: 'Cinza (Ativo)' };
+        statusEl.innerText = rotulos[temaSalvo] || 'Personalizado';
+      }
+
+      var savedName = localStorage.getItem('imobflow_user_name');
+      var savedPhone = localStorage.getItem('imobflow_user_phone');
+      if (savedName) {
+        var elAgent = document.getElementById('prop-agent');
+        if (elAgent) elAgent.value = savedName;
+      }
+      if (savedPhone) {
+        var elPhone = document.getElementById('prop-phone');
+        if (elPhone) elPhone.value = savedPhone;
+      }
+
+      // Restaura fotos salvas
+      var fotosSalvas = localStorage.getItem('imobflow_shared_photos');
+      if (fotosSalvas) {
+        try {
+          fotosGaleria = JSON.parse(fotosSalvas);
+          if (fotosGaleria.length > 0) {
+            fotoIndexAtual = 0;
+            exibirFotoGaleria(0);
+            montarPontosGaleria();
+          }
+        } catch(e) {}
+      }
+
+      montarCatalogoScripts('todos');
+      selecionarScriptItem('sumiu_simulacao');
+
+      // Inicializa o Radar para Portão / Curitiba
+      renderizarSalvosRadar();
+
+      atualizarVitrineCard();
+
+      // MODO CLIENTE (LINK PÚBLICO)
+      var urlParams = new URLSearchParams(window.location.search);
+      var vitrinePayload = urlParams.get('v');
+
+      if (vitrinePayload) {
+        try {
+          var payload = JSON.parse(decodeURIComponent(escape(atob(vitrinePayload))));
+          document.getElementById('prop-title').value = payload.t || '';
+          document.getElementById('prop-price').value = payload.p || '';
+          document.getElementById('prop-location').value = payload.l || '';
+          document.getElementById('prop-agent').value = payload.a || '';
+          document.getElementById('prop-phone').value = payload.ph || '';
+          document.getElementById('prop-features').value = payload.f || '';
+
+          if (payload.fu && payload.fu.length) { fotosGaleria = payload.fu; montarPontosGaleria(); exibirFotoGaleria(0); }
+          if (payload.hasPhotos && fotosGaleria.length > 0) {
+            fotoIndexAtual = 0;
+            exibirFotoGaleria(0);
+            montarPontosGaleria();
+          }
+
+          atualizarVitrineCard();
+
+          irParaAba('vitrine');
+          document.getElementById('vitrine-form-card').style.display = 'none';
+          document.getElementById('app-header').style.display = 'none';
+          document.getElementById('app-nav').style.display = 'none';
+          document.getElementById('ia-copilot-trigger').style.display = 'none';
+
+          var brokerActions = document.getElementById('vitrine-broker-actions');
+          if (brokerActions) brokerActions.style.display = 'none';
+
+          var btnFloat = document.getElementById('btn-lead-whatsapp-float');
+          var numLimpo = (payload.ph || '').replace(/\D/g, '');
+          if (numLimpo) {
+            btnFloat.style.display = 'block';
+            btnFloat.href = 'https://wa.me/55' + numLimpo + '?text=' + encodeURIComponent('Olá! Vi o imóvel ' + payload.t + ' e gostaria de mais informações.');
+          }
+        } catch(e) {}
+      }
+    };
+  </script>
+</body>
+</html>
