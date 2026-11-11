@@ -1599,7 +1599,7 @@
       };
       var brl = function(v) { return 'R$ ' + v.toLocaleString('pt-BR'); };
       if (modalidadeAtual === 'mcmv') {
-        var tetoMcmv = renda <= 5000 ? 275000 : 400000;
+        var tetoMcmv = 400000;
         if (renda > 9600) { erro('Renda de ' + brl(renda) + ' excede o teto do MCMV (R$ 9.600). Use "Classe Média (Fx 4)" até R$ 13.000 ou "SBPE".'); return; }
         if (valorImovel > tetoMcmv) { erro('Para renda de ' + brl(renda) + ', o MCMV financia imóveis de até ' + brl(tetoMcmv) + ' (o teto exato varia por região). Alterne para "Classe Média (Fx 4)" ou "SBPE".'); return; }
       } else if (modalidadeAtual === 'faixa4') {
@@ -2405,7 +2405,7 @@ function usarValorCalculadoraRadar() {
     /* BASE DE CONHECIMENTO DO COPILOTO IA */
     var baseConhecimentoCaixa = {
       regras_gerais: '📌 *Linhas Caixa (referência nov/2026):*\n\n' +
-                     '• *MCMV:* Faixa 1 até R$ 3.200 (4% a 4,5% a.a.), Faixa 2 até R$ 5.000 (4,75% a 5,5%), Faixa 3 até R$ 9.600 (6,5% a 7,66%). Financia até 90% (SAC) e 80% (Price) em imóvel novo/planta. Imóvel até ~R$ 275 mil nas faixas 1 e 2 e até R$ 400 mil na Faixa 3 (varia por região).\n\n' +
+                     '• *MCMV:* Faixa 1 até R$ 3.200 (4% a 4,5% a.a.), Faixa 2 até R$ 5.000 (4,75% a 5,5%), Faixa 3 até R$ 9.600 (6,5% a 7,66%). Financia até 90% (SAC) e 80% (Price) em imóvel novo/planta. Imóvel até ~R$ 400 mil (teto da Faixa 3; varia por região).\n\n' +
                      '• *Classe Média (Faixa 4):* renda de R$ 9.600,01 a R$ 13.000, imóvel até R$ 600 mil, juros em torno de 10% a.a., com até 90% (SAC) e 80% (Price) em imóvel novo/planta\n\n' +
                      '• *Pró-Cotista FGTS:* 9,01% a.a., sem limite de renda e sem teto de imóvel. Novo/planta: até 80% (SAC) e 60% (Price).\n\n' +
                      '• *SBPE:* 11,49% a.a., até 90% (SAC, prazo até 420 meses) e 80% (Price, prazo até 360 meses). Parcela limitada a 30% da renda.\n\n' +
