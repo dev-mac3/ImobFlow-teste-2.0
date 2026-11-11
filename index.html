@@ -432,7 +432,7 @@
       <div class="logo-box">
         <div class="logo-badge">IF</div>
         <div class="logo-text">
-          <h1>ImobFlow <span class="pro-tag">PRO</span> <span class="pro-tag">BETA</span></h1>
+          <h1>ImobFlow <span class="pro-tag">PRO</span> <span class="pro-tag" style="opacity:0.75;">v2.0</span></h1>
           <p>Hub do Corretor de Elite</p>
         </div>
       </div>
@@ -817,7 +817,7 @@
               <span class="vitrine-badge">OPORTUNIDADE EXCLUSIVA</span>
               <div id="arrow-prev" class="slide-arrow prev" style="display:none;" onclick="mudarFotoSlide(-1)">◀</div>
               <div id="arrow-next" class="slide-arrow next" style="display:none;" onclick="mudarFotoSlide(1)">▶</div>
-              <img id="main-preview-img" class="vitrine-img" src="" style="display:none;" alt="Imóvel">
+              <img id="main-preview-img" class="vitrine-img" style="display:none;" alt="Imóvel">
               <span id="prev-photo-placeholder" style="color: #64748b; font-size: 13px;">[Selecione fotos acima]</span>
               <span id="photo-counter" class="vitrine-counter" style="display:none;">1 / 1</span>
             </div>
@@ -918,7 +918,7 @@
         <div class="card">
           <div class="card-header">
             <h2 class="card-title">🎯 MAC3 Score — pontuação do comprador</h2>
-            <span class="pill">Diferencial forte</span>
+            <span class="pill">Termômetro de Fechamento</span>
           </div>
           <p class="card-desc">Classifica o lead por intenção de compra, capacidade financeira, urgência e engajamento. O corretor sabe quem priorizar.</p>
           <div class="cli-resumo">
@@ -937,7 +937,7 @@
             <h2 class="card-title">💰 Previsão de comissões</h2>
             <span class="pill" id="com-pill">0</span>
           </div>
-          <p class="card-desc">Usa o valor do imóvel e a comissão (%) de cada cliente. Sua comissão (%) é o que VOCÊ recebe da venda, informada em cada cliente. O previsto multiplica essa comissão pela chance de fechar da fase (Novo 5%, Conversa 15%, Visita 30%, Proposta 60%): são estimativas genéricas, não dados do seu funil.</p>
+          <p class="card-desc">Projeção calculada sobre o valor do imóvel e a sua comissão (%) em cada negociação, ponderada pela probabilidade média de conversão de cada etapa do funil (Novo 5% · Conversa 15% · Visita 30% · Proposta 60%).</p>
           <div class="cli-resumo">
             <div class="cli-box"><strong id="com-n-prev" style="color:#10b981;">R$ 0</strong><span>Previsto</span></div>
             <div class="cli-box"><strong id="com-n-jogo">R$ 0</strong><span>Em negociação</span></div>
@@ -968,71 +968,77 @@
     <section id="tab-planos" class="hidden">
       <div id="box-trial-promo" class="card" style="border: 2px solid var(--primary-color); background: rgba(37,99,235,0.04);">
         <div class="card-header">
-          <h2 class="card-title" style="color:var(--primary-color);">🎁 Teste Grátis de 14 Dias</h2>
-          <span class="pill" style="color:#10b981; font-weight:800;">1 Por Aparelho</span>
+          <h2 id="trial-card-title" class="card-title" style="color:var(--primary-color);">🎁 Teste Grátis de 14 Dias</h2>
+          <span id="trial-card-pill" class="pill" style="color:#10b981; font-weight:800;">1 Por Aparelho</span>
         </div>
-        <p class="card-desc">Libere acesso irrestrito ao Qualificador Caixa, Central Antissumiço, Radar de Lançamentos, Vitrine e Copiloto IA.</p>
+        <p id="trial-card-desc" class="card-desc">Libere acesso irrestrito ao Qualificador Caixa, MAC3Docs, Central Antissumiço, Radar de Imóveis, Vitrine Express e Copiloto IA.</p>
         <button type="button" id="btn-iniciar-trial" onclick="abrirCheckout('trial')" class="btn-action btn-emerald">🚀 Iniciar Meus 14 Dias Grátis</button>
       </div>
 
       <div class="card" style="border-color: #3b82f6;">
         <div class="card-header">
-          <h2 class="card-title">Planos de Assinatura</h2>
-          <span class="pill" style="color: #60a5fa;">Recorrente</span>
+          <h2 class="card-title">Planos Corretor PRO</h2>
+          <span class="pill" style="color: #60a5fa;">Acesso Imediato</span>
         </div>
-        <p class="card-desc">Escolha a sua modalidade de acesso contínuo à plataforma.</p>
+        <p class="card-desc">Escolha sua modalidade de assinatura para continuar usando todas as ferramentas sem interrupção.</p>
 
         <div style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <strong>Individual Mensal</strong>
-            <span style="font-size:16px; font-weight:800; color:var(--text-main);">R$ 59,90<small style="font-size:10px; color:var(--text-muted);">/mês</small></span>
+            <span style="font-size:16px; font-weight:800; color:var(--text-main);">R$ 29,90<small style="font-size:10px; color:var(--text-muted);">/mês</small></span>
           </div>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Menos de R$ 1,00 por dia · Cancele quando quiser.</p>
           <button type="button" onclick="abrirCheckout('mensal')" class="btn-action" style="background:var(--border-color); color:var(--text-main); border:1px solid var(--border-color); margin-top:10px;">Assinar Mensal</button>
         </div>
 
         <div style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
             <strong>Individual Semestral<span style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:20px; background:#10b981; color:#022c22; margin-left:6px; vertical-align:middle;">-25%</span></strong>
-            <span style="font-size:16px; font-weight:800; color:var(--text-main); white-space:nowrap;">R$ 269,55<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/6 meses</small></span>
+            <span style="font-size:16px; font-weight:800; color:var(--text-main); white-space:nowrap;">R$ 134,55<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/6 meses</small></span>
           </div>
-          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a ~R$ 44,93/mês. Você economiza R$ 89,85 em relação ao mensal.</p>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a ~R$ 22,43/mês. Você economiza R$ 44,85 em relação ao mensal.</p>
           <button type="button" onclick="abrirCheckout('semestral')" class="btn-action btn-emerald" style="margin-top:10px;">Assinar Semestral</button>
         </div>
 
-        <div style="background: rgba(37, 99, 235, 0.05); border: 2px solid var(--primary-color); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <strong style="color:var(--primary-color);">Individual Anual</strong>
-            <span style="font-size:16px; font-weight:800; color:var(--primary-color);">R$ 481,60<small style="font-size:10px; color:var(--text-muted);">/ano</small></span>
+        <div style="background: rgba(37, 99, 235, 0.05); border: 2px solid var(--primary-color); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <strong style="color:var(--primary-color);">Individual Anual<span style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:20px; background:var(--primary-color); color:var(--primary-text); margin-left:6px; vertical-align:middle;">-33% · MAIS VANTAJOSO</span></strong>
+            <span style="font-size:16px; font-weight:800; color:var(--primary-color); white-space:nowrap;">R$ 240,40<small style="font-size:10px; color:var(--text-muted);">/ano</small></span>
           </div>
-          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Equivale a ~R$ 40,13/mês (Economia de 33%: R$ 237,20 em relação ao mensal)</p>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Equivale a R$ 20,03/mês (Economia de R$ 118,40 em relação ao mensal).</p>
           <button type="button" onclick="abrirCheckout('anual')" class="btn-action btn-emerald" style="margin-top:10px;">Garantir Acesso Anual</button>
+        </div>
+
+        <div style="border-top: 1px dashed var(--border-color); padding-top: 14px; margin-top: 6px; margin-bottom: 10px;">
+          <span class="selector-label" style="color:#c084fc; margin-bottom:4px;">🏢 Planos Corporativos — Imobiliárias & Equipes</span>
+          <p style="font-size:11px; color:var(--text-muted); line-height:1.4;">Licenciamento para múltiplos corretores com implantação assistida e pacote de gestão.</p>
         </div>
 
         <div style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 12px; padding: 14px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <strong style="color:#c084fc;">Imobiliárias (Equipes)</strong>
-            <span style="font-size:16px; font-weight:800; color:#c084fc;">R$ 997,00<small style="font-size:10px; color:var(--text-muted);">/mês</small></span>
+            <strong style="color:#c084fc;">Imobiliárias Mensal</strong>
+            <span style="font-size:16px; font-weight:800; color:#c084fc;">R$ 497,00<small style="font-size:10px; color:var(--text-muted);">/mês</small></span>
           </div>
-          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Até 50 corretores + Painel de Gestor</p>
-          <button type="button" onclick="abrirCheckout('equipe')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Contratar para a Equipe</button>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Até 30 corretores habilitados (sai R$ 16,56 por corretor/mês) + Implantação da Equipe.</p>
+          <button type="button" onclick="abrirCheckout('equipe')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Consultar Implantação Mensal</button>
         </div>
 
         <div style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 12px; padding: 14px; margin-top: 12px;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
             <strong style="color:#c084fc;">Imobiliárias Trimestral<span style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:20px; background:#10b981; color:#022c22; margin-left:6px; vertical-align:middle;">-15%</span></strong>
-            <span style="font-size:16px; font-weight:800; color:#c084fc; white-space:nowrap;">R$ 2.542,35<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/3 meses</small></span>
+            <span style="font-size:16px; font-weight:800; color:#c084fc; white-space:nowrap;">R$ 1.267,35<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/3 meses</small></span>
           </div>
-          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a ~R$ 847,45/mês. Economia de R$ 448,65 em relação ao mensal.</p>
-          <button type="button" onclick="abrirCheckout('equipe_trimestral')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Contratar Trimestral</button>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a ~R$ 422,45/mês. Economia de R$ 223,65 em relação ao mensal.</p>
+          <button type="button" onclick="abrirCheckout('equipe_trimestral')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Consultar Implantação Trimestral</button>
         </div>
 
         <div style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 12px; padding: 14px; margin-top: 12px;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
             <strong style="color:#c084fc;">Imobiliárias Anual<span style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:20px; background:#10b981; color:#022c22; margin-left:6px; vertical-align:middle;">-33%</span></strong>
-            <span style="font-size:16px; font-weight:800; color:#c084fc; white-space:nowrap;">R$ 8.015,88<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/ano</small></span>
+            <span style="font-size:16px; font-weight:800; color:#c084fc; white-space:nowrap;">R$ 3.995,88<small style="font-size:10px; color:var(--text-muted); font-weight:600;">/ano</small></span>
           </div>
-          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a ~R$ 667,99/mês. Economia de R$ 3.948,12 em relação ao mensal.</p>
-          <button type="button" onclick="abrirCheckout('equipe_anual')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Contratar Anual</button>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">Equivale a ~R$ 332,99/mês. Economia de R$ 1.968,12 em relação ao mensal.</p>
+          <button type="button" onclick="abrirCheckout('equipe_anual')" class="btn-action" style="background:#9333ea; color:#fff; margin-top:10px;">Consultar Implantação Anual</button>
         </div>
       </div>
     <p style="text-align:center; font-size:11px; color:var(--text-muted); margin-top:14px;">
@@ -1067,14 +1073,6 @@
 
         <div class="settings-list-item">
           <div>
-            <strong>Conexão Gemini IA</strong>
-            <span>Chave opcional para inteligência livre</span>
-          </div>
-          <button type="button" onclick="configurarChaveGemini()" class="settings-btn-link">Configurar</button>
-        </div>
-
-        <div class="settings-list-item">
-          <div>
             <strong>Backup dos dados</strong>
             <span>Clientes, perfil e tema</span>
           </div>
@@ -1099,7 +1097,7 @@
             <span>Onde o app abre</span>
           </div>
           <select id="set-aba" onchange="salvarAbaInicial(this.value)" class="settings-btn-link">
-            <option value="docs">MAC3Docs</option><option value="calculator">Qualificador</option><option value="agenda">Antissumiço</option><option value="clientes">Clientes</option><option value="vitrine">Vitrine</option><option value="radar">Radar</option>
+            <option value="calculator" selected>Qualificador</option><option value="docs">MAC3Docs</option><option value="agenda">Antissumiço</option><option value="clientes">Clientes</option><option value="vitrine">Vitrine</option><option value="radar">Radar</option>
           </select>
         </div>
 
@@ -1113,6 +1111,17 @@
             <button type="button" onclick="abrirLegal('privacidade')" class="settings-btn-link">Privacidade</button>
           </div>
         </div>
+
+        <details style="margin-top: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+          <summary style="font-size: 11px; color: var(--text-muted); cursor: pointer; font-weight: 600; padding: 6px 0;">🔧 Opções Avançadas (IA Externa)</summary>
+          <div class="settings-list-item" style="border-bottom: none; padding-top: 8px; padding-bottom: 4px;">
+            <div>
+              <strong>Chave API Gemini</strong>
+              <span>Opcional (o Copiloto já funciona nativamente)</span>
+            </div>
+            <button type="button" onclick="configurarChaveGemini()" class="settings-btn-link">Configurar</button>
+          </div>
+        </details>
 
         <div style="margin-top: 20px;">
           <button type="button" onclick="deslogarSistema()" class="btn-action btn-danger">Encerrar Sessão / Deslogar</button>
@@ -1225,6 +1234,9 @@
     <div class="ia-quick-topics">
       <span class="ia-chip" onclick="explicarSimulacao()">Minha simulação</span>
       <span class="ia-chip" onclick="executarTopicoIA('regras_gerais')">Regras Caixa</span>
+      <span class="ia-chip" onclick="executarTopicoIA('sac_vs_price')">SAC vs Price</span>
+      <span class="ia-chip" onclick="executarTopicoIA('composicao_renda')">Compor Renda</span>
+      <span class="ia-chip" onclick="executarTopicoIA('custos_extras')">ITBI & Custos</span>
       <span class="ia-chip" onclick="executarTopicoIA('sbpe_regras')">Regras SBPE</span>
       <span class="ia-chip" onclick="executarTopicoIA('procotista_regras')">Pró-Cotista</span>
       <span class="ia-chip" onclick="executarTopicoIA('cohapar_ajuda')">Cohapar PR</span>
@@ -1328,16 +1340,23 @@
       var diasTxt = document.getElementById('trial-days-left');
       var btnTrial = document.getElementById('btn-iniciar-trial');
 
+      var cardTitle = document.getElementById('trial-card-title');
+      var cardPill = document.getElementById('trial-card-pill');
+      var cardDesc = document.getElementById('trial-card-desc');
+
       if (trialExpira) {
         var restanteMs = parseInt(trialExpira, 10) - Date.now();
         if (restanteMs > 0) {
           var dias = Math.ceil(restanteMs / (1000 * 60 * 60 * 24));
           if (banner) banner.style.display = 'block';
           if (diasTxt) diasTxt.innerText = dias + (dias === 1 ? ' dia restante' : ' dias restantes');
+          if (cardTitle) cardTitle.innerText = '⚡ Modo PRO Experimental Ativo';
+          if (cardPill) cardPill.innerText = dias + (dias === 1 ? ' dia restante' : ' dias restantes');
+          if (cardDesc) cardDesc.innerText = 'Você está aproveitando todos os recursos liberados no seu período de avaliação. Escolha um plano abaixo para manter seu acesso contínuo.';
           if (btnTrial) {
             btnTrial.disabled = true;
-            btnTrial.innerText = '✔ Teste Ativo (' + dias + ' dias)';
-            btnTrial.style.opacity = '0.6';
+            btnTrial.innerText = '✔ Período de Testes em Andamento (' + dias + ' dias)';
+            btnTrial.style.opacity = '0.75';
           }
         } else {
           if (banner) {
@@ -1345,6 +1364,9 @@
             banner.style.background = '#ef4444';
             banner.innerText = '⚠️ Seu período de testes de 14 dias expirou. Escolha um plano para continuar!';
           }
+          if (cardTitle) cardTitle.innerText = '⚠️ Período de Testes Concluído';
+          if (cardPill) { cardPill.innerText = 'Expirado'; cardPill.style.color = '#ef4444'; }
+          if (cardDesc) cardDesc.innerText = 'Seus 14 dias gratuitos terminaram. Assine um dos planos abaixo para continuar utilizando o ImobFlow PRO sem bloqueios.';
           if (btnTrial) {
             btnTrial.disabled = true;
             btnTrial.innerText = '❌ Período de Testes Esgotado';
@@ -2885,7 +2907,8 @@ function usarValorCalculadoraRadar() {
     }
 
     function abrirCheckout(plano) {
-      /* TODO: link de checkout será adicionado depois */
+      /* TODO: liberação dos planos e trial será conectada junto com o backend / Kiwify */
+      mostrarToast('⏳ Liberação de planos e período de testes em breve!');
     }
 
     /* BASE DE CONHECIMENTO DO COPILOTO IA */
@@ -2916,7 +2939,7 @@ function usarValorCalculadoraRadar() {
                      '• *Importante:* só vale em empreendimentos habilitados e exige cadastro no site da Cohapar.\n\n' +
                      '• *No ImobFlow:* o abatimento só é aplicado quando a renda informada está dentro do limite.',
 
-      radar_ajuda: '📡 *Como Usar o Radar de Lançamentos:*\n\n' +
+      radar_ajuda: '📡 *Como Usar o Radar de Imóveis:*\n\n' +
                    '1. Acesse a aba **Radar** e digite a Cidade/Bairro (ex: cidade e bairro).\n\n' +
                    '2. Filtre pela faixa desejada (MCMV, Médio ou Alto Padrão).\n\n' +
                    '3. Toque em **"Buscar nos Portais"**: o app abre Chaves na Mão, VivaReal, ZAP, OLX e outros já filtrados. Escolha o anúncio, copie o link e use na aba Vitrine.',
@@ -2929,28 +2952,36 @@ function usarValorCalculadoraRadar() {
     };
 
     Object.assign(baseConhecimentoCaixa, {
-      app_guia: '🧭 *O que o ImobFlow faz (abas de baixo):*\n\n• *MAC3Docs:* junta fotos e PDFs do cliente em um PDF único e gera a ficha cadastral.\n• *Qualificador:* simula financiamento (MCMV, Classe Média, Pró-Cotista, SBPE).\n• *Antissumiço:* 20 scripts de WhatsApp para visitas, vácuo, objeções e bancário.\n• *Clientes:* lista com fases, MAC3 Score, Follow-up e Previsão de Comissões.\n• *Vitrine:* monta o cartão do imóvel e envia por WhatsApp, link, PDF ou imagem.\n• *Radar:* abre portais já filtrados por cidade, tipo, quartos e valor.\n• *Planos e Ajustes:* teste, assinatura, tema, backup e chave Gemini.\n\nPergunte sobre qualquer uma delas.',
-      qualificador_ajuda: '⚡ *Qualificador (simulador):*\n\n1. Escolha o tipo (Na Planta, Novo ou Usado), a linha (MCMV, Classe Média Fx 4, Pró-Cotista ou SBPE) e a amortização (PRICE parcela fixa ou SAC parcela decrescente).\n2. Informe valor do imóvel, renda bruta, FGTS disponível e idade.\n3. Ative *Cohapar* (subsídio no Paraná) e *Cotista FGTS 36 meses* (reduz juros do MCMV) se o cliente se encaixar.\n\nO resultado mostra prazo, parcela, taxa, capacidade, financiamento, entrada, FGTS + subsídios e margem. É estimativa: a aprovação final é da Caixa. Toque em *Minha simulação* para eu explicar o resultado atual.',
-      docs_ajuda: '📁 *MAC3Docs:*\n\n• *Juntar em PDF:* escolha fotos/PDFs ou fotografe, defina a categoria e a ordem (▲ ▼ ou arrastando), escolha a qualidade e toque em *Gerar PDF único*; depois baixe ou compartilhe.\n• *Ficha cadastral:* o app lê os documentos (OCR) e preenche os campos; confira sempre, foto torta ou escura gera erro. Abra no WhatsApp ou copie.\n\nTudo roda no aparelho, sem enviar a servidor. A ficha não fica salva: some ao fechar o app.',
-      antissumico_ajuda: '🛡️ *Central Antissumiço:*\n\n1. Digite nome (e WhatsApp, opcional) do cliente; para visitas, data e horário.\n2. Filtre por categoria: Visitas, Vácuo, Objeções ou Bancário.\n3. Escolha um dos 20 scripts: o texto aparece editável.\n4. Envie pelo WhatsApp ou crie a tarefa com data, horário, lembrete e duração.\n\nA assinatura no fim das mensagens se configura em Ajustes.',
-      vitrine_ajuda: '📲 *Vitrine:*\n\n1. Adicione várias fotos, título, preço, localização, características e condições.\n2. Preencha seu nome/imobiliária e WhatsApp (ficam salvos).\n3. Veja a prévia como o cliente verá e use: *WhatsApp*, *Copiar link*, *Baixar PDF*; em *Mais opções*: salvar como imagem, copiar texto pronto ou *Simular financiamento deste imóvel*.',
-      clientes_ajuda: '👥 *Clientes:*\n\n• *Lista:* nome, WhatsApp, o que procura, fase (Novo, Conversa, Visita, Proposta, Fechado, Perdido), data de retorno, valor do imóvel e comissão. Filtros: Todos, Para hoje, Em andamento, Encerrados.\n• *MAC3 Score:* nota por intenção, capacidade financeira, urgência e engajamento; classifica em quente, morno e frio para você priorizar.\n• *Follow-up:* aponta quem está sem retorno (limite de 2 a 7 dias) e sugere a mensagem; o aviso aparece no ícone de Clientes.\n• *Comissões:* veja a aba de previsão.',
-      comissoes_ajuda: '💰 *Previsão de comissões:*\n\nEm *Clientes*, ao salvar ou editar um cliente, informe o *valor do imóvel* e a *comissão (%)*. Na aba *Comissões* o app mostra: *Previsto* (comissão ponderada pela fase: Novo 5%, Conversa 15%, Visita 30%, Proposta 60%), *Em negociação* (comissão total em aberto) e *Fechado*. É estimativa baseada na fase, não garantia de venda.',
-      planos_ajuda: '💳 *Planos:*\n\nA aba *Planos* tem o teste grátis de 14 dias (1 por aparelho) com acesso a tudo, e as assinaturas individuais (mensal, semestral e anual) e para imobiliárias (mensal, trimestral e anual). Valores e condições atualizados ficam na própria aba.',
-      ajustes_ajuda: '⚙️ *Configurações (ícone de engrenagem):*\n\n• *Meu Perfil:* nome, telefone e e-mail.\n• *Tema de cores:* 8 temas.\n• *Conexão Gemini IA:* chave opcional que deixa o Copiloto responder perguntas livres; sem ela uso a base interna.\n• *Backup:* exportar e importar clientes, perfil e tema.\n• *Assinatura das mensagens* do Antissumiço e *aba inicial* do app.\n• Termos de uso e Política de privacidade.',
-      privacidade_ajuda: '🔒 *Dados e privacidade:*\n\nClientes, perfil e fotos ficam no próprio aparelho (use o Backup para não perder). Documentos do MAC3Docs são processados localmente. Se você configurar a chave Gemini, o texto das suas perguntas ao Copiloto é enviado à Google: não inclua dados pessoais de clientes nelas.'
+      app_guia: '🧭 *O que o ImobFlow faz (abas inferiores):*\n\n• *MAC3Docs:* junta fotos e PDFs do cliente em um PDF único na ordem do banco e lê os dados (OCR) para montar a ficha cadastral.\n• *Qualificador:* simula financiamento Caixa (MCMV, Classe Média Fx 4, Pró-Cotista e SBPE) com Cohapar e redutor FGTS.\n• *Antissumiço:* 20 scripts prontos de WhatsApp para visitas, vácuo, objeções e bancário + criador de lembretes na agenda.\n• *Clientes:* CRM de bolso com fases, termômetro MAC3 Score, Follow-up inteligente e Previsão de Comissões.\n• *Vitrine:* monta o card de apresentação do imóvel e compartilha por WhatsApp, link, PDF ou imagem.\n• *Radar:* dispara buscas já filtradas nos principais portais imobiliários.\n\nVocê também pode digitar direto aqui no chat: *"renda 4500 imovel 240000"* para eu calcular na hora, ou *"resumo dos meus clientes"* para eu ler sua carteira!',
+      qualificador_ajuda: '⚡ *Qualificador (simulador Caixa):*\n\n1. Escolha o tipo (*Na Planta, Novo ou Usado*), a linha (*MCMV, Classe Média Fx 4, Pró-Cotista ou SBPE*) e a amortização (*PRICE* parcela fixa ou *SAC* decrescente).\n2. Informe valor do imóvel, renda bruta familiar, FGTS e idade do comprador mais velho.\n3. Ative *Cohapar* (subsídio de R$ 20 mil no PR para renda até 4 SM) e *Cotista FGTS 36 meses* (-0,5 p.p. no MCMV) quando aplicável.\n\n💡 *Dica rápida:* Digite aqui no chat, por exemplo, *"renda 5000 e imóvel 280 mil"* que eu calculo a aprovação estimada na hora para você!',
+      docs_ajuda: '📁 *MAC3Docs (Pasta Digital & OCR):*\n\n• *Juntar em PDF:* escolha fotos/PDFs ou tire foto na hora, classifique cada documento (Identidade, CPF, Estado Civil, Residência, Renda) e gere um PDF único já ordenado para o correspondente bancário.\n• *Ficha cadastral:* o leitor inteligente (OCR) extrai CPF, RG, filiação, endereço e renda dos arquivos e monta o resumo pronto para colar no WhatsApp.\n\n🔒 *Checklist Caixa básico:* RG/CNH, CPF, Certidão de Nascimento ou Casamento, Comprovante de Endereço atualizado (últimos 60 dias), 2 a 3 últimos holerites (ou IRPF + extratos) e Carteira de Trabalho / Extrato FGTS.',
+      antissumico_ajuda: '🛡️ *Central Antissumiço:*\n\n1. Digite o nome e WhatsApp do cliente (e data/horário se for visita).\n2. Filtre entre *Visitas, Vácuo, Objeções ou Bancário*.\n3. Toque em um dos 20 scripts táticos: você pode editar o texto na caixa antes de enviar.\n4. Use o bloco inferior para salvar o compromisso direto no Calendário do celular (.ics) ou no Google Agenda com alarme.',
+      vitrine_ajuda: '📲 *Vitrine Express:*\n\n1. Suba as fotos do imóvel (a primeira vira capa).\n2. Preencha título, valor, localização, diferenciais (separados por vírgula) e clique em *Usar a simulação que fiz no Qualificador* para puxar entrada e parcela automaticamente.\n3. Envie direto pelo WhatsApp com as fotos anexadas ou gere o Dossiê completo em PDF.',
+      clientes_ajuda: '👥 *Gestão de Clientes & MAC3 Score:*\n\n• *Lista:* cadastre leads, acompanhe atrasados/para hoje e mude a fase com 1 toque.\n• *MAC3 Score:* avalie Intenção, Capacidade Financeira, Urgência e Engajamento (de 0 a 100) para separar clientes 🔥 Quentes, 🌤 Mornos e ❄️ Frios.\n• *Follow-up:* lista automática de quem passou do prazo sem retorno, já com mensagem sugerida para cada tentativa.\n\n💡 Peça *"resumo dos meus clientes"* aqui no chat para ver como está sua carteira agora.',
+      comissoes_ajuda: '💰 *Previsão de Comissões:*\n\nAo cadastrar ou editar um cliente, preencha o *Valor do Imóvel* e a *Sua Comissão (%)*. O painel calcula automaticamente:\n• *Previsto:* comissão ponderada pela probabilidade da etapa (Novo 5% · Conversa 15% · Visita 30% · Proposta 60%).\n• *Em negociação:* soma bruta de todas as comissões ativas no funil.\n• *Fechado:* total garantido em vendas concluídas.',
+      planos_ajuda: '💳 *Planos Corretor PRO & Corporativo:*\n\n• *Individual Mensal:* R$ 29,90/mês.\n• *Individual Semestral (-25%):* R$ 134,55 (~R$ 22,43/mês).\n• *Individual Anual (-33%):* R$ 240,40 (~R$ 20,03/mês).\n• *Imobiliárias (até 30 corretores):* a partir de R$ 497,00/mês no mensal (ou R$ 332,99/mês no pacote anual).\n\nO período de testes gratuitos de 14 dias e o checkout automático serão habilitados assim que a plataforma entrar em produção oficial.',
+      ajustes_ajuda: '⚙️ *Configurações (ícone de engrenagem no topo):*\n\n• *Meu Perfil:* salva seu nome e WhatsApp para assinar a Vitrine e os scripts.\n• *Tema de Cores:* 8 temas visuais (Escuro, Claro Executivo, Solar, Bordeaux, Rose Gold, Floresta, Creme Dourado e Titânio).\n• *Backup (.json):* exporte e importe seus clientes e configurações para não perder nada ao trocar de aparelho.\n• *Aba Inicial:* escolha em qual ferramenta o app deve abrir.',
+      privacidade_ajuda: '🔒 *Privacidade & Segurança:*\n\nNesta versão, seus clientes, fotos e documentos do MAC3Docs são processados 100% no seu aparelho. Use a função *Exportar Backup* nas Configurações regularmente para guardar uma cópia segura da sua carteira.',
+      sac_vs_price: '📊 *Diferença entre SAC e PRICE na Caixa:*\n\n• *PRICE (Parcela Fixa):* começa com uma prestação inicial *menor*, facilitando a aprovação quando a renda de 30% está no limite. É a mais usada no MCMV. No SBPE, o prazo máximo na Price cai para 360 meses (80% de cota).\n• *SAC (Parcela Decrescente):* começa com a 1ª parcela mais alta, mas amortiza a dívida mais rápido, reduz os juros totais e as parcelas caem todo mês. No SBPE e na Faixa 4 (imóvel novo/planta), a SAC libera até *90% de financiamento* e prazo de até 420 meses.',
+      composicao_renda: '🤝 *Composição de Renda & Idade na Caixa:*\n\n• *Quem pode compor:* cônjuges, companheiros, pais, filhos, irmãos, noivos ou amigos (qualquer grau de parentesco ou vínculo).\n• *Soma da Renda:* a Caixa soma a renda bruta de todos os participantes para calcular a margem de 30% da parcela.\n• *Regra da Idade (80 anos e 6 meses):* o prazo máximo do financiamento sempre é limitado pela idade do participante *mais velho* (soma da idade + prazo não pode passar de 80 anos e 6 meses).\n• *Restrição:* nenhum participante pode ter restrição no CPF (SPC/Serasa/Bacen).',
+      custos_extras: '📑 *ITBI, Registro, Engenharia e Taxas (Custos de Aquisição):*\n\n• *Imóvel Pronto (Novo ou Usado):* o comprador deve reservar cerca de *4% a 5% do valor do imóvel* para ITBI (prefeitura), Escritura/Registro em Cartório e Taxa de Avaliação da Engenharia Caixa.\n• *Desconto 1º Imóvel:* compras pelo SFH/MCMV costumam ter redução de 50% nos emolumentos de registro em cartório (varia conforme regras municipais/estaduais).\n• *Imóvel na Planta (Evolução de Obra):* durante a construção, o cliente paga os juros de evolução de obra + INCC sobre o saldo com a construtora; a parcela cheia do financiamento só começa após o Habite-se.',
+      autonomo_renda: '💼 *Comprovação de Renda para Autônomos, MEI e Empresários:*\n\n• *Declaração de IRPF:* documento mais forte na Caixa (acompanhada do recibo de entrega).\n• *Extratos Bancários:* últimos 3 a 6 meses de movimentação pessoa física (ou jurídica, conforme análise).\n• *MEI / Empresário:* DASN-SIMEI, Pró-labore ou DECORE contábil assinada.\n• *Dica de plantão:* se a renda formal estiver baixa no holerite/IR, verifique se o cliente consegue compor renda com cônjuge ou familiar CLT.'
     });
     var ROTAS_COPILOTO = [
+      ['sac_vs_price', ['sac ou price', 'price ou sac', 'diferenca entre sac', 'diferenca sac', 'tabela sac', 'tabela price', 'amortizacao']],
+      ['composicao_renda', ['compor renda', 'composicao', 'juntar renda', 'quantas pessoas', 'idade maxima', '80 anos', 'namorado', 'conjuge', 'sogra', 'irmao']],
+      ['custos_extras', ['itbi', 'cartorio', 'registro', 'escritura', 'taxa de obra', 'evolucao de obra', 'incc', 'engenharia', 'custos extras', 'documentacao gratis']],
+      ['autonomo_renda', ['autonomo', 'mei', 'empresario', 'extrato bancario', 'informal', 'uber', 'sem holerite', 'pro-labore', 'decore']],
       ['sbpe_regras', ['sbpe', 'sfh', 'taxa de mercado']],
       ['procotista_regras', ['procotista', 'pro-cotista', 'pro cotista']],
-      ['cohapar_ajuda', ['cohapar', 'casa facil', 'parana']],
-      ['radar_ajuda', ['radar', 'portal', 'portais', 'anuncio', 'orulo', 'viva real', 'vivareal', 'zap']],
-      ['cliente_sumiu', ['travado', 'destravar', 'desenrolar', 'sumiu', 'sumico', 'vacuo', 'descarte', 'objecao', 'parcela alta']],
-      ['antissumico_ajuda', ['antissumico', 'script', 'agendar', 'tarefa', 'lembrete']],
-      ['docs_ajuda', ['mac3docs', 'documento', 'pdf unico', 'juntar', 'ficha', 'ocr', 'cadastral']],
-      ['vitrine_ajuda', ['vitrine', 'foto', 'link', 'imagem', 'legenda', 'cartao']],
-      ['comissoes_ajuda', ['comiss', 'previsao', 'quanto vou ganhar', 'ganho']],
-      ['clientes_ajuda', ['cliente', 'mac3 score', 'score', 'follow', 'retorno', 'lead', 'fase', 'quente', 'funil']],
+      ['cohapar_ajuda', ['cohapar', 'casa facil', 'parana', '20 mil', 'subsidio estadual']],
+      ['radar_ajuda', ['radar', 'portal', 'portais', 'anuncio', 'orulo', 'viva real', 'vivareal', 'zap', 'chaves na mao']],
+      ['cliente_sumiu', ['travado', 'destravar', 'desenrolar', 'sumiu', 'sumico', 'vacuo', 'descarte', 'objecao', 'parcela alta', 'achou caro', 'sem entrada', 'vai pensar']],
+      ['antissumico_ajuda', ['antissumico', 'script', 'agendar', 'tarefa', 'lembrete', 'calendario']],
+      ['docs_ajuda', ['mac3docs', 'documento', 'pdf unico', 'juntar', 'ficha', 'ocr', 'cadastral', 'quais documentos', 'lista de documentos', 'holerite']],
+      ['vitrine_ajuda', ['vitrine', 'foto', 'link', 'imagem', 'legenda', 'cartao', 'dossie']],
+      ['comissoes_ajuda', ['comiss', 'previsao', 'quanto vou ganhar', 'ganho', 'honorario']],
+      ['clientes_ajuda', ['cliente', 'mac3 score', 'score', 'follow', 'retorno', 'lead', 'fase', 'quente', 'funil', 'carteira']],
       ['qualificador_ajuda', ['qualificador', 'simul', 'financiamento', 'parcela', 'entrada', 'fgts', 'renda', 'price', 'sac', 'prazo', 'cotista']],
       ['planos_ajuda', ['plano', 'assinar', 'trial', 'teste gratis', 'preco', 'mensal', 'trimestral', 'semestral', 'anual', '14 dias', 'pagamento', 'kiwify']],
       ['ajustes_ajuda', ['tema', 'backup', 'exportar', 'importar', 'perfil', 'gemini', 'chave', 'configura', 'ajuste', 'aba inicial', 'assinatura das']],
@@ -2960,9 +2991,9 @@ function usarValorCalculadoraRadar() {
 
     function textoSimulacao() {
       var g = function(id) { var e = document.getElementById(id); return e ? e.innerText : '—'; };
-      if (!/\d/.test(g('res-financiamento'))) return 'Ainda não há simulação. Preencha o valor do imóvel e a renda na aba Qualificador.';
+      if (!/\d/.test(g('res-financiamento'))) return 'Ainda não há simulação preenchida. Digite o valor do imóvel e a renda na aba Qualificador — ou escreva aqui mesmo no chat (ex: *"renda 4500 e imóvel 240 mil"*) que eu calculo para você!';
       var cot = (typeof cotistaAtivo !== 'undefined' && cotistaAtivo) ? ' (com redutor de cotista)' : '';
-      return 'Sua simulação atual:\n\n• Linha: ' + modalidadeAtual.toUpperCase() + ' (' + amortizacaoAtual.toUpperCase() + ')\n• Taxa: ' + g('res-taxa') + cot + '\n• Prazo: ' + g('res-prazo') + '\n• Parcela: ' + g('res-parcela') + '\n• Financiamento: ' + g('res-financiamento') + '\n• FGTS + subsídios: ' + g('res-fgts') + '\n• Entrada: ' + g('res-entrada') + '\n• Valor total: ' + g('res-capacidade');
+      return '📊 *Diagnóstico da sua simulação atual:*\n\n• *Linha:* ' + modalidadeAtual.toUpperCase() + ' (' + amortizacaoAtual.toUpperCase() + ')\n• *Taxa nominal:* ' + g('res-taxa') + cot + '\n• *Prazo máximo:* ' + g('res-prazo') + '\n• *Parcela estimada:* ' + g('res-parcela') + '\n• *Financiamento aprovado:* ' + g('res-financiamento') + '\n• *FGTS + subsídios:* ' + g('res-fgts') + '\n• *Entrada necessária:* ' + g('res-entrada') + '\n• *Poder de compra total:* ' + g('res-capacidade');
     }
     function explicarSimulacao() { adicionarMensagemChat('user', 'Como está minha simulação?'); adicionarMensagemChat('bot', textoSimulacao()); }
     function alternarCopilotoIA(e) {
@@ -2994,6 +3025,9 @@ function usarValorCalculadoraRadar() {
         regras_gerais: 'Quais são as regras gerais da Caixa?',
         sbpe_regras: 'Quais são os limites e prazos do SBPE?',
         procotista_regras: 'Como funciona o Pró-Cotista FGTS?',
+        sac_vs_price: 'Qual a diferença entre SAC e Price?',
+        composicao_renda: 'Como funciona a Composição de Renda e Idade?',
+        custos_extras: 'Quais são os custos de ITBI, Cartório e Obra?',
         cohapar_ajuda: 'Como funciona o subsídio Cohapar?',
         radar_ajuda: 'Como usar a ferramenta de Radar de Imóveis?',
         cliente_sumiu: 'Como destravar cliente travado ou sumido?',
@@ -3010,21 +3044,104 @@ function usarValorCalculadoraRadar() {
       }, 350);
     }
 
+    function extrairNumeroChat(txt, regex) {
+      var m = txt.match(regex);
+      if (!m) return 0;
+      var raw = m[1].trim().toLowerCase();
+      var mult = (raw.indexOf('mil') !== -1 || raw.indexOf('k') !== -1) ? 1000 : 1;
+      var numStr = raw.replace(/[^0-9.,]/g, '');
+      if (mult === 1000) {
+        numStr = numStr.replace(',', '.');
+        return (parseFloat(numStr) || 0) * 1000;
+      }
+      if (/\.\d{3}/.test(numStr)) numStr = numStr.replace(/\./g, '').replace(',', '.');
+      else numStr = numStr.replace(',', '.');
+      var val = parseFloat(numStr) || 0;
+      return val;
+    }
+
+    function tentarCalculoRapidoCopiloto(q) {
+      var renda = extrairNumeroChat(q, /renda(?:\s+de|\s+bruta)?\s*:?\s*r?\$?\s*([0-9.,]+(?:\s*(?:mil|k))?)/i);
+      var imovel = extrairNumeroChat(q, /(?:imovel|imóvel|apto|apartamento|casa|valor)(?:\s+de)?\s*:?\s*r?\$?\s*([0-9.,]+(?:\s*(?:mil|k))?)/i);
+      var fgts = extrairNumeroChat(q, /fgts(?:\s+de)?\s*:?\s*r?\$?\s*([0-9.,]+(?:\s*(?:mil|k))?)/i);
+      if (renda > 0 && renda < 100) renda *= 1000;
+      if (imovel > 0 && imovel < 1000) imovel *= 1000;
+      if (renda <= 0 && imovel <= 0) return null;
+
+      if (renda > 0 && imovel <= 0) {
+        var margem = renda * 0.30;
+        var faixaTxt = renda <= 3200 ? 'MCMV Faixa 1 (juros ~4,75% a 5,25% a.a.)' : (renda <= 5000 ? 'MCMV Faixa 2 (juros ~5,50% a 7,00% a.a.)' : (renda <= 9600 ? 'MCMV Faixa 3 (juros 8,16% a.a. / 7,66% cotista)' : (renda <= 13000 ? 'Classe Média Faixa 4 (juros ~10% a.a., teto R$ 600 mil)' : 'SBPE / Pró-Cotista (acima do teto MCMV)')));
+        var cohaparOk = renda <= 4 * 1621 ? '✅ Elegível ao subsídio *Cohapar R$ 20.000* (até 4 SM).' : 'ℹ️ Renda acima do limite de 4 SM da Cohapar.';
+        return '🧮 *Análise Rápida para Renda de ' + formatarReal(renda) + ':*\n\n' +
+               '• *Enquadramento:* ' + faixaTxt + '\n' +
+               '• *Margem máx. Caixa (30%):* ' + formatarReal(margem) + '/mês\n' +
+               '• ' + cohaparOk + '\n\n' +
+               '💡 Se quiser simular um imóvel específico aqui no chat, digite por exemplo: *"renda ' + Math.round(renda) + ' e imóvel 250 mil"*.';
+      }
+
+      if (renda > 0 && imovel > 0) {
+        var linhaSug = (renda <= 9600 && imovel <= 400000) ? 'mcmv' : ((renda <= 13000 && imovel <= 600000) ? 'faixa4' : 'sbpe');
+        var elIm = document.getElementById('calc-imovel');
+        var elRe = document.getElementById('calc-income');
+        var elFg = document.getElementById('calc-fgts');
+        if (elIm && elRe) {
+          elIm.value = imovel.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+          elRe.value = renda.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+          if (fgts > 0 && elFg) elFg.value = fgts.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+          selecionarModalidade(linhaSug);
+          calcularFinanciamento(false);
+          return '⚡ *Simulação preenchida automaticamente no Qualificador!*\n\n' + textoSimulacao();
+        }
+      }
+      return null;
+    }
+
+    function resumoCarteiraCopiloto() {
+      var todos = lerClientes();
+      if (!todos.length) return '👥 *Sua carteira ainda está vazia.*\n\nVá na aba *Clientes* → *➕ Adicionar cliente* para cadastrar seus leads, calcular o MAC3 Score e acompanhar suas comissões.';
+      var hoje = dataISO(0);
+      var abertos = todos.filter(function(c) { return c.fase !== 'fechado' && c.fase !== 'perdido'; });
+      var atrasados = abertos.filter(function(c) { return c.data && c.data < hoje; });
+      var paraHoje = abertos.filter(function(c) { return c.data === hoje; });
+      var quentes = abertos.filter(function(c) { var s = calcularMac(c.mac); return s !== null && s >= 70; });
+      var fu = listaFollowup();
+      return '📊 *Resumo da sua Carteira (em tempo real):*\n\n' +
+             '• *Total cadastrado:* ' + todos.length + ' cliente(s)\n' +
+             '• *Em negociação ativa:* ' + abertos.length + '\n' +
+             '• *🔥 Leads Quentes (MAC3 ≥ 70):* ' + quentes.length + '\n' +
+             '• *📅 Retornos para hoje:* ' + paraHoje.length + '\n' +
+             '• *⚠️ Atrasados / precisam de Follow-up:* ' + Math.max(atrasados.length, fu.length) +
+             (quentes.length ? '\n\n🎯 *Prioridade máxima hoje:* ' + quentes.slice(0, 3).map(function(c) { return c.nome; }).join(', ') : '');
+    }
+
     function gerarRespostaLocal(pergunta) {
       var p = pergunta.toLowerCase().trim();
-      if (p.indexOf('minha simula') !== -1 || p.indexOf('meu estudo') !== -1) return textoSimulacao();
+      var q = p.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-      if (['oi', 'ola', 'olá', 'eai', 'e aí', 'opa', 'salve', 'bom dia', 'boa tarde', 'boa noite', 'tudo bem'].some(function(t) { return p === t || p.indexOf(t) === 0; })) {
-        return 'Olá! Tudo ótimo por aqui.\n\nComo posso ajudar com suas simulações da Caixa, regras do SBPE, Pró-Cotista ou busca no Radar hoje?';
+      if (q.indexOf('minha simula') !== -1 || q.indexOf('meu estudo') !== -1) return textoSimulacao();
+      if (q.indexOf('meus clientes') !== -1 || q.indexOf('minha carteira') !== -1 || q.indexOf('resumo dos clientes') !== -1 || q.indexOf('quem priorizar') !== -1) {
+        return resumoCarteiraCopiloto();
       }
-      var q = p.normalize('NFD').replace(/[\u0300-\u036f]/g, ''), melhor = null, pontos = 0;
+
+      var calcDinamico = tentarCalculoRapidoCopiloto(q);
+      if (calcDinamico) return calcDinamico;
+
+      if (['oi', 'ola', 'eai', 'e ai', 'opa', 'salve', 'bom dia', 'boa tarde', 'boa noite', 'tudo bem'].some(function(t) { return q === t || q.indexOf(t + ' ') === 0; })) {
+        return 'Olá! Tudo pronto para fecharmos negócios hoje. 🚀\n\nVocê pode me perguntar sobre *regras da Caixa (MCMV, Faixa 4, Pró-Cotista, SBPE)*, *Cohapar*, *SAC vs Price*, *ITBI/Cartório*, *Composição de Renda* ou digitar direto algo como:\n• *"renda 4500 e imóvel 250 mil"* (eu já rodo a simulação para você)\n• *"resumo dos meus clientes"*';
+      }
+
+      var melhor = null, pontos = 0;
       ROTAS_COPILOTO.forEach(function(r) {
         var n = r[1].filter(function(k) { return q.indexOf(k) !== -1; }).length;
         if (n > pontos) { pontos = n; melhor = r[0]; }
       });
       if (melhor) return baseConhecimentoCaixa[melhor];
-      if (['regra', 'caixa', 'mcmv', 'minha casa', 'juros', 'taxa'].some(function(t) { return q.indexOf(t) !== -1; })) return baseConhecimentoCaixa.regras_gerais;
-      return 'Não tenho uma resposta exata para isso na base interna. Com a chave Gemini (Ajustes) respondo perguntas livres. Enquanto isso, posso ajudar com:\n\n' + baseConhecimentoCaixa.app_guia;
+      if (['regra', 'caixa', 'mcmv', 'minha casa', 'juros', 'taxa', 'faixa 1', 'faixa 2', 'faixa 3', 'faixa 4'].some(function(t) { return q.indexOf(t) !== -1; })) return baseConhecimentoCaixa.regras_gerais;
+      return 'Posso te responder na hora sobre qualquer regra de financiamento ou função do ImobFlow! Experimente perguntar sobre:\n\n' +
+             '• *Simulação rápida:* digite *"renda 4500 imovel 240 mil"*\n' +
+             '• *Crédito Caixa:* MCMV (Faixas 1 a 4), SBPE, Pró-Cotista ou Cohapar PR\n' +
+             '• *Dúvidas técnicas:* SAC vs Price, Composição de Renda, Autônomo/MEI ou Custos de ITBI/Cartório\n' +
+             '• *Sua carteira:* digite *"meus clientes"* ou *"minha simulação"*';
     }
 
     async function processarRespostaIA(pergunta) {
