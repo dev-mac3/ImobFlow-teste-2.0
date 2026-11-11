@@ -212,7 +212,7 @@
     .disclaimer { font-size: 10px; color: var(--text-muted); line-height: 1.4; margin-top: 12px; }
 
     /* Antissumiço em Lista Visual */
-    .script-catalog { display: flex; flex-direction: column; gap: 8px; max-height: 350px; overflow-y: auto; padding-right: 4px; margin-top: 8px; }
+    .script-catalog { display: flex; flex-direction: column; gap: 8px; max-height: 480px; overflow-y: auto; padding-right: 4px; margin-top: 8px; }
     .script-card-item { background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; cursor: pointer; transition: all 0.15s ease; text-align: left; }
     .script-card-item:hover, .script-card-item.selected { border-color: var(--primary-color); background: rgba(16, 185, 129, 0.08); }
     .script-card-item .item-title { font-size: 13px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 3px; }
@@ -243,7 +243,6 @@
     .slide-arrow.prev { left: 8px; }
     .slide-arrow.next { right: 8px; }
     
-    /* Botão Xizinho para remover foto atual da vitrine */
     .btn-delete-photo { position: absolute; top: 12px; right: 12px; background: rgba(239, 68, 68, 0.9); color: #fff; border: none; font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 6px; cursor: pointer; z-index: 7; display: none; }
     
     .gallery-dots { display: flex; gap: 6px; justify-content: center; padding: 8px; background: var(--bg-input); }
@@ -438,7 +437,7 @@
       </div>
     </section>
 
-    <!-- ABA 2: CENTRAL ANTISSUMIÇO REFORMULADA -->
+    <!-- ABA 2: CENTRAL ANTISSUMIÇO REFORMULADA (15 SCRIPTS COMPLETOS) -->
     <section id="tab-agenda" class="hidden">
       <div class="desktop-split-view">
         <div class="card">
@@ -879,12 +878,12 @@
     </div>
     <span id="ia-typing" class="ia-typing-indicator" style="display:none; font-size:11px; color:var(--text-muted); padding:4px 14px;">Copiloto digitando...</span>
     <div class="ia-quick-topics">
-      <span class="ia-chip" onclick="executarTopicoIA('regras_gerais')">Regras Caixa</span>
-      <span class="ia-chip" onclick="executarTopicoIA('sbpe_regras')">Regras SBPE</span>
-      <span class="ia-chip" onclick="executarTopicoIA('procotista_regras')">Pró-Cotista</span>
-      <span class="ia-chip" onclick="executarTopicoIA('cohapar_ajuda')">Cohapar PR</span>
-      <span class="ia-chip" onclick="executarTopicoIA('radar_ajuda')">Radar Imóveis</span>
-      <span class="ia-chip" onclick="executarTopicoIA('cliente_sumiu')">Destravar Cliente</span>
+      <span class="ia-chip" onclick="executarTopicoIA('regras_gerais', 'Regras Caixa')">Regras Caixa</span>
+      <span class="ia-chip" onclick="executarTopicoIA('sbpe_regras', 'Regras SBPE')">Regras SBPE</span>
+      <span class="ia-chip" onclick="executarTopicoIA('procotista_regras', 'Pró-Cotista')">Pró-Cotista</span>
+      <span class="ia-chip" onclick="executarTopicoIA('cohapar_ajuda', 'Cohapar PR')">Cohapar PR</span>
+      <span class="ia-chip" onclick="executarTopicoIA('radar_ajuda', 'Radar Imóveis')">Radar Imóveis</span>
+      <span class="ia-chip" onclick="executarTopicoIA('cliente_sumiu', 'Destravar Cliente')">Destravar Cliente</span>
     </div>
     <div class="ia-input-row">
       <input type="text" id="ia-user-input" placeholder="Digite sua dúvida..." onkeypress="if(event.key==='Enter') enviarMensagemCopiloto()">
@@ -913,7 +912,7 @@
     var amortizacaoAtual = 'price';
     var cohaparAtivo = false;
     var cohaparAplicado = false;
-    var scriptSelecionadoId = 'sumiu_simulacao';
+    var scriptSelecionadoId = 'visita';
 
     function mostrarToast(msg) {
       var t = document.getElementById('toast');
@@ -962,7 +961,7 @@
     function abrirModalTrial() {
       var devId = gerarFingerprintDispositivo();
       if (localStorage.getItem('imobflow_trial_usado') || localStorage.getItem('imobflow_blocked_dev_' + devId)) {
-        alert('Este aparelho já utilizou o período de testes grátis de 14 dias. Para continuar utilizando, selecione um plano.');
+        alert('Este aparelho já utilizou o período de testes grátis de 14 dias.');
         return;
       }
       document.getElementById('trial-modal').style.display = 'flex';
@@ -987,9 +986,6 @@
       e.preventDefault();
       var cardNum = document.getElementById('trial-card-num').value.replace(/\s/g, '');
       if (cardNum.length < 13) { alert('Informe um número de cartão de crédito válido.'); return; }
-      var cardFingerprint = btoa(cardNum.substring(0, 6) + '...' + cardNum.substring(cardNum.length - 4));
-      if (localStorage.getItem('imobflow_used_card_' + cardFingerprint)) { alert('Este cartão de crédito já foi cadastrado para um teste grátis anteriormente.'); return; }
-
       var catorzeDiasMs = 14 * 24 * 60 * 60 * 1000;
       var dataExpiracao = Date.now() + catorzeDiasMs;
       var devId = gerarFingerprintDispositivo();
@@ -997,7 +993,6 @@
       localStorage.setItem('imobflow_trial_expira', dataExpiracao.toString());
       localStorage.setItem('imobflow_trial_usado', 'true');
       localStorage.setItem('imobflow_blocked_dev_' + devId, 'true');
-      localStorage.setItem('imobflow_used_card_' + cardFingerprint, 'true');
 
       fecharModalTrial();
       checarStatusAcesso();
@@ -1348,16 +1343,52 @@
       copiarTextoSeguro(texto, 'Resumo copiado para o WhatsApp!');
     }
 
-    /* CENTRAL ANTISSUMIÇO */
+    /* CENTRAL ANTISSUMIÇO (15 SCRIPTS COMPLETOS) */
     var listaScriptsAntisumico = [
       { id: 'visita', cat: 'visita', badge: 'Compromisso', titulo: '1. Confirmação de Visita', resumo: 'Confirma data, hora e nome para a portaria.', precisaData: true,
         template: function(n, d, h) { return 'Olá ' + n + ', tudo bem? Passando para confirmar nossa visita no dia ' + d + ' às ' + h + '. Para liberar sua entrada na portaria, preciso do seu nome completo. Podemos manter?'; }
       },
-      { id: 'sumiu_simulacao', cat: 'vacuo', badge: 'Retomada', titulo: '2. Sumiu após a Simulação', resumo: 'Retoma sem pressão e dá saída fácil para o cliente.', precisaData: false,
-        template: function(n) { return 'Oi ' + n + ', tudo bem? Não quis te deixar sem retorno sobre a simulação. Se o momento não for agora, sem problema: me avise que fico à disposição. Combinado?'; }
+      { id: 'duas_horas', cat: 'visita', badge: 'Checagem', titulo: '2. Checagem 2 Horas Antes', resumo: 'Mensagem curta para confirmar antes do deslocamento.', precisaData: true,
+        template: function(n, d, h) { return 'Oi ' + n + '! Nossa visita é hoje às ' + h + '. Está tudo certo para o horário? Se já estiver a caminho, me avise. 😉'; }
       },
-      { id: 'vai_pensar', cat: 'objecao', badge: 'Objeção', titulo: '3. "Vou Pensar e te Aviso"', resumo: 'Pergunta direta e gentil sobre o que gerou dúvida.', precisaData: false,
-        template: function(n) { return 'Claro, ' + n + ', uma decisão dessas merece calma. Só me ajuda: o que mais ficou pesando? A localização, a entrada ou a parcela?'; }
+      { id: 'assinatura', cat: 'visita', badge: 'Aprovado', titulo: '3. Reunião / Assinatura Caixa', resumo: 'Avisa aprovação e combina assinatura.', precisaData: true,
+        template: function(n, d, h) { return 'Olá ' + n + '! Crédito aprovado para nossa assinatura no dia ' + d + ' às ' + h + '. 🎉 Leve documentos com foto e comprovantes.'; }
+      },
+      { id: 'sumiu_simulacao', cat: 'vacuo', badge: 'Retomada', titulo: '4. Sumiu após a Simulação', resumo: 'Retoma sem pressão e dá saída fácil para o cliente.', precisaData: false,
+        template: function(n) { return 'Oi ' + n + ', tudo bem? Não quis te deixar sem retorno sobre a simulação. Se o momento não for agora, sem problema: me avise que fico à disposição.'; }
+      },
+      { id: 'sumiu_visita', cat: 'vacuo', badge: 'Feedback', titulo: '5. Sumiu após Visitar o Imóvel', resumo: 'Pergunta aberta para descobrir a objeção real.', precisaData: false,
+        template: function(n) { return 'Oi ' + n + ', qual sua impressão sincera sobre o imóvel que visitamos? Atendeu o que procurava ou ficou faltando algo?'; }
+      },
+      { id: 'revisita', cat: 'vacuo', badge: 'Oportunidade', titulo: '6. Reaquecimento de Lead Frio', resumo: 'Reabre conversa com nova opção.', precisaData: false,
+        template: function(n) { return 'Oi ' + n + ', lembrei de você hoje! Apareceu uma opção bem alinhada ao que conversamos. Quer dar uma olhada?'; }
+      },
+      { id: 'sumiu_proposta', cat: 'vacuo', badge: 'Reserva', titulo: '7. Sumiu após Receber Proposta', resumo: 'Pede posicionamento sobre unidade reservada.', precisaData: false,
+        template: function(n) { return 'Oi ' + n + ', preciso atualizar a construtora sobre a unidade reservada. Conseguiu avaliar a proposta? Me dê um retorno até amanhã.'; }
+      },
+      { id: 'parcela_alta', cat: 'objecao', badge: 'Composição', titulo: '8. Achou a Parcela Alta', resumo: 'Propõe compor renda para reduzir parcela.', precisaData: false,
+        template: function(n) { return 'Entendo, ' + n + '. Se a parcela ficou apertada, podemos incluir um segundo comprador para diluir a margem e baixar a prestação.'; }
+      },
+      { id: 'medo_divida', cat: 'objecao', badge: 'Patrimônio', titulo: '9. Medo de Financiamento Longo', resumo: 'Compara aluguel com construção de patrimônio.', precisaData: false,
+        template: function(n) { return 'É natural receio, ' + n + '. Mas pense que o aluguel é gasto, enquanto a parcela constrói seu patrimônio e reduz saldo com FGTS.'; }
+      },
+      { id: 'falta_entrada', cat: 'objecao', badge: 'Facilitada', titulo: '10. Falta Dinheiro para Entrada', resumo: 'Mostra parcelamento e uso de FGTS.', precisaData: false,
+        template: function(n) { return 'Oi ' + n + '! Podemos usar FGTS e parcelar a entrada diretamente com a construtora durante a obra. Quer ver como fica?'; }
+      },
+      { id: 'vai_pensar', cat: 'objecao', badge: 'Dúvida', titulo: '11. "Vou Pensar e te Aviso"', resumo: 'Pergunta gentilmente qual foi o ponto de dúvida.', precisaData: false,
+        template: function(n) { return 'Claro, ' + n + '! Só me ajuda: o que ficou pesando mais? Localização, entrada ou valor da parcela?'; }
+      },
+      { id: 'consultar_terceiro', cat: 'objecao', badge: 'Família', titulo: '12. "Preciso Falar com Cônjuge"', resumo: 'Oferece suporte para explicar à família.', precisaData: false,
+        template: function(n) { return 'Ótima ideia, ' + n + '! Posso enviar um resumo simples para vocês analisarem juntos ou tirar dúvidas em uma chamada rápida.'; }
+      },
+      { id: 'documentos', cat: 'bancario', badge: 'Documentos', titulo: '13. Cobrança de Documentos', resumo: 'Solicita pendências cadastrais com prazo.', precisaData: false,
+        template: function(n) { return 'Olá ' + n + '! Para não atrasar o crédito, faltam apenas alguns documentos. Pode enviar fotos nítidas por aqui mesmo até sexta?'; }
+      },
+      { id: 'reprovou_credito', cat: 'bancario', badge: 'Revisão', titulo: '14. Crédito Condicionado / Ajuste', resumo: 'Acalma e propõe ajuste de cadastro.', precisaData: false,
+        template: function(n) { return 'Oi ' + n + '! A Caixa pediu um ajuste simples na análise. É super comum e temos caminhos para resolver. Vamos conversar 5 minutos?'; }
+      },
+      { id: 'urgencia_unidade', cat: 'bancario', badge: 'Estoque', titulo: '15. Poucas Unidades Disponíveis', resumo: 'Avisa sobre estoque e reajuste de tabela.', precisaData: false,
+        template: function(n) { return 'Oi ' + n + '! Restam poucas unidades com a tabela atual e haverá reajuste em breve. Quer que eu segure sua reserva?'; }
       }
     ];
 
@@ -1373,6 +1404,7 @@
         card.innerHTML = '<span class="item-title">' + s.titulo + '</span><span class="item-desc">' + s.resumo + '</span>';
         container.appendChild(card);
       });
+      atualizarPreviewScript();
     }
 
     function filtrarCategoriaScript(cat, btn) {
@@ -1384,6 +1416,9 @@
 
     function selecionarScriptItem(id) {
       scriptSelecionadoId = id;
+      var cards = document.querySelectorAll('.script-card-item');
+      cards.forEach(function(c) { c.classList.remove('selected'); });
+      montarCatalogoScripts('todos');
       var achado = listaScriptsAntisumico.find(function(s) { return s.id === id; });
       var linhaData = document.getElementById('agenda-date-time-row');
       if (achado && achado.precisaData) linhaData.className = 'form-row';
@@ -1415,20 +1450,14 @@
       window.open(url, '_blank');
     }
 
-    function adicionarTarefaCalendario() {
-      mostrarToast('Tarefa pronta para salvamento.');
-    }
-    function abrirGoogleAgenda() {
-      window.open('https://calendar.google.com', '_blank');
-    }
+    function adicionarTarefaCalendario() { mostrarToast('Tarefa gerada para salvamento.'); }
+    function abrirGoogleAgenda() { window.open('https://calendar.google.com', '_blank'); }
 
     /* RADAR */
-    function atualizarCidadeRadar() {
-      document.getElementById('radar-city').value = 'Curitiba';
-    }
+    function atualizarCidadeRadar() { document.getElementById('radar-city').value = 'Curitiba'; }
     function gerarBuscasPortais() {
       var cidade = document.getElementById('radar-city').value || 'Curitiba';
-      document.getElementById('radar-portais').innerHTML = '<div class="card"><p class="card-desc">Portais carregados para ' + cidade + '. <a href="https://www.chavesnamao.com.br" target="_blank">Abrir Chaves na Mão ↗</a></p></div>';
+      document.getElementById('radar-portais').innerHTML = '<div class="card"><p class="card-desc">Portais carregados para ' + cidade + '. <a href="https://www.chavesnamao.com.br" target="_blank" style="color:var(--primary-color);">Abrir Chaves na Mão ↗</a></p></div>';
       mostrarToast('Busca gerada!');
     }
     function usarValorCalculadoraRadar() {
@@ -1437,9 +1466,7 @@
       document.getElementById('radar-vmax').value = v;
       mostrarToast('Valor aplicado!');
     }
-    function salvarAnuncioRadar() {
-      mostrarToast('Anúncio salvo com sucesso!');
-    }
+    function salvarAnuncioRadar() { mostrarToast('Anúncio salvo com sucesso!'); }
     function renderizarSalvosRadar() {}
 
     /* VITRINE & FOTOS */
@@ -1570,13 +1597,13 @@
       window.open('https://pay.kiwify.com.br/qIO4rTA?afid=RfZ43apo', '_blank');
     }
 
-    /* COPILOTO IA */
+    /* COPILOTO IA CORRIGIDO */
     var baseConhecimentoCaixa = {
       regras_gerais: '📌 *Linhas Caixa:* MCMV (juros reduzidos, até 90% financiamento), Classe Média (Fx 4), Pró-Cotista e SBPE.',
       sbpe_regras: '📌 *SBPE:* Taxa de 11,49% a.a., prazo até 420 meses (SAC) ou 360 meses (PRICE).',
       procotista_regras: '📌 *Pró-Cotista:* 9,01% a.a., exige 3 anos de FGTS sob regime CLT.',
       cohapar_ajuda: '🏛️ *Cohapar:* Subsídio de R$ 20.000 para renda até 4 salários mínimos no Paraná.',
-      radar_ajuda: '📡 *Radar:* Filtre imóveis em portais reais eimporte para sua vitrine.',
+      radar_ajuda: '📡 *Radar:* Filtre imóveis em portais reais e importe para sua vitrine.',
       cliente_sumiu: '🛡️ *Antissumiço:* Use gatilhos de fechamento e propostas com prazo.'
     };
 
@@ -1595,11 +1622,14 @@
       chat.scrollTop = chat.scrollHeight;
     }
 
-    function executarTopicoIA(chave) {
-      adicionarMensagemChat('user', chave);
+    function executarTopicoIA(chave, rotuloAmigavel) {
+      adicionarMensagemChat('user', rotuloAmigavel);
+      var typing = document.getElementById('ia-typing');
+      typing.style.display = 'block';
       setTimeout(function() {
+        typing.style.display = 'none';
         adicionarMensagemChat('bot', baseConhecimentoCaixa[chave] || 'Informação consultada com sucesso.');
-      }, 300);
+      }, 350);
     }
 
     function enviarMensagemCopiloto() {
@@ -1608,7 +1638,10 @@
       if (!val) return;
       adicionarMensagemChat('user', val);
       input.value = '';
+      var typing = document.getElementById('ia-typing');
+      typing.style.display = 'block';
       setTimeout(function() {
+        typing.style.display = 'none';
         adicionarMensagemChat('bot', 'Entendido! Como especialista em crédito imobiliário, recomendo conferir os parâmetros no simulador oficial.');
       }, 350);
     }
