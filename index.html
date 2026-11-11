@@ -436,6 +436,7 @@
             <div class="badge-check" id="check-cohapar">✔</div>
           </div>
 
+          <div class="btn-cohapar-toggle" id="btn-cotista" onclick="alternarCotista()"><div><span>🏦 Cotista FGTS (36 meses)</span><small>Redutor de juros do MCMV (cerca de 0,5 p.p.)</small></div><div class="badge-check">✔</div></div>
           <button type="button" onclick="calcularFinanciamento(true)" class="btn-action btn-emerald">⚡ Calcular Financiamento</button>
         </div>
 
@@ -457,7 +458,7 @@
               <strong id="res-taxa" class="highlight">—</strong>
             </div>
             <div class="result-item">
-              <span>Capacidade pela Renda</span>
+              <span>Valor Total (Financ. + FGTS + Subsídios)</span>
               <strong id="res-capacidade">—</strong>
             </div>
             <div class="result-item">
@@ -477,6 +478,7 @@
               <strong id="res-margem">—</strong>
             </div>
           </div>
+          <p id="res-cotista-diff" class="result-status" style="display:none; margin-top:12px;"></p>
           <button type="button" onclick="copiarResumoWhatsApp()" class="btn-action btn-secondary">Copiar Resumo p/ WhatsApp</button>
           <p class="disclaimer">Simulação estimada com regras de referência (nov/2026). A prestação inclui estimativa de seguros MIP/DFI e tarifa de administração (R$ 25), que entram nos 30% da renda. Juros do MCMV calculados para não cotista do FGTS; cotista paga cerca de 0,5 p.p. a menos. Taxas variam com relacionamento, renda e região. Aprovação sujeita à análise da Caixa.</p>
         </div>
@@ -1048,6 +1050,14 @@
     var cohaparAtivo = false;
     var cohaparAplicado = false;
     var scriptSelecionadoId = 'sumiu_simulacao';
+    var cotistaAtivo = false;
+    var REDUTOR_COTISTA = 0.5;
+    function alternarCotista() {
+      cotistaAtivo = !cotistaAtivo;
+      document.getElementById('btn-cotista').classList.toggle('active', cotistaAtivo);
+      calcularFinanciamento(false);
+      if (cotistaAtivo && modalidadeAtual !== 'mcmv') mostrarToast('O redutor de cotista só vale na linha MCMV.');
+    }
 
     function mostrarToast(msg) {
       var t = document.getElementById('toast');
@@ -1584,7 +1594,7 @@
       var renda = converterMoedaParaNumero(rendaEl ? rendaEl.value : 0);
       var fgts = converterMoedaParaNumero(fgtsEl ? fgtsEl.value : 0);
       var idade = parseFloat(idadeEl ? idadeEl.value : 0) || 0;
-      try { localStorage.setItem('imobflow_calc', JSON.stringify({ i: imovelEl.value, r: rendaEl.value, f: fgtsEl.value, a: idadeEl.value, t: tipoImovelAtual, m: modalidadeAtual, am: amortizacaoAtual, c: cohaparAtivo })); } catch (e) {}
+      try { localStorage.setItem('imobflow_calc', JSON.stringify({ i: imovelEl.value, r: rendaEl.value, f: fgtsEl.value, a: idadeEl.value, t: tipoImovelAtual, m: modalidadeAtual, am: amortizacaoAtual, c: cohaparAtivo, ct: cotistaAtivo })); } catch (e) {}
 
       if (renda <= 0 || valorImovel <= 0) {
         if (statusEl) statusEl.innerText = 'Preencha o valor do imóvel e a renda para simular.';
@@ -1646,6 +1656,9 @@
         cotaMaxima = sac ? 0.90 : 0.80;
       }
 
+      var jurosBase = jurosAnual;
+      var cotistaAplicado = cotistaAtivo && modalidadeAtual === 'mcmv';
+      if (cotistaAplicado) jurosAnual = Math.max(0, Math.round((jurosBase - REDUTOR_COTISTA) * 100) / 100);
       var margemMaxCaixa = renda * 0.30; // Caixa: prestação total até 30% da renda bruta familiar
       var tetoFinanceiro = valorImovel * cotaMaxima;
       var taxaMensal = (jurosAnual / 100) / 12; // taxa nominal dividida por 12, como no contrato Caixa
@@ -1663,17 +1676,27 @@
 
       var financAprovado = Math.min(financPelaRenda, tetoFinanceiro);
       var parcelaCalculada = financAprovado * (fatorEncargo + mipTaxa) + dfiMensal + TARIFA_ADM;
+      var simBase = function(jA) { var tm = (jA / 100) / 12; var fe = sac ? (1 / prazoMeses) + tm : tm / (1 - Math.pow(1 + tm, -prazoMeses)); var pr = Math.max(0, (margemMaxCaixa - TARIFA_ADM - dfiMensal) / (fe + mipTaxa)); var fa = Math.min(pr, tetoFinanceiro); return { fa: fa, parc: fa * (fe + mipTaxa) + dfiMensal + TARIFA_ADM }; };
+      var semRed = simBase(jurosBase);
 
       var cohaparElegivel = renda <= 4 * 1621; // até 4 salários mínimos
       cohaparAplicado = cohaparAtivo && cohaparElegivel;
       var valorCohapar = cohaparAplicado ? 20000 : 0;
       var abatimentoTotal = fgts + valorCohapar;
+      var valorTotal = financAprovado + abatimentoTotal;
       var entradaNecessaria = Math.max(0, valorImovel - financAprovado - abatimentoTotal);
       var cotaPct = Math.round(cotaMaxima * 100);
 
       setElemText('label-financiamento', 'Financiamento (até ' + cotaPct + '%)');
       setElemText('res-taxa', jurosAnual.toFixed(2).replace('.', ',') + '% a.a.');
-      setElemText('res-capacidade', formatarReal(financPelaRenda));
+      setElemText('res-capacidade', formatarReal(valorTotal));
+      var elDiff = document.getElementById('res-cotista-diff');
+      if (elDiff) {
+        if (cotistaAplicado) {
+          elDiff.style.display = 'block';
+          elDiff.innerHTML = '🏦 <b>Com redutor de cotista:</b> taxa ' + jurosAnual.toFixed(2).replace('.', ',') + '% (era ' + jurosBase.toFixed(2).replace('.', ',') + '%). Parcela ' + formatarReal(parcelaCalculada) + ' (−' + formatarReal(Math.max(0, semRed.parc - parcelaCalculada)) + '). Financiamento ' + formatarReal(semRed.fa) + ' → ' + formatarReal(financAprovado) + '.';
+        } else { elDiff.style.display = 'none'; }
+      }
 
       var descTipo = (tipoImovelAtual === 'planta' ? 'Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
       if (statusEl) {
@@ -1718,7 +1741,7 @@
                   '📌 *Linha:* ' + tipoLinha + ' (Tabela ' + amortizacaoAtual.toUpperCase() + ')\n' +
                   '📈 *Taxa de juros:* ' + taxa + '\n' +
                   '📅 *Prazo máximo calculado:* ' + prazo + '\n' +
-                  '📊 *Capacidade pela renda:* até ' + capacidade + '\n' +
+                  '📊 *Valor total (financ. + FGTS + subsídios):* ' + capacidade + '\n' +
                   '🏦 *Financiamento estimado:* até ' + financ + '\n' +
                   '📉 *Parcela estimada:* ' + parc + cohaparTxt + '\n' +
                   '💰 *FGTS + Subsídios:* ' + abatimentos + '\n' +
@@ -2598,6 +2621,8 @@ function usarValorCalculadoraRadar() {
           document.getElementById('calc-age').value = cs.a || '';
           cohaparAtivo = !!cs.c;
           if (cohaparAtivo) document.getElementById('btn-cohapar').classList.add('active');
+          cotistaAtivo = !!cs.ct;
+          if (cotistaAtivo) document.getElementById('btn-cotista').classList.add('active');
           selecionarTipoImovel(cs.t || 'planta');
           selecionarModalidade(cs.m || 'mcmv');
           selecionarAmortizacao(cs.am || 'price');
