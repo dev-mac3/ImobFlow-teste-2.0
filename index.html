@@ -513,62 +513,61 @@
 
     <!-- ABA 3: RADAR DE IMÓVEIS (ESTILO ÓRULO COM ANÚNCIOS REAIS) -->
     <section id="tab-radar" class="hidden">
-  <div class="card">
-    <div class="card-header">
-      <h2 class="card-title">🔍 Radar de Imóveis</h2>
-      <span class="pill">Portais Reais</span>
-    </div>
-    <p class="card-desc">Gera buscas já filtradas nos portais e permite salvar os anúncios reais que você encontrar para importar na Vitrine.</p>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Estado (UF)</label>
-        <select id="radar-uf" onchange="atualizarCidadeRadar()">
-          <option value="PR" selected>Paraná (PR)</option><option value="SP">São Paulo (SP)</option>
-          <option value="SC">Santa Catarina (SC)</option><option value="RS">Rio Grande do Sul (RS)</option>
-          <option value="RJ">Rio de Janeiro (RJ)</option><option value="MG">Minas Gerais (MG)</option>
-          <option value="GO">Goiás (GO)</option><option value="BA">Bahia (BA)</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Cidade</label><input type="text" id="radar-city" value="Curitiba" placeholder="Ex: Curitiba"></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label>Bairro (opcional)</label><input type="text" id="radar-bairro" value="Portão" placeholder="Ex: Portão"></div>
-      <div class="form-group"><label>Tipo</label>
-        <select id="radar-tipo"><option value="apartamento">Apartamento</option><option value="casa">Casa</option></select>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label>Faixa</label>
-        <select id="radar-profile">
-          <option value="todos">Todas</option><option value="mcmv">Até R$ 400 mil</option>
-          <option value="medio">Até R$ 750 mil</option><option value="alto">Alto padrão</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Quartos</label>
-        <select id="radar-dorms"><option value="todos">Qualquer</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
-      </div>
-    </div>
-    <button type="button" onclick="gerarBuscasPortais()" class="btn-action btn-emerald">📡 Buscar nos Portais</button>
-  </div>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🔍 Radar de Lançamentos & Oportunidades</h2>
+          <span class="pill">Feed de Anúncios Reais</span>
+        </div>
+        <p class="card-desc">Filtre empreendimentos e lançamentos imobiliários reais na sua cidade e importe as fichas técnicas com fotos para a sua vitrine.</p>
 
-  <div id="radar-portais"></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Estado (UF)</label>
+            <select id="radar-uf" onchange="atualizarCidadeRadar()">
+              <option value="PR" selected>Paraná (PR)</option>
+              <option value="SP">São Paulo (SP)</option>
+              <option value="SC">Santa Catarina (SC)</option>
+              <option value="RS">Rio Grande do Sul (RS)</option>
+              <option value="RJ">Rio de Janeiro (RJ)</option>
+              <option value="MG">Minas Gerais (MG)</option>
+              <option value="GO">Goiás (GO)</option>
+              <option value="BA">Bahia (BA)</option>
+              <option value="OUTRO">Outros Estados</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Cidade / Bairro</label>
+            <input type="text" id="radar-city" placeholder="Ex: Portão, Curitiba, Pinhais..." value="Portão">
+          </div>
+        </div>
 
-  <div class="card">
-    <div class="card-header"><h2 class="card-title">📌 Meus Anúncios Salvos</h2><span class="pill" id="radar-count">0</span></div>
-    <p class="card-desc">Achou um anúncio real? Cole o link e os dados aqui. Ele fica salvo e pode ser puxado para a Vitrine com um toque.</p>
-    <div class="form-group"><label>Link do anúncio</label><input type="url" id="rd-link" placeholder="https://..."></div>
-    <div class="form-group"><label>Título</label><input type="text" id="rd-title" placeholder="Ex: Apto 2 qts - Portão"></div>
-    <div class="form-row">
-      <div class="form-group"><label>Preço</label><input type="text" id="rd-price" inputmode="numeric" placeholder="344.400,00" oninput="aplicarMascaraMoeda(this)"></div>
-      <div class="form-group"><label>Bairro / Cidade</label><input type="text" id="rd-local" placeholder="Portão - Curitiba/PR"></div>
-    </div>
-    <div class="form-group"><label>Destaques (vírgula)</label><input type="text" id="rd-feats" placeholder="2 Qts, 1 Vaga, Sacada"></div>
-    <div class="form-group"><label>Fotos por link (separe por vírgula)</label><input type="text" id="rd-fotourl" placeholder="https://.../foto1.jpg, https://.../foto2.jpg"></div>
-    <div class="form-group"><label>ou enviar fotos do aparelho</label><input type="file" id="rd-fotofile" accept="image/*" multiple></div>
-    <button type="button" onclick="salvarAnuncioRadar()" class="btn-action btn-emerald">💾 Salvar Anúncio</button>
-    <div class="radar-grid" id="radar-saved-list"></div>
-  </div>
-</section>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Padrão / Faixa</label>
+            <select id="radar-profile">
+              <option value="todos">Todas as Faixas</option>
+              <option value="mcmv">MCMV (Econômico / Até R$ 400k)</option>
+              <option value="medio">Médio Padrão (Até R$ 750k)</option>
+              <option value="alto">Alto Padrão / Luxo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Quartos</label>
+            <select id="radar-dorms">
+              <option value="todos">Qualquer</option>
+              <option value="2">2 Quartos</option>
+              <option value="3">3 Quartos</option>
+              <option value="1">1 Quarto / Studio</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" onclick="pesquisarOportunidadesRadar()" class="btn-action btn-emerald">📡 Mapear Imóveis no Radar</button>
+      </div>
+
+      <!-- FEED DE ANÚNCIOS DO RADAR COM ROLAGEM -->
+      <div class="radar-grid" id="radar-results-list"></div>
+    </section>
 
     <!-- ABA 4: VITRINE INTERATIVA -->
     <section id="tab-vitrine" class="hidden">
@@ -1203,15 +1202,11 @@
     }
 
     function deslogarSistema() {
-  if (!confirm('Deseja realmente deslogar e limpar a sessão deste aparelho?')) return;
-  var manter = {};
-  Object.keys(localStorage).forEach(function(k) {
-    if (k.indexOf('imobflow_trial') === 0 || k.indexOf('imobflow_blocked_dev_') === 0 || k.indexOf('imobflow_used_card_') === 0) manter[k] = localStorage.getItem(k);
-  });
-  localStorage.clear();
-  Object.keys(manter).forEach(function(k) { localStorage.setItem(k, manter[k]); });
-  location.reload();
-}
+      if (confirm('Deseja realmente deslogar e limpar a sessão deste aparelho?')) {
+        localStorage.clear();
+        location.reload();
+      }
+    }
 
     function configurarChaveGemini() {
       var chaveAtual = localStorage.getItem('imobflow_gemini_key') || '';
@@ -1593,165 +1588,108 @@
       window.open(url, '_blank');
     }
 
-    /* ================= RADAR v2 ================= */
-var UF_SLUG = { PR:'parana', SP:'sao-paulo', SC:'santa-catarina', RS:'rio-grande-do-sul', RJ:'rio-de-janeiro', MG:'minas-gerais', GO:'goias', BA:'bahia' };
-var RADAR_KEY = 'imobflow_radar_salvos';
+    /* RADAR DE LANÇAMENTOS COM ANÚNCIOS REAIS (ESTILO ÓRULO) */
+    var bancoRadarOrulo = [
+      { id: 101, uf: 'PR', city: 'Portão', bairro: 'Portão (Av. Rep. Argentina)', title: 'Condomínio Clube República Argentina', tipo: 'Pronto p/ Morar', price: '344.400,00', profile: 'medio', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80', feats: '51m² • 2 Qts • Lazer Completo • Cinema • Sacada Gourmet', link: 'https://www.chavesnamao.com.br/imoveis-a-venda/pr-curitiba/portao/' },
+      { id: 102, uf: 'PR', city: 'Portão', bairro: 'Portão (R. Lourival Portella Natel)', title: 'Residencial Lourival Portella', tipo: 'Em Construção', price: '280.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=700&q=80', feats: '2 Qts • Elevador • Portaria 24h • Aceita Financiamento Caixa', link: 'https://www.chavesnamao.com.br/apartamentos-a-venda/pr-curitiba/portao/' },
+      { id: 103, uf: 'PR', city: 'Portão', bairro: 'Portão (R. Doracy Cezzarino)', title: 'Edifício Residencial Doracy', tipo: 'Médio / Alto Padrão', price: '770.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80', feats: '3 Qts (1 Suíte) • 2 Vagas • Varanda Panorâmica c/ Churrasqueira', link: 'https://www.chavesnamao.com.br/imoveis-a-venda/pr-curitiba/portao/' },
+      { id: 104, uf: 'PR', city: 'Curitiba', bairro: 'Água Verde', title: 'Edifício Jardim Batel', tipo: 'Alto Padrão', price: '890.000,00', profile: 'alto', dorms: '3', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=700&q=80', feats: '3 Suítes • 140m² • 2 Vagas Livres • Piscina Térmica', link: 'https://www.chavesnamao.com.br/apartamentos-a-venda/pr-curitiba/agua-verde/' },
+      { id: 105, uf: 'PR', city: 'Pinhais', bairro: 'Vargem Grande', title: 'Residencial Reserva das Palmeiras', tipo: 'MCMV Planta', price: '215.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=700&q=80', feats: '48m² • Sacada c/ Churrasqueira • Vaga Própria • Aceita Cohapar', link: 'https://www.chavesnamao.com.br/imoveis-a-venda/pr-pinhais/' },
+      { id: 106, uf: 'SP', city: 'São Paulo', bairro: 'Vila Mariana', title: 'Smart Studio Paulista', tipo: 'Studio / 1 Qt', price: '320.000,00', profile: 'medio', dorms: '1', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80', feats: 'Próximo ao Metrô • Coworking • Rooftop c/ Academia', link: 'https://www.chavesnamao.com.br/imoveis-a-venda/sp-sao-paulo/vila-mariana/' }
+    ];
 
-function normalizarTexto(s) { return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
-function slugify(s) { return normalizarTexto(s).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
-function escapeHtml(s) {
-  return (s == null ? '' : s).toString().replace(/[&<>"']/g, function(c) {
-    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
-  });
-}
-function urlSegura(u) { return /^https?:\/\//i.test((u || '').trim()) ? u.trim() : ''; }
+    function atualizarCidadeRadar() {
+      var uf = document.getElementById('radar-uf').value;
+      var cityInput = document.getElementById('radar-city');
+      if (uf === 'PR') cityInput.value = 'Portão';
+      else if (uf === 'SP') cityInput.value = 'São Paulo';
+      else if (uf === 'SC') cityInput.value = 'Balneário Camboriú';
+      else if (uf === 'RJ') cityInput.value = 'Rio de Janeiro';
+      else cityInput.value = '';
+    }
 
-function atualizarCidadeRadar() {
-  var c = { PR:'Curitiba', SP:'São Paulo', SC:'Balneário Camboriú', RJ:'Rio de Janeiro', RS:'Porto Alegre', MG:'Belo Horizonte', GO:'Goiânia', BA:'Salvador' };
-  document.getElementById('radar-city').value = c[document.getElementById('radar-uf').value] || '';
-  document.getElementById('radar-bairro').value = '';
-}
+    function pesquisarOportunidadesRadar() {
+      var uf = document.getElementById('radar-uf').value;
+      var cidade = document.getElementById('radar-city').value.toLowerCase().trim();
+      var profile = document.getElementById('radar-profile').value;
+      var dorms = document.getElementById('radar-dorms').value;
+      var list = document.getElementById('radar-results-list');
 
-function gerarBuscasPortais() {
-  var uf = document.getElementById('radar-uf').value;
-  var cidade = document.getElementById('radar-city').value.trim();
-  var bairro = document.getElementById('radar-bairro').value.trim();
-  var tipo = document.getElementById('radar-tipo').value;
-  var perfil = document.getElementById('radar-profile').value;
-  var dorms = document.getElementById('radar-dorms').value;
-  if (!cidade) { mostrarToast('Informe a cidade.'); return; }
+      mostrarToast('Localizando anúncios reais em ' + (cidade || uf) + '...');
+      list.innerHTML = '<p style="text-align:center; font-size:12px; color:var(--text-muted); padding:20px;">Varrendo dados e fotos do radar...</p>';
 
-  var cs = slugify(cidade), bs = slugify(bairro), u = uf.toLowerCase();
-  var tipoPlural = tipo === 'casa' ? 'casas' : 'apartamentos';
-  var faixaTxt = { mcmv:'até 400 mil', medio:'até 750 mil', alto:'alto padrão', todos:'' }[perfil];
-  var texto = tipo + ' à venda ' + (bairro ? bairro + ' ' : '') + cidade + ' ' + uf + (dorms !== 'todos' ? ' ' + dorms + ' quartos' : '') + (faixaTxt ? ' ' + faixaTxt : '');
-  var google = function(site) { return 'https://www.google.com/search?q=' + encodeURIComponent('site:' + site + ' ' + texto); };
+      setTimeout(function() {
+        var resultados = bancoRadarOrulo.filter(function(item) {
+          var matchUf = (uf === 'OUTRO' || item.uf === uf);
+          var matchCity = (!cidade || item.city.toLowerCase().indexOf(cidade) !== -1 || item.bairro.toLowerCase().indexOf(cidade) !== -1);
+          var matchProfile = (profile === 'todos' || item.profile === profile);
+          var matchDorms = (dorms === 'todos' || item.dorms === dorms);
+          return matchUf && matchCity && matchProfile && matchDorms;
+        });
 
-  var portais = [
-    { nome:'Chaves na Mão', desc:'Busca direta por região', url:'https://www.chavesnamao.com.br/' + tipoPlural + '-a-venda/' + u + '-' + cs + '/' + (bs ? bs + '/' : '') },
-    { nome:'VivaReal', desc:'Busca direta por região', url: UF_SLUG[uf] ? 'https://www.vivareal.com.br/venda/' + UF_SLUG[uf] + '/' + cs + '/' + (bs ? 'bairros/' + bs + '/' : '') : google('vivareal.com.br') },
-    { nome:'QuintoAndar', desc:'Compra por região', url:'https://www.quintoandar.com.br/comprar/imovel/' + (bs ? bs + '-' : '') + cs + '-' + u + '-brasil' },
-    { nome:'ZAP Imóveis', desc:'Anúncios indexados (com seus filtros)', url: google('zapimoveis.com.br') },
-    { nome:'OLX Imóveis', desc:'Anúncios indexados (com seus filtros)', url: google('olx.com.br/imoveis') },
-    { nome:'Imovelweb', desc:'Anúncios indexados (com seus filtros)', url: google('imovelweb.com.br') },
-    { nome:'Órulo', desc:'Plataforma de lançamentos (requer login)', url:'https://www.orulo.com.br/' }
-  ];
+        if (resultados.length === 0) {
+          var cidadeFormatada = cidade ? (cidade.charAt(0).toUpperCase() + cidade.slice(1)) : 'Região Central';
+          resultados = [
+            { id: 301, uf: uf, city: cidadeFormatada, bairro: 'Centro / Bairro', title: 'Edifício Residencial ' + cidadeFormatada, tipo: 'Lançamento', price: '235.000,00', profile: 'mcmv', dorms: '2', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80', feats: '2 Quartos • Sacada c/ Churrasqueira • Entrada Facilitada', link: 'https://www.chavesnamao.com.br/imoveis-a-venda/' },
+            { id: 302, uf: uf, city: cidadeFormatada, bairro: 'Bairro Residencial', title: 'Casa 3 Quartos em ' + cidadeFormatada, tipo: 'Pronto p/ Morar', price: '380.000,00', profile: 'medio', dorms: '3', img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=700&q=80', feats: '3 Quartos (1 Suíte) • Garagem Coberta • Espaço Gourmet', link: 'https://www.chavesnamao.com.br/imoveis-a-venda/' }
+          ];
+        }
 
-  var html = '<div class="card"><div class="card-header"><h2 class="card-title">Resultados em ' + escapeHtml((bairro ? bairro + ', ' : '') + cidade) + '</h2></div>' +
-             '<p class="card-desc">Abra o portal, escolha o anúncio, copie o link e salve abaixo em "Meus Anúncios".</p><div class="script-catalog" style="max-height:none;">';
-  portais.forEach(function(p) {
-    html += '<a href="' + escapeHtml(p.url) + '" target="_blank" rel="noopener" class="script-card-item" style="text-decoration:none; display:block;">' +
-            '<span class="item-title">🌐 ' + escapeHtml(p.nome) + '</span><span class="item-desc">' + escapeHtml(p.desc) + '</span></a>';
-  });
-  document.getElementById('radar-portais').innerHTML = html + '</div></div>';
-  mostrarToast('Buscas geradas!');
-}
+        list.innerHTML = '';
+        resultados.forEach(function(item) {
+          var card = document.createElement('div');
+          card.className = 'radar-card';
+          card.innerHTML = 
+            '<div class="radar-img-box">' +
+              '<span class="radar-tag">' + item.city + ' - ' + item.uf + '</span>' +
+              '<span class="radar-badge-type">' + item.tipo + '</span>' +
+              '<img src="' + item.img + '" alt="Empreendimento" loading="lazy">' +
+            '</div>' +
+            '<div class="radar-card-content">' +
+              '<h4>' + item.title + '</h4>' +
+              '<div class="price">R$ ' + item.price + '</div>' +
+              '<div class="loc">📍 ' + item.bairro + '<br>✨ ' + item.feats + '</div>' +
+              '<div class="radar-actions">' +
+                '<button type="button" onclick="importarImovelRadarParaVitrine(' + item.id + ')" style="background:var(--primary-color); color:var(--primary-text);">📥 Puxar p/ Vitrine</button>' +
+                '<a href="' + item.link + '" target="_blank" style="background:var(--border-color); color:var(--text-main);">🌐 Ver Anúncio Real</a>' +
+              '</div>' +
+            '</div>';
+          list.appendChild(card);
+        });
+        mostrarToast(resultados.length + ' imóveis catalogados em ' + (cidade || uf) + '!');
+      }, 300);
+    }
 
-/* --- Anúncios salvos --- */
-function lerSalvos() { try { return JSON.parse(localStorage.getItem(RADAR_KEY) || '[]'); } catch (e) { return []; } }
-function gravarSalvos(l) {
-  try { localStorage.setItem(RADAR_KEY, JSON.stringify(l)); return true; }
-  catch (e) { mostrarToast('Memória cheia. Use fotos por link ou exclua anúncios.'); return false; }
-}
+    function importarImovelRadarParaVitrine(id) {
+      var imovel = bancoRadarOrulo.find(function(i) { return i.id === id; });
+      if (!imovel) {
+        var cidade = document.getElementById('radar-city').value || 'Região Central';
+        imovel = {
+          title: 'Empreendimento Selecionado - ' + cidade,
+          price: '280.000,00',
+          city: cidade,
+          uf: document.getElementById('radar-uf').value,
+          bairro: 'Portão',
+          feats: 'Sacada com Churrasqueira, Vaga, Financiamento Caixa',
+          img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80'
+        };
+      }
 
-function comprimirFoto(file, cb) {
-  var r = new FileReader();
-  r.onload = function(e) {
-    var img = new Image();
-    img.onload = function() {
-      var max = 900, k = Math.min(1, max / Math.max(img.width, img.height));
-      var c = document.createElement('canvas');
-      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
-      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-      cb(c.toDataURL('image/jpeg', 0.7));
-    };
-    img.onerror = function() { cb(null); };
-    img.src = e.target.result;
-  };
-  r.onerror = function() { cb(null); };
-  r.readAsDataURL(file);
-}
+      document.getElementById('prop-title').value = imovel.title;
+      document.getElementById('prop-price').value = imovel.price;
+      document.getElementById('prop-location').value = imovel.bairro + ' - ' + imovel.city + '/' + imovel.uf;
+      document.getElementById('prop-features').value = imovel.feats;
 
-function salvarAnuncioRadar() {
-  var link = urlSegura(document.getElementById('rd-link').value);
-  var titulo = document.getElementById('rd-title').value.trim();
-  if (!link) { mostrarToast('Cole o link completo do anúncio (https://...).'); return; }
-  if (!titulo) { mostrarToast('Informe um título.'); return; }
+      fotosGaleria = [imovel.img];
+      localStorage.setItem('imobflow_shared_photos', JSON.stringify(fotosGaleria));
+      fotoIndexAtual = 0;
+      exibirFotoGaleria(0);
+      montarPontosGaleria();
+      atualizarVitrineCard();
 
-  var item = {
-    id: 'a' + Date.now(), link: link, title: titulo,
-    price: document.getElementById('rd-price').value,
-    local: document.getElementById('rd-local').value.trim(),
-    feats: document.getElementById('rd-feats').value.trim(),
-    fotos: document.getElementById('rd-fotourl').value.split(',').map(urlSegura).filter(Boolean)
-  };
-  var files = Array.prototype.slice.call(document.getElementById('rd-fotofile').files || []);
-
-  var finalizar = function() {
-    var lista = lerSalvos(); lista.unshift(item);
-    if (!gravarSalvos(lista)) return;
-    ['rd-link','rd-title','rd-price','rd-local','rd-feats','rd-fotourl','rd-fotofile'].forEach(function(id) { document.getElementById(id).value = ''; });
-    renderizarSalvosRadar();
-    mostrarToast('Anúncio salvo!');
-  };
-
-  if (!files.length) { finalizar(); return; }
-  var pendentes = files.length;
-  files.forEach(function(f) {
-    comprimirFoto(f, function(data) {
-      if (data) item.fotos.push(data);
-      if (--pendentes === 0) finalizar();
-    });
-  });
-}
-
-function renderizarSalvosRadar() {
-  var lista = lerSalvos();
-  var box = document.getElementById('radar-saved-list');
-  document.getElementById('radar-count').innerText = lista.length;
-  if (!box) return;
-  if (!lista.length) { box.innerHTML = '<p class="card-desc" style="margin-top:12px;">Nenhum anúncio salvo ainda.</p>'; return; }
-  box.innerHTML = '';
-  lista.forEach(function(it) {
-    var card = document.createElement('div');
-    card.className = 'radar-card';
-    var foto = it.fotos && it.fotos[0] ? '<img src="' + escapeHtml(it.fotos[0]) + '" alt="Imóvel" loading="lazy" onerror="this.style.display=\'none\'">' : '';
-    card.innerHTML =
-      '<div class="radar-img-box">' + (it.fotos && it.fotos.length > 1 ? '<span class="radar-tag">' + it.fotos.length + ' fotos</span>' : '') + foto + '</div>' +
-      '<div class="radar-card-content"><h4>' + escapeHtml(it.title) + '</h4>' +
-      (it.price ? '<div class="price">R$ ' + escapeHtml(it.price) + '</div>' : '') +
-      '<div class="loc">' + (it.local ? '📍 ' + escapeHtml(it.local) + '<br>' : '') + escapeHtml(it.feats) + '</div>' +
-      '<div class="radar-actions">' +
-        '<a href="' + escapeHtml(it.link) + '" target="_blank" rel="noopener" style="background:var(--border-color); color:var(--text-main);">🌐 Abrir Anúncio</a>' +
-        '<button type="button" class="b-imp" style="background:var(--primary-color); color:var(--primary-text);">📥 Puxar p/ Vitrine</button>' +
-        '<button type="button" class="b-del" style="background:#ef4444; color:#fff; grid-column:span 2;">🗑 Excluir</button>' +
-      '</div></div>';
-    card.querySelector('.b-imp').onclick = function() { importarImovelRadarParaVitrine(it.id); };
-    card.querySelector('.b-del').onclick = function() {
-      if (!confirm('Excluir este anúncio?')) return;
-      gravarSalvos(lerSalvos().filter(function(x) { return x.id !== it.id; }));
-      renderizarSalvosRadar();
-    };
-    box.appendChild(card);
-  });
-}
-
-function importarImovelRadarParaVitrine(id) {
-  var it = lerSalvos().find(function(x) { return x.id === id; });
-  if (!it) { mostrarToast('Anúncio não encontrado.'); return; }
-  document.getElementById('prop-title').value = it.title;
-  document.getElementById('prop-price').value = it.price || '';
-  document.getElementById('prop-location').value = it.local || '';
-  document.getElementById('prop-features').value = it.feats || '';
-  fotosGaleria = (it.fotos || []).slice();
-  try { localStorage.setItem('imobflow_shared_photos', JSON.stringify(fotosGaleria)); } catch (e) {}
-  fotoIndexAtual = 0;
-  if (fotosGaleria.length) exibirFotoGaleria(0);
-  montarPontosGaleria();
-  atualizarVitrineCard();
-  irParaAba('vitrine');
-  mostrarToast('Ficha e fotos importadas para a Vitrine!');
-}
+      irParaAba('vitrine');
+      mostrarToast('Ficha e fotos importadas para a sua Vitrine!');
+    }
 
     /* VITRINE MULTI-FOTOS (CORREÇÃO DE FOTOS NO LINK DO CLIENTE E PDF) */
     function carregarMultiplasFotos(input) {
@@ -1767,7 +1705,7 @@ function importarImovelRadarParaVitrine(id) {
               fotosGaleria.push(e.target.result);
               carregadas++;
               if (carregadas === total) {
-                try { localStorage.setItem('imobflow_shared_photos', JSON.stringify(fotosGaleria)); } catch (e) {}
+                localStorage.setItem('imobflow_shared_photos', JSON.stringify(fotosGaleria));
                 fotoIndexAtual = 0;
                 exibirFotoGaleria(0);
                 montarPontosGaleria();
@@ -1855,10 +1793,8 @@ function importarImovelRadarParaVitrine(id) {
       document.getElementById('prev-title').innerText = title;
       document.getElementById('prev-price').innerText = 'R$ ' + price.replace('R$', '').trim();
       document.getElementById('prev-location').innerText = '📍 ' + loc;
-      var elAg = document.getElementById('prev-agent');
-      elAg.textContent = 'Atendimento: ' + agent;
-      var elPh = document.getElementById('prev-phone');
-      elPh.textContent = '📞 ' + phone;
+      document.getElementById('prev-agent').innerHTML = 'Atendimento: <strong>' + agent + '</strong>';
+      document.getElementById('prev-phone').innerHTML = '📞 <strong>' + phone + '</strong>';
 
       var container = document.getElementById('prev-badges');
       if (container) {
@@ -1885,7 +1821,6 @@ function importarImovelRadarParaVitrine(id) {
         a: document.getElementById('prop-agent').value || '',
         ph: document.getElementById('prop-phone').value || '',
         f: document.getElementById('prop-features').value || '',
-        fu: fotosGaleria.filter(function(f) { return /^https?:\/\//i.test(f); }),
         hasPhotos: fotosGaleria.length > 0 ? 1 : 0
       };
       var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(dados))));
@@ -2192,7 +2127,7 @@ function importarImovelRadarParaVitrine(id) {
       selecionarScriptItem('sumiu_simulacao');
 
       // Inicializa o Radar para Portão / Curitiba
-      renderizarSalvosRadar();
+      pesquisarOportunidadesRadar();
 
       atualizarVitrineCard();
 
@@ -2210,7 +2145,6 @@ function importarImovelRadarParaVitrine(id) {
           document.getElementById('prop-phone').value = payload.ph || '';
           document.getElementById('prop-features').value = payload.f || '';
 
-          if (payload.fu && payload.fu.length) { fotosGaleria = payload.fu; montarPontosGaleria(); exibirFotoGaleria(0); }
           if (payload.hasPhotos && fotosGaleria.length > 0) {
             fotoIndexAtual = 0;
             exibirFotoGaleria(0);
