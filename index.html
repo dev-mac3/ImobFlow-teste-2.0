@@ -680,7 +680,7 @@
       </div>
     </section>
 
-    <!-- ABA 5: PLANOS & TRIAL DE 14 DIAS -->
+    <!-- ABA 5: PLANOS & TRIAL DE 14 DIAS (SEM LINK DE KIWIFY) -->
     <section id="tab-planos" class="hidden">
       <div id="box-trial-promo" class="card" style="border: 2px solid var(--primary-color); background: rgba(37,99,235,0.04);">
         <div class="card-header">
@@ -1101,7 +1101,7 @@
 
     var LEGAL_INFO = { empresa: 'ImobFlow Ltda', cnpj: '00.000.000/0001-00', email: 'suporte@imobflow.com.br', foro: 'Curitiba/PR' };
     var LEGAL_TEXTOS = {
-      termos: { titulo: 'Termos de Uso', html: '<p><em>Atualizado em novembro de 2026.</em></p><p><strong>1. Serviço.</strong> Ferramenta de apoio para corretores de imóveis contendo simulador Caixa, scripts, vitrine, radar e IA.</p><p><strong>2. Simulações.</strong> Valores estimados com base em regras de referência. Sujeito à análise oficial da instituição financeira.</p><p><strong>3. Assinatura.</strong> Gerenciada de forma segura através da plataforma Kiwify.</p>' },
+      termos: { titulo: 'Termos de Uso', html: '<p><em>Atualizado em novembro de 2026.</em></p><p><strong>1. Serviço.</strong> Ferramenta de apoio para corretores de imóveis contendo simulador Caixa, scripts, vitrine, radar e IA.</p><p><strong>2. Simulações.</strong> Valores estimados com base em regras de referência. Sujeito à análise oficial da instituição financeira.</p><p><strong>3. Assinatura.</strong> Gerenciada diretamente com o administrador do sistema.</p>' },
       privacidade: { titulo: 'Política de Privacidade', html: '<p><em>Atualizado em novembro de 2026.</em></p><p><strong>1. Armazenamento.</strong> Os dados preenchidos e cadastrados ficam salvos de forma segura no armazenamento local do seu próprio aparelho.</p><p><strong>2. LGPD.</strong> Seus dados de leads e clientes não são compartilhados com servidores externos do aplicativo.</p>' }
     };
 
@@ -1355,7 +1355,7 @@
         template: function(n, d, h) { return 'Olá ' + n + '! Crédito aprovado para nossa assinatura no dia ' + d + ' às ' + h + '. 🎉 Leve documentos com foto e comprovantes.'; }
       },
       { id: 'sumiu_simulacao', cat: 'vacuo', badge: 'Retomada', titulo: '4. Sumiu após a Simulação', resumo: 'Retoma sem pressão e dá saída fácil para o cliente.', precisaData: false,
-        template: function(n) { return 'Oi ' + n + ', tudo bem? Não quis te deixar sem retorno sobre a simulação. Se o momento não for agora, sem problema: me avise que fico à disposição.'; }
+        template: function(n) { return 'Oi ' + n + ', tudo bem? Não quis te deixar sem retorno sobre a simulação. Se o momento não for agora, sem problema: me avise que fico à disposição. Combinado?'; }
       },
       { id: 'sumiu_visita', cat: 'vacuo', badge: 'Feedback', titulo: '5. Sumiu após Visitar o Imóvel', resumo: 'Pergunta aberta para descobrir a objeção real.', precisaData: false,
         template: function(n) { return 'Oi ' + n + ', qual sua impressão sincera sobre o imóvel que visitamos? Atendeu o que procurava ou ficou faltando algo?'; }
@@ -1594,10 +1594,10 @@
     function copiarTextoVitrine() { copiarTextoSeguro('Legenda do Imóvel', 'Legenda copiada!'); }
 
     function abrirCheckout(plano) {
-      window.open('https://pay.kiwify.com.br/qIO4rTA?afid=RfZ43apo', '_blank');
+      alert('Plano ' + plano + ' selecionado. Entre em contato com o suporte para liberação.');
     }
 
-    /* COPILOTO IA CORRIGIDO */
+    /* COPILOTO IA */
     var baseConhecimentoCaixa = {
       regras_gerais: '📌 *Linhas Caixa:* MCMV (juros reduzidos, até 90% financiamento), Classe Média (Fx 4), Pró-Cotista e SBPE.',
       sbpe_regras: '📌 *SBPE:* Taxa de 11,49% a.a., prazo até 420 meses (SAC) ou 360 meses (PRICE).',
@@ -1628,7 +1628,7 @@
       typing.style.display = 'block';
       setTimeout(function() {
         typing.style.display = 'none';
-        adicionarMensagemChat('bot', baseConhecimentoCaixa[chave] || 'Informação consultada com sucesso.');
+        adicionarMensagemChat('bot', baseConhecimentoCaijo[chave] || baseConhecimentoCaixa[chave] || 'Informação consultada com sucesso.');
       }, 350);
     }
 
