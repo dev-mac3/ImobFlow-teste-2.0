@@ -135,6 +135,11 @@
       --copilot-bg: linear-gradient(135deg, #64748b, #475569);
     }
 
+    body[data-theme="amarelo"] { --bg-body: #14110a; --bg-header: rgba(31,26,12,0.95); --bg-card: #1f1a0c; --bg-input: #110e06; --bg-nav: #1a150a; --text-main: #fffbeb; --text-muted: #d6c27a; --border-color: #473b14; --border-focus: #facc15; --primary-color: #facc15; --primary-text: #1a1400; --card-shadow: rgba(0,0,0,0.6); --copilot-bg: linear-gradient(135deg, #facc15, #eab308); }
+    body[data-theme="amarelo"] .pro-tag { background: rgba(250,204,21,0.2); color: #fde047; }
+    body[data-theme="amarelo"] .btn-cohapar-toggle.active { background: rgba(250,204,21,0.14); }
+    body[data-theme="amarelo"] .script-card-item.selected { background: rgba(250,204,21,0.1); }
+    body[data-theme="amarelo"] #ia-copilot-trigger { color: #1a1400; }
     body { background-color: var(--bg-body); color: var(--text-main); padding-bottom: 115px; transition: background-color 0.2s, color 0.2s; }
 
     /* Topbar */
@@ -533,7 +538,7 @@
           <div class="card-header">
             <span style="font-size: 12px; font-weight:700;">Mensagem Formatada para Envio</span>
           </div>
-          <div id="script-text" class="script-box"></div>
+          <div id="script-text" class="script-box" contenteditable="true"></div>
           <button type="button" onclick="copiarScriptTexto()" class="btn-action btn-secondary">📋 Copiar Mensagem</button>
           <button type="button" onclick="confirmarEEnviarWhatsApp()" class="btn-action btn-whatsapp-direct">💬 Enviar no WhatsApp</button>
           <div style="border-top:1px dashed var(--border-color); margin-top:16px; padding-top:14px;">
@@ -940,6 +945,7 @@
             <span>Verde (Floresta Nobre)</span>
             <span class="color-swatch" style="background:#16a34a; border:1px solid #1e4533;"></span>
           </button>
+          <button type="button" class="theme-option-btn" onclick="aplicarTema('amarelo')"><span>Amarelo (Ouro Executivo)</span><span class="color-swatch" style="background:#facc15; border:1px solid #473b14;"></span></button>
           <button type="button" class="theme-option-btn" onclick="aplicarTema('cinza')">
             <span>Cinza (Titânio Minimalista)</span>
             <span class="color-swatch" style="background:#64748b; border:1px solid #333945;"></span>
@@ -998,6 +1004,7 @@
     </div>
     <span id="ia-typing" class="ia-typing-indicator">Copiloto digitando...</span>
     <div class="ia-quick-topics">
+      <span class="ia-chip" onclick="explicarSimulacao()">Minha simulação</span>
       <span class="ia-chip" onclick="executarTopicoIA('regras_gerais')">Regras Caixa</span>
       <span class="ia-chip" onclick="executarTopicoIA('sbpe_regras')">Regras SBPE</span>
       <span class="ia-chip" onclick="executarTopicoIA('procotista_regras')">Pró-Cotista</span>
@@ -1458,7 +1465,7 @@
         claro: 'Claro (Ativo)',
         laranja: 'Laranja (Ativo)',
         rosaclaro: 'Rosa Claro (Ativo)',
-        rosa: 'Rosa (Ativo)',
+        rosa: 'Rosa (Ativo)', amarelo: 'Amarelo (Ativo)',
         verde: 'Verde (Ativo)',
         cinza: 'Cinza (Ativo)'
       };
@@ -1701,6 +1708,7 @@
       var descTipo = (tipoImovelAtual === 'planta' ? 'Planta' : (tipoImovelAtual === 'novo' ? 'Novo' : 'Usado'));
       if (statusEl) {
         var txtCohapar = cohaparAplicado ? ' [Com Cohapar R$ 20k]' : (cohaparAtivo ? ' [Cohapar não aplicado: renda acima de 4 salários mínimos]' : '');
+        if (modalidadeAtual === 'mcmv' && renda <= 5000 && valorImovel > 264000) txtCohapar += ' [Atenção: com renda até R$ 5.000 o teto do imóvel no MCMV pode ser menor e varia por município. Confirme na Caixa]';
         if (financAprovado < tetoFinanceiro) {
           statusEl.innerHTML = '<span style="color:#fbbf24;">⚠️ Pela renda em ' + descTipo + ' (' + amortizacaoAtual.toUpperCase() + '), aprova até ' + formatarReal(financAprovado) + '. Entrada: ' + formatarReal(entradaNecessaria) + txtCohapar + '.</span>';
         } else {
@@ -1946,6 +1954,7 @@
     function confirmarEEnviarWhatsApp() {
       var text = document.getElementById('script-text').innerText;
       if (!text) { mostrarToast('Selecione um script primeiro.'); return; }
+      if (/\[[^\]]+\]/.test(text) && !confirm('A mensagem ainda tem campos entre colchetes (ex.: [DIA]). Toque na mensagem para editar antes de enviar. Enviar mesmo assim?')) return;
       var phoneInput = document.getElementById('lead-phone').value.replace(/\D/g, '');
       var url = (phoneInput && phoneInput.length >= 10)
         ? 'https://wa.me/55' + phoneInput + '?text=' + encodeURIComponent(text)
@@ -2463,15 +2472,22 @@ function usarValorCalculadoraRadar() {
       radar_ajuda: '📡 *Como Usar o Radar de Lançamentos:*\n\n' +
                    '1. Acesse a aba **Radar** e digite a Cidade/Bairro (ex: cidade e bairro).\n\n' +
                    '2. Filtre pela faixa desejada (MCMV, Médio ou Alto Padrão).\n\n' +
-                   '3. Toque em **"📥 Puxar p/ Vitrine"** para importar ficha e fotos, ou clique em **"🌐 Ver Anúncio Real"** para consultar no Chaves na Mão e portais reais!',
+                   '3. Toque em **"Buscar nos Portais"**: o app abre Chaves na Mão, VivaReal, ZAP, OLX e outros já filtrados. Escolha o anúncio, copie o link e use na aba Vitrine.',
 
       cliente_sumiu: '🛡️ *Estratégias Antissumiço para Fechamento:*\n\n' +
-                     '1. **Sumiu após Simulação:** Use o Descarte Suave (Script 4) propondo arquivar a pasta para provocar resposta imediata por aversão à perda.\n\n' +
-                     '2. **Sumiu após a Visita:** Use o Script 5 para colher feedback sincero e contornar objeções sem parecer insistente.\n\n' +
-                     '3. **Achou a Parcela Alta:** Use o Script 8 com Composição de Renda (familiar ou cônjuge) para diluir a margem e reduzir a parcela.\n\n' +
-                     '4. **Falta de Entrada:** Use o Script 10 com parcelamento de construtora em até 48x.'
+                     '1. **Sumiu após Simulação:** Use o script "Sumiu após a Simulação" (Antissumiço, filtro Vácuo): retoma sem pressão e dá saída fácil.\n\n' +
+                     '2. **Sumiu após a Visita:** Use o script "Sumiu após Visitar o Imóvel" para descobrir a objeção real sem parecer insistente.\n\n' +
+                     '3. **Achou a Parcela Alta:** Use o script "Achou a Parcela Alta" com Composição de Renda (familiar ou cônjuge) para reduzir a parcela.\n\n' +
+                     '4. **Falta de Entrada:** Use o script "Falta Dinheiro para a Entrada": mostra FGTS, subsídios e parcelamento com a construtora (confirme as condições reais do empreendimento).'
     };
 
+    function textoSimulacao() {
+      var g = function(id) { var e = document.getElementById(id); return e ? e.innerText : '—'; };
+      if (!/\d/.test(g('res-financiamento'))) return 'Ainda não há simulação. Preencha o valor do imóvel e a renda na aba Qualificador.';
+      var cot = (typeof cotistaAtivo !== 'undefined' && cotistaAtivo) ? ' (com redutor de cotista)' : '';
+      return 'Sua simulação atual:\n\n• Linha: ' + modalidadeAtual.toUpperCase() + ' (' + amortizacaoAtual.toUpperCase() + ')\n• Taxa: ' + g('res-taxa') + cot + '\n• Prazo: ' + g('res-prazo') + '\n• Parcela: ' + g('res-parcela') + '\n• Financiamento: ' + g('res-financiamento') + '\n• FGTS + subsídios: ' + g('res-fgts') + '\n• Entrada: ' + g('res-entrada') + '\n• Valor total: ' + g('res-capacidade');
+    }
+    function explicarSimulacao() { adicionarMensagemChat('user', 'Como está minha simulação?'); adicionarMensagemChat('bot', textoSimulacao()); }
     function alternarCopilotoIA(e) {
       if (e) { e.preventDefault(); e.stopPropagation(); }
       var modal = document.getElementById('ia-copilot-modal');
@@ -2518,6 +2534,7 @@ function usarValorCalculadoraRadar() {
 
     function gerarRespostaLocal(pergunta) {
       var p = pergunta.toLowerCase().trim();
+      if (p.indexOf('minha simula') !== -1 || p.indexOf('meu estudo') !== -1) return textoSimulacao();
 
       if (['oi', 'ola', 'olá', 'eai', 'e aí', 'opa', 'salve', 'bom dia', 'boa tarde', 'boa noite', 'tudo bem'].some(function(t) { return p === t || p.indexOf(t) === 0; })) {
         return 'Olá! Tudo ótimo por aqui.\n\nComo posso ajudar com suas simulações da Caixa, regras do SBPE, Pró-Cotista ou busca no Radar hoje?';
@@ -2539,13 +2556,13 @@ function usarValorCalculadoraRadar() {
       if (apiKey) {
         try {
           var systemPrompt = 'Você é o Copiloto ImobFlow, consultor imobiliário de elite especialista em Caixa Econômica Federal e fechamento de vendas. ' +
-                             'Responda com excelente espaçamento entre parágrafos, sem utilizar marcações de citação como cite.';
-          var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + apiKey;
+                             'Responda com excelente espaçamento entre parágrafos, sem utilizar marcações de citação como cite. Baseie-se nestas regras de referência e, se não tiver certeza, peça para confirmar no simulador oficial da Caixa.\n\n' + baseConhecimentoCaixa.regras_gerais + '\n\n' + textoSimulacao();
+          var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
           var bodyPayload = { contents: [{ role: 'user', parts: [{ text: systemPrompt + '\n\nPergunta: ' + pergunta }] }] };
 
           var response = await fetch(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
             body: JSON.stringify(bodyPayload)
           });
           var data = await response.json();
@@ -2581,7 +2598,7 @@ function usarValorCalculadoraRadar() {
       document.body.setAttribute('data-theme', temaSalvo);
       var statusEl = document.getElementById('theme-status-text');
       if (statusEl) {
-        var rotulos = { escuro: 'Escuro (Ativo)', claro: 'Claro (Ativo)', laranja: 'Laranja (Ativo)', rosaclaro: 'Rosa Claro (Ativo)', rosa: 'Rosa (Ativo)', verde: 'Verde (Ativo)', cinza: 'Cinza (Ativo)' };
+        var rotulos = { escuro: 'Escuro (Ativo)', claro: 'Claro (Ativo)', laranja: 'Laranja (Ativo)', rosaclaro: 'Rosa Claro (Ativo)', rosa: 'Rosa (Ativo)', amarelo: 'Amarelo (Ativo)', verde: 'Verde (Ativo)', cinza: 'Cinza (Ativo)' };
         statusEl.innerText = rotulos[temaSalvo] || 'Personalizado';
       }
 
