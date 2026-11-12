@@ -447,13 +447,20 @@
     body[data-theme="violeta"] .pro-tag { background: rgba(168,85,247,0.2); color: #d8b4fe; }
     body[data-theme="violeta"] .btn-cohapar-toggle.active { background: rgba(168,85,247,0.15); }
     body[data-theme="violeta"] .script-card-item.selected { background: rgba(168,85,247,0.1); }
-    #hub-modal{display:none;position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:12px}
+    #hub-modal{display:none;position:fixed;inset:0;z-index:10002;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:12px}
     .hub-box{background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);border-radius:18px;padding:14px;width:100%;max-width:420px;max-height:96vh;overflow-y:auto;display:flex;flex-direction:column;gap:10px;text-align:center}
     .hub-box canvas{max-width:100%;max-height:40vh;width:auto;height:auto;align-self:center;border-radius:10px}
     .hub-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
     .hub-chips button{background:var(--bg-input);color:var(--text-main);border:1px solid var(--border-color);border-radius:999px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
     .hub-chips button.on,.hub-chips button.hub-go{background:var(--primary-color);color:var(--primary-text);border-color:var(--primary-color)}
     .hub-chips button.hub-go{flex:1}
+    #hub-carrossel{display:flex;gap:8px;overflow-x:auto;max-width:100%;scroll-snap-type:x proximity;padding:4px 2px 8px;-webkit-overflow-scrolling:touch}
+    .hub-meta{flex:0 0 auto;scroll-snap-align:start;width:112px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 6px;border-radius:14px;border:2px solid var(--border-color);background:var(--bg-input);color:var(--text-main);cursor:pointer;position:relative;font-family:inherit}
+    .hub-meta b{font-size:24px;line-height:1.1}
+    .hub-meta span{font-size:11px;font-weight:700;line-height:1.2}
+    .hub-meta small{font-size:10px;color:var(--text-muted)}
+    .hub-meta.on{border-color:var(--primary-color);background:rgba(16,185,129,.14)}
+    .hub-meta.on::after{content:"✔";position:absolute;top:3px;right:6px;font-size:11px;color:var(--primary-color)}
     .hub-box .hub-chips button.hub-th{flex:1 1 0;max-width:48%;justify-content:center;display:flex;flex-direction:column;align-items:center;gap:5px;border-radius:14px;padding:6px 8px;border:2px solid var(--border-color);background:var(--bg-input);color:var(--text-main);font-size:11px}
     .hub-box .hub-chips button.hub-th.on{border-color:var(--primary-color);background:var(--bg-input);color:var(--text-main)}
     .hub-box .hub-th canvas{max-height:min(42vh,330px);max-width:100%;width:auto;height:auto;border-radius:6px}
@@ -3885,7 +3892,8 @@ function usarValorCalculadoraRadar() {
       gold:   { n: 'Gold',   bg: ['#0a0a0a', '#1f1708'], txt: '#fef3c7', sub: '#d6b25e', acc: '#facc15', box: 'rgba(250,204,21,0.08)' },
       aurora: { n: 'Aurora', bg: ['#0f0a2e', '#2a1065'], txt: '#ffffff', sub: '#c4b5fd', acc: '#e879f9', box: 'rgba(255,255,255,0.07)' }
     };
-    var hubSt = { est: 'neon', fmt: 'story', tel: false, modelo: 'stats' }, hubFoto = null;
+    var hubSt = { est: 'neon', fmt: 'story', tel: false, modelo: 'stats', zoom: 1, ox: 0.5, oy: 0.35, metas: ['acoes', 'streak', 'msg', 'ficha'] }, hubFoto = null;
+    try { var hubSalvo = JSON.parse(localStorage.getItem('mac3hub_cartao') || 'null'); if (hubSalvo) { if (HUB_EST[hubSalvo.est]) hubSt.est = hubSalvo.est; if (hubSalvo.fmt === 'feed' || hubSalvo.fmt === 'story') hubSt.fmt = hubSalvo.fmt; hubSt.tel = !!hubSalvo.tel; if (Array.isArray(hubSalvo.metas)) hubSt.metas = hubSalvo.metas; } } catch (e) {}
     function hubRR(x, a, b, w, h, r) { x.beginPath(); x.moveTo(a + r, b); x.arcTo(a + w, b, a + w, b + h, r); x.arcTo(a + w, b + h, a, b + h, r); x.arcTo(a, b + h, a, b, r); x.arcTo(a, b, a + w, b, r); x.closePath(); }
     function hubMoldura(x, W, H, id, acc) {
       x.save(); x.strokeStyle = acc;
@@ -3914,9 +3922,8 @@ function usarValorCalculadoraRadar() {
       var foto = st.modelo === 'foto';
       x.fillStyle = acc; x.font = '800 46px ' + F; x.fillText('⚡ MAC3Hub', W / 2, foto ? (story ? 170 : 130) : (story ? 190 : 150));
       x.fillStyle = e.txt; x.font = (foto ? '900 74px ' : '900 82px ') + F; x.fillText('Minha semana', W / 2, foto ? (story ? 250 : 205) : (story ? 310 : 255));
-      var itens = [['🔥', o.streak.n, o.streak.n === 1 ? 'dia seguido' : 'dias seguidos'], ['✅', sem.acoes, 'ações nos últimos 7 dias'], ['⏱', hubTempo(mes.min), 'poupados em 30 dias']];
-      if (story) itens.push(['🏆', o.streak.best || o.streak.n, 'recorde de sequência']);
-      var y0 = story ? 430 : 360, passo = story ? 290 : 260, alt = story ? 240 : 210;
+      var itens = hubMetas(o, sem);
+      var n4 = itens.length > 3, y0 = story ? 430 : (n4 ? 330 : 360), passo = story ? 290 : (n4 ? 205 : 260), alt = story ? 240 : (n4 ? 175 : 210);
       if (foto) hubFotoLayout(x, W, H, story, e, acc, F, o, sem, mes);
       (foto ? [] : itens).forEach(function(v, i) {
         var y = y0 + i * passo; x.fillStyle = e.box; hubRR(x, 100, y, W - 200, alt, 36); x.fill();
@@ -3928,14 +3935,64 @@ function usarValorCalculadoraRadar() {
       if (ass) { x.fillStyle = e.txt; x.font = '800 44px ' + F; x.fillText(ass, W / 2, H - (story ? 190 : 150)); }
       x.fillStyle = e.sub; x.font = '700 34px ' + F; x.fillText('Feito com MAC3Hub' + (MARCA_LINK ? ' · ' + MARCA_LINK : ''), W / 2, H - (story ? 120 : 90));
     }
+    function hubSomaTipo(tipos, dias) {
+      var o = hubLer(), t = 0;
+      for (var i = 0; i < dias; i++) {
+        var d = new Date(); d.setDate(d.getDate() - i);
+        var r = o.dias[hubDia(d)]; if (!r) continue;
+        tipos.forEach(function(k) { t += r[k] || 0; });
+      }
+      return t;
+    }
+    function hubCarteira() { try { var c = JSON.parse(localStorage.getItem('imobflow_clientes') || '[]'); return Array.isArray(c) ? c.length : (c && typeof c === 'object' ? Object.keys(c).length : 0); } catch (e) { return 0; } }
+    /* Catálogo de metas: [id, emoji, rótulo, rótulo singular, função]. Só números reais do app (nada estimado). */
+    var HUB_CAT = [
+      ['acoes', '✅', 'ações na semana', 'ação na semana', function(o, sem) { return sem.acoes; }],
+      ['streak', '🔥', 'dias seguidos', 'dia seguido', function(o) { return o.streak.n; }],
+      ['msg', '💬', 'mensagens enviadas', 'mensagem enviada', function() { return hubSomaTipo(['msg'], 7); }],
+      ['ficha', '📋', 'fichas prontas', 'ficha pronta', function() { return hubSomaTipo(['ficha'], 7); }],
+      ['vit', '📲', 'vitrines enviadas', 'vitrine enviada', function() { return hubSomaTipo(['vit'], 7); }],
+      ['sim', '🧮', 'simulações feitas', 'simulação feita', function() { return hubSomaTipo(['sim'], 7); }],
+      ['mes', '📆', 'ações no mês', 'ação no mês', function(o, sem, mes) { return mes.acoes; }],
+      ['clientes', '👥', 'clientes na carteira', 'cliente na carteira', function() { return hubCarteira(); }]
+    ];
+    function hubCatItem(id) { for (var i = 0; i < HUB_CAT.length; i++) if (HUB_CAT[i][0] === id) return HUB_CAT[i]; return null; }
+    function hubMetasSel() {
+      var a = (hubSt.metas || []).filter(function(id, i, arr) { return hubCatItem(id) && arr.indexOf(id) === i; }).slice(0, 4);
+      return a.length ? a : ['acoes', 'streak', 'msg', 'ficha'];
+    }
+    function hubMetas(o, sem) {
+      var mes = hubSoma(30);
+      return hubMetasSel().map(function(id) {
+        var c = hubCatItem(id), v = c[4](o, sem, mes);
+        return [c[1], v, v === 1 ? c[3] : c[2]];
+      });
+    }
+    function hubCarrosselHtml() {
+      var o = hubLer(), sem = hubSoma(7), mes = hubSoma(30);
+      return '<div style="text-align:left;font-size:12px;font-weight:800">🎯 Metas do cartão <span id="hub-metas-cnt" style="color:var(--text-muted);font-weight:600"></span></div><div id="hub-carrossel">' +
+        HUB_CAT.map(function(c) {
+          var v = c[4](o, sem, mes);
+          return '<button type="button" class="hub-meta" data-meta="' + c[0] + '" onclick="hubToggleMeta(\'' + c[0] + '\')"><b>' + c[1] + '</b><span>' + (v === 1 ? c[3] : c[2]) + '</span><small>' + v + ' agora</small></button>';
+        }).join('') + '</div>';
+    }
+    function hubToggleMeta(id) {
+      var a = hubMetasSel().slice(), i = a.indexOf(id);
+      if (i >= 0) { if (a.length <= 1) { mostrarToast('Deixe pelo menos 1 meta no cartão.'); return; } a.splice(i, 1); }
+      else {
+        if (a.length >= 4) { var fora = a.shift(); mostrarToast('Trocou "' + hubCatItem(fora)[2] + '" por "' + hubCatItem(id)[2] + '".'); }
+        a.push(id);
+      }
+      hubSt.metas = a; hubPrev();
+    }
     /* Modelo "Com foto": foto do corretor no alto e as metas logo abaixo, dentro do cartão */
     function hubFotoLayout(x, W, H, story, e, acc, F, o, sem, mes) {
       var px = 120, pw = 840, py = story ? 300 : 270, ph = story ? 800 : 500;
       hubRR(x, px, py, pw, ph, 40);
       if (hubFoto) {
         x.save(); x.clip();
-        var iw = hubFoto.naturalWidth, ih = hubFoto.naturalHeight, sc = Math.max(pw / iw, ph / ih), sw = pw / sc, sh = ph / sc;
-        x.drawImage(hubFoto, (iw - sw) / 2, (ih - sh) * 0.35, sw, sh, px, py, pw, ph);
+        var iw = hubFoto.naturalWidth, ih = hubFoto.naturalHeight, sc = Math.max(pw / iw, ph / ih) * Math.max(1, hubSt.zoom || 1), sw = pw / sc, sh = ph / sc;
+        x.drawImage(hubFoto, (iw - sw) * (hubSt.ox == null ? 0.5 : hubSt.ox), (ih - sh) * (hubSt.oy == null ? 0.35 : hubSt.oy), sw, sh, px, py, pw, ph);
         x.restore();
         x.save(); x.strokeStyle = acc; x.lineWidth = 6; hubRR(x, px, py, pw, ph, 40); x.stroke(); x.restore();
       } else {
@@ -3944,10 +4001,11 @@ function usarValorCalculadoraRadar() {
         x.fillStyle = e.txt; x.font = '800 44px ' + F; x.fillText('Escolha sua foto', W / 2, py + ph / 2 + 70);
         x.fillStyle = e.sub; x.font = '600 32px ' + F; x.fillText('sua, do cliente ou do imóvel', W / 2, py + ph / 2 + 120);
       }
-      var itens = [['🔥', o.streak.n, o.streak.n === 1 ? 'dia seguido' : 'dias seguidos'], ['✅', sem.acoes, 'ações em 7 dias'], ['⏱', hubTempo(mes.min), 'poupados em 30 dias'], ['🏆', o.streak.best || o.streak.n, 'recorde de sequência']];
+      var itens = hubMetas(o, sem);
       var bw = 410, bh = story ? 190 : 165, gap = 20, y0 = py + ph + (story ? 30 : 30);
       itens.forEach(function(v, i) {
         var bx = px + (i % 2) * (bw + gap), by = y0 + Math.floor(i / 2) * (bh + gap);
+        if (i === itens.length - 1 && itens.length % 2 === 1) bx = px + (pw - bw) / 2;
         x.fillStyle = e.box; hubRR(x, bx, by, bw, bh, 30); x.fill();
         x.fillStyle = acc; x.font = '900 62px ' + F; x.fillText(v[0] + ' ' + v[1], bx + bw / 2, by + bh * 0.52);
         x.fillStyle = e.sub; x.font = '600 29px ' + F; x.fillText(v[2], bx + bw / 2, by + bh * 0.82);
@@ -3956,17 +4014,34 @@ function usarValorCalculadoraRadar() {
     function hubFotoCarrega(files) {
       var f = files && files[0]; if (!f) return;
       var im = new Image();
-      im.onload = function() { hubFoto = im; hubSt.modelo = 'foto'; hubPrev(); };
+      im.onload = function() { hubFoto = im; hubSt.modelo = 'foto'; hubSt.zoom = 1; hubSt.ox = 0.5; hubSt.oy = 0.35; hubPrev(); };
       im.onerror = function() { mostrarToast('Não consegui abrir essa foto. Tente JPG ou PNG.'); };
       im.src = URL.createObjectURL(f);
     }
     function hubSetModelo(m) { hubSt.modelo = m; hubPrev(); }
+    var hubRaf = 0;
+    function hubAjusta() {
+      var v = function(id) { var e = document.getElementById(id); return e ? parseFloat(e.value) : NaN; };
+      var z = v('hub-zoom'), ox = v('hub-ox'), oy = v('hub-oy');
+      if (!isNaN(z)) hubSt.zoom = z; if (!isNaN(ox)) hubSt.ox = ox; if (!isNaN(oy)) hubSt.oy = oy;
+      if (!hubRaf) hubRaf = requestAnimationFrame(function() { hubRaf = 0; hubPrev(); });
+    }
+    function hubCentraFoto() { hubSt.zoom = 1; hubSt.ox = 0.5; hubSt.oy = 0.35; hubPrev(); }
     function hubPrev() {
       var c = document.getElementById('hub-prev'); if (!c) return; hubDesenha(c, hubSt);
       ['stats', 'foto'].forEach(function(m) {
         var t = document.getElementById('hub-th-' + m); if (t) { var st2 = {}; for (var k in hubSt) st2[k] = hubSt[k]; st2.modelo = m; hubDesenha(t, st2); }
         var b = document.querySelector('#hub-modal [data-m="' + m + '"]'); if (b) b.classList.toggle('on', hubSt.modelo === m);
       });
+      try { localStorage.setItem('mac3hub_cartao', JSON.stringify({ est: hubSt.est, fmt: hubSt.fmt, tel: hubSt.tel, metas: hubMetasSel() })); } catch (e) {}
+      var sel = hubMetasSel();
+      document.querySelectorAll('#hub-modal .hub-meta').forEach(function(b) { b.classList.toggle('on', sel.indexOf(b.getAttribute('data-meta')) >= 0); });
+      var cn = document.getElementById('hub-metas-cnt'); if (cn) cn.innerText = '· ' + sel.length + ' de 4 · toque para trocar';
+      var ctl = document.getElementById('hub-foto-ctl');
+      if (ctl) {
+        ctl.style.display = (hubSt.modelo === 'foto' && hubFoto) ? 'flex' : 'none';
+        [['hub-zoom', hubSt.zoom], ['hub-ox', hubSt.ox], ['hub-oy', hubSt.oy]].forEach(function(a) { var e = document.getElementById(a[0]); if (e && document.activeElement !== e) e.value = a[1]; });
+      }
       var fb = document.getElementById('hub-foto-btn');
       if (fb) { fb.style.display = hubSt.modelo === 'foto' ? '' : 'none'; fb.innerText = hubFoto ? '🔄 Trocar foto' : '📷 Escolher foto'; }
       document.querySelectorAll('#hub-modal [data-k]').forEach(function(b) {
@@ -3984,7 +4059,9 @@ function usarValorCalculadoraRadar() {
       m.innerHTML = '<div class="hub-box"><strong>📸 Cartão da sua semana</strong>' +
         '<div class="hub-chips"><button type="button" class="hub-th" data-m="stats" onclick="hubSetModelo(\'stats\')"><canvas id="hub-th-stats"></canvas><span>📊 Estatísticas</span></button><button type="button" class="hub-th" data-m="foto" onclick="hubSetModelo(\'foto\')"><canvas id="hub-th-foto"></canvas><span>🖼️ Com foto</span></button></div>' +
         '<canvas id="hub-prev" style="display:none"></canvas>' +
+        hubCarrosselHtml() +
         '<div class="hub-chips"><button type="button" id="hub-foto-btn" class="hub-go" onclick="document.getElementById(\'hub-foto-in\').click()">📷 Escolher foto</button><input type="file" id="hub-foto-in" accept="image/*" style="display:none" onchange="hubFotoCarrega(this.files); this.value=\'\'"></div>' +
+        '<div id="hub-foto-ctl" style="display:none;flex-direction:column;gap:6px;text-align:left;font-size:12px;font-weight:700"><label style="display:flex;align-items:center;gap:8px">🔍 Zoom<input type="range" id="hub-zoom" min="1" max="3" step="0.05" value="1" oninput="hubAjusta()" style="flex:1"></label><label style="display:flex;align-items:center;gap:8px">↔️ Lado<input type="range" id="hub-ox" min="0" max="1" step="0.01" value="0.5" oninput="hubAjusta()" style="flex:1"></label><label style="display:flex;align-items:center;gap:8px">↕️ Altura<input type="range" id="hub-oy" min="0" max="1" step="0.01" value="0.35" oninput="hubAjusta()" style="flex:1"></label><button type="button" class="hub-go" onclick="hubCentraFoto()" style="align-self:center;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--primary-color);background:transparent;color:var(--primary-color)">↺ Recentralizar</button></div>' +
         '<div class="hub-chips">' + chips + '</div>' +
         '<div class="hub-chips"><button type="button" data-k="story" onclick="hubSetFmt(\'story\')">Stories / Status</button><button type="button" data-k="feed" onclick="hubSetFmt(\'feed\')">Feed 4:5</button><button type="button" data-k="tel" onclick="hubToggleTel()">📞 Meu WhatsApp</button></div>' +
         '<div class="hub-chips"><button type="button" class="hub-go" onclick="hubEnviaCartao(true)">📤 Compartilhar</button><button type="button" class="hub-go" onclick="hubEnviaCartao(false)">💾 Salvar</button><button type="button" onclick="hubFechaCartao()">Fechar</button></div></div>';
@@ -4020,6 +4097,97 @@ function usarValorCalculadoraRadar() {
       if (hubAbrir() && [3, 7, 14, 30, 60, 100].indexOf(hubLer().streak.n) >= 0) mostrarToast('🔥 ' + hubLer().streak.n + ' dias seguidos no MAC3Hub!');
       hubRender();
     } catch (e) {}
+
+    // Expõe no escopo global as funções usadas em onclick/onchange inline,
+    // para funcionar também em visualizadores que isolam o script.
+    [
+      ['abrirCheckout', typeof abrirCheckout === 'function' ? abrirCheckout : null],
+      ['abrirEdicaoCliente', typeof abrirEdicaoCliente === 'function' ? abrirEdicaoCliente : null],
+      ['abrirGoogleAgenda', typeof abrirGoogleAgenda === 'function' ? abrirGoogleAgenda : null],
+      ['abrirLegal', typeof abrirLegal === 'function' ? abrirLegal : null],
+      ['abrirModalAjustes', typeof abrirModalAjustes === 'function' ? abrirModalAjustes : null],
+      ['abrirModalPerfil', typeof abrirModalPerfil === 'function' ? abrirModalPerfil : null],
+      ['abrirModalSeletorTema', typeof abrirModalSeletorTema === 'function' ? abrirModalSeletorTema : null],
+      ['adicionarTarefaCalendario', typeof adicionarTarefaCalendario === 'function' ? adicionarTarefaCalendario : null],
+      ['alternarCohapar', typeof alternarCohapar === 'function' ? alternarCohapar : null],
+      ['alternarCopilotoIA', typeof alternarCopilotoIA === 'function' ? alternarCopilotoIA : null],
+      ['alternarCotista', typeof alternarCotista === 'function' ? alternarCotista : null],
+      ['aplicarMascaraMoeda', typeof aplicarMascaraMoeda === 'function' ? aplicarMascaraMoeda : null],
+      ['aplicarMascaraTelefone', typeof aplicarMascaraTelefone === 'function' ? aplicarMascaraTelefone : null],
+      ['aplicarTema', typeof aplicarTema === 'function' ? aplicarTema : null],
+      ['atualizarCidadeRadar', typeof atualizarCidadeRadar === 'function' ? atualizarCidadeRadar : null],
+      ['atualizarPreviewMac', typeof atualizarPreviewMac === 'function' ? atualizarPreviewMac : null],
+      ['atualizarPreviewScript', typeof atualizarPreviewScript === 'function' ? atualizarPreviewScript : null],
+      ['atualizarVitrineCard', typeof atualizarVitrineCard === 'function' ? atualizarVitrineCard : null],
+      ['baixarApresentacaoPDF', typeof baixarApresentacaoPDF === 'function' ? baixarApresentacaoPDF : null],
+      ['baixarCardComoImagem', typeof baixarCardComoImagem === 'function' ? baixarCardComoImagem : null],
+      ['calcularFinanciamento', typeof calcularFinanciamento === 'function' ? calcularFinanciamento : null],
+      ['cancelarEdicaoCliente', typeof cancelarEdicaoCliente === 'function' ? cancelarEdicaoCliente : null],
+      ['carregarMultiplasFotos', typeof carregarMultiplasFotos === 'function' ? carregarMultiplasFotos : null],
+      ['compartilharVitrine', typeof compartilharVitrine === 'function' ? compartilharVitrine : null],
+      ['configurarChaveGemini', typeof configurarChaveGemini === 'function' ? configurarChaveGemini : null],
+      ['confirmarEEnviarWhatsApp', typeof confirmarEEnviarWhatsApp === 'function' ? confirmarEEnviarWhatsApp : null],
+      ['copiarLinkVitrine', typeof copiarLinkVitrine === 'function' ? copiarLinkVitrine : null],
+      ['copiarResumoWhatsApp', typeof copiarResumoWhatsApp === 'function' ? copiarResumoWhatsApp : null],
+      ['copiarScriptTexto', typeof copiarScriptTexto === 'function' ? copiarScriptTexto : null],
+      ['copiarTextoSeguro', typeof copiarTextoSeguro === 'function' ? copiarTextoSeguro : null],
+      ['copiarTextoVitrine', typeof copiarTextoVitrine === 'function' ? copiarTextoVitrine : null],
+      ['definirAssinatura', typeof definirAssinatura === 'function' ? definirAssinatura : null],
+      ['deslogarSistema', typeof deslogarSistema === 'function' ? deslogarSistema : null],
+      ['docsAdd', typeof docsAdd === 'function' ? docsAdd : null],
+      ['docsBaixar', typeof docsBaixar === 'function' ? docsBaixar : null],
+      ['docsCat', typeof docsCat === 'function' ? docsCat : null],
+      ['docsCompartilhar', typeof docsCompartilhar === 'function' ? docsCompartilhar : null],
+      ['docsFichaLimpar', typeof docsFichaLimpar === 'function' ? docsFichaLimpar : null],
+      ['docsFichaTexto', typeof docsFichaTexto === 'function' ? docsFichaTexto : null],
+      ['docsFichaWhats', typeof docsFichaWhats === 'function' ? docsFichaWhats : null],
+      ['docsGerar', typeof docsGerar === 'function' ? docsGerar : null],
+      ['docsGirar', typeof docsGirar === 'function' ? docsGirar : null],
+      ['docsLerFicha', typeof docsLerFicha === 'function' ? docsLerFicha : null],
+      ['docsMover', typeof docsMover === 'function' ? docsMover : null],
+      ['docsOrdenar', typeof docsOrdenar === 'function' ? docsOrdenar : null],
+      ['docsPreview', typeof docsPreview === 'function' ? docsPreview : null],
+      ['docsRemover', typeof docsRemover === 'function' ? docsRemover : null],
+      ['docsRender', typeof docsRender === 'function' ? docsRender : null],
+      ['docsSub', typeof docsSub === 'function' ? docsSub : null],
+      ['enviarMensagemCopiloto', typeof enviarMensagemCopiloto === 'function' ? enviarMensagemCopiloto : null],
+      ['executarTopicoIA', typeof executarTopicoIA === 'function' ? executarTopicoIA : null],
+      ['explicarSimulacao', typeof explicarSimulacao === 'function' ? explicarSimulacao : null],
+      ['exportarBackup', typeof exportarBackup === 'function' ? exportarBackup : null],
+      ['fecharLegal', typeof fecharLegal === 'function' ? fecharLegal : null],
+      ['fecharModalAjustes', typeof fecharModalAjustes === 'function' ? fecharModalAjustes : null],
+      ['fecharModalPerfil', typeof fecharModalPerfil === 'function' ? fecharModalPerfil : null],
+      ['fecharModalSeletorTema', typeof fecharModalSeletorTema === 'function' ? fecharModalSeletorTema : null],
+      ['filtrarCategoriaScript', typeof filtrarCategoriaScript === 'function' ? filtrarCategoriaScript : null],
+      ['filtrarClientes', typeof filtrarClientes === 'function' ? filtrarClientes : null],
+      ['gerarBuscasPortais', typeof gerarBuscasPortais === 'function' ? gerarBuscasPortais : null],
+      ['hubAjusta', typeof hubAjusta === 'function' ? hubAjusta : null],
+      ['hubCartaoSemana', typeof hubCartaoSemana === 'function' ? hubCartaoSemana : null],
+      ['hubCentraFoto', typeof hubCentraFoto === 'function' ? hubCentraFoto : null],
+      ['hubEnviaCartao', typeof hubEnviaCartao === 'function' ? hubEnviaCartao : null],
+      ['hubFechaCartao', typeof hubFechaCartao === 'function' ? hubFechaCartao : null],
+      ['hubFotoCarrega', typeof hubFotoCarrega === 'function' ? hubFotoCarrega : null],
+      ['hubLembreteDiario', typeof hubLembreteDiario === 'function' ? hubLembreteDiario : null],
+      ['hubSetEst', typeof hubSetEst === 'function' ? hubSetEst : null],
+      ['hubSetFmt', typeof hubSetFmt === 'function' ? hubSetFmt : null],
+      ['hubSetModelo', typeof hubSetModelo === 'function' ? hubSetModelo : null],
+      ['hubToggleMeta', typeof hubToggleMeta === 'function' ? hubToggleMeta : null],
+      ['hubToggleTel', typeof hubToggleTel === 'function' ? hubToggleTel : null],
+      ['importarBackup', typeof importarBackup === 'function' ? importarBackup : null],
+      ['irParaAba', typeof irParaAba === 'function' ? irParaAba : null],
+      ['mostrarPainelClientes', typeof mostrarPainelClientes === 'function' ? mostrarPainelClientes : null],
+      ['mudarFotoSlide', typeof mudarFotoSlide === 'function' ? mudarFotoSlide : null],
+      ['preencherCondicaoSimulacao', typeof preencherCondicaoSimulacao === 'function' ? preencherCondicaoSimulacao : null],
+      ['salvarAbaInicial', typeof salvarAbaInicial === 'function' ? salvarAbaInicial : null],
+      ['salvarCliente', typeof salvarCliente === 'function' ? salvarCliente : null],
+      ['salvarLimiteFollowup', typeof salvarLimiteFollowup === 'function' ? salvarLimiteFollowup : null],
+      ['salvarPerfilUsuario', typeof salvarPerfilUsuario === 'function' ? salvarPerfilUsuario : null],
+      ['selecionarAmortizacao', typeof selecionarAmortizacao === 'function' ? selecionarAmortizacao : null],
+      ['selecionarModalidade', typeof selecionarModalidade === 'function' ? selecionarModalidade : null],
+      ['selecionarTipoImovel', typeof selecionarTipoImovel === 'function' ? selecionarTipoImovel : null],
+      ['simularImovelVitrine', typeof simularImovelVitrine === 'function' ? simularImovelVitrine : null],
+      ['usarValorCalculadoraRadar', typeof usarValorCalculadoraRadar === 'function' ? usarValorCalculadoraRadar : null]
+    ].forEach(function(p) { if (p[1]) window[p[0]] = p[1]; });
   </script>
 </body>
 </html>
